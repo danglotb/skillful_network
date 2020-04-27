@@ -36,6 +36,8 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findByEmail(mail).get().isValidated();
 	}
 
+	// TODO should not return an Optional
+	// TODO we could factorise here the management of the error
 	@Override
 	public Optional<User> getUserById(long id) {
 		return userRepository.findById(id);
