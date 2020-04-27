@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../shared/services/user.service';
-import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
-import { BottomSheetOverviewExample } from '../bottom-sheet-overview-example/bottom-sheet-overview-example';
 
 @Component({
   selector: 'app-home',
@@ -16,8 +14,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
   }
-
- 
 
   logOut() {
     this.userService.disconnect();
