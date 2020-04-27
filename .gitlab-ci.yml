@@ -1,0 +1,16 @@
+image: maven:latest
+
+stages:
+  - test
+
+#run-backend:
+#  stage: test
+#  script: ./.travis/travis-backend-run.sh
+
+test-backend:
+    stage: test
+    script: ./.travis/travis-backend-test.sh
+
+#test-frontend:
+#    stage: test
+#    script: ./.travis/travis-frontend.sh
