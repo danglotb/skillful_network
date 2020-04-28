@@ -77,8 +77,13 @@ public class BasicAuthConfiguration extends WebSecurityConfigurerAdapter {
 						"/applications/jobs/bonjour", "/users/**", "/users/{id}", 
 						"/joboffer", "/joboffer/**", "/joboffer/getOne/{id}", "/image/{id:.+}",
 						"/offers","/offers/", "/offers/*", "/offers/", "/trainings/{id}", "/simulations/{id}/answer",
-						"/simulations/user/startSimulation", "/trainings/**", "/trainings/page", "/trainings/page/*", 
-
+						"/simulations/user/startSimulation", "/trainings/**", "/trainings/page", "/trainings/page/*",
+						"/v2/api-docs",
+						"/configuration/ui",
+						"/swagger-resources/**",
+						"/configuration/security",
+						"/swagger-ui.html",
+						"/webjars/**",
 						"/trainings","/user/{userId}/joboffer/{jobOfferId}","/simulations/user", "/users/uploadImage","/users/**" , "/simulations/untruclongaecrire") // les pages/requêtes /home, /login et /token sont accessibles sans
 
 						 
