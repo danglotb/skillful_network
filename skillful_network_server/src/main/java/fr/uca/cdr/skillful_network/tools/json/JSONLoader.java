@@ -5,8 +5,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.stream.JsonReader;
 
-import fr.uca.cdr.skillful_network.model.entities.User;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 

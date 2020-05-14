@@ -9,9 +9,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
 
-import fr.uca.cdr.skillful_network.model.entities.Qualification;
-import fr.uca.cdr.skillful_network.model.entities.Skill;
-import fr.uca.cdr.skillful_network.model.entities.Subscription;
+import fr.uca.cdr.skillful_network.entities.user.Qualification;
+import fr.uca.cdr.skillful_network.entities.user.Skill;
+import fr.uca.cdr.skillful_network.entities.user.Subscription;
 
 
 public class UserForm {
