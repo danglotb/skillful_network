@@ -26,12 +26,6 @@ public interface UserService {
 
 	Boolean updateImage();
 
-	/**
-	 * Il retourne le user s'il le trouve par son adresse email
-	 * 
-	 * @param String
-	 * @return optional user
-	 */
 	Optional<User> findByEmail(String mail);
 
 	Page<User> getPageOfEntities(PageTool pageTool);

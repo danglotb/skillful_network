@@ -1,4 +1,4 @@
-package fr.uca.cdr.skillful_network.services.user;
+package fr.uca.cdr.skillful_network.services.impl.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;

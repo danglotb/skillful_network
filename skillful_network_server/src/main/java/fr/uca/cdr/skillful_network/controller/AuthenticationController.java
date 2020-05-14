@@ -14,11 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,8 +27,8 @@ import org.springframework.web.server.ResponseStatusException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
-import fr.uca.cdr.skillful_network.security.jwt.JwtProvider;
-import fr.uca.cdr.skillful_network.security.jwt.response.JwtResponse;
+//import fr.uca.cdr.skillful_network.security.jwt.JwtProvider;
+//import fr.uca.cdr.skillful_network.security.jwt.response.JwtResponse;
 import fr.uca.cdr.skillful_network.entities.user.Role;
 import fr.uca.cdr.skillful_network.entities.user.Rolename;
 import fr.uca.cdr.skillful_network.entities.user.User;
@@ -43,14 +39,6 @@ import fr.uca.cdr.skillful_network.request.LoginForm;
 import fr.uca.cdr.skillful_network.request.RegisterForm;
 import fr.uca.cdr.skillful_network.security.CodeGeneration;
 
-
-/**
- * Cette classe a pour rôle d'identifié les utilisateurs. L'authentification des
- * utilisateurs se fait grâce à l'email ou au numéro de mobile (en tant que nom
- * d'utilisateur) ainsi qu'avec un code temporaire envoyé par le serveur à
- * l'email ou au numéro de mobile. Elle est responsable de notamment du
- * traitement des requêtes /login et /token.
- */
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping ("/authentication")
@@ -66,69 +54,16 @@ public class AuthenticationController {
 	private String activeProfil;
 
 	@Autowired
-	private JwtProvider jwtProv;
-
-	@Autowired
 	private RoleRepository roleRepository;
 
-	@Autowired
-	private AuthenticationManager authenticationManager;
+//	@Autowired
+//	private AuthenticationManager authenticationManager;
 
 	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-	@PostMapping(value = "/login")
-	public ResponseEntity<JwtResponse> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
-		if (loginRequest != null) {
-
-			Optional<User> userFromDB = userService.findByEmail(loginRequest.getEmail());
-
-			if (!userFromDB.isPresent()) {
-				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé");
-			} else if (!userFromDB.get().isValidated()) {
-				LocalDateTime dateExpirationMdp = userFromDB.get().getTemporaryCodeExpirationDate();
-				Boolean isExpired = userService.mdpExpired(dateExpirationMdp, LocalDateTime.now());
-				userService.validationMdp(isExpired, userFromDB);
-				if (isExpired) {
-					throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
-							"Le mot de passe temporaire n'est plus valide ; veuillez relancer une inscription !");
-				}
-			}
-
-			String passwordFromDB = userFromDB.get().getPassword();
-			String passwordRequest = loginRequest.getPassword();
-			boolean passwordMatches = encoder.matches(passwordRequest, passwordFromDB);
-			System.out.println("Mots de passes correspondent ? " + passwordMatches);
-			if (passwordRequest == null || !passwordMatches) {
-				throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Les 2 mots de passe ne correspondent pas");
-			} else {
-
-				Authentication authentication = authenticationManager.authenticate(
-						new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
-				SecurityContextHolder.getContext().setAuthentication(authentication);
-				User user = (User) authentication.getPrincipal();
-				System.out.println("User récupéré : " + user.toString());
-
-				// On génère un token en fonction de l'id, l'email et le password de
-				// l'utilisateur
-				String jwt = jwtProv.generateJwtToken(authentication);
-				System.out.println("jwt dans AuthController : " + jwt);
-				
-				if (jwtProv.validateToken(jwt)) {
-					// On retourne une jwt response qui contient le token et l'utilisateur
-					return ResponseEntity.ok(new JwtResponse(jwt, user.getUsername(), user.getAuthorities()));
-				}
-			}
-		}
-
-		throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé");
-
-	}
-	
 	@GetMapping("/user")
 	public User getCurrentUser(@AuthenticationPrincipal final User user) {
-
 		return user;
-
 	}
 
 
@@ -213,26 +148,26 @@ public class AuthenticationController {
 		return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
 	}
 
-//	A update plus tard pour récupérer le token dans le header
-	@PostMapping(value = "/whoami")
-	public ResponseEntity<?> whoAmI(@RequestBody String frontToken)
-			throws JsonMappingException, JsonProcessingException {
-		String decryptResponse = jwtProv.decryptJwtToken(frontToken);
-		if (!(jwtProv.validateToken(decryptResponse))) {
-			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Token invalide ou expiré");
-		} else {
-			User userFromJson = jwtProv.getUserFromJson(decryptResponse);
-			User userFromDb = userService.getUserById(userFromJson.getId())
-					.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé"));
-			boolean passwordMatches = userFromJson.getPassword().equalsIgnoreCase( userFromDb.getPassword());
-			System.out.println("Mots de passes correspondent ? " + passwordMatches + " password from json: " +userFromJson.getPassword() + " password from db: " +userFromDb.getPassword());
-			if (!(userFromJson.getEmail().equals(userFromDb.getEmail()) && passwordMatches)) {
-				throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
-						"L'utilisateur retrouvé à partir du token et celui dans la base de donnée ne correspondent pas");
-			} else {
-				return new ResponseEntity<User>(userFromDb,
-						HttpStatus.OK);
-			}
-		}
-	}
+////	A update plus tard pour récupérer le token dans le header
+//	@PostMapping(value = "/whoami")
+//	public ResponseEntity<?> whoAmI(@RequestBody String frontToken)
+//			throws JsonMappingException, JsonProcessingException {
+//		String decryptResponse = jwtProv.decryptJwtToken(frontToken);
+//		if (!(jwtProv.validateToken(decryptResponse))) {
+//			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Token invalide ou expiré");
+//		} else {
+//			User userFromJson = jwtProv.getUserFromJson(decryptResponse);
+//			User userFromDb = userService.getUserById(userFromJson.getId())
+//					.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé"));
+//			boolean passwordMatches = userFromJson.getPassword().equalsIgnoreCase( userFromDb.getPassword());
+//			System.out.println("Mots de passes correspondent ? " + passwordMatches + " password from json: " +userFromJson.getPassword() + " password from db: " +userFromDb.getPassword());
+//			if (!(userFromJson.getEmail().equals(userFromDb.getEmail()) && passwordMatches)) {
+//				throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
+//						"L'utilisateur retrouvé à partir du token et celui dans la base de donnée ne correspondent pas");
+//			} else {
+//				return new ResponseEntity<User>(userFromDb,
+//						HttpStatus.OK);
+//			}
+//		}
+//	}
 }
