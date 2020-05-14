@@ -30,53 +30,47 @@ public class SubscriptionController {
 	@GetMapping("")
 	public ResponseEntity<List<Subscription>> getAllSubscriptions() {
 		List<Subscription> listSubscription = this.subscriptionService.getAllSubscription();
-		return new ResponseEntity<List<Subscription>>(listSubscription, HttpStatus.OK);
+		return new ResponseEntity<>(listSubscription, HttpStatus.OK);
 	}
 
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping("/{id}")
-	public Optional<Subscription> findById(@PathVariable("id") long id) {
-		return subscriptionService.getSubscriptionById(id);
+	public Subscription findById(@PathVariable("id") long id) {
+		return this.subscriptionService.getSubscriptionById(id);
 	}
 	
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
 	@GetMapping(value = "/{id}/users")
 	public ResponseEntity<Set<User>> getAllUserBySubscription(@PathVariable(value = "id") Long id) throws Throwable {
-		Set<User> listUser = this.subscriptionService.getSubscriptionById(id).map((subscription) -> {
-			return subscription.getUserList();
-		}).orElseThrow(
-				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun abonnement trouvé avec l'id : " + id));
-
-		return new ResponseEntity<Set<User>>(listUser, HttpStatus.OK);
+		Set<User> listUser = this.subscriptionService.getSubscriptionById(id).getUserList();
+		return new ResponseEntity<>(listUser, HttpStatus.OK);
 
 	}
 	
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping(value = "/{name}")
 	public ResponseEntity<Subscription> getSubscriptionByName(@PathVariable(value = "name") String name) {
-		Subscription subscriptionFromDb = this.subscriptionService.getSubscriptionByName(name).orElseThrow(
-				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun abonnement trouvé avec le nom " + name));
-
-		return new ResponseEntity<Subscription>(HttpStatus.OK);
+		Subscription subscriptionFromDb = this.subscriptionService.getSubscriptionByName(name);
+		return new ResponseEntity<>(subscriptionFromDb, HttpStatus.OK);
 	}
 	
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
 	@PostMapping(value = "")
 	public Subscription save(@Valid @RequestBody Subscription subscription) {
-		return subscriptionService.saveOrUpdateSubscription(subscription);
+		return this.subscriptionService.saveOrUpdateSubscription(subscription);
 
 	}
 	
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
 	@DeleteMapping("/{id}")
 	public void deleteSubscription(@PathVariable(value = "id") Long id) {
-		subscriptionService.deleteSubscription(id);
+		this.subscriptionService.deleteSubscription(id);
 	}
 
-	// Le changement de RequestBody par RequestParam est par rapport à une limite angular 
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping(value = "/candidates")
-	public ResponseEntity<List<Subscription>>  getCandidatesByMatch(@RequestParam(required=false , name="contain") String match) {
-		return new ResponseEntity<List<Subscription>>(subscriptionService.getSubscriptionsByMatch(match), HttpStatus.OK);
+	public ResponseEntity<List<Subscription>> getCandidatesByMatch(@RequestParam(required=false , name="contain") String match) {
+		final List<Subscription> subscriptionsByMatch = subscriptionService.getSubscriptionsByMatch(match);
+		return new ResponseEntity<>(subscriptionsByMatch, HttpStatus.OK);
 	}
 }

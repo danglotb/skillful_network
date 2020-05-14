@@ -9,8 +9,8 @@ public interface SubscriptionService {
 
 	List<Subscription> getAllSubscription();
 	List<Subscription> getSubscriptionsByMatch(String match);
-	Optional<Subscription> getSubscriptionById(Long id);
-	Optional<Subscription> getSubscriptionByName(String name);
+	Subscription getSubscriptionById(Long id);
+	Subscription getSubscriptionByName(String name);
 	Subscription saveOrUpdateSubscription(Subscription subscription);
 	void deleteSubscription(Long id);
 }
