@@ -35,55 +35,34 @@ public class SkillController {
 	@GetMapping(value = "")
 	public ResponseEntity<List<Skill>> getAllSkills() {
 		List<Skill> listSkill = this.skillService.getAllSkills();
-		return new ResponseEntity<List<Skill>>(listSkill, HttpStatus.OK);
+		return new ResponseEntity<>(listSkill, HttpStatus.OK);
 	}
-
-// 
-//	@GetMapping(value = "/{id}")
-//	public ResponseEntity<Skill> getSkillById(@PathVariable(value = "id") Long id) {
-//		Skill skillFromDb = this.skillService.getSkillById(id).orElseThrow(
-//				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune compétence trouvée avec l'id : " + id));
-//		return new ResponseEntity<Skill>(skillFromDb, HttpStatus.OK);
-//	}
 
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping(value = "/{name}")
 	public ResponseEntity<Skill> getSkillByName(@PathVariable(value = "name") String name) {
-		Skill skillFromDb = this.skillService.getSkillByName(name)
-				.orElseThrow(
-					() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Aucune compétence trouvée avec le nom " + name)
-					);
-		return new ResponseEntity<Skill>(skillFromDb, HttpStatus.OK);
+		Skill skillFromDb = this.skillService.getSkillByName(name);
+		return new ResponseEntity<>(skillFromDb, HttpStatus.OK);
 	}
   
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
 	@GetMapping(value = "/{id}/users")
 	public ResponseEntity<Set<User>> getAllUserBySkill(@PathVariable(value = "id") Long id) {
-		Set<User> listUser = this.skillService.getSkillById(id)
-				.map((skill) -> {
-					return skill.getUserList();})
-				.orElseThrow(
-					() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune compétence trouvée avec l'id : " + id));
-		
-		return new ResponseEntity<Set<User>>(listUser, HttpStatus.OK);
+		Set<User> listUser = this.skillService.getSkillById(id).getUserList();
+		return new ResponseEntity<>(listUser, HttpStatus.OK);
 
 	}
   
 	@PreAuthorize("hasRole('USER')")
 	@GetMapping(value = "/search/{keyword}", produces = { MimeTypeUtils.APPLICATION_JSON_VALUE})
 	public ResponseEntity<List<String>> search(@PathVariable("keyword") String keyword) {
-		
-			List<String> listSkill = this.skillService.searchSkill(keyword)
-					.orElseThrow(
-						() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Aucun matching avec le keyword : "+keyword)
-					);
-			return new ResponseEntity<List<String>>(listSkill, HttpStatus.OK);
+			List<String> listSkill = this.skillService.searchSkill(keyword);
+			return new ResponseEntity<>(listSkill, HttpStatus.OK);
 	}
 	
-	// Le changement de RequestBody par RequestParam est par rapport à une limite angular et que surtout ça respecte pas les bonnes pratiques
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping(value = "/candidates")
 	public ResponseEntity<List<Skill>>  getCandidatesByMatch(@RequestParam(required=false , name="contain") String match) {
-		return new ResponseEntity<List<Skill>>(skillService.getSkillsByMatch(match), HttpStatus.OK);
+		return new ResponseEntity<>(skillService.getSkillsByMatch(match), HttpStatus.OK);
 	}
 }

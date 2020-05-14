@@ -6,10 +6,12 @@ import java.util.Optional;
 import fr.uca.cdr.skillful_network.model.entities.Qualification;
 import fr.uca.cdr.skillful_network.tools.AutoCompletion;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import fr.uca.cdr.skillful_network.model.entities.Subscription;
 import fr.uca.cdr.skillful_network.model.repositories.SubscriptionRepository;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service(value = "subscriptionService")
 public class SubscriptionServiceImpl implements SubscriptionService {
@@ -17,8 +19,11 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 	@Autowired
 	private SubscriptionRepository subscriptionRepository;
 
-	// Autocompletion init
-	AutoCompletion<Subscription> completor = new AutoCompletion<>(Subscription.class, "name", "userList");
+	private AutoCompletion<Subscription> autoCompletion;
+
+	public  SubscriptionServiceImpl() {
+		this.autoCompletion = new AutoCompletion<>(Subscription.class, "name", "userList");;
+	}
 
 	@Override
 	public List<Subscription> getAllSubscription() {
@@ -27,28 +32,31 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
 	@Override
 	public List<Subscription> getSubscriptionsByMatch(String match) {
-		return completor.findCandidates(subscriptionRepository.findAll(), match);
+		return this.autoCompletion.findCandidates(this.subscriptionRepository.findAll(), match);
 	}
 
 	@Override
-	public Optional<Subscription> getSubscriptionById(Long id) {
-		return this.subscriptionRepository.findById(id);
+	public Subscription getSubscriptionById(Long id) {
+		return this.subscriptionRepository.findById(id).orElseThrow(() ->
+				new ResponseStatusException(HttpStatus.NOT_FOUND,
+						String.format("None subscription could be found with the id %d", id)));
 	}
 
 	@Override
-	public Optional<Subscription> getSubscriptionByName(String name) {
-		return this.subscriptionRepository.findByName(name);
+	public Subscription getSubscriptionByName(String name) {
+		return this.subscriptionRepository.findByName(name).orElseThrow(() ->
+				new ResponseStatusException(HttpStatus.NOT_FOUND,
+						String.format("None subscription could be found with the name %s", name)));
 	}
 
 	@Override
 	public Subscription saveOrUpdateSubscription(Subscription subscription) {
-		return subscriptionRepository.save(subscription);
+		return this.subscriptionRepository.save(subscription);
 	}
 
 	@Override
 	public void deleteSubscription(Long id) {
-		subscriptionRepository.deleteById(id);
-
+		this.subscriptionRepository.deleteById(id);
 	}
 
 }

@@ -15,8 +15,11 @@ public class QualificationServiceImpl implements QualificationService {
 	@Autowired
 	private QualificationRepository qualificationrepository;
 
-	// Autocompletion init
-	AutoCompletion<Qualification> completor = new AutoCompletion<>(Qualification.class, "name", "userSet");
+	private AutoCompletion<Qualification> autoCompletion;
+
+	public QualificationServiceImpl() {
+		this.autoCompletion = new AutoCompletion<>(Qualification.class, "name", "userSet");
+	}
 
 	@Override
 	public List<Qualification> getAllQualifications() {
@@ -30,7 +33,7 @@ public class QualificationServiceImpl implements QualificationService {
 
 	@Override
 	public List<Qualification> getQualificationsByMatch(String match) {
-		return completor.findCandidates(qualificationrepository.findAll(), match);
+		return autoCompletion.findCandidates(qualificationrepository.findAll(), match);
 	}
 
 }
