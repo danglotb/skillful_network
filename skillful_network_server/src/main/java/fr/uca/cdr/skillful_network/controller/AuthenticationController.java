@@ -66,7 +66,6 @@ public class AuthenticationController {
 		return user;
 	}
 
-
 	@RequestMapping(value = "/register", method = POST)
 	public ResponseEntity<?> ifFirstConnection(@Valid @RequestBody RegisterForm registerForm) {
 		if (userService.alreadyExists(registerForm.getEmail())) {
