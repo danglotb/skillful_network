@@ -307,9 +307,7 @@ public class UserController {
 //						"Aucun utilisateur trouvé avec l'id " + userId));
 
 //		On vérifie que la compétence existe bien
-        Skill SkillFromDb = skillService.getSkillByName(skillName)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Aucune compétence trouvée avec le nom : " + skillName));
+        Skill SkillFromDb = skillService.getSkillByName(skillName);
 
 //		On récupère la liste de compétences de l'utilisateur
         Set<Skill> userSkills = currentUser.getSkillSet();
@@ -367,9 +365,7 @@ public class UserController {
         User currentUser = (User) authentication.getPrincipal();
 
 //		On vérifie que la compétence existe bien
-        Skill skillToDelete = this.skillService.getSkillById(skillId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Aucune competence trouvee avec l'id : " + skillId));
+        Skill skillToDelete = this.skillService.getSkillById(skillId);
 
 //		On récupère le liste de compétences de l'utilisateur
         Set<Skill> listSkill = currentUser.getSkillSet();
@@ -402,9 +398,7 @@ public class UserController {
 //				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune user trouvee avec l'id : " + id));
 
         // On vérifie que la compétence existe bien
-        Skill skillToAdd = this.skillService.getSkillById(skillId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Aucune competence trouvee avec l'id : " + skillId));
+        Skill skillToAdd = this.skillService.getSkillById(skillId);
 
         // On récupère le liste de compétences de l'utilisateur
         Set<Skill> listSkill = currentUser.getSkillSet();
