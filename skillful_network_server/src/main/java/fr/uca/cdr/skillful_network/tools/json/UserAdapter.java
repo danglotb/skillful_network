@@ -4,16 +4,13 @@ import java.lang.reflect.Type;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import com.google.gson.JsonParser;
 
-import fr.uca.cdr.skillful_network.model.entities.User;
+import fr.uca.cdr.skillful_network.entities.user.User;
 
 public class UserAdapter implements JsonDeserializer<User>{
 

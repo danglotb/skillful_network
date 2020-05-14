@@ -12,30 +12,24 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.EnableAsync;
 
-import fr.uca.cdr.skillful_network.model.entities.Role;
-import fr.uca.cdr.skillful_network.model.entities.Simulation;
-import fr.uca.cdr.skillful_network.model.entities.JobOffer;
-import fr.uca.cdr.skillful_network.model.entities.Training;
-import fr.uca.cdr.skillful_network.model.entities.User;
-import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Exercise;
-import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Keyword;
-import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Result;
-import fr.uca.cdr.skillful_network.model.entities.simulation.exercise.Choice;
-import fr.uca.cdr.skillful_network.model.repositories.AnswerFormRepository;
-import fr.uca.cdr.skillful_network.model.repositories.ChoiceRepository;
-import fr.uca.cdr.skillful_network.model.repositories.ExerciseFormRepository;
-import fr.uca.cdr.skillful_network.model.repositories.ExerciseRepository;
-import fr.uca.cdr.skillful_network.model.repositories.JobOfferRepository;
-import fr.uca.cdr.skillful_network.model.repositories.KeywordRepository;
-import fr.uca.cdr.skillful_network.model.repositories.ResultRepository;
-import fr.uca.cdr.skillful_network.model.repositories.RoleRepository;
-import fr.uca.cdr.skillful_network.model.repositories.SimulationFormRepository;
-import fr.uca.cdr.skillful_network.model.repositories.SimulationRepository;
-import fr.uca.cdr.skillful_network.model.repositories.TrainingRepository;
-import fr.uca.cdr.skillful_network.model.repositories.UserRepository;
-import fr.uca.cdr.skillful_network.request.AnswerForm;
-import fr.uca.cdr.skillful_network.request.ExerciseForm;
-import fr.uca.cdr.skillful_network.request.SimulationForm;
+import fr.uca.cdr.skillful_network.entities.user.Role;
+import fr.uca.cdr.skillful_network.entities.simulation.Simulation;
+import fr.uca.cdr.skillful_network.entities.application.JobOffer;
+import fr.uca.cdr.skillful_network.entities.application.Training;
+import fr.uca.cdr.skillful_network.entities.user.User;
+import fr.uca.cdr.skillful_network.entities.simulation.exercise.Exercise;
+import fr.uca.cdr.skillful_network.entities.simulation.exercise.Keyword;
+import fr.uca.cdr.skillful_network.entities.simulation.exercise.Result;
+import fr.uca.cdr.skillful_network.entities.simulation.exercise.Choice;
+import fr.uca.cdr.skillful_network.repositories.simulation.exercise.ChoiceRepository;
+import fr.uca.cdr.skillful_network.repositories.simulation.exercise.ExerciseRepository;
+import fr.uca.cdr.skillful_network.repositories.application.JobOfferRepository;
+import fr.uca.cdr.skillful_network.repositories.KeywordRepository;
+import fr.uca.cdr.skillful_network.repositories.simulation.exercise.ResultRepository;
+import fr.uca.cdr.skillful_network.repositories.user.RoleRepository;
+import fr.uca.cdr.skillful_network.repositories.simulation.SimulationRepository;
+import fr.uca.cdr.skillful_network.repositories.application.TrainingRepository;
+import fr.uca.cdr.skillful_network.repositories.user.UserRepository;
 
 @SpringBootApplication
 @EnableAsync

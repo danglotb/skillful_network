@@ -17,9 +17,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import fr.uca.cdr.skillful_network.jwt.JwtAuthEntryPoint;
-import fr.uca.cdr.skillful_network.jwt.JwtAuthTokenFilter;
-import fr.uca.cdr.skillful_network.security.services.UserDetailsServiceImpl;
+import fr.uca.cdr.skillful_network.security.jwt.JwtAuthEntryPoint;
+import fr.uca.cdr.skillful_network.security.jwt.JwtAuthTokenFilter;
+import fr.uca.cdr.skillful_network.services.user.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity

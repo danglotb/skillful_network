@@ -1,0 +1,12 @@
+package fr.uca.cdr.skillful_network.repositories;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import fr.uca.cdr.skillful_network.entities.simulation.exercise.Keyword;
+
+@Repository
+public interface KeywordRepository extends JpaRepository<Keyword , Long>{
+//	Optional<Keyword> getKeyWordExoById(Long id);
+//	List<Keyword> findAllKeyWordExo();
+}
