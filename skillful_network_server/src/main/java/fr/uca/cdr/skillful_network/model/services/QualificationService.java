@@ -10,4 +10,5 @@ public interface QualificationService {
 	List<Qualification> getAllQualifications();
 	List<Qualification> getQualificationByPrefix(String prefix);
 	List<Qualification> getQualificationsByMatch(String match);
+
 }
