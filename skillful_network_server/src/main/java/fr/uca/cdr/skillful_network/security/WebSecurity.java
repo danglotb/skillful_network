@@ -2,6 +2,7 @@ package fr.uca.cdr.skillful_network.security;
 
 import fr.uca.cdr.skillful_network.services.impl.user.UserDetailsServiceImpl;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -13,7 +14,8 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.context.annotation.Bean;
 
-import static fr.uca.cdr.skillful_network.security.SecurityConstants.SIGN_UP_URL;
+import static fr.uca.cdr.skillful_network.security.SecurityConstants.LOG_IN_URL;
+import static fr.uca.cdr.skillful_network.security.SecurityConstants.REGISTER_URL;
 
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
@@ -30,10 +32,11 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
-                .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
+                .antMatchers(HttpMethod.POST, REGISTER_URL).permitAll()
+                .antMatchers(HttpMethod.POST, LOG_IN_URL).permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
+//                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager()))
                 // this disables session creation on Spring Security
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -44,10 +47,19 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
     }
 
-  @Bean
-  CorsConfigurationSource corsConfigurationSource() {
-    final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
-    return source;
-  }
+    @Bean
+    AuthenticationManager getAuthenticationManager() {
+        try {
+            return this.authenticationManager();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+        return source;
+    }
 }

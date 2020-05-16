@@ -14,7 +14,13 @@ import org.hibernate.annotations.NaturalId;
 @Entity
 @Table(name="role")
 public class Role {
-	
+
+	public enum Name {
+		ROLE_USER,
+		ROLE_ENTREPRISE,
+		ROLE_ORGANISME;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -22,9 +28,9 @@ public class Role {
 	@Enumerated(EnumType.STRING)
     @NaturalId
     @Column(length = 60)
-	private Rolename name;
+	private Name name;
 
-	public Role(Rolename name) {
+	public Role(Name name) {
 		super();
 		this.name = name;
 	}
@@ -41,11 +47,11 @@ public class Role {
 		this.id = id;
 	}
 
-	public Rolename getName() {
+	public Name getName() {
 		return name;
 	}
 
-	public void setName(Rolename name) {
+	public void setName(Name name) {
 		this.name = name;
 	}
 

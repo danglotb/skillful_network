@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import fr.uca.cdr.skillful_network.services.impl.EmailService;
+import fr.uca.cdr.skillful_network.services.impl.EmailServiceImpl;
 import fr.uca.cdr.skillful_network.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,9 +23,6 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
-
-	@Autowired
-	private EmailService emailService;
 
 	@Override
 	public boolean alreadyExists(String mail) {
@@ -53,12 +50,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void deleteUser(Long id) {
 		this.userRepository.deleteById(id);
-	}
-
-	@Deprecated
-	@Override
-	public void sendMail(String email, String codeAutoGen) {
-		this.emailService.sendEmail(email, codeAutoGen);
 	}
 
 	@Deprecated

@@ -22,8 +22,6 @@ public interface UserService {
 	
 	void deleteUser(Long id);
 
-	void sendMail(String mail, String code);
-
 	@Deprecated
 	String createRepoImage();
 
