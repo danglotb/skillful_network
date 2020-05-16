@@ -2,18 +2,21 @@ package fr.uca.cdr.skillful_network.services.impl.user;
 
 import java.io.File;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
-import fr.uca.cdr.skillful_network.services.impl.EmailService;
+import fr.uca.cdr.skillful_network.services.impl.EmailServiceImpl;
 import fr.uca.cdr.skillful_network.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import fr.uca.cdr.skillful_network.entities.user.User;
 import fr.uca.cdr.skillful_network.repositories.user.UserRepository;
 import fr.uca.cdr.skillful_network.tools.PageTool;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service(value = "userService")
 public class UserServiceImpl implements UserService {
@@ -21,46 +24,35 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository userRepository;
 
-	@Autowired
-	private UserService userService;
-
-	@Autowired
-	private EmailService emailService;
-
 	@Override
-	public Boolean alreadyExists(String mail) {
-		Optional<User> oUser = userRepository.findByEmail(mail);
-		return oUser.isPresent();
+	public boolean alreadyExists(String mail) {
+		return this.userRepository.findByEmail(mail).isPresent();
 	}
 
 	@Override
-	public Boolean existingMailIsValidated(String mail) {
-		return userRepository.findByEmail(mail).get().isValidated();
+	public boolean existingMailIsValidated(String mail) {
+		return this.findByEmail(mail).isValidated();
 	}
 
-	// TODO should not return an Optional
-	// TODO we could factorise here the management of the error
 	@Override
-	public Optional<User> getUserById(long id) {
-		return userRepository.findById(id);
+	public User getUserById(long id) {
+		return this.userRepository.findById(id).orElseThrow(() ->
+				new ResponseStatusException(HttpStatus.NOT_FOUND,
+						String.format("None skill could be found with the id %d", id))
+		);
 	}
 
 	@Override
 	public User saveOrUpdateUser(User user) {
-		return userRepository.save(user);
+		return this.userRepository.save(user);
 	}
 
 	@Override
 	public void deleteUser(Long id) {
-		userRepository.deleteById(id);
-
+		this.userRepository.deleteById(id);
 	}
 
-	@Override
-	public void sendMail(String email, String codeAutoGen) {
-		emailService.sendEmail(email, codeAutoGen);
-	}
-
+	@Deprecated
 	@Override
 	public String createRepoImage() {
 		String dossier1 = "WebContent/images/";
@@ -70,10 +62,11 @@ public class UserServiceImpl implements UserService {
 		return dossier1;
 	}
 
+	@Deprecated
 	@Override
-	public Boolean updateImage() {
+	public boolean updateImage() {
 		String photoprofiljpg = "WebContent/images/iconeprofildefaut.jpg";
-		String photoprofiljpeg = "WebContent/images/iconeprofildefaut.jepg";
+		String photoprofiljpeg = "WebContent/images/iconeprofildefaut.jpeg";
 		if (!new File(photoprofiljpg).exists() || !new File(photoprofiljpg).exists()) {
 			new File(photoprofiljpg).mkdirs();
 			new File(photoprofiljpeg).mkdirs();
@@ -82,29 +75,36 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Optional<User> findByEmail(String mail) {
-		return userRepository.findByEmail(mail);
+	public User findByEmail(String email) {
+		return this.userRepository.findByEmail(email).orElseThrow(() ->
+				new ResponseStatusException(HttpStatus.NOT_FOUND,
+						String.format("None user could be found with the email %s", email)));
 	}
 
 	@Override
 	public Page<User> getPageOfEntities(PageTool pageTool) {
-		return userRepository.findAll(pageTool.requestPage());
+		return this.userRepository.findAll(pageTool.requestPage());
 	}
 
 	@Override
 	public Page<User> searchUsersByKeyword(Pageable pageable, String keyword) {
-		return userRepository.findByLastNameContainsOrFirstNameContainsAllIgnoreCase(pageable, keyword, keyword);
+		return this.userRepository.findByLastNameContainsOrFirstNameContainsAllIgnoreCase(pageable, keyword, keyword);
 	}
 
 	@Override
-	public Boolean mdpExpired(LocalDateTime dateExpiration, LocalDateTime currentDate) {
-		Boolean codeExpire = currentDate.isAfter(dateExpiration);
-		return codeExpire;
+	public List<User> findAll() {
+		return this.userRepository.findAll();
 	}
 
+	@Deprecated
+	@Override
+	public boolean mdpExpired(LocalDateTime dateExpiration, LocalDateTime currentDate) {
+		return currentDate.isAfter(dateExpiration);
+	}
+
+	@Deprecated
 	@Override
 	public void validationMdp(Boolean isExpired, Optional<User> userFromDB) {
-
 		Long idFromDB = userFromDB.get().getId();
 		if (isExpired == true && userFromDB.get().isValidated() == false) {
 			// le mot de passe est supprimé de la table si isAfter est true
@@ -112,10 +112,8 @@ public class UserServiceImpl implements UserService {
 		} else {
 			// cas du mot de passe en cours de validité
 			userFromDB.get().setValidated(true);
-			userService.saveOrUpdateUser(userFromDB.get());
-
+			this.saveOrUpdateUser(userFromDB.get());
 		}
-
 	}
-	
+
 }

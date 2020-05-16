@@ -7,7 +7,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import javax.imageio.ImageIO;
@@ -15,6 +14,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.DomainEvents;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -53,128 +53,86 @@ import fr.uca.cdr.skillful_network.request.UserForm;
 import fr.uca.cdr.skillful_network.request.UserPwdUpdateForm;
 import fr.uca.cdr.skillful_network.tools.PageTool;
 
-/**
- * Cette classe est responsable du traitement des requêtes liées aux
- * utilisateurs comme /users.
- */
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/users")
 public class UserController {
 
+    @Autowired
+    private final UserService userService;
+
+    @Autowired
+    private final SkillService skillService;
+
+    private final BCryptPasswordEncoder passwordEncoder;
+
+    public UserController(UserService userService,
+                          SkillService skillService,
+                          BCryptPasswordEncoder passwordEncoder) {
+        this.userService = userService;
+        this.skillService = skillService;
+        this.passwordEncoder = passwordEncoder;
+    }
+
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
     @GetMapping(value = "")
     public List<User> getUsers() {
-        return (List<User>) this.repository.findAll();
+        return this.userService.findAll();
     }
-
-//	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
-//	@GetMapping(value = "/users/")
-//	public ResponseEntity<Page<User>> getUsersPerPage(@Valid PageTool pageTool) {
-//		if (pageTool != null) {
-//			Page<User> listUserByPage = userService.getPageOfEntities(pageTool);
-//			return new ResponseEntity<Page<User>>(listUserByPage, HttpStatus.OK);
-//		} else {
-//			System.out.println(pageTool);
-//			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Données en paramètre non valide");
-//		}
-//	}
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
     @GetMapping(value = "/search")
     public ResponseEntity<Page<User>> getUsersBySearch(@Valid PageTool pageTool,
                                                        @RequestParam(name = "keyword", required = false) String keyword) {
         if (pageTool != null && keyword != null) {
-            Page<User> listUsersSeachByPage = userService.searchUsersByKeyword(pageTool.requestPage(), keyword);
-            return new ResponseEntity<Page<User>>(listUsersSeachByPage, HttpStatus.OK);
+            Page<User> listUsersSearchByPage = userService.searchUsersByKeyword(pageTool.requestPage(), keyword);
+            return new ResponseEntity<>(listUsersSearchByPage, HttpStatus.OK);
         } else {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Données en paramètre non valide");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format("Parameters should not be both null: (%s, %s)", pageTool, keyword));
         }
     }
 
     @PreAuthorize("hasRole('USER')")
     @Transactional
-
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<User> updateUser(@AuthenticationPrincipal User userLogged,
-
-                                           @Valid @RequestBody UserForm userRequest) {
-        Long id = userLogged.getId();
-        System.out.println(id);
-        System.out.println(userRequest);
-        if (userService.getUserById(id).isPresent()) {
-            User userToUpdate = userService.getUserById(id).get();
-            if (userRequest != null) {
-                userToUpdate.setLastName(userRequest.get_lastName());
-                userToUpdate.setFirstName(userRequest.get_firstName());
-                userToUpdate.setBirthDate(userRequest.get_birthDate());
-                userToUpdate.setEmail(userRequest.get_email());
-                userToUpdate.setMobileNumber(userRequest.get_mobileNumber());
-                userToUpdate.setSkillSet(userRequest.get_skillSet());
-                userToUpdate.setQualificationSet(userRequest.get_qualificationSet());
-                userToUpdate.setSubscriptionSet(userRequest.get_subscriptionSet());
-                userToUpdate.setCareerGoal(userRequest.get_careerGoal());
-                User userUpdated = userService.saveOrUpdateUser(userToUpdate);
-                return new ResponseEntity<User>(userUpdated, HttpStatus.OK);
-            } else {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Aucune données en paramètre");
-            }
+    @PutMapping(value = "")
+    public ResponseEntity<User> update(@Valid @RequestBody UserForm userRequest) {
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        final User currentUser = (User) authentication.getPrincipal();
+        if (userRequest != null) {
+            currentUser.setLastName(userRequest.get_lastName());
+            currentUser.setFirstName(userRequest.get_firstName());
+            currentUser.setBirthDate(userRequest.get_birthDate());
+            currentUser.setEmail(userRequest.get_email());
+            currentUser.setMobileNumber(userRequest.get_mobileNumber());
+            currentUser.setSkillSet(userRequest.get_skillSet());
+            currentUser.setQualificationSet(userRequest.get_qualificationSet());
+            currentUser.setSubscriptionSet(userRequest.get_subscriptionSet());
+            currentUser.setCareerGoal(userRequest.get_careerGoal());
+            final User userUpdated = this.userService.saveOrUpdateUser(currentUser);
+            return new ResponseEntity<>(userUpdated, HttpStatus.OK);
         } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé");
-
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Parameters are not valid");
         }
     }
 
-    //	@PreAuthorize("hasRole('USER')")
-//	@Transactional
-//	@PutMapping(value = "/usersModifPassword/{id}")
-//	public ResponseEntity<User> updateUserPassword(@PathVariable(value = "id") long id,
-//			@Valid @RequestBody UserPwdUpdateForm userModifPwd) {
-//
-//		User userToUpdate = userService.getUserById(id).orElseThrow(
-//				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé avec l'id " + id));
-//		
-//		String userNewPwd = passwordEncoder.encode(userModifPwd.getPassword());
-//		userToUpdate.setPassword(userNewPwd);
-//		User userUpdated = userService.saveOrUpdateUser(userToUpdate);
-//		return new ResponseEntity<User>(userUpdated, HttpStatus.OK);
-//	}
-    // Utilisation du current User pour la modification
+    @Deprecated
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
-    @PutMapping("/user")
-    public ResponseEntity<User> updatePasswordCurrentUser(@AuthenticationPrincipal User user,
-                                                          @Valid @RequestBody UserPwdUpdateForm userModifPwd) {
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User currentUser = (User) authentication.getPrincipal();
-        String userNewPwd = passwordEncoder.encode(userModifPwd.getPassword());
+    @PutMapping("/password")
+    public ResponseEntity<User> updatePassword(@Valid @RequestBody UserPwdUpdateForm passwordUpdate) {
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        final User currentUser = (User) authentication.getPrincipal();
+        final String userNewPwd = this.passwordEncoder.encode(passwordUpdate.getPassword());
         currentUser.setPassword(userNewPwd);
-        userService.saveOrUpdateUser(currentUser);
-
-        return new ResponseEntity<User>(currentUser, HttpStatus.OK);
-
+        this.userService.saveOrUpdateUser(currentUser);
+        return new ResponseEntity<>(currentUser, HttpStatus.OK);
     }
 
+    @Deprecated
     @GetMapping(value = "/testCreationRepo")
     public ResponseEntity<Boolean> testCreationRepo() {
         this.userService.createRepoImage();
-
-        return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
-
-    // @PreAuthorize("hasRole('USER')")
-//	@RequestMapping(value = "/upload", method = RequestMethod.POST, produces = { MediaType.IMAGE_JPEG_VALUE,
-//			MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_GIF_VALUE })
-//	public String fileUpload(@RequestParam("image") MultipartFile image) throws IOException {
-//
-//		File convertFile = new File("WebContent/images/" + image.getOriginalFilename());
-//		convertFile.createNewFile();
-//		FileOutputStream fout = new FileOutputStream(convertFile);
-//		fout.write(image.getBytes());
-//		fout.close();
-//
-//		return "File is upload successfully" + image.getOriginalFilename();
-//	}
 
     private static final ArrayList<String> SUPPORTED_EXTENSIONS_PROFILE_PICTURE = new ArrayList<>();
 
@@ -189,7 +147,7 @@ public class UserController {
     @Transactional
     @RequestMapping(value = "/uploadProfilePicture", method = RequestMethod.POST)
     public ResponseEntity<Boolean> profilePictureUpload(@RequestParam("image") MultipartFile image,
-                                              RedirectAttributes redirectAttributes) {
+                                                        RedirectAttributes redirectAttributes) {
         if (image.getOriginalFilename() == null || image.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.UNSUPPORTED_MEDIA_TYPE, "Veuillez selectionner une photo profil");
         }
@@ -203,7 +161,7 @@ public class UserController {
                         "The provided image is too large. we accept only 1000 x 500 images for profile picture.");
             }
         } catch (IOException e) {
-            throw  new ResponseStatusException(
+            throw new ResponseStatusException(
                     HttpStatus.UNSUPPORTED_MEDIA_TYPE,
                     "Something went wrong when checking the size of the provided images", e
             );
@@ -211,7 +169,7 @@ public class UserController {
 
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         final long id = ((User) authentication.getPrincipal()).getId();
-        final User currentUser = this.userService.getUserById(id).get();
+        final User currentUser = this.userService.getUserById(id);
         final String pathImageName = "WebContent/images/" + id + ".png"; // TODO we set to png here, but might be a jpg ?
 
         try (FileOutputStream writer = new FileOutputStream(pathImageName)) {
@@ -226,12 +184,9 @@ public class UserController {
     }
 
     // TODO could not find where it used
+    @Deprecated
     @GetMapping(value = "/profilePicture/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<byte[]> getProfilePicture(@PathVariable("id") Long id) throws IOException {
-        final Optional<User> user = userService.getUserById(id);
-        if (!user.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé avec l'id :" + id);
-        }
         final String pathname = "WebContent/images/" + id + ".png";
         final File profilePictureFile = new File(pathname);
         if (!profilePictureFile.exists()) {
@@ -254,225 +209,81 @@ public class UserController {
         }
     }
 
-    // @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
-    @GetMapping(value = "/usersbyId/{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<User> getUserById(@PathVariable(value = "id") Long id) {
-
-        Optional<User> user = userService.getUserById(id);
-        if (!user.isPresent()) {
-
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with id : " + id);
-
-        }
-        return ResponseEntity.ok().body(user.get());
+        return ResponseEntity.ok().body(this.userService.getUserById(id));
     }
 
-    //	@GetMapping(value = "/users/{userId}/skills/{skillId}")
-//	public ResponseEntity<Skill> getOneSkillByUser(@PathVariable(value = "userId")Long userId, @PathVariable(value = "skillId")Long skillId) {
-//		
-////		On vérifie que l'utilisateur existe bien
-//		User userFromDb = userService.getUserById(userId)
-//						  .orElseThrow(
-//								  () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé avec l'id " + userId)
-//								  );
-////		On vérifie que la compétence existe bien
-//		Skill SkillFromDb = skillService.getSkillById(skillId)
-//				  			.orElseThrow(
-//				  					() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune compétence trouvée avec l'id " + skillId)
-//				  				);
-////		On récupère le liste de compétences de l'utilisateur
-//		Set<Skill> userSkills = userFromDb.getSkillSet();
-////		Si la compétence de la bdd est contenue dans la liste de l'utilisateur, on la renvoie
-//		if (userSkills.contains(SkillFromDb)) {
-//			return new ResponseEntity<Skill> ( SkillFromDb,HttpStatus.OK);
-//		}
-////		Dans le cas contraire on renvoie une exception
-//		else {
-//			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La compétence demandée avec l'id : "+skillId+" n'est pas dans la liste de compétences de l'utilisateur avec l'id : "+userId);
-//		}
-//	}
+    // TODO Where do we need this ?
     @PreAuthorize("hasRole('USER')")
-    @GetMapping(value = "/user/skills/{skillName}")
-    public ResponseEntity<Skill> getOneSkillByNameByUser(@AuthenticationPrincipal User user,
-
-                                                         @PathVariable(value = "skillName") String skillName) {
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User currentUser = (User) authentication.getPrincipal();
-
-//		On vérifie que l'utilisateur existe bien
-//		User userFromDb = userService.getUserById(userId)
-//				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-//						"Aucun utilisateur trouvé avec l'id " + userId));
-
-//		On vérifie que la compétence existe bien
-        Skill SkillFromDb = skillService.getSkillByName(skillName);
-
-//		On récupère la liste de compétences de l'utilisateur
-        Set<Skill> userSkills = currentUser.getSkillSet();
-
-//		Si la compétence de la bdd est contenue dans la liste de l'utilisateur, on la renvoie
-        if (userSkills.contains(SkillFromDb)) {
-            return new ResponseEntity<Skill>(SkillFromDb, HttpStatus.OK);
-        }
-//		Dans le cas contraire on renvoie une exception
-        else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La compétence demandée avec le nom : " + skillName
-                    + " n'est pas dans la liste de compétences de l'utilisateur avec l'id : " + currentUser.getId());
+    @GetMapping(value = "/skills/{skillName}")
+    public ResponseEntity<Skill> getSkillByName(@PathVariable(value = "skillName") String skillName) {
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        final User currentUser = (User) authentication.getPrincipal();
+        final Skill SkillFromDb = this.skillService.getSkillByName(skillName);
+        final Set<Skill> skillSet = currentUser.getSkillSet();
+        if (skillSet.contains(SkillFromDb)) {
+            return new ResponseEntity<>(SkillFromDb, HttpStatus.OK);
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    String.format("None skill with the name %s could be find for the user %d", skillName, currentUser.getId()));
         }
     }
-//	@PreAuthorize("hasRole('USER')")
-//	@Transactional
-//	@DeleteMapping("/users/{userId}/skills/{skillId}")
-//	public ResponseEntity<Skill> deleteSkillById(@PathVariable(value = "userId") Long id,
-//			@PathVariable(value = "skillId") Long skillId) {
-//
-////		On vérifie que l'utilisateur existe bien
-//		User userToUpdate = this.userService.getUserById(id).orElseThrow(
-//				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune user trouvee avec l'id : " + id));
-//
-////		On vérifie que la compétence existe bien
-//		Skill skillToDelete = this.skillService.getSkillById(skillId)
-//				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-//						"Aucune competence trouvee avec l'id : " + skillId));
-//
-////		On récupère le liste de compétences de l'utilisateur
-//		Set<Skill> listSkill = userToUpdate.getSkillSet();
-//
-////      Si la compétence à enlever est bien dans la liste de compétences de l'utilisateur alors on le mets à jours 
-//		if (listSkill.contains(skillToDelete)) {
-//			listSkill.remove(skillToDelete);
-//			userToUpdate.setSkillSet(listSkill);
-//			this.userService.saveOrUpdateUser(userToUpdate);
-//			return new ResponseEntity<Skill>(skillToDelete, HttpStatus.OK);
-//		}
-////		Dans le cas contraire on renvoie une exception
-//		else {
-//			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La compétence demandée avec l'id : " + skillId
-//					+ " n'est pas dans la liste de compétences de l'utilisateur avec l'id : " + id);
-//		}
-//	}
 
-    // Utilisation du current User pour la suppression des skills
     @PreAuthorize("hasRole('USER')")
     @Transactional
     @DeleteMapping("/skills/{skillId}")
-    public ResponseEntity<Skill> deleteSkillById(@AuthenticationPrincipal User user,
-                                                 @PathVariable(value = "skillId") Long skillId) {
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User currentUser = (User) authentication.getPrincipal();
-
-//		On vérifie que la compétence existe bien
-        Skill skillToDelete = this.skillService.getSkillById(skillId);
-
-//		On récupère le liste de compétences de l'utilisateur
-        Set<Skill> listSkill = currentUser.getSkillSet();
-
-//      Si la compétence à enlever est bien dans la liste de compétences de l'utilisateur alors on la supprime 
-        if (listSkill.contains(skillToDelete)) {
-            listSkill.remove(skillToDelete);
-            currentUser.setSkillSet(listSkill);
+    public ResponseEntity<Skill> deleteSkillById(@PathVariable(value = "skillId") Long skillId) {
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        final User currentUser = (User) authentication.getPrincipal();
+        final Skill skillToDelete = this.skillService.getSkillById(skillId);
+        final Set<Skill> skillSet = currentUser.getSkillSet();
+        if (skillSet.contains(skillToDelete)) {
+            skillSet.remove(skillToDelete);
+            currentUser.setSkillSet(skillSet);
             this.userService.saveOrUpdateUser(currentUser);
-            return new ResponseEntity<Skill>(skillToDelete, HttpStatus.OK);
-        }
-//		Dans le cas contraire on renvoie une exception
-        else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La compétence demandée avec l'id : " + skillId
-                    + " n'est pas dans la liste de compétences de l'utilisateur avec l'id : " + currentUser.getId());
+            return new ResponseEntity<>(skillToDelete, HttpStatus.OK);
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    String.format("None skill with the id %d could be find for the user %d", skillId, currentUser.getId()));
         }
     }
 
     @PreAuthorize("hasRole('USER')")
     @Transactional
-    @PostMapping("/{userId}/skills/{skillId}")
-    public ResponseEntity<Skill> setSkillbyId(@AuthenticationPrincipal User user,
-                                              @PathVariable(value = "skillId") Long skillId) {
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User currentUser = (User) authentication.getPrincipal();
-
-//        //On vérifie que l'utilisateur existe bien
-//		User userToUpdate = this.userService.getUserById(id).orElseThrow(
-//				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune user trouvee avec l'id : " + id));
-
-        // On vérifie que la compétence existe bien
-        Skill skillToAdd = this.skillService.getSkillById(skillId);
-
-        // On récupère le liste de compétences de l'utilisateur
-        Set<Skill> listSkill = currentUser.getSkillSet();
-
-        // Si la compétence à ajouter n'est pas dans la liste de compétences de
-        // l'utilisateur, alors on le mets à jours
-        if (!(listSkill.contains(skillToAdd))) {
-            listSkill.add(skillToAdd);
-            currentUser.setSkillSet(listSkill);
+    @PostMapping("/skills/{skillId}")
+    public ResponseEntity<Skill> addSkillById(@PathVariable(value = "skillId") Long skillId) {
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        final User currentUser = (User) authentication.getPrincipal();
+        final Skill skillToAdd = this.skillService.getSkillById(skillId);
+        final Set<Skill> skillSet = currentUser.getSkillSet();
+        if (!(skillSet.contains(skillToAdd))) {
+            skillSet.add(skillToAdd);
+            currentUser.setSkillSet(skillSet);
             this.userService.saveOrUpdateUser(currentUser);
-            return new ResponseEntity<Skill>(skillToAdd, HttpStatus.OK);
-        }
-        // Dans le cas contraire on renvoie une exception
-        else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La compétence demandée avec l'id : " + skillId
-                    + " est déjà dans la liste de compétences de l'utilisateur avec l'id : " + currentUser.getId());
+            return new ResponseEntity<>(skillToAdd, HttpStatus.OK);
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    String.format("None skill with the id %d could be find for the user %d", skillId, currentUser.getId()));
         }
     }
 
-    @GetMapping(value = "/{id}/Qualifications")
-    public ResponseEntity<Set<Qualification>> getAllQualificationByUser(@PathVariable(value = "id") Long id) {
-        Set<Qualification> listQualifications = this.userService.getUserById(id)
-                .map((user) -> {
-                    return user.getQualificationSet();
-                })
-                .orElseThrow(
-                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune compétence trouvée avec l'id : " + id));
-        return new ResponseEntity<Set<Qualification>>(listQualifications, HttpStatus.OK);
+    @GetMapping(value = "/{id}/qualifications")
+    public ResponseEntity<Set<Qualification>> getAllQualificationByUserId(@PathVariable(value = "id") Long id) {
+        Set<Qualification> listQualifications = this.userService.getUserById(id).getQualificationSet();
+        return new ResponseEntity<>(listQualifications, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{id}/Subscription")
-    public ResponseEntity<Set<Subscription>> getAllSubscriptionByUser(@PathVariable(value = "id") Long id) {
-        Set<Subscription> listSubscription = this.userService.getUserById(id)
-                .map((user) -> {
-                    return user.getSubscriptionSet();
-                })
-                .orElseThrow(
-                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune compétence trouvée avec l'id : " + id));
-        return new ResponseEntity<Set<Subscription>>(listSubscription, HttpStatus.OK);
+    @GetMapping(value = "/{id}/subscriptions")
+    public ResponseEntity<Set<Subscription>> getAllSubscriptionByUserId(@PathVariable(value = "id") Long id) {
+        Set<Subscription> listSubscription = this.userService.getUserById(id).getSubscriptionSet();
+        return new ResponseEntity<>(listSubscription, HttpStatus.OK);
     }
 
-//	@GetMapping(value = "users/{id}/skills")
-//	public ResponseEntity<Set<Skill>> getAllSkillByUser1(@PathVariable(value = "id") Long id) {
-//		Set<Skill> listSkills = this.userService.getUserById(id).map((user) -> {
-//			return user.getSkillSet();
-//		}).orElseThrow(
-//				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune compétence trouvée avec l'id : " + id));
-//		return new ResponseEntity<Set<Skill>>(listSkills, HttpStatus.OK);
-//	}
-
-
-    // @PreAuthorize("hasRole('USER')")
     @GetMapping(value = "/{id}/skills")
-    public ResponseEntity<Set<Skill>> getAllSkillByUserSkills(@PathVariable(value = "id") Long id) {
-        Set<Skill> listSkills = this.userService.getUserById(id).map((user) -> {
-            return user.getSkillSet();
-        }).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune compétence trouvée avec l'id : " + id));
-        return new ResponseEntity<Set<Skill>>(listSkills, HttpStatus.OK);
-    }
-
-    @Autowired
-    private final UserRepository repository;
-    @Autowired
-    private final UserService userService;
-    @Autowired
-    private final SkillService skillService;
-
-    private final BCryptPasswordEncoder passwordEncoder;
-
-    public UserController(UserRepository repository, UserService userService, SkillService skillService) {
-        this.repository = repository;
-        this.userService = userService;
-        this.skillService = skillService;
-        this.passwordEncoder = new BCryptPasswordEncoder();
+    public ResponseEntity<Set<Skill>> getAllSkillByUserId(@PathVariable(value = "id") Long id) {
+        Set<Skill> listSkills = this.userService.getUserById(id).getSkillSet();
+        return new ResponseEntity<>(listSkills, HttpStatus.OK);
     }
 
 }

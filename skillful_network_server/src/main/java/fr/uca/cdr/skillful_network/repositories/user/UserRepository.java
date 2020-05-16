@@ -18,5 +18,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 	Page<User> findByLastNameContainsOrFirstNameContainsAllIgnoreCase(Pageable pageable, String keyword1, String keyword2);
 
-	Optional<User> save(Optional<User> findById);
+	Optional<User> save(Optional<User> userToSave);
 }

@@ -61,7 +61,7 @@
                   <button [disabled]="inscriptionFormGroup.invalid || inscriptionForm.submitted" type="submit" mat-raised-button color="primary">Envoyer</button>
                 </form>
 
-                <form *ngIf="doDisplayCodeVerif" [formGroup]='codeForm' (ngSubmit)="codeValidation()" fxLayout="column" fxLayoutAlign="center center">
+                <form *ngIf="doDisplayCodeVerif" [formGroup]='codeForm' (ngSubmit)="login()" fxLayout="column" fxLayoutAlign="center center">
                   <!-- TOOLTIP renvoi code confirmation-->
                   <span #tooltip="matTooltip"
                         matTooltip="Votre nouveau code de confirmation a bien été envoyé "
@@ -87,7 +87,7 @@
                         nouveau un code de confirmation
                     </button>
 
-                    <button type="submit" (onclick)="codeValidation()" mat-raised-button [disabled]="codeForm.invalid" color="primary">Valider</button>
+                    <button type="submit" (onclick)="login()" mat-raised-button [disabled]="codeForm.invalid" color="primary">Valider</button>
      
               </form>
             </td>

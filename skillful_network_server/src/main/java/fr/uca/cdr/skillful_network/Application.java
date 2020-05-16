@@ -30,12 +30,16 @@ import fr.uca.cdr.skillful_network.repositories.user.RoleRepository;
 import fr.uca.cdr.skillful_network.repositories.simulation.SimulationRepository;
 import fr.uca.cdr.skillful_network.repositories.application.TrainingRepository;
 import fr.uca.cdr.skillful_network.repositories.user.UserRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
 @EnableAsync
 public class Application {
 
-	
+	@Bean
+	public BCryptPasswordEncoder bCryptPasswordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
 	public static void main(String[] args){
 		SpringApplication.run(Application.class, args);

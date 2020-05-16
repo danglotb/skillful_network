@@ -1,15 +1,19 @@
 package fr.uca.cdr.skillful_network.controller;
 
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 import javax.validation.Valid;
 
+import com.auth0.jwt.JWT;
+import fr.uca.cdr.skillful_network.request.LoginForm;
+import fr.uca.cdr.skillful_network.request.JwtResponse;
+import fr.uca.cdr.skillful_network.services.EmailService;
+import fr.uca.cdr.skillful_network.services.user.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -17,222 +21,140 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-
-import fr.uca.cdr.skillful_network.security.jwt.JwtProvider;
-import fr.uca.cdr.skillful_network.security.jwt.response.JwtResponse;
 import fr.uca.cdr.skillful_network.entities.user.Role;
-import fr.uca.cdr.skillful_network.entities.user.Rolename;
 import fr.uca.cdr.skillful_network.entities.user.User;
-import fr.uca.cdr.skillful_network.repositories.user.RoleRepository;
-import fr.uca.cdr.skillful_network.repositories.user.UserRepository;
 import fr.uca.cdr.skillful_network.services.user.UserService;
-import fr.uca.cdr.skillful_network.request.LoginForm;
 import fr.uca.cdr.skillful_network.request.RegisterForm;
 import fr.uca.cdr.skillful_network.security.CodeGeneration;
+import org.springframework.web.server.ResponseStatusException;
 
+import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
+import static fr.uca.cdr.skillful_network.security.SecurityConstants.EXPIRATION_TIME;
+import static fr.uca.cdr.skillful_network.security.SecurityConstants.SECRET;
 
-/**
- * Cette classe a pour rôle d'identifié les utilisateurs. L'authentification des
- * utilisateurs se fait grâce à l'email ou au numéro de mobile (en tant que nom
- * d'utilisateur) ainsi qu'avec un code temporaire envoyé par le serveur à
- * l'email ou au numéro de mobile. Elle est responsable de notamment du
- * traitement des requêtes /login et /token.
- */
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping ("/authentication")
 public class AuthenticationController {
 
-	@Autowired
-	private UserRepository userRepository;
+    @Value("${spring.profiles.active}")
+    private String activeProfile;
 
-	@Autowired
-	private UserService userService;
+    @Autowired
+    private UserService userService;
 
-	@Value("${spring.profiles.active}")
-	private String activeProfil;
+    @Autowired
+    private EmailService emailService;
 
-	@Autowired
-	private JwtProvider jwtProv;
+    @Autowired
+    private RoleService roleService;
 
-	@Autowired
-	private RoleRepository roleRepository;
+    @Autowired
+    private BCryptPasswordEncoder encoder;
 
-	@Autowired
-	private AuthenticationManager authenticationManager;
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
-	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    @GetMapping("/user")
+    public User getCurrentUser() {
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return (User) authentication.getPrincipal();
+    }
 
-	@PostMapping(value = "/login")
-	public ResponseEntity<JwtResponse> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
-		if (loginRequest != null) {
+    @PostMapping(value = "/register")
+    public ResponseEntity<?> register(@Valid @RequestBody RegisterForm registerForm) {
+        final String email = registerForm.getEmail();
+        if (this.userService.alreadyExists(email)) {
+            if (this.userService.existingMailIsValidated(email)) {
+                return new ResponseEntity<>(true, HttpStatus.OK);//TODO I guess that the true is handled by the front
+            } else {
+                User oldUser = this.userService.findByEmail(email);
+                this.userService.deleteUser(oldUser.getId());
+            }
+        }
+        final String randomCode = CodeGeneration.generateCode(10);
+        if (this.activeProfile.contains("prod")) {
+            this.emailService.sendEmail(registerForm.getEmail(), randomCode);
+        }
+        final User user = new User();
+        user.setEmail(registerForm.getEmail());
+        user.setTemporaryCodeExpirationDate(LocalDateTime.now().plus(24, ChronoUnit.HOURS));
 
-			Optional<User> userFromDB = userService.findByEmail(loginRequest.getEmail());
+        final String randomCodeEncrypt = this.encoder.encode(randomCode);
+        user.setPassword(randomCodeEncrypt);
 
-			if (!userFromDB.isPresent()) {
-				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé");
-			} else if (!userFromDB.get().isValidated()) {
-				LocalDateTime dateExpirationMdp = userFromDB.get().getTemporaryCodeExpirationDate();
-				Boolean isExpired = userService.mdpExpired(dateExpirationMdp, LocalDateTime.now());
-				userService.validationMdp(isExpired, userFromDB);
-				if (isExpired) {
-					throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
-							"Le mot de passe temporaire n'est plus valide ; veuillez relancer une inscription !");
-				}
-			}
+        this.manageRoles(registerForm, user);
 
-			String passwordFromDB = userFromDB.get().getPassword();
-			String passwordRequest = loginRequest.getPassword();
-			boolean passwordMatches = encoder.matches(passwordRequest, passwordFromDB);
-			System.out.println("Mots de passes correspondent ? " + passwordMatches);
-			if (passwordRequest == null || !passwordMatches) {
-				throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Les 2 mots de passe ne correspondent pas");
-			} else {
+        this.userService.saveOrUpdateUser(user);
+        throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
+				String.format("Initialization of user and email send to %s. Proceed.", email)
+		);
+    }
 
-				Authentication authentication = authenticationManager.authenticate(
-						new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
-				SecurityContextHolder.getContext().setAuthentication(authentication);
-				User user = (User) authentication.getPrincipal();
-				System.out.println("User récupéré : " + user.toString());
+    private void manageRoles(@RequestBody @Valid RegisterForm registerForm, User user) {
+        final Set<String> rolesAsString = registerForm.getRole();
+        final Set<Role> roles = new HashSet<>();
+        rolesAsString.forEach(roleAsString -> roles.add(
+                this.roleService.findByName(Role.Name.valueOf(roleAsString))
+                )
+        );
+        user.setRoles(roles);
+    }
 
-				// On génère un token en fonction de l'id, l'email et le password de
-				// l'utilisateur
-				String jwt = jwtProv.generateJwtToken(authentication);
-				System.out.println("jwt dans AuthController : " + jwt);
-				
-				if (jwtProv.validateToken(jwt)) {
-					// On retourne une jwt response qui contient le token et l'utilisateur
-					return ResponseEntity.ok(new JwtResponse(jwt, user.getUsername(), user.getAuthorities()));
-				}
-			}
-		}
+    @PostMapping(value = "/login")
+    public ResponseEntity<JwtResponse> login(@Valid @RequestBody LoginForm credentials) {
+        final Authentication authenticate;
+        try {
+            authenticate = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        credentials.getEmail(),
+                        credentials.getPassword(),
+                        new ArrayList<>())
+        );
+        } catch (AuthenticationException e) {
+            e.printStackTrace();
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
+                    "Wrong credentials, please try again or contact an administrator.");
+        }
+        String token = JWT.create()
+                .withSubject(((User) authenticate.getPrincipal()).getUsername())
+                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .sign(HMAC512(SECRET.getBytes()));
+        return new ResponseEntity<>(new JwtResponse(token, authenticate.getAuthorities()), HttpStatus.OK);
+    }
 
-		throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé");
+    @PostMapping(value = "/whoami")
+    public ResponseEntity<User> whoAmI() {
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        final String email = (String) authentication.getPrincipal();
+        final User currentUser = this.userService.findByEmail(email);
+        return new ResponseEntity<>(currentUser, HttpStatus.OK);
+    }
 
-	}
-	
-	@GetMapping("/user")
-	public User getCurrentUser(@AuthenticationPrincipal final User user) {
+    @PostMapping(value = "/passwordForgotten")
+    public ResponseEntity<?> passwordForgotten() {
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        final User currentUser = (User) authentication.getPrincipal();
+        final String email = currentUser.getEmail();
+		currentUser.setValidated(false);
+        final String randomCode = CodeGeneration.generateCode(10);
+        if (this.activeProfile.contains("prod")) {
+			this.emailService.sendEmail(email, randomCode);
+        }
+		currentUser.setPassword(randomCode);
+		this.userService.saveOrUpdateUser(currentUser);
+		throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
+				String.format("Reinitialization of user and email send to %s. Proceed.", email)
+		);
+    }
 
-		return user;
 
-	}
-
-
-	@RequestMapping(value = "/register", method = POST)
-	public ResponseEntity<?> ifFirstConnection(@Valid @RequestBody RegisterForm registerForm) {
-		if (userService.alreadyExists(registerForm.getEmail())) {
-			if (userService.existingMailIsValidated(registerForm.getEmail()) == true) {
-				System.out.println("l'email existe déjà et a été validé !");
-				return new ResponseEntity<Boolean>(true, HttpStatus.OK);
-			} else {
-				Optional<User> oOldUser = userRepository.findByEmail(registerForm.getEmail());
-				userRepository.delete(oOldUser.get());
-			}
-		}
-		String randomCode = CodeGeneration.generateCode(10);
-		if (activeProfil.contains("prod")) {
-			// Send Message!
-			userService.sendMail(registerForm.getEmail(), randomCode);
-		}
-		User user = new User();
-		user.setEmail(registerForm.getEmail());
-		user.setTemporaryCodeExpirationDate(LocalDateTime.now().plus(24, ChronoUnit.HOURS));
-		// On crypte avec bcrypt le mot de passe dans la bdd
-		String randomCodeEncrypt = encoder.encode(randomCode);
-		user.setPassword(randomCodeEncrypt);
-		//Récupération du rôle qui a été choisi dans le formulaire=>role user par defaut, prévision choix de 3 rôles dans le formulaire rgister
-		Set<String> strRoles = registerForm.getRole();
-		Set<Role> roles= new HashSet<>();
-		//Verification des rôles existant dans le RoleRepository et attribution des rôles au current user
-		strRoles.forEach(selectedRole->{
-			switch (selectedRole) {
-//				case "user":
-//					Role userRole = roleRepository.findByName(Rolename.ROLE_USER)
-//					.orElseThrow(() -> new RuntimeException("Fail! -> Cause : User role not found"));
-//					roles.add(userRole);
-			case "organisme":
-				Role organismeRole = roleRepository.findByName(Rolename.ROLE_ORGANISME)
-						.orElseThrow(() -> new RuntimeException("Fail! -> Cause : Organisme role not found"));
-				roles.add(organismeRole);
-			case "entreprise":
-				Role entrepriseRole = roleRepository.findByName(Rolename.ROLE_ENTREPRISE)
-						.orElseThrow(() -> new RuntimeException("Fail! -> Cause : Entreprise role not found"));
-				roles.add(entrepriseRole);
-			default:
-				Role userRole = roleRepository.findByName(Rolename.ROLE_USER)
-						.orElseThrow(() -> new RuntimeException("Fail! -> Cause : default role not found"));
-				roles.add(userRole);
-			}
-		});
-		//Sauvegarde des rôles pour le user
-		user.setRoles(roles);
-		userRepository.save(user);
-		return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
-	}
-
-	@RequestMapping(value = "/passwordForgotten", method = POST)
-	public ResponseEntity<?> ifForgotPassword(@Valid @RequestBody User user) {
-		if (userService.alreadyExists(user.getEmail())) {
-			if (userService.existingMailIsValidated(user.getEmail())) {
-				Optional<User> userFDb = userRepository.findByEmail(user.getEmail());
-				userFDb.get().setValidated(false);
-				String randomCode = CodeGeneration.generateCode(10);
-				if (activeProfil.contains("prod")) {
-					// Send Message!
-					userService.sendMail(user.getEmail(), randomCode);
-				}
-				userFDb.get().setPassword(randomCode);
-				userService.saveOrUpdateUser(userFDb.get());
-				return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
-			} else {
-				Optional<User> oOldUser = userRepository.findByEmail(user.getEmail());
-				userRepository.delete(oOldUser.get());
-			}
-		}
-		String randomCode = CodeGeneration.generateCode(10);
-		if (activeProfil.contains("prod")) {
-			// Send Message!
-			userService.sendMail(user.getEmail(), randomCode);
-		}
-		user.setPassword(randomCode);
-		userRepository.save(user);
-		return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
-	}
-
-//	A update plus tard pour récupérer le token dans le header
-	@PostMapping(value = "/whoami")
-	public ResponseEntity<?> whoAmI(@RequestBody String frontToken)
-			throws JsonMappingException, JsonProcessingException {
-		String decryptResponse = jwtProv.decryptJwtToken(frontToken);
-		if (!(jwtProv.validateToken(decryptResponse))) {
-			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Token invalide ou expiré");
-		} else {
-			User userFromJson = jwtProv.getUserFromJson(decryptResponse);
-			User userFromDb = userService.getUserById(userFromJson.getId())
-					.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé"));
-			boolean passwordMatches = userFromJson.getPassword().equalsIgnoreCase( userFromDb.getPassword());
-			System.out.println("Mots de passes correspondent ? " + passwordMatches + " password from json: " +userFromJson.getPassword() + " password from db: " +userFromDb.getPassword());
-			if (!(userFromJson.getEmail().equals(userFromDb.getEmail()) && passwordMatches)) {
-				throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
-						"L'utilisateur retrouvé à partir du token et celui dans la base de donnée ne correspondent pas");
-			} else {
-				return new ResponseEntity<User>(userFromDb,
-						HttpStatus.OK);
-			}
-		}
-	}
 }

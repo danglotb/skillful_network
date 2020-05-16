@@ -36,6 +36,8 @@ export class ApiHelperService {
       params: queryParams
     };
 
+    console.log(method + ' ' + endpoint);
+
     let req: Observable<any> = null;
     if (methodWanted === 'get') {
       req = this.http.get(url, {...requestOptions, observe: 'response'});
@@ -52,6 +54,8 @@ export class ApiHelperService {
     }
 
     // Conversion du résultat en promesse
-    return req.toPromise().then((res) => res.body);
+    return req.toPromise().then((res) => {
+      return res.body;
+    });
   }
 }
