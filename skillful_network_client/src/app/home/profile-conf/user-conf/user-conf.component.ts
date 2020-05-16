@@ -8,15 +8,13 @@ import {DateAdapter} from '@angular/material/core';
 })
 
 export class UserConfComponent {
-  // tslint:disable-next-line:variable-name
+
   constructor(private _adapter: DateAdapter<any>) {
     this._adapter.setLocale('fr');
   }
 
   @Input() userInfoGroup: FormGroup;
-  // tslint:disable-next-line:use-lifecycle-interface
-  ngOnInit() {
-    console.log(this.userInfoGroup);
-  }
+
+  ngOnInit() { }
 
 }
