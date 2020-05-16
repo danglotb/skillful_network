@@ -1,22 +1,19 @@
 package fr.uca.cdr.skillful_network.security;
 
+import java.util.Random;
+import java.util.function.Function;
+
 public class CodeGeneration {
-	
-	private static StringBuilder pass;
 
-	public static String generateCode(int length) {
-		
-		// définition de la date de création du pass
-				
-				String chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-				pass = new StringBuilder();
-				for (int x = 0; x < length; x++) {
-					// tirage au sort d'un caract�re et rajout au String builder
-					int i = (int) Math.floor(Math.random() * 62);
-					pass.append(chars.charAt(i));
-				}
+	private static int BEGIN = 48;
 
-				System.out.println(pass.toString());
-				return pass.toString();
-			}
+	private static final int END = 122;
+
+	private static final Random RANDOM = new Random();
+
+	public static final Function<Integer, String> generate = length -> RANDOM.ints(BEGIN, END + 1)
+			.filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+			.limit(length)
+			.collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+			.toString();
 }
