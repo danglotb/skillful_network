@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { deprecate } from 'util';
 // Ce service permettra de manipuler les données relatives au token/utilisateur de la session
 
 const TOKEN_KEY = 'token';
@@ -20,14 +21,7 @@ export class TokenStorageService {
     sessionStorage.clear();
   }
 
-  public saveTokenSession(token: string) {
-    sessionStorage.removeItem(TOKEN_KEY);
-    sessionStorage.setItem(TOKEN_KEY, token);
-    console.log('token sauvé : ' + localStorage.getItem(TOKEN_KEY));
-  }
-
-  public saveTokenAndCurrentUsername(token: string, username: string , authorities: string[], storage: string) {
-    // On enlève toutes les infos dans les storage
+  public saveTokenAndCurrentUsername(token: string, authorities: string[], storage: string) {
     localStorage.removeItem(TOKEN_KEY);
     sessionStorage.removeItem(TOKEN_KEY);
     localStorage.removeItem(USERNAME_KEY );
@@ -36,25 +30,14 @@ export class TokenStorageService {
     sessionStorage.removeItem(AUTHORITIES_KEY);
     localStorage.removeItem(IS_LOGGED_IN);
     sessionStorage.removeItem(IS_LOGGED_IN);
-
-  // En fonction du choix donné en argument, on sauvegarde les informations dans le storage approprié
     if (storage === LOCAL_STORAGE) {
       localStorage.setItem(TOKEN_KEY, token);
-      localStorage.setItem(USERNAME_KEY , JSON.stringify(username));
       localStorage.setItem(AUTHORITIES_KEY, JSON.stringify(authorities));
       localStorage.setItem(IS_LOGGED_IN, IS_LOGGED);
-      console.log('token sauvé dans le local storage : ' + localStorage.getItem(TOKEN_KEY));
-      console.log('username sauvé concernant l\'utilisateur courant dans le local storage : ' + localStorage.getItem(USERNAME_KEY));
-      console.log('authorities sauvées concernant l\'utilisateur courant dans le local storage : ' + localStorage.getItem(AUTHORITIES_KEY));
-
     } else {
       sessionStorage.setItem(TOKEN_KEY, token);
-      sessionStorage.setItem(USERNAME_KEY, JSON.stringify(username));
       sessionStorage.setItem(AUTHORITIES_KEY, JSON.stringify(authorities));
       sessionStorage.setItem(IS_LOGGED_IN, IS_LOGGED);
-      console.log('token sauvé dans le session storage : ' + sessionStorage.getItem(TOKEN_KEY));
-      console.log('username sauvé concernant l\'utilisateur courant dans le session storage : ' + sessionStorage.getItem(USERNAME_KEY));
-      console.log('authorities sauvées concernant l\'utilisateur courant dans le session storage : ' + sessionStorage.getItem(AUTHORITIES_KEY));
     }
   }
 
@@ -62,6 +45,7 @@ export class TokenStorageService {
     return localStorage.getItem(TOKEN_KEY) || sessionStorage.getItem(TOKEN_KEY);
   }
 
+  // DEPRECATED
   public getCurrentUser() {
     return JSON.parse(localStorage.getItem(USERNAME_KEY) || JSON.parse(sessionStorage.getItem(USERNAME_KEY)));
   }
@@ -70,7 +54,6 @@ export class TokenStorageService {
     let roles: string [];
     let authorities: any;
     roles = [];
-
     authorities = sessionStorage.getItem(AUTHORITIES_KEY) || localStorage.getItem(AUTHORITIES_KEY);
     JSON.parse(authorities).forEach(authority => {
         roles.push(authority.authority);
@@ -78,10 +61,8 @@ export class TokenStorageService {
     return roles;
   }
 
-
   public isLogged(): boolean {
     return (Boolean)(localStorage.getItem(IS_LOGGED_IN)  || sessionStorage.getItem(IS_LOGGED_IN)) ;
-
   }
 
 }
