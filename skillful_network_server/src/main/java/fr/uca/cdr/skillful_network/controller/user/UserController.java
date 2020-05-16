@@ -74,6 +74,11 @@ public class UserController {
         this.passwordEncoder = passwordEncoder;
     }
 
+    private User getCurrentUser() {
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return (User) authentication.getPrincipal();
+    }
+
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
     @GetMapping(value = "")
     public List<User> getUsers() {
@@ -96,8 +101,7 @@ public class UserController {
     @Transactional
     @PutMapping(value = "")
     public ResponseEntity<User> update(@Valid @RequestBody UserForm userRequest) {
-        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        final User currentUser = (User) authentication.getPrincipal();
+        final User currentUser = getCurrentUser();
         if (userRequest != null) {
             currentUser.setLastName(userRequest.get_lastName());
             currentUser.setFirstName(userRequest.get_firstName());
@@ -115,23 +119,14 @@ public class UserController {
         }
     }
 
-    @Deprecated
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
     @PutMapping("/password")
     public ResponseEntity<User> updatePassword(@Valid @RequestBody UserPwdUpdateForm passwordUpdate) {
-        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        final User currentUser = (User) authentication.getPrincipal();
+        final User currentUser = getCurrentUser();
         final String userNewPwd = this.passwordEncoder.encode(passwordUpdate.getPassword());
         currentUser.setPassword(userNewPwd);
         this.userService.saveOrUpdateUser(currentUser);
         return new ResponseEntity<>(currentUser, HttpStatus.OK);
-    }
-
-    @Deprecated
-    @GetMapping(value = "/testCreationRepo")
-    public ResponseEntity<Boolean> testCreationRepo() {
-        this.userService.createRepoImage();
-        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
     private static final ArrayList<String> SUPPORTED_EXTENSIONS_PROFILE_PICTURE = new ArrayList<>();
@@ -145,9 +140,8 @@ public class UserController {
     @SuppressWarnings("resource")
     @PreAuthorize("hasRole('USER')")
     @Transactional
-    @RequestMapping(value = "/uploadProfilePicture", method = RequestMethod.POST)
-    public ResponseEntity<Boolean> profilePictureUpload(@RequestParam("image") MultipartFile image,
-                                                        RedirectAttributes redirectAttributes) {
+    @PostMapping(value = "/profilePicture")
+    public ResponseEntity<Boolean> profilePictureUpload(@RequestParam("image") MultipartFile image) {
         if (image.getOriginalFilename() == null || image.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.UNSUPPORTED_MEDIA_TYPE, "Veuillez selectionner une photo profil");
         }
@@ -183,10 +177,14 @@ public class UserController {
         }
     }
 
-    // TODO could not find where it used
-    @Deprecated
+    @GetMapping(value = "/profilePicture", produces = MediaType.IMAGE_JPEG_VALUE)
+    public ResponseEntity<byte[]> getProfilePicture() throws IOException {
+        final User currentUser = getCurrentUser();
+        return this.getProfilePictureById(currentUser.getId());
+    }
+
     @GetMapping(value = "/profilePicture/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
-    public ResponseEntity<byte[]> getProfilePicture(@PathVariable("id") Long id) throws IOException {
+    public ResponseEntity<byte[]> getProfilePictureById(@PathVariable("id") Long id) throws IOException {
         final String pathname = "WebContent/images/" + id + ".png";
         final File profilePictureFile = new File(pathname);
         if (!profilePictureFile.exists()) {
@@ -214,19 +212,21 @@ public class UserController {
         return ResponseEntity.ok().body(this.userService.getUserById(id));
     }
 
-    // TODO Where do we need this ?
     @PreAuthorize("hasRole('USER')")
-    @GetMapping(value = "/skills/{skillName}")
-    public ResponseEntity<Skill> getSkillByName(@PathVariable(value = "skillName") String skillName) {
-        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        final User currentUser = (User) authentication.getPrincipal();
-        final Skill SkillFromDb = this.skillService.getSkillByName(skillName);
+    @Transactional
+    @PostMapping("/skills/{skillId}")
+    public ResponseEntity<Skill> addSkillById(@PathVariable(value = "skillId") Long skillId) {
+        final User currentUser = getCurrentUser();
+        final Skill skillToAdd = this.skillService.getSkillById(skillId);
         final Set<Skill> skillSet = currentUser.getSkillSet();
-        if (skillSet.contains(SkillFromDb)) {
-            return new ResponseEntity<>(SkillFromDb, HttpStatus.OK);
+        if (!(skillSet.contains(skillToAdd))) {
+            skillSet.add(skillToAdd);
+            currentUser.setSkillSet(skillSet);
+            this.userService.saveOrUpdateUser(currentUser);
+            return new ResponseEntity<>(skillToAdd, HttpStatus.OK);
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    String.format("None skill with the name %s could be find for the user %d", skillName, currentUser.getId()));
+                    String.format("None skill with the id %d could be find for the user %d", skillId, currentUser.getId()));
         }
     }
 
@@ -234,8 +234,7 @@ public class UserController {
     @Transactional
     @DeleteMapping("/skills/{skillId}")
     public ResponseEntity<Skill> deleteSkillById(@PathVariable(value = "skillId") Long skillId) {
-        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        final User currentUser = (User) authentication.getPrincipal();
+        final User currentUser = getCurrentUser();
         final Skill skillToDelete = this.skillService.getSkillById(skillId);
         final Set<Skill> skillSet = currentUser.getSkillSet();
         if (skillSet.contains(skillToDelete)) {
@@ -251,21 +250,16 @@ public class UserController {
 
     @PreAuthorize("hasRole('USER')")
     @Transactional
-    @PostMapping("/skills/{skillId}")
-    public ResponseEntity<Skill> addSkillById(@PathVariable(value = "skillId") Long skillId) {
-        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        final User currentUser = (User) authentication.getPrincipal();
-        final Skill skillToAdd = this.skillService.getSkillById(skillId);
-        final Set<Skill> skillSet = currentUser.getSkillSet();
-        if (!(skillSet.contains(skillToAdd))) {
-            skillSet.add(skillToAdd);
-            currentUser.setSkillSet(skillSet);
-            this.userService.saveOrUpdateUser(currentUser);
-            return new ResponseEntity<>(skillToAdd, HttpStatus.OK);
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    String.format("None skill with the id %d could be find for the user %d", skillId, currentUser.getId()));
-        }
+    @DeleteMapping("/skills")
+    public ResponseEntity<Set<Skill>> getAllCurrentSkills() {
+        final User currentUser = getCurrentUser();
+        return new ResponseEntity<>(currentUser.getSkillSet(), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{id}/skills")
+    public ResponseEntity<Set<Skill>> getAllSkillByUserId(@PathVariable(value = "id") Long id) {
+        Set<Skill> listSkills = this.userService.getUserById(id).getSkillSet();
+        return new ResponseEntity<>(listSkills, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}/qualifications")
@@ -278,12 +272,6 @@ public class UserController {
     public ResponseEntity<Set<Subscription>> getAllSubscriptionByUserId(@PathVariable(value = "id") Long id) {
         Set<Subscription> listSubscription = this.userService.getUserById(id).getSubscriptionSet();
         return new ResponseEntity<>(listSubscription, HttpStatus.OK);
-    }
-
-    @GetMapping(value = "/{id}/skills")
-    public ResponseEntity<Set<Skill>> getAllSkillByUserId(@PathVariable(value = "id") Long id) {
-        Set<Skill> listSkills = this.userService.getUserById(id).getSkillSet();
-        return new ResponseEntity<>(listSkills, HttpStatus.OK);
     }
 
 }
