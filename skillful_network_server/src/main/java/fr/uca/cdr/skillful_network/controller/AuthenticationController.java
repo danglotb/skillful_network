@@ -66,7 +66,7 @@ public class AuthenticationController {
     @GetMapping("/user")
     public User getCurrentUser() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return (User) authentication.getPrincipal();
+        return this.userService.findByEmail((String)authentication.getPrincipal());
     }
 
     @PostMapping(value = "/register")
