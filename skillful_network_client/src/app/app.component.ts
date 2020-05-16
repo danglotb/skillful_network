@@ -24,7 +24,7 @@ export class AppComponent implements OnInit{
         this.urlActual = location.pathname.toString()
         if(!(this.urlActual== "/" || this.urlActual.includes("login") || this.urlActual.includes("password") || this.urlActual.includes("passwordForgotten"))){
           this.stillLogged = true
-          this.api.post({endpoint:"/authentication/whoami" , data:this.tokenStorageService.getToken()}).then(
+          this.api.post({endpoint:"/whoami" , data:this.tokenStorageService.getToken()}).then(
             data=>{
               this.userService.updateUser(data,false);
               this.stillLogged = false
@@ -43,7 +43,7 @@ export class AppComponent implements OnInit{
         else {
           if(this.tokenStorageService.getToken()!= null){
             this.stillLogged = true
-            this.api.post({endpoint:"/authentication/whoami" , data:this.tokenStorageService.getToken()}).then(
+            this.api.post({endpoint:"/whoami" , data:this.tokenStorageService.getToken()}).then(
               data=>{
                 this.userService.updateUser(data,false);
                 this.router.navigate(['/home']);

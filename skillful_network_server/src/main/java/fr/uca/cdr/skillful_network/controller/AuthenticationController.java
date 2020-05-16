@@ -19,7 +19,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -100,6 +99,16 @@ public class AuthenticationController {
 		);
     }
 
+    private void manageRoles(@RequestBody @Valid RegisterForm registerForm, User user) {
+        final Set<String> rolesAsString = registerForm.getRole();
+        final Set<Role> roles = new HashSet<>();
+        rolesAsString.forEach(roleAsString -> roles.add(
+                this.roleService.findByName(Role.Name.valueOf(roleAsString))
+                )
+        );
+        user.setRoles(roles);
+    }
+
     @PostMapping(value = "/login")
     public ResponseEntity<JwtResponse> login(@Valid @RequestBody LoginForm credentials) {
         final Authentication authenticate;
@@ -122,21 +131,19 @@ public class AuthenticationController {
         return new ResponseEntity<>(new JwtResponse(token, authenticate.getAuthorities()), HttpStatus.OK);
     }
 
-    private void manageRoles(@RequestBody @Valid RegisterForm registerForm, User user) {
-        final Set<String> rolesAsString = registerForm.getRole();
-        final Set<Role> roles = new HashSet<>();
-        rolesAsString.forEach(roleAsString -> roles.add(
-                this.roleService.findByName(Role.Name.valueOf(roleAsString))
-                )
-        );
-        user.setRoles(roles);
+    @PostMapping(value = "/whoami")
+    public ResponseEntity<User> whoAmI() {
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        final String email = (String) authentication.getPrincipal();
+        final User currentUser = this.userService.findByEmail(email);
+        return new ResponseEntity<>(currentUser, HttpStatus.OK);
     }
 
     @PostMapping(value = "/passwordForgotten")
     public ResponseEntity<?> passwordForgotten() {
-		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		final User currentUser = (User) authentication.getPrincipal();
-		final String email = currentUser.getEmail();
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        final User currentUser = (User) authentication.getPrincipal();
+        final String email = currentUser.getEmail();
 		currentUser.setValidated(false);
         final String randomCode = CodeGeneration.generateCode(10);
         if (this.activeProfile.contains("prod")) {
@@ -149,26 +156,5 @@ public class AuthenticationController {
 		);
     }
 
-////	A update plus tard pour récupérer le token dans le header
-//	@PostMapping(value = "/whoami")
-//	public ResponseEntity<?> whoAmI(@RequestBody String frontToken)
-//			throws JsonMappingException, JsonProcessingException {
-//		String decryptResponse = jwtProv.decryptJwtToken(frontToken);
-//		if (!(jwtProv.validateToken(decryptResponse))) {
-//			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Token invalide ou expiré");
-//		} else {
-//			User userFromJson = jwtProv.getUserFromJson(decryptResponse);
-//			User userFromDb = userService.getUserById(userFromJson.getId())
-//					.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun utilisateur trouvé"));
-//			boolean passwordMatches = userFromJson.getPassword().equalsIgnoreCase( userFromDb.getPassword());
-//			System.out.println("Mots de passes correspondent ? " + passwordMatches + " password from json: " +userFromJson.getPassword() + " password from db: " +userFromDb.getPassword());
-//			if (!(userFromJson.getEmail().equals(userFromDb.getEmail()) && passwordMatches)) {
-//				throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
-//						"L'utilisateur retrouvé à partir du token et celui dans la base de donnée ne correspondent pas");
-//			} else {
-//				return new ResponseEntity<User>(userFromDb,
-//						HttpStatus.OK);
-//			}
-//		}
-//	}
+
 }

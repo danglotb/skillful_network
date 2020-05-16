@@ -6,8 +6,9 @@ import { TokenStorageService } from '../shared/services/token-storage.service';
 import { User } from '../shared/models/user';
 import { Router } from '@angular/router';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogModule, MatDialog} from '@angular/material/dialog';
-import {MyDialogComponent} from '../my-dialog/my-dialog.component';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
+import { MyDialogComponent } from '../my-dialog/my-dialog.component';
+import { JwtResponse } from '../shared/models/jwt-response';
 
 @Component({
   selector: 'app-login',
@@ -42,56 +43,62 @@ export class LoginComponent implements OnInit {
   dialogResult = "";
 
   constructor(private api: ApiHelperService,
-              private userService: UserService, 
-              private router: Router, 
-              private formBuilder: FormBuilder, 
-              private authService: AuthService, 
-              private tokenStorage: TokenStorageService, 
-              public dialog:MatDialog) {
+    private userService: UserService,
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private tokenStorage: TokenStorageService,
+    public dialog: MatDialog) {
   }
 
   ngOnInit() {
     this.buildFormInscription();
     this.buildFormLogin();
     this.codeFormBuild();
+    this.doDisplayCodeVerif = false;
   }
 
   login() {
     localStorage.clear();
     sessionStorage.clear();
-    this.authService.login({ emailLogin: this.loginFormGroup.value.emailLogin, password: this.loginFormGroup.value.password })
-        .then((data) => {
-            this.tokenStorage.saveTokenAndCurrentUsername(data.token, data.authorities, this.isChecked ? 'local' : '');
-            if (this.doDisplayCodeVerif) {
-              this.router.navigate(['/password']);
-            } else {
-              this.router.navigate(['/home']);
-            }
-          })
-        .catch((error) => {
-          this.isLoginFailed = true;
-        });
+    let response : Promise<JwtResponse>;
+    if (this.doDisplayCodeVerif) {
+      response = this.authService.login(this.inscriptionFormGroup.value.emailInscription, this.codeForm.value.code);
+    } else {
+      response = this.authService.login(this.loginFormGroup.value.emailLogin, this.loginFormGroup.value.password);
     }
+    response.then((data) => {
+      this.tokenStorage.saveTokenAndCurrentUsername(data.token, data.authorities, this.isChecked ? 'local' : '');
+      if (this.doDisplayCodeVerif) {
+        this.router.navigate(['/password']);
+      } else {
+        this.router.navigate(['/home']);
+      }
+    })
+      .catch((error) => {
+        this.isLoginFailed = true;
+      });
+  }
 
-    register() {
-      this.role = ['ROLE_USER'];
-      this.authService.register( {email: this.inscriptionFormGroup.value.emailInscription, role: this.role})
-        .then((response) => {
-          this.openDialog('L\' adresse email  ' + this.inscriptionFormGroup.value.emailInscription +'   que vous avez insérée existe déjà. Veuillez vous connecter.');
-          this.router.navigate(['/login']);
-        }).catch((error) => {
-          this.doDisplayCodeVerif = true;
-        });
-    }
+  register() {
+    this.role = ['ROLE_USER'];
+    this.authService.register({ email: this.inscriptionFormGroup.value.emailInscription, role: this.role })
+      .then((response) => {
+        this.openDialog('L\' adresse email  ' + this.inscriptionFormGroup.value.emailInscription + '   que vous avez insérée existe déjà. Veuillez vous connecter.');
+        this.router.navigate(['/login']);
+      }).catch((error) => {
+        this.doDisplayCodeVerif = true;
+      });
+  }
 
-    openDialog(message:string) {
+  openDialog(message: string) {
     let dialogRef = this.dialog.open(MyDialogComponent, {
       width: '700px',
       data: message
     });
-    dialogRef.afterClosed().subscribe (result => {
+    dialogRef.afterClosed().subscribe(result => {
       console.log('Fermeture fenêtre dialogue ');
-      this.dialogResult = result ; 
+      this.dialogResult = result;
     })
   }
 
@@ -121,8 +128,8 @@ export class LoginComponent implements OnInit {
     });
   }
   onChange(event) {
-    this.isChecked=event;
+    this.isChecked = event;
     // can't event.preventDefault();
-    console.log('onChange event.checked '+event.checked);
+    console.log('onChange event.checked ' + event.checked);
   }
 }
