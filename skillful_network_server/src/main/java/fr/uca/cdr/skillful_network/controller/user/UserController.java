@@ -14,14 +14,12 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.DomainEvents;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -32,12 +30,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.common.io.Files;
 
@@ -46,7 +42,6 @@ import fr.uca.cdr.skillful_network.entities.user.Qualification;
 import fr.uca.cdr.skillful_network.entities.user.Skill;
 import fr.uca.cdr.skillful_network.entities.user.Subscription;
 import fr.uca.cdr.skillful_network.entities.user.User;
-import fr.uca.cdr.skillful_network.services.user.SkillService;
 import fr.uca.cdr.skillful_network.services.user.UserService;
 import fr.uca.cdr.skillful_network.request.UserForm;
 import fr.uca.cdr.skillful_network.request.UserPwdUpdateForm;
@@ -60,16 +55,11 @@ public class UserController {
     @Autowired
     private final UserService userService;
 
-    @Autowired
-    private final SkillService skillService;
-
     private final BCryptPasswordEncoder passwordEncoder;
 
     public UserController(UserService userService,
-                          SkillService skillService,
                           BCryptPasswordEncoder passwordEncoder) {
         this.userService = userService;
-        this.skillService = skillService;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -140,7 +130,7 @@ public class UserController {
     @PreAuthorize("hasRole('USER')")
     @Transactional
     @PostMapping(value = "/profilePicture")
-    public ResponseEntity<Boolean> profilePictureUpload(@RequestParam("image") MultipartFile image) {
+    public ResponseEntity<Boolean> updateProfilePicture(@RequestParam("image") MultipartFile image) {
         if (image.getOriginalFilename() == null || image.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.UNSUPPORTED_MEDIA_TYPE, "Veuillez selectionner une photo profil");
         }
@@ -209,42 +199,6 @@ public class UserController {
     @GetMapping(value = "/{id}")
     public ResponseEntity<User> getUserById(@PathVariable(value = "id") Long id) {
         return ResponseEntity.ok().body(this.userService.getUserById(id));
-    }
-
-    @PreAuthorize("hasRole('USER')")
-    @Transactional
-    @PostMapping("/skills/{skillId}")
-    public ResponseEntity<Skill> addSkillById(@PathVariable(value = "skillId") Long skillId) {
-        final User currentUser = getCurrentUser();
-        final Skill skillToAdd = this.skillService.getSkillById(skillId);
-        final Set<Skill> skillSet = currentUser.getSkillSet();
-        if (!(skillSet.contains(skillToAdd))) {
-            skillSet.add(skillToAdd);
-            currentUser.setSkillSet(skillSet);
-            this.userService.saveOrUpdateUser(currentUser);
-            return new ResponseEntity<>(skillToAdd, HttpStatus.OK);
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    String.format("None skill with the id %d could be find for the user %d", skillId, currentUser.getId()));
-        }
-    }
-
-    @PreAuthorize("hasRole('USER')")
-    @Transactional
-    @DeleteMapping("/skills/{skillId}")
-    public ResponseEntity<Skill> deleteSkillById(@PathVariable(value = "skillId") Long skillId) {
-        final User currentUser = getCurrentUser();
-        final Skill skillToDelete = this.skillService.getSkillById(skillId);
-        final Set<Skill> skillSet = currentUser.getSkillSet();
-        if (skillSet.contains(skillToDelete)) {
-            skillSet.remove(skillToDelete);
-            currentUser.setSkillSet(skillSet);
-            this.userService.saveOrUpdateUser(currentUser);
-            return new ResponseEntity<>(skillToDelete, HttpStatus.OK);
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    String.format("None skill with the id %d could be find for the user %d", skillId, currentUser.getId()));
-        }
     }
 
     @PreAuthorize("hasRole('USER')")
