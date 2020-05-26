@@ -34,13 +34,10 @@ public class ControllerTest {
     @MockBean
     private UserService userService;
 
-    // TODO should not have to do that...
-    @MockBean
-    private SkillService skillService;
-
     @Before
     public void setUp() {
-        final User user = new User(1L, "name", "lastName");
+        final User user = new User();
+        user.setEmail("user.email@test.com");
         Mockito.when(userService.findAll())
                 .thenReturn(Collections.singletonList(user));
     }
@@ -50,7 +47,7 @@ public class ControllerTest {
         mvc.perform(get("/users").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.[0].id").value("1"));;
+                .andExpect(jsonPath("$.[0].id").value("0"));;
     }
 
 }

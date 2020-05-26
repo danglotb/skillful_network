@@ -37,7 +37,8 @@ public class ServiceTest {
 
     @Before
     public void setUp() {
-        final User user = new User(1L, "name", "lastName");
+        final User user = new User();
+        user.setEmail("user.email@test.com");
         Mockito.when(userRepository.findById(user.getId()))
                 .thenReturn(java.util.Optional.of(user));
     }
@@ -46,12 +47,8 @@ public class ServiceTest {
     public void testGetUserById() {
         final long id = 1L;
         final User user = userService.getUserById(id);
-        assertThat(user.getLastName())
-                .isEqualTo("lastName");
-        assertThat(user.getFirstName())
-                .isEqualTo("name");
-        assertThat(user.getId())
-                .isEqualTo(id);
+        assertThat(user.getEmail())
+                .isEqualTo("user.email@test.com");
     }
 
 }

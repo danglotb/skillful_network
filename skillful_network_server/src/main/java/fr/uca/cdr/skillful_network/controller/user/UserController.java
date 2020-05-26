@@ -157,7 +157,6 @@ public class UserController {
 
         try (FileOutputStream writer = new FileOutputStream(pathImageName)) {
             writer.write(image.getBytes());
-            currentUser.setPhoto(true);
             userService.saveOrUpdateUser(currentUser);
             return new ResponseEntity<>(true, HttpStatus.OK);
         } catch (Exception e) {
