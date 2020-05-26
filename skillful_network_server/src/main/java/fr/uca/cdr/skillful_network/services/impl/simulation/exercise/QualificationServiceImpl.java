@@ -2,12 +2,12 @@ package fr.uca.cdr.skillful_network.services.impl.simulation.exercise;
 
 import java.util.List;
 
+import fr.uca.cdr.skillful_network.entities.user.Perk.Qualification;
 import fr.uca.cdr.skillful_network.services.user.QualificationService;
 import fr.uca.cdr.skillful_network.tools.AutoCompletion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import fr.uca.cdr.skillful_network.entities.user.Qualification;
 import fr.uca.cdr.skillful_network.repositories.user.QualificationRepository;
 
 @Service(value = "QualificationService")

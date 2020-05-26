@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.uca.cdr.skillful_network.entities.user.Skill;
+import fr.uca.cdr.skillful_network.entities.user.Perk.Skill;
 import fr.uca.cdr.skillful_network.entities.user.User;
 import fr.uca.cdr.skillful_network.services.user.SkillService;
 

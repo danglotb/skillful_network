@@ -1,9 +1,9 @@
 
 package fr.uca.cdr.skillful_network.services.user;
 
-import java.util.List;
+import fr.uca.cdr.skillful_network.entities.user.Perk.Qualification;
 
-import fr.uca.cdr.skillful_network.entities.user.Qualification;
+import java.util.List;
 
 public interface QualificationService {
 

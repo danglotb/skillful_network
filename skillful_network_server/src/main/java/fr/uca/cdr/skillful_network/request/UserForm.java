@@ -9,9 +9,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
 
-import fr.uca.cdr.skillful_network.entities.user.Qualification;
-import fr.uca.cdr.skillful_network.entities.user.Skill;
-import fr.uca.cdr.skillful_network.entities.user.Subscription;
+import fr.uca.cdr.skillful_network.entities.user.Perk.Skill;
+import fr.uca.cdr.skillful_network.entities.user.Perk.Qualification;
+import fr.uca.cdr.skillful_network.entities.user.Perk.Subscription;
 
 
 public class UserForm {
@@ -31,9 +31,9 @@ public class UserForm {
 	private String _status;
 	private boolean _validated;
 	private boolean _photo;
-	private Set<Skill> _skillSet = new HashSet<Skill>();
-	private Set<Qualification> _qualificationSet = new HashSet<Qualification>();
-	private Set<Subscription> _subscriptionSet = new HashSet<Subscription>();
+	private Set<Skill> _skillSet = new HashSet<>();
+	private Set<Qualification> _qualificationSet = new HashSet<>();
+	private Set<Subscription> _subscriptionSet = new HashSet<>();
 	private String _photoProfile;
 	private String _careerGoal;
 	
@@ -45,9 +45,9 @@ public class UserForm {
 	}
 	
 	public UserForm(long _id, String _firstName, String _lastName, String _password, Date _birthDate, String _email,
-			String _mobileNumber, String _status, boolean _validated, boolean _photo, Set<Skill> _skillSet,
-			Set<Qualification> _qualificationSet, Set<Subscription> _subscriptionSet, String _photoProfile,
-			String _careerGoal) {
+					String _mobileNumber, String _status, boolean _validated, boolean _photo, Set<Skill> _skillSet,
+					Set<Qualification> _qualificationSet, Set<Subscription> _subscriptionSet, String _photoProfile,
+					String _careerGoal) {
 		super();
 		this._id = _id;
 		this._firstName = _firstName;

@@ -3,13 +3,13 @@ package fr.uca.cdr.skillful_network.services.impl.user;
 
 import java.util.*;
 
+import fr.uca.cdr.skillful_network.entities.user.Perk.Skill;
 import fr.uca.cdr.skillful_network.services.user.SkillService;
 import fr.uca.cdr.skillful_network.tools.AutoCompletion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import fr.uca.cdr.skillful_network.entities.user.Skill;
 import fr.uca.cdr.skillful_network.repositories.user.SkillRepository;
 import org.springframework.web.server.ResponseStatusException;
 

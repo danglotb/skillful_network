@@ -24,6 +24,9 @@ import javax.validation.constraints.Size;
 
 import fr.uca.cdr.skillful_network.entities.application.JobApplication;
 import fr.uca.cdr.skillful_network.entities.application.TrainingApplication;
+import fr.uca.cdr.skillful_network.entities.user.Perk.Subscription;
+import fr.uca.cdr.skillful_network.entities.user.Perk.Skill;
+import fr.uca.cdr.skillful_network.entities.user.Perk.Qualification;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -75,7 +78,7 @@ public class User implements UserDetails  {
 	private Set<Qualification> qualificationSet = new HashSet<Qualification>();
 
 	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
-	private Set<Subscription> subscriptionSet = new HashSet<Subscription>();
+	private Set<Subscription> subscriptionSet = new HashSet<>();
 
 	@OneToMany(mappedBy = "user", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
 	@JsonIgnoreProperties("user")
