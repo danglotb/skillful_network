@@ -1,5 +1,7 @@
 package fr.uca.cdr.skillful_network.entities.simulation.exercise;
 
+import fr.uca.cdr.skillful_network.entities.Keyword;
+
 import java.util.HashSet;
 import java.util.Set;
 

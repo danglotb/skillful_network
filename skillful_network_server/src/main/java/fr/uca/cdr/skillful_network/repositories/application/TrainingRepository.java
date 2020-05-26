@@ -11,7 +11,7 @@ public interface TrainingRepository extends JpaRepository<Training, Long> {
 
     Optional<Training> findById(Long id);
 
-	Page<Training> findByNameContainsOrOrganisationContainsAllIgnoreCase(Pageable pageable, String keyword1, String keyword2);
+	Page<Training> findByNameContainsOrOrganizationContainsAllIgnoreCase(Pageable pageable, String keyword1, String keyword2);
 
 	Training save(Optional<Training> trainingToUpdate);
 

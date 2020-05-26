@@ -1,6 +1,6 @@
 package fr.uca.cdr.skillful_network.controller.user;
 
-import fr.uca.cdr.skillful_network.entities.user.Perk.Subscription;
+import fr.uca.cdr.skillful_network.entities.user.Subscription;
 import fr.uca.cdr.skillful_network.entities.user.User;
 import fr.uca.cdr.skillful_network.services.user.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;

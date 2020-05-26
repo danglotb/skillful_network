@@ -6,7 +6,7 @@ import fr.uca.cdr.skillful_network.entities.application.Training;
 import fr.uca.cdr.skillful_network.entities.user.User;
 import fr.uca.cdr.skillful_network.entities.simulation.exercise.Exam;
 import fr.uca.cdr.skillful_network.entities.simulation.exercise.Exercise;
-import fr.uca.cdr.skillful_network.entities.simulation.exercise.Keyword;
+import fr.uca.cdr.skillful_network.entities.Keyword;
 import fr.uca.cdr.skillful_network.entities.simulation.exercise.Result;
 import fr.uca.cdr.skillful_network.repositories.KeywordRepository;
 import fr.uca.cdr.skillful_network.repositories.simulation.SimulationRepository;
@@ -115,8 +115,7 @@ public class SimulationServiceImpl implements SimulationService {
 				// macher les mots clés (listeKeyWordsEquals) avec les exercices par id
 				ArrayList<Exercise> listExerciseSimulation=new ArrayList<Exercise>();
 		        for(int i=0; i < listeKeyWordsEquals.size(); i++) {
-		        	
-		        	listExerciseSimulation.addAll(listeKeyWordsEquals.get(i).getExercises());
+//		        	listExerciseSimulation.addAll(listeKeyWordsEquals.get(i).getExercises());
 		        }
 		        Set<Exercise> mySet = new HashSet<Exercise>(listExerciseSimulation);
 

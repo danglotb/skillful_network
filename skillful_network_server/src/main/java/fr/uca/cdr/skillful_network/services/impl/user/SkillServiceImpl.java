@@ -3,7 +3,7 @@ package fr.uca.cdr.skillful_network.services.impl.user;
 
 import java.util.*;
 
-import fr.uca.cdr.skillful_network.entities.user.Perk.Skill;
+import fr.uca.cdr.skillful_network.entities.user.Skill;
 import fr.uca.cdr.skillful_network.services.user.SkillService;
 import fr.uca.cdr.skillful_network.tools.AutoCompletion;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,7 +2,7 @@ package fr.uca.cdr.skillful_network.repositories.user;
 
 import java.util.List;
 
-import fr.uca.cdr.skillful_network.entities.user.Perk.Qualification;
+import fr.uca.cdr.skillful_network.entities.user.Qualification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

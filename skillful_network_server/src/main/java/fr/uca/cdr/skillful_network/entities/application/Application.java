@@ -14,39 +14,29 @@ public abstract class Application {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Long id;
+    protected long id;
 
     @ManyToOne(cascade = CascadeType.REFRESH)
-    @JoinColumn(name = "user_id")
+//    @JoinColumn(name = "user_id")
     @JsonManagedReference
     protected User user;
+
     protected ApplicationStatus status;
+
     protected Date submitDate;
 
     public Application() {
-        super();
-        this.status = ApplicationStatus.INIT;
-        this.submitDate = new Date();
+
     }
 
     public Application(User user, ApplicationStatus status, Date submitDate) {
-        super();
         this.user = user;
         this.status = status;
         this.submitDate = submitDate;
     }
 
-    public Application(Long id, User user, ApplicationStatus status, Date submitDate) {
-        this(user, status, submitDate);
-        this.id = id;
-    }
-
-    public Long getId() {
+    public long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public User getUser() {
@@ -74,16 +64,15 @@ public abstract class Application {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(id, user);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Application that = (Application) o;
+        return id == that.id;
     }
 
     @Override
-    public String toString() {
-        return "Application[" + id +
-                "] user=" + user.getFirstName() + " " + user.getLastName() +
-                ", status=" + status +
-                ", submitDate= " + submitDate ;
+    public int hashCode() {
+        return Objects.hash(id);
     }
-
 }

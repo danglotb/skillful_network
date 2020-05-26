@@ -12,30 +12,22 @@ import java.util.Objects;
 public class TrainingApplication extends Application {
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "training_id")
+//    @JoinColumn(name = "training_id")
     @JsonIgnore
     private Training training;
 
     public TrainingApplication() {
-        super();
+
     }
 
     public TrainingApplication(User user, Training training) {
-        super();
-        this.user = user;
         this.training = training;
-        this.status = ApplicationStatus.SUBMITTED;
+        this.user = user;
     }
 
-    public TrainingApplication(User user, Training training, ApplicationStatus status, Date submitDate) {
+    public TrainingApplication(User user, ApplicationStatus status, Date submitDate, Training training) {
         super(user, status, submitDate);
         this.training = training;
-    }
-
-    public TrainingApplication(Long id, User user, Training training, ApplicationStatus status, Date submitDate) {
-        super(id, user, status, submitDate);
-        this.training = training;
-
     }
 
     public Training getTraining() {
@@ -44,18 +36,5 @@ public class TrainingApplication extends Application {
 
     public void setTraining(Training training) {
         this.training = training;
-    }
-
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, user, training);
-    }
-
-    @Override
-    public String toString() {
-        return super.toString() +
-                ", training=" + training.getOrganisation() + "/" + training.getName();
-
     }
 }

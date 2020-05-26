@@ -26,7 +26,7 @@ public abstract class Perk {
 
     @NotNull(message = "Subscription name cannot be null")
     @Size(min = 2, max = 20, message = "Subscription name must be between 3 and 20 characters")
-    @Column(name="name", nullable=false)
+    @Column(name = "name", nullable = false)
     protected String name;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "subscriptionSet")
@@ -38,14 +38,14 @@ public abstract class Perk {
     }
 
     private Perk(@NotNull(message = "Subscription name cannot be null") @Size(min = 2, max = 20, message = "Subscription name must be between 3 and 20 characters") String name,
-                         Set<User> userList) {
+                 Set<User> userList) {
         this.name = name;
         this.userList = userList;
     }
 
     private Perk(long id,
-                         @NotNull(message = "Subscription name cannot be null") @Size(min = 2, max = 20, message = "Subscription name must be between 3 and 20 characters") String name,
-                         Set<User> userList) {
+                 @NotNull(message = "Subscription name cannot be null") @Size(min = 2, max = 20, message = "Subscription name must be between 3 and 20 characters") String name,
+                 Set<User> userList) {
         this.id = id;
         this.name = name;
         this.userList = userList;
@@ -83,21 +83,6 @@ public abstract class Perk {
         if (o == null || getClass() != o.getClass()) return false;
         Perk that = (Perk) o;
         return id == that.id;
-    }
-
-    @Entity
-    public class Subscription extends Perk {
-
-    }
-
-    @Entity
-    public class Qualification extends Perk {
-
-    }
-
-    @Entity
-    public class Skill extends Perk {
-
     }
 
 }

@@ -16,44 +16,54 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import fr.uca.cdr.skillful_network.entities.simulation.exercise.Keyword;
+import fr.uca.cdr.skillful_network.entities.Keyword;
 
 @Entity
-@Table(name = "job_offer")
 public class JobOffer {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String name;
-	private String company;
-	private String description;
-	private String type;
-	private Date dateBeg;
-	private Date dateEnd;
-	private Date dateUpload;
-
-	@ManyToMany(fetch = FetchType.EAGER, cascade =  CascadeType.PERSIST)
-	private Set<Keyword> keywords = new HashSet<>();
 
 	public enum Risk {
 		SIMPLE, MODERATE, CRITICAL;
 	}
 
-	@Enumerated(EnumType.ORDINAL)
-	@Column(length = 50)
-	private Risk risk;
-
 	public enum Complexity {
 		SIMPLE, MODERATE, COMPLEX;
 	}
+
+	@Transient
+	@JsonSerialize
+	@JsonDeserialize
+	private final double[][] score = { { 0.4, 0.6, 0.8 }, { 0.6, 0.8, 1 }, { 0.8, 1, 1.2 } };
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+
+	private String name;
+
+	private String company;
+
+	private String description;
+
+	private String type;
+
+	private Date dateBeg;
+
+	private Date dateEnd;
+
+	private Date dateUpload;
+
+	@ManyToMany(fetch = FetchType.EAGER, cascade =  CascadeType.PERSIST)
+	private Set<Keyword> keywords = new HashSet<>();
+
+	@Enumerated(EnumType.ORDINAL)
+	@Column(length = 50)
+	private Risk risk;
 
 	@Enumerated(EnumType.ORDINAL)
 	@Column(length = 50)
@@ -62,19 +72,41 @@ public class JobOffer {
 	@OneToMany(mappedBy = "jobOffer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonBackReference
 	private Set<JobApplication> jobApplicationSet = new HashSet<>();
-	
-	// Tableau des scores
-	@Transient
-	@JsonSerialize
-	@JsonDeserialize
-	private final double[][] score = { { 0.4, 0.6, 0.8 }, { 0.6, 0.8, 1 }, { 0.8, 1, 1.2 } };
-	
-	public Long getId() {
-		return id;
+
+	public JobOffer() {
+
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public JobOffer(String name,
+					String company,
+					String description,
+					String type,
+					Date dateBeg,
+					Date dateEnd,
+					Date dateUpload,
+					Set<Keyword> keywords,
+					Risk risk,
+					Complexity complexity,
+					Set<JobApplication> jobApplicationSet) {
+		this.name = name;
+		this.company = company;
+		this.description = description;
+		this.type = type;
+		this.dateBeg = dateBeg;
+		this.dateEnd = dateEnd;
+		this.dateUpload = dateUpload;
+		this.keywords = keywords;
+		this.risk = risk;
+		this.complexity = complexity;
+		this.jobApplicationSet = jobApplicationSet;
+	}
+
+	public double getScore() {
+		return score[this.complexity.ordinal()][this.risk.ordinal()];
+	}
+
+	public long getId() {
+		return id;
 	}
 
 	public String getName() {
@@ -141,14 +173,6 @@ public class JobOffer {
 		this.keywords = keywords;
 	}
 
-	public Set<JobApplication> getJobApplicationSet() {
-		return jobApplicationSet;
-	}
-
-	public void setJobApplicationSet(Set<JobApplication> jobApplicationSet) {
-		this.jobApplicationSet = jobApplicationSet;
-	}
-
 	public Risk getRisk() {
 		return risk;
 	}
@@ -165,57 +189,24 @@ public class JobOffer {
 		this.complexity = complexity;
 	}
 
-	public JobOffer() {
-		super();
+	public Set<JobApplication> getJobApplicationSet() {
+		return jobApplicationSet;
 	}
 
-	public JobOffer(Long id, String name, String company, String description, String type, Date dateBeg, Date dateEnd,
-			Date dateUpload, Set<Keyword> keywords, Risk risk, Complexity complexity,
-			Set<JobApplication> jobApplicationSet) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.company = company;
-		this.description = description;
-		this.type = type;
-		this.dateBeg = dateBeg;
-		this.dateEnd = dateEnd;
-		this.dateUpload = dateUpload;
-		this.keywords = keywords;
-		this.risk = risk;
-		this.complexity = complexity;
-		this.jobApplicationSet = jobApplicationSet;
-	}
-
-	public JobOffer(String name, String company, String description, String type, Date dateBeg, Date dateEnd,
-			Date dateUpload, Set<Keyword> keywords, Set<JobApplication> jobApplicationSet) {
-		super();
-		this.name = name;
-		this.company = company;
-		this.description = description;
-		this.type = type;
-		this.dateBeg = dateBeg;
-		this.dateEnd = dateEnd;
-		this.dateUpload = dateUpload;
-		this.keywords = keywords;
+	public void setJobApplicationSet(Set<JobApplication> jobApplicationSet) {
 		this.jobApplicationSet = jobApplicationSet;
 	}
 
 	@Override
-	public String toString() {
-		return "JobOffer [id=" + id + ", name=" + name + ", company=" + company + ", description=" + description
-				+ ", type=" + type + ", dateBeg=" + dateBeg + ", dateEnd=" + dateEnd + ", dateUpload=" + dateUpload
-				+ ", keywords=" + keywords + ", risk=" + risk + ", complexity=" + complexity + ", jobApplicationSet="
-				+ jobApplicationSet + "]";
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		JobOffer jobOffer = (JobOffer) o;
+		return id == jobOffer.id;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name);
-	}
-
-	public double getScore() {
-		return score[this.complexity.ordinal()][this.risk.ordinal()];
-
+		return Objects.hash(id);
 	}
 }

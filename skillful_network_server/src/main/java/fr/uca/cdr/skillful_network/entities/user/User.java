@@ -24,9 +24,6 @@ import javax.validation.constraints.Size;
 
 import fr.uca.cdr.skillful_network.entities.application.JobApplication;
 import fr.uca.cdr.skillful_network.entities.application.TrainingApplication;
-import fr.uca.cdr.skillful_network.entities.user.Perk.Subscription;
-import fr.uca.cdr.skillful_network.entities.user.Perk.Skill;
-import fr.uca.cdr.skillful_network.entities.user.Perk.Qualification;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

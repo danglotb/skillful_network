@@ -4,7 +4,7 @@ import fr.uca.cdr.skillful_network.entities.application.JobOffer;
 import fr.uca.cdr.skillful_network.entities.simulation.Simulation;
 import fr.uca.cdr.skillful_network.entities.user.User;
 import fr.uca.cdr.skillful_network.entities.simulation.exercise.Exam;
-import fr.uca.cdr.skillful_network.entities.simulation.exercise.Keyword;
+import fr.uca.cdr.skillful_network.entities.Keyword;
 import fr.uca.cdr.skillful_network.request.SimulationForm;
 
 import java.util.ArrayList;

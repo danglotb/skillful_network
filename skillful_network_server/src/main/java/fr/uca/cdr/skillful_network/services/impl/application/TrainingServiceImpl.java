@@ -37,7 +37,7 @@ public class TrainingServiceImpl implements TrainingService {
 
 	@Override
 	public Page<Training> searchTrainingByKeyword(Pageable pageable, String keyword) {
-		return trainingRepository.findByNameContainsOrOrganisationContainsAllIgnoreCase(pageable, keyword, keyword);
+		return trainingRepository.findByNameContainsOrOrganizationContainsAllIgnoreCase(pageable, keyword, keyword);
 	}
 
 	

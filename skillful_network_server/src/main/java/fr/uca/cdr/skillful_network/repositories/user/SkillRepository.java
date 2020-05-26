@@ -4,7 +4,7 @@ package fr.uca.cdr.skillful_network.repositories.user;
 import java.util.List;
 import java.util.Optional;
 
-import fr.uca.cdr.skillful_network.entities.user.Perk.Skill;
+import fr.uca.cdr.skillful_network.entities.user.Skill;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

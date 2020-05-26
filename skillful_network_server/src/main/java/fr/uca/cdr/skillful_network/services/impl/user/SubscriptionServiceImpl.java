@@ -2,7 +2,7 @@ package fr.uca.cdr.skillful_network.services.impl.user;
 
 import java.util.List;
 
-import fr.uca.cdr.skillful_network.entities.user.Perk.Subscription;
+import fr.uca.cdr.skillful_network.entities.user.Subscription;
 import fr.uca.cdr.skillful_network.services.user.SubscriptionService;
 import fr.uca.cdr.skillful_network.tools.AutoCompletion;
 import org.springframework.beans.factory.annotation.Autowired;

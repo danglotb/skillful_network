@@ -92,14 +92,12 @@ public class TrainingController {
 				.orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"formation non trouvée : " + id));
 		
 		trainingToUpdate.setName(training.getName());
-		trainingToUpdate.setOrganisation(training.getOrganisation());
+		trainingToUpdate.setOrganization(training.getOrganization());
 		trainingToUpdate.setDescription(training.getDescription());
-		trainingToUpdate.setFinancer(training.getFinancer());
 		trainingToUpdate.setDateBeg(training.getDateBeg());
 		trainingToUpdate.setDateEnd(training.getDateEnd());
 		trainingToUpdate.setDateUpload(training.getDateUpload());
 		trainingToUpdate.setDurationHours(training.getDurationHours());
-		trainingToUpdate.setPrerequisites(training.getPrerequisites());
 		trainingToUpdate.setKeywords(training.getKeywords());
 		Training trainingUpdated = trainingService.saveOrUpdateTraining(trainingToUpdate);
 		return new ResponseEntity<Training>(trainingUpdated, HttpStatus.OK);
