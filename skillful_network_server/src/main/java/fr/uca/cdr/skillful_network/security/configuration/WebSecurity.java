@@ -4,6 +4,7 @@ import fr.uca.cdr.skillful_network.security.filter.JWTAuthorizationFilter;
 import fr.uca.cdr.skillful_network.services.impl.user.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -56,15 +57,6 @@ public class WebSecurity extends AbstractConfiguration {
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
     }
-
-//    @Bean
-//    AuthenticationManager getAuthenticationManager() {
-//        try {
-//            return this.authenticationManagerBean();
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
