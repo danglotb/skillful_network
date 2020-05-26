@@ -45,7 +45,7 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 	@Bean
-	@Profile({"dev", "test"})
+	@Profile({"dev"})
 	ApplicationRunner initChoiceRepository(ChoiceRepository choiceRepository) {
 		return args -> {
 			if (choiceRepository.findAll().isEmpty()) {
@@ -54,7 +54,7 @@ public class Application {
 		};
 	}
 	@Bean
-	@Profile({"dev", "test"})
+	@Profile({"dev"})
 	ApplicationRunner initKeywordRepository(KeywordRepository keywordRepository) {
 		return args -> {
 			if (keywordRepository.findAll().isEmpty()) {
@@ -64,7 +64,7 @@ public class Application {
 	}
 	
 	@Bean
-	@Profile({"dev", "test"})
+	@Profile({"dev"})
 	ApplicationRunner initJobOfferRepository(JobOfferRepository jobOfferRepository) {
 		return args -> {
 			if (jobOfferRepository.findAll().isEmpty()) {
@@ -75,7 +75,7 @@ public class Application {
 	}
 
 	@Bean
-	@Profile({"dev", "test"})
+	@Profile({"dev"})
 	ApplicationRunner initRoleRepository(RoleRepository roleRepository) {
 		return args -> {
 			if (roleRepository.findAll().isEmpty()) {
@@ -85,7 +85,7 @@ public class Application {
 	}
 
 	@Bean
-	@Profile({"dev", "test"})
+	@Profile({"dev"})
 	ApplicationRunner initUserRepository(UserRepository userRepository) {
 		return args -> {
 			if (userRepository.findAll().isEmpty()) {
@@ -102,7 +102,7 @@ public class Application {
 	}
 
 	@Bean
-	@Profile({"dev", "test"})
+	@Profile({"dev"})
 	ApplicationRunner initTrainingRepository(TrainingRepository trainingRepository) {
 		return args -> {
 			if (trainingRepository.findAll().isEmpty()) {
@@ -112,7 +112,7 @@ public class Application {
 	}
 
 	@Bean
-	@Profile({"dev", "test"})
+	@Profile({"dev"})
 	ApplicationRunner initExercises(ExerciseRepository exerciseRepository) {
 		return args -> {
 			if (exerciseRepository.findAll().isEmpty()) {
@@ -128,7 +128,7 @@ public class Application {
 	}
 	
 	@Bean
-	@Profile({"dev", "test"})
+	@Profile({"dev"})
 	ApplicationRunner initSimulationRepository(SimulationRepository simulationRepository) {
 		return args -> {
 			if (simulationRepository.findAll().isEmpty()) {
@@ -138,7 +138,7 @@ public class Application {
 	}
 
 	@Bean
-	@Profile({"dev", "test"})
+	@Profile({"dev"})
 	ApplicationRunner initResultRepository(ResultRepository resultRepository) {
 		return args -> {
 			if (resultRepository.findAll().isEmpty()) {

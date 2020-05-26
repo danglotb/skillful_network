@@ -1,4 +1,4 @@
-package fr.uca.cdr.skillful_network.security;
+package fr.uca.cdr.skillful_network.security.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -46,7 +46,6 @@ import fr.uca.cdr.skillful_network.entities.user.Qualification;
 import fr.uca.cdr.skillful_network.entities.user.Skill;
 import fr.uca.cdr.skillful_network.entities.user.Subscription;
 import fr.uca.cdr.skillful_network.entities.user.User;
-import fr.uca.cdr.skillful_network.repositories.user.UserRepository;
 import fr.uca.cdr.skillful_network.services.user.SkillService;
 import fr.uca.cdr.skillful_network.services.user.UserService;
 import fr.uca.cdr.skillful_network.request.UserForm;

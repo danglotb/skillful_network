@@ -1,12 +1,12 @@
-package fr.uca.cdr.skillful_network.security;
+package fr.uca.cdr.skillful_network.security.configuration;
 
+import fr.uca.cdr.skillful_network.security.filter.JWTAuthorizationFilter;
 import fr.uca.cdr.skillful_network.services.impl.user.UserDetailsServiceImpl;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
@@ -17,8 +17,9 @@ import org.springframework.context.annotation.Bean;
 import static fr.uca.cdr.skillful_network.security.SecurityConstants.LOG_IN_URL;
 import static fr.uca.cdr.skillful_network.security.SecurityConstants.REGISTER_URL;
 
+@Profile({"dev", "prod"})
 @EnableWebSecurity
-public class WebSecurity extends WebSecurityConfigurerAdapter {
+public class WebSecurity extends AbstractConfiguration {
 
     private UserDetailsServiceImpl userDetailsService;
 
@@ -41,7 +42,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                         "/configuration/security",
                         "/swagger-ui.html",
                         "/webjars/**",
-                        "/h2"
+                        "/h2",
+                        "h2/**"
                 ).permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -55,14 +57,14 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
     }
 
-    @Bean
-    AuthenticationManager getAuthenticationManager() {
-        try {
-            return this.authenticationManager();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    @Bean
+//    AuthenticationManager getAuthenticationManager() {
+//        try {
+//            return this.authenticationManagerBean();
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
