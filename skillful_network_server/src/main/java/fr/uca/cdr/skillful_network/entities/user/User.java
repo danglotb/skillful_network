@@ -221,8 +221,6 @@ public class User implements UserDetails  {
 		User user = (User) o;
 		return Objects.equals(id, user.id);
 	}
-	
-	
 
 	public Set<Training> getTrainingSet() {
 		return trainingSet;

@@ -23,6 +23,12 @@ public class SubscriptionController {
 	@Autowired
 	private SubscriptionService subscriptionService;
 
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
+	@PostMapping(value = "")
+	public Subscription createSubscription(@Valid @RequestBody Subscription subscription) {
+		return this.subscriptionService.saveOrUpdateSubscription(subscription);
+	}
+
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping("")
 	public ResponseEntity<List<Subscription>> getAllSubscriptions() {
@@ -38,10 +44,9 @@ public class SubscriptionController {
 	
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
 	@GetMapping(value = "/{id}/users")
-	public ResponseEntity<Set<User>> getAllUserBySubscription(@PathVariable(value = "id") Long id) throws Throwable {
+	public ResponseEntity<Set<User>> getAllUserBySubscriptionId(@PathVariable(value = "id") Long id) throws Throwable {
 		Set<User> listUser = this.subscriptionService.getSubscriptionById(id).getUserList();
 		return new ResponseEntity<>(listUser, HttpStatus.OK);
-
 	}
 	
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
@@ -50,12 +55,12 @@ public class SubscriptionController {
 		Subscription subscriptionFromDb = this.subscriptionService.getSubscriptionByName(name);
 		return new ResponseEntity<>(subscriptionFromDb, HttpStatus.OK);
 	}
-	
-	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
-	@PostMapping(value = "")
-	public Subscription save(@Valid @RequestBody Subscription subscription) {
-		return this.subscriptionService.saveOrUpdateSubscription(subscription);
 
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+	@GetMapping(value = "/candidates")
+	public ResponseEntity<List<Subscription>> getSubscriptionCandidate(@RequestParam(required=false , name="contain") String match) {
+		final List<Subscription> subscriptionsByMatch = subscriptionService.getSubscriptionsByMatch(match);
+		return new ResponseEntity<>(subscriptionsByMatch, HttpStatus.OK);
 	}
 	
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
@@ -64,10 +69,5 @@ public class SubscriptionController {
 		this.subscriptionService.deleteSubscription(id);
 	}
 
-	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
-	@GetMapping(value = "/candidates")
-	public ResponseEntity<List<Subscription>> getCandidatesByMatch(@RequestParam(required=false , name="contain") String match) {
-		final List<Subscription> subscriptionsByMatch = subscriptionService.getSubscriptionsByMatch(match);
-		return new ResponseEntity<>(subscriptionsByMatch, HttpStatus.OK);
-	}
+
 }

@@ -1,4 +1,4 @@
-package fr.uca.cdr.skillful_network.security;
+package fr.uca.cdr.skillful_network.security.filter;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;

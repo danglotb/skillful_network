@@ -45,6 +45,8 @@ import static fr.uca.cdr.skillful_network.security.SecurityConstants.SECRET;
 @CrossOrigin(origins = "*")
 public class AuthenticationController {
 
+    public static final int SIZE_TMP_CODE = 10;
+
     @Value("${spring.profiles.active}")
     private String activeProfile;
 
@@ -80,7 +82,7 @@ public class AuthenticationController {
                 this.userService.deleteUser(oldUser.getId());
             }
         }
-        final String randomCode = CodeGeneration.generateCode(10);
+        final String randomCode = CodeGeneration.generate.apply(10);
         if (this.activeProfile.contains("prod")) {
             this.emailService.sendEmail(registerForm.getEmail(), randomCode);
         }
@@ -145,7 +147,7 @@ public class AuthenticationController {
         final User currentUser = (User) authentication.getPrincipal();
         final String email = currentUser.getEmail();
 		currentUser.setValidated(false);
-        final String randomCode = CodeGeneration.generateCode(10);
+        final String randomCode = CodeGeneration.generate.apply(SIZE_TMP_CODE);
         if (this.activeProfile.contains("prod")) {
 			this.emailService.sendEmail(email, randomCode);
         }
