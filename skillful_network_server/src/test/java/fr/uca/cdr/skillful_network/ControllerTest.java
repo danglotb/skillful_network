@@ -38,7 +38,7 @@ public class ControllerTest {
     public void setUp() {
         final User user = new User();
         user.setEmail("user.email@test.com");
-        Mockito.when(userService.findAll())
+        Mockito.when(userService.getAll())
                 .thenReturn(Collections.singletonList(user));
     }
 

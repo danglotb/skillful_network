@@ -71,7 +71,7 @@ public class UserController {
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
     @GetMapping(value = "")
     public List<User> getUsers() {
-        return this.userService.findAll();
+        return this.userService.getAll();
     }
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
@@ -79,7 +79,7 @@ public class UserController {
     public ResponseEntity<Page<User>> getUsersBySearch(@Valid PageTool pageTool,
                                                        @RequestParam(name = "keyword", required = false) String keyword) {
         if (pageTool != null && keyword != null) {
-            Page<User> listUsersSearchByPage = userService.searchUsersByKeyword(pageTool.requestPage(), keyword);
+            Page<User> listUsersSearchByPage = userService.getUsersByKeyword(pageTool.requestPage(), keyword);
             return new ResponseEntity<>(listUsersSearchByPage, HttpStatus.OK);
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format("Parameters should not be both null: (%s, %s)", pageTool, keyword));
@@ -101,7 +101,7 @@ public class UserController {
             currentUser.setQualificationSet(userRequest.get_qualificationSet());
             currentUser.setSubscriptionSet(userRequest.get_subscriptionSet());
             currentUser.setCareerGoal(userRequest.get_careerGoal());
-            final User userUpdated = this.userService.saveOrUpdateUser(currentUser);
+            final User userUpdated = this.userService.createOrUpdateUser(currentUser);
             return new ResponseEntity<>(userUpdated, HttpStatus.OK);
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Parameters are not valid");
@@ -114,7 +114,7 @@ public class UserController {
         final User currentUser = getCurrentUser();
         final String userNewPwd = this.passwordEncoder.encode(passwordUpdate.getPassword());
         currentUser.setPassword(userNewPwd);
-        this.userService.saveOrUpdateUser(currentUser);
+        this.userService.createOrUpdateUser(currentUser);
         return new ResponseEntity<>(currentUser, HttpStatus.OK);
     }
 
@@ -157,7 +157,7 @@ public class UserController {
 
         try (FileOutputStream writer = new FileOutputStream(pathImageName)) {
             writer.write(image.getBytes());
-            userService.saveOrUpdateUser(currentUser);
+            userService.createOrUpdateUser(currentUser);
             return new ResponseEntity<>(true, HttpStatus.OK);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,

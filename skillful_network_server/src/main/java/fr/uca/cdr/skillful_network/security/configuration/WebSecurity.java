@@ -59,7 +59,7 @@ public class WebSecurity extends AbstractConfiguration {
 
                     @Override
                     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-                        return userService.findByEmail(s);
+                        return userService.getByEmail(s);
                     }
                 }).passwordEncoder(bCryptPasswordEncoder);
     }
