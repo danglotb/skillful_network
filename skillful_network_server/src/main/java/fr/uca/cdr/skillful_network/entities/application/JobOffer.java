@@ -69,7 +69,7 @@ public class JobOffer {
 	@Column(length = 50)
 	private Complexity complexity;
 
-	@OneToMany(mappedBy = "jobOffer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "offer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonBackReference
 	private Set<JobApplication> jobApplicationSet = new HashSet<>();
 

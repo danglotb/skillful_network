@@ -79,7 +79,7 @@ public class AuthenticationController {
                 return new ResponseEntity<>(true, HttpStatus.OK);//TODO I guess that the true is handled by the front
             } else {
                 User oldUser = this.userService.getByEmail(email);
-                this.userService.deleteUser(oldUser.getId());
+                this.userService.delete(oldUser.getId());
             }
         }
         final String randomCode = CodeGeneration.generate.apply(10);
@@ -95,7 +95,7 @@ public class AuthenticationController {
 
         this.manageRoles(registerForm, user);
 
-        this.userService.createOrUpdateUser(user);
+        this.userService.createOrUpdate(user);
         throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
 				String.format("Initialization of user and email send to %s. Proceed.", email)
 		);
@@ -152,7 +152,7 @@ public class AuthenticationController {
 			this.emailService.sendEmail(email, randomCode);
         }
 		currentUser.setPassword(randomCode);
-		this.userService.createOrUpdateUser(currentUser);
+		this.userService.createOrUpdate(currentUser);
 		throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
 				String.format("Reinitialization of user and email send to %s. Proceed.", email)
 		);

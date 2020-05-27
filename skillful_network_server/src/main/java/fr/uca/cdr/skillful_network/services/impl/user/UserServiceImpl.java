@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 	public User getById(long id) {
 		return this.userRepository.findById(id).orElseThrow(() ->
 				new ResponseStatusException(HttpStatus.NOT_FOUND,
-						String.format("None skill could be found with the id %d", id))
+						String.format("None user could be found with the id %d", id))
 		);
 	}
 

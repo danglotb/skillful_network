@@ -79,7 +79,7 @@ public class UserController {
     public ResponseEntity<Page<User>> getUsersBySearch(@Valid PageTool pageTool,
                                                        @RequestParam(name = "keyword", required = false) String keyword) {
         if (pageTool != null && keyword != null) {
-            Page<User> listUsersSearchByPage = userService.getUsersByKeyword(pageTool.requestPage(), keyword);
+            Page<User> listUsersSearchByPage = userService.getByKeyword(pageTool.requestPage(), keyword);
             return new ResponseEntity<>(listUsersSearchByPage, HttpStatus.OK);
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format("Parameters should not be both null: (%s, %s)", pageTool, keyword));
@@ -101,7 +101,7 @@ public class UserController {
             currentUser.setQualificationSet(userRequest.get_qualificationSet());
             currentUser.setSubscriptionSet(userRequest.get_subscriptionSet());
             currentUser.setCareerGoal(userRequest.get_careerGoal());
-            final User userUpdated = this.userService.createOrUpdateUser(currentUser);
+            final User userUpdated = this.userService.createOrUpdate(currentUser);
             return new ResponseEntity<>(userUpdated, HttpStatus.OK);
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Parameters are not valid");
@@ -114,7 +114,7 @@ public class UserController {
         final User currentUser = getCurrentUser();
         final String userNewPwd = this.passwordEncoder.encode(passwordUpdate.getPassword());
         currentUser.setPassword(userNewPwd);
-        this.userService.createOrUpdateUser(currentUser);
+        this.userService.createOrUpdate(currentUser);
         return new ResponseEntity<>(currentUser, HttpStatus.OK);
     }
 
@@ -152,12 +152,12 @@ public class UserController {
 
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         final long id = ((User) authentication.getPrincipal()).getId();
-        final User currentUser = this.userService.getUserById(id);
+        final User currentUser = this.userService.getById(id);
         final String pathImageName = "WebContent/images/" + id + ".png"; // TODO we set to png here, but might be a jpg ?
 
         try (FileOutputStream writer = new FileOutputStream(pathImageName)) {
             writer.write(image.getBytes());
-            userService.createOrUpdateUser(currentUser);
+            userService.createOrUpdate(currentUser);
             return new ResponseEntity<>(true, HttpStatus.OK);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
@@ -197,7 +197,7 @@ public class UserController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<User> getUserById(@PathVariable(value = "id") Long id) {
-        return ResponseEntity.ok().body(this.userService.getUserById(id));
+        return ResponseEntity.ok().body(this.userService.getById(id));
     }
 
     @PreAuthorize("hasRole('USER')")
@@ -210,19 +210,19 @@ public class UserController {
 
     @GetMapping(value = "/{id}/skills")
     public ResponseEntity<Set<Skill>> getAllSkillByUserId(@PathVariable(value = "id") Long id) {
-        Set<Skill> listSkills = this.userService.getUserById(id).getSkillSet();
+        Set<Skill> listSkills = this.userService.getById(id).getSkillSet();
         return new ResponseEntity<>(listSkills, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}/qualifications")
     public ResponseEntity<Set<Qualification>> getAllQualificationByUserId(@PathVariable(value = "id") Long id) {
-        Set<Qualification> listQualifications = this.userService.getUserById(id).getQualificationSet();
+        Set<Qualification> listQualifications = this.userService.getById(id).getQualificationSet();
         return new ResponseEntity<>(listQualifications, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}/subscriptions")
     public ResponseEntity<Set<Subscription>> getAllSubscriptionByUserId(@PathVariable(value = "id") Long id) {
-        Set<Subscription> listSubscription = this.userService.getUserById(id).getSubscriptionSet();
+        Set<Subscription> listSubscription = this.userService.getById(id).getSubscriptionSet();
         return new ResponseEntity<>(listSubscription, HttpStatus.OK);
     }
 

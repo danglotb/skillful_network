@@ -5,7 +5,6 @@ import fr.uca.cdr.skillful_network.entities.user.User;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Objects;
 
 @Entity
 @Table(name = "jobApplications")
@@ -14,27 +13,27 @@ public class JobApplication extends Application {
     @ManyToOne(cascade = CascadeType.REFRESH)
 //    @JoinColumn(name = "job_offer_id")
     @JsonManagedReference
-    private JobOffer jobOffer;
+    private JobOffer offer;
 
     public JobApplication() {
 
     }
 
-    public JobApplication(User user, JobOffer jobOffer) {
+    public JobApplication(User user, JobOffer offer) {
         this.user = user;
-        this.jobOffer = jobOffer;
+        this.offer = offer;
     }
 
-    public JobApplication(User user, ApplicationStatus status, Date submitDate, JobOffer jobOffer) {
+    public JobApplication(User user, ApplicationStatus status, Date submitDate, JobOffer offer) {
         super(user, status, submitDate);
-        this.jobOffer = jobOffer;
+        this.offer = offer;
     }
 
-    public JobOffer getJobOffer() {
-        return jobOffer;
+    public JobOffer getOffer() {
+        return offer;
     }
 
-    public void setJobOffer(JobOffer jobOffer) {
-        this.jobOffer = jobOffer;
+    public void setOffer(JobOffer offer) {
+        this.offer = offer;
     }
 }

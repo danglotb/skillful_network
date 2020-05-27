@@ -32,7 +32,7 @@ public class Training {
 	@ManyToMany(fetch = FetchType.EAGER, cascade =  CascadeType.PERSIST)
 	private Set<Keyword> keywords;
 
-	@OneToMany(mappedBy = "training", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "offer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<TrainingApplication> trainingApplicationSet;
 
 	public Training() {

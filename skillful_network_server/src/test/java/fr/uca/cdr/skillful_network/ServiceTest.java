@@ -46,7 +46,7 @@ public class ServiceTest {
     @Test
     public void testGetUserById() {
         final long id = 0L;
-        final User user = userService.getUserById(id);
+        final User user = userService.getById(id);
         assertThat(user.getEmail())
                 .isEqualTo("user.email@test.com");
     }

@@ -22,6 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -94,7 +95,8 @@ public class SimulationServiceImpl implements SimulationService {
 		System.out.println(user.getCareerGoal());
 		
 		// recuperer tous les jobOffer
-				List<JobOffer> jobOffer = jobOfferService.getAllJobOffer();
+//				List<JobOffer> jobOffer = jobOfferService.getAllJobOffer();
+		List<JobOffer> jobOffer = Collections.emptyList();
 				ArrayList<String> wordMatchCareerGoal = new ArrayList<String>();
 				wordMatchCareerGoal.addAll(this.simulationService.MatcherJobOfferJobGoal(user.getCareerGoal(), (ArrayList<JobOffer>) jobOffer));
 				if(wordMatchCareerGoal.size()==0) {
@@ -317,7 +319,7 @@ public class SimulationServiceImpl implements SimulationService {
 	private Training accessToJobOfferViaTraining( double jobOfferScore, double simulationGrade) {
 		Training training = null;
 		if ((simulationGrade + TRAININGSCORE) >= jobOfferScore) {
-			training = trainingService.getTrainingById(2L).orElseThrow(// Ici on passe l'Id du training(l'exemple de la
+			training = trainingService.getById(2L).orElseThrow(// Ici on passe l'Id du training(l'exemple de la
 																		// demo: formation developpeur full stack) en
 																		// dur en attendant future optimisation
 					() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun training trouvé avec l'id: " + 2L));
