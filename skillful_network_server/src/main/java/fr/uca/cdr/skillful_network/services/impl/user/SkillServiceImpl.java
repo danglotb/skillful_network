@@ -1,8 +1,6 @@
 package fr.uca.cdr.skillful_network.services.impl.user;
 
 
-import java.util.*;
-
 import fr.uca.cdr.skillful_network.entities.user.Skill;
 import fr.uca.cdr.skillful_network.services.user.SkillService;
 import org.springframework.http.HttpStatus;
@@ -11,11 +9,13 @@ import org.springframework.stereotype.Service;
 import fr.uca.cdr.skillful_network.repositories.user.SkillRepository;
 import org.springframework.web.server.ResponseStatusException;
 
-@Service(value = "skillService")
+import java.util.List;
+
+@Service
 public class SkillServiceImpl extends PerkServiceImpl<Skill> implements SkillService {
 
-    public SkillServiceImpl(SkillRepository skillRepository) {
-        super(skillRepository, "skill");
+    public SkillServiceImpl(SkillRepository repository) {
+        super(repository, "skill");
     }
 
     @Override

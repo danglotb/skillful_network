@@ -1,16 +1,11 @@
 package fr.uca.cdr.skillful_network.services.impl.user;
 
 import fr.uca.cdr.skillful_network.entities.user.Perk;
-import fr.uca.cdr.skillful_network.entities.user.Qualification;
-import fr.uca.cdr.skillful_network.entities.user.Subscription;
-import fr.uca.cdr.skillful_network.repositories.user.SubscriptionRepository;
 import fr.uca.cdr.skillful_network.services.user.PerkService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Collections;
 import java.util.List;
 
 public abstract class PerkServiceImpl<T  extends Perk> implements PerkService<T> {

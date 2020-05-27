@@ -26,47 +26,47 @@ public class SubscriptionController {
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
 	@PostMapping(value = "")
 	public Subscription createSubscription(@Valid @RequestBody Subscription subscription) {
-		return this.subscriptionService.saveOrUpdateSubscription(subscription);
+		return this.subscriptionService.createOrUpdate(subscription);
 	}
 
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping("")
 	public ResponseEntity<List<Subscription>> getAllSubscriptions() {
-		List<Subscription> listSubscription = this.subscriptionService.getAllSubscription();
+		List<Subscription> listSubscription = this.subscriptionService.getAll();
 		return new ResponseEntity<>(listSubscription, HttpStatus.OK);
 	}
 
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping("/{id}")
 	public Subscription findById(@PathVariable("id") long id) {
-		return this.subscriptionService.getSubscriptionById(id);
+		return this.subscriptionService.getById(id);
 	}
 	
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
 	@GetMapping(value = "/{id}/users")
 	public ResponseEntity<Set<User>> getAllUserBySubscriptionId(@PathVariable(value = "id") Long id) throws Throwable {
-		Set<User> listUser = this.subscriptionService.getSubscriptionById(id).getUserList();
+		Set<User> listUser = this.subscriptionService.getById(id).getUserList();
 		return new ResponseEntity<>(listUser, HttpStatus.OK);
 	}
 	
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping(value = "/{name}")
 	public ResponseEntity<Subscription> getSubscriptionByName(@PathVariable(value = "name") String name) {
-		Subscription subscriptionFromDb = this.subscriptionService.getSubscriptionByName(name);
+		Subscription subscriptionFromDb = this.subscriptionService.getByName(name);
 		return new ResponseEntity<>(subscriptionFromDb, HttpStatus.OK);
 	}
 
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping(value = "/candidates")
 	public ResponseEntity<List<Subscription>> getSubscriptionCandidate(@RequestParam(required=false , name="contain") String match) {
-		final List<Subscription> subscriptionsByMatch = subscriptionService.getSubscriptionsByMatch(match);
+		final List<Subscription> subscriptionsByMatch = subscriptionService.getCandidates(match);
 		return new ResponseEntity<>(subscriptionsByMatch, HttpStatus.OK);
 	}
 	
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME')")
 	@DeleteMapping("/{id}")
 	public void deleteSubscription(@PathVariable(value = "id") Long id) {
-		this.subscriptionService.deleteSubscription(id);
+		this.subscriptionService.delete(id);
 	}
 
 
