@@ -26,7 +26,7 @@ public class SkillServiceImpl implements SkillService {
 	}
 
 	@Override
-	public List<String> searchSkill(String keyword) {
+	public List<Skill> searchSkill(String keyword) {
 		return this.skillRepository.search(keyword).orElseThrow(() ->
 				new ResponseStatusException(HttpStatus.NOT_FOUND,
 						String.format("None skill could be found with the keyword %s", keyword)));
