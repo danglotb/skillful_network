@@ -13,43 +13,40 @@ import fr.uca.cdr.skillful_network.entities.application.Training;
 import fr.uca.cdr.skillful_network.repositories.application.TrainingRepository;
 import fr.uca.cdr.skillful_network.tools.PageTool;
 
-@Service(value = "TrainingService")
+@Service
 public class TrainingServiceImpl implements TrainingService {
 
 	@Autowired
-	TrainingRepository trainingRepository;
+	private TrainingRepository repository;
 
 	@Override
-	public List<Training> getAllTraining() {
-		return trainingRepository.findAll();
+	public Training createOrUpdate(Training training) {
+		return this.repository.save(training);
 	}
 
 	@Override
-	public Page<Training> getPageOfEntities(PageTool pageTool) {
-		return trainingRepository.findAll(pageTool.requestPage());
-
+	public List<Training> getAll() {
+		return this.repository.findAll();
 	}
 
 	@Override
-	public Optional<Training> getTrainingById(Long id) {
-		return trainingRepository.findById(id);
+	public Page<Training> getByPage(PageTool pageTool) {
+		return this.repository.findAll(pageTool.requestPage());
 	}
 
 	@Override
-	public Page<Training> searchTrainingByKeyword(Pageable pageable, String keyword) {
-		return trainingRepository.findByNameContainsOrOrganizationContainsAllIgnoreCase(pageable, keyword, keyword);
-	}
-
-	
-	@Override
-	public void deleteTraining(Long id) {
-		trainingRepository.deleteById(id);
-		
+	public Optional<Training> getById(long id) {
+		return this.repository.findById(id);
 	}
 
 	@Override
-	public Training saveOrUpdateTraining(Training trainingToUpdate) {
-		return trainingRepository.save(trainingToUpdate);
+	public Page<Training> getCandidates(Pageable pageable, String keyword) {
+		return this.repository.findByNameContainsOrOrganizationContainsAllIgnoreCase(pageable, keyword, keyword);
+	}
+
+	@Override
+	public void delete(long id) {
+		this.repository.deleteById(id);
 	}
 
 }

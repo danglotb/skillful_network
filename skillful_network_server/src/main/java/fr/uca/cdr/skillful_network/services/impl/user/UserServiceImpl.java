@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User getUserById(long id) {
+	public User getById(long id) {
 		return this.userRepository.findById(id).orElseThrow(() ->
 				new ResponseStatusException(HttpStatus.NOT_FOUND,
 						String.format("None skill could be found with the id %d", id))
@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Page<User> getUsersByKeyword(Pageable pageable, String keyword) {
+	public Page<User> getByKeyword(Pageable pageable, String keyword) {
 		return this.userRepository.findByLastNameContainsOrFirstNameContainsAllIgnoreCase(pageable, keyword, keyword);
 	}
 
@@ -55,12 +55,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User createOrUpdateUser(User user) {
+	public User createOrUpdate(User user) {
 		return this.userRepository.save(user);
 	}
 
 	@Override
-	public void deleteUser(Long id) {
+	public void delete(Long id) {
 		this.userRepository.deleteById(id);
 	}
 

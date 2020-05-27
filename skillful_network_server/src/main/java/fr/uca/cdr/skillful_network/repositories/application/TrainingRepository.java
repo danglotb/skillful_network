@@ -9,8 +9,6 @@ import fr.uca.cdr.skillful_network.entities.application.Training;
 
 public interface TrainingRepository extends JpaRepository<Training, Long> {
 
-    Optional<Training> findById(long id);
-
 	Page<Training> findByNameContainsOrOrganizationContainsAllIgnoreCase(Pageable pageable, String keyword1, String keyword2);
 
 }

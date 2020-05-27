@@ -17,35 +17,34 @@ import fr.uca.cdr.skillful_network.tools.PageTool;
 public class JobOfferServiceImpl implements JobOfferService {
 
 	@Autowired
-	JobOfferRepository jobOfferRepository;
+	private JobOfferRepository repository;
 
 	@Override
-	public Optional<JobOffer> getJobOfferById(Long id) {
-		return jobOfferRepository.findById(id);
+	public JobOffer createOrUpdate(JobOffer jobOffer) {
+		return this.repository.save(jobOffer);
 	}
 
 	@Override
-	public Page<JobOffer> getPageOfEntities(PageTool pageTool) {
-		return jobOfferRepository.findAll(pageTool.requestPage());
+	public List<JobOffer> getAll() {
+		return this.repository.findAll();
 	}
 
 	@Override
-	public Page<JobOffer> searchJobOfferByKeyword(Pageable pageable, String keyword) {
-		return jobOfferRepository.findByNameContainsOrCompanyContainsAllIgnoreCase(pageable, keyword, keyword);
+	public Optional<JobOffer> getById(long id) {
+		return this.repository.findById(id);
 	}
 
 	@Override
-	public List<JobOffer> getAllJobOffer() {
-		return jobOfferRepository.findAll();
+	public Page<JobOffer> getByPage(PageTool pageTool) {
+		return this.repository.findAll(pageTool.requestPage());
 	}
 
 	@Override
-	public JobOffer saveOrUpdateJobOffer(JobOffer jobOffer) {		
-		return jobOfferRepository.save(jobOffer);
+	public Page<JobOffer> getCandidates(Pageable pageable, String keyword) {
+		return this.repository.findByNameContainsOrCompanyContainsAllIgnoreCase(pageable, keyword, keyword);
 	}
-
 	@Override
-	public void deleteJobOffer(Long id) {
-		jobOfferRepository.deleteById(id);		
+	public void delete(long id) {
+		this.repository.deleteById(id);
 	}
 }

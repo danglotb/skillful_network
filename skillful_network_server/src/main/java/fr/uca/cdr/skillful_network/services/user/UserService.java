@@ -13,16 +13,16 @@ public interface UserService {
 
 	boolean isValidated(String mail);
 
-	User getUserById(long id);
+	User getById(long id);
 
 	User getByEmail(String mail);
 
-	Page<User> getUsersByKeyword(Pageable pageable, String keyword);
+	Page<User> getByKeyword(Pageable pageable, String keyword);
 
 	List<User> getAll();
 
-	User createOrUpdateUser(User user);
+	User createOrUpdate(User user);
 	
-	void deleteUser(Long id);
+	void delete(Long id);
 
 }

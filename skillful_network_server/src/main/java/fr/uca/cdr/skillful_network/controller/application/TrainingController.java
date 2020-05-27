@@ -32,19 +32,19 @@ import fr.uca.cdr.skillful_network.tools.PageTool;
 public class TrainingController {
 
 	@Autowired
-	TrainingService trainingService;
+	private TrainingService trainingService;
 
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping(value = "")
 	public List<Training> getTrainings() {
-		return trainingService.getAllTraining();
+		return trainingService.getAll();
 	}
 
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping(value = "/")
 	public ResponseEntity<Page<Training>> getTrainingsPerPage(@Valid PageTool pageTool) {
 		if (pageTool != null) {
-			Page<Training> listTrainingsByPage = trainingService.getPageOfEntities(pageTool);
+			Page<Training> listTrainingsByPage = trainingService.getByPage(pageTool);
 			return new ResponseEntity<Page<Training>>(listTrainingsByPage, HttpStatus.OK);
 		} else {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Données en paramètre non valides");
@@ -54,7 +54,7 @@ public class TrainingController {
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Training> getTrainingById(@PathVariable("id") Long id) {
-		Optional<Training> trainingFromDb = trainingService.getTrainingById(id);
+		Optional<Training> trainingFromDb = trainingService.getById(id);
 		if (trainingFromDb.isPresent()) {
 			return new ResponseEntity<Training>(trainingFromDb.get(), HttpStatus.OK);
 		} else {
@@ -67,7 +67,7 @@ public class TrainingController {
 	public ResponseEntity<Page<Training>> getTrainingsBySearch(@Valid PageTool pageTool,
 			@RequestParam(name = "keyword", required = false) String keyword) {
 		if (pageTool != null && keyword != null) {
-			Page<Training> lisTrainingsbySearch = trainingService.searchTrainingByKeyword(pageTool.requestPage(),
+			Page<Training> lisTrainingsbySearch = trainingService.getCandidates(pageTool.requestPage(),
 					keyword);
 			return new ResponseEntity<Page<Training>>(lisTrainingsbySearch, HttpStatus.OK);
 		} else {
@@ -79,7 +79,7 @@ public class TrainingController {
 	@PreAuthorize("hasRole('ORGANISME')")
 	@DeleteMapping(value = "/training/{id}")
 	public void deleteTraining(@PathVariable(value = "id") Long id) {
-		trainingService.deleteTraining(id);
+		trainingService.delete(id);
 	}
 
 	// Update d'une formation
@@ -88,7 +88,7 @@ public class TrainingController {
 	@Transactional
 	public ResponseEntity<Training> updateTraining(@PathVariable(value = "id") Long id,
 			@Valid @RequestBody Training training) {
-		Training trainingToUpdate = trainingService.getTrainingById(id)
+		Training trainingToUpdate = trainingService.getById(id)
 				.orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"formation non trouvée : " + id));
 		
 		trainingToUpdate.setName(training.getName());
@@ -99,7 +99,7 @@ public class TrainingController {
 		trainingToUpdate.setDateUpload(training.getDateUpload());
 		trainingToUpdate.setDurationHours(training.getDurationHours());
 		trainingToUpdate.setKeywords(training.getKeywords());
-		Training trainingUpdated = trainingService.saveOrUpdateTraining(trainingToUpdate);
+		Training trainingUpdated = trainingService.createOrUpdate(trainingToUpdate);
 		return new ResponseEntity<Training>(trainingUpdated, HttpStatus.OK);
 	}
 }
