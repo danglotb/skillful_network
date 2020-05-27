@@ -2,7 +2,6 @@ package fr.uca.cdr.skillful_network;
 
 import fr.uca.cdr.skillful_network.controller.user.UserController;
 import fr.uca.cdr.skillful_network.entities.user.User;
-import fr.uca.cdr.skillful_network.services.user.SkillService;
 import fr.uca.cdr.skillful_network.services.user.UserService;
 import org.junit.Before;
 import org.junit.Test;
