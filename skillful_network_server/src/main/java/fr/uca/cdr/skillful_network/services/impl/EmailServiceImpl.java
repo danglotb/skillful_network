@@ -12,23 +12,25 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmailServiceImpl implements EmailService {
 
+    private static final String NEW_LINE = System.getProperty("line.properties");
+
+    private static final String HEADER_MAIL = String.format("Bonjour, %s Vous trouverez ci-dessous le code permettant de terminer votre inscription.%s", NEW_LINE + NEW_LINE, NEW_LINE + NEW_LINE);
+
+    private static final String FOOTER_MAIL = String.format("%s Cordialement", NEW_LINE + NEW_LINE);
+
+    private static final String SUBJECT_MAIL = "Inscription Réseau Habile";
+
     @Autowired
     private JavaMailSender emailSender;
 
     @Async
     public void sendEmail(String email, String codeAutoGen) {
-        String messageText = "Bonjour, \n \n Vous trouverez ci-dessous le code permettant de terminer votre inscription � notre site POEC.\n \n";
-        messageText += codeAutoGen;
-        messageText += "\n \n Cordialement";
-        // Create a Simple MailMessage.
+        String messageText = HEADER_MAIL + codeAutoGen + FOOTER_MAIL;
         SimpleMailMessage message = new SimpleMailMessage();
-
         message.setTo(email);
-        message.setSubject("Inscription site POEC");
+        message.setSubject(SUBJECT_MAIL);
         message.setSentDate(new Date());
         message.setText(messageText);
-
-        // Send Message!
         emailSender.send(message);
     }
 }

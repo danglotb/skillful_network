@@ -1,5 +1,6 @@
 package fr.uca.cdr.skillful_network.services.impl.simulation.exercise;
 
+import java.util.Collections;
 import java.util.List;
 
 import fr.uca.cdr.skillful_network.entities.user.Qualification;
@@ -29,7 +30,7 @@ public class QualificationServiceImpl implements QualificationService {
 
 	@Override
 	public List<Qualification> getQualificationByPrefix(String prefix) {
-		return qualificationrepository.search(prefix);
+		return qualificationrepository.search(prefix).orElse(Collections.emptyList());
 	}
 
 	@Override

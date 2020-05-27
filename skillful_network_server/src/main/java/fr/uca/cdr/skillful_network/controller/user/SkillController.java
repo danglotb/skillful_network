@@ -50,8 +50,8 @@ public class SkillController {
   
 	@PreAuthorize("hasRole('USER')")
 	@GetMapping(value = "/search/{keyword}", produces = { MimeTypeUtils.APPLICATION_JSON_VALUE})
-	public ResponseEntity<List<String>> search(@PathVariable("keyword") String keyword) {
-			List<String> listSkill = this.skillService.searchSkill(keyword);
+	public ResponseEntity<List<Skill>> search(@PathVariable("keyword") String keyword) {
+			List<Skill> listSkill = this.skillService.searchSkill(keyword);
 			return new ResponseEntity<>(listSkill, HttpStatus.OK);
 	}
 	
