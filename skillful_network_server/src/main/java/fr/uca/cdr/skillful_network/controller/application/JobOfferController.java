@@ -38,14 +38,14 @@ public class JobOfferController {
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping(value = "")
 	public List<JobOffer> getOffers() {
-		return jobOfferService.getAllJobOffer();
+		return jobOfferService.getAll();
 	}
 
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping(value = "/")
 	public ResponseEntity<Page<JobOffer>> getOffersPerPage(@Valid PageTool pageTool) {
 		if (pageTool != null) {
-			Page<JobOffer> listOffersByPage = jobOfferService.getPageOfEntities(pageTool);
+			Page<JobOffer> listOffersByPage = jobOfferService.getByPage(pageTool);
 			return new ResponseEntity<Page<JobOffer>>(listOffersByPage, HttpStatus.OK);
 		} else {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Données en paramètre non valides");
@@ -55,7 +55,7 @@ public class JobOfferController {
 	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<JobOffer> getOfferById(@PathVariable("id") Long id) {
-		Optional<JobOffer> offerFromDb = jobOfferService.getJobOfferById(id);
+		Optional<JobOffer> offerFromDb = jobOfferService.getById(id);
 		if (offerFromDb.isPresent()) {
 			return new ResponseEntity<JobOffer>(offerFromDb.get(), HttpStatus.OK);
 		} else {
@@ -68,7 +68,7 @@ public class JobOfferController {
 	public ResponseEntity<Page<JobOffer>> getOffersBySearch(@Valid PageTool pageTool,
 			@RequestParam(name = "keyword", required = false) String keyword) {
 		if (pageTool != null && keyword != null) {
-			Page<JobOffer> listOffersbySearch = jobOfferService.searchJobOfferByKeyword(pageTool.requestPage(),
+			Page<JobOffer> listOffersbySearch = jobOfferService.getCandidates(pageTool.requestPage(),
 					keyword);
 			return new ResponseEntity<Page<JobOffer>>(listOffersbySearch, HttpStatus.OK);
 		} else {
@@ -78,7 +78,7 @@ public class JobOfferController {
 	
 	@GetMapping(value = "/getScore/{id}")
     public double getScoreById(@PathVariable(value = "id") Long id) {
-        JobOffer jobOffer = jobOfferService.getJobOfferById(id)
+        JobOffer jobOffer = jobOfferService.getById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         return jobOffer.getScore();
     }
@@ -86,7 +86,7 @@ public class JobOfferController {
 	@PreAuthorize("hasRole('ENTREPRISE')")
 	@PostMapping(value="")
 	public JobOffer createJobOffer(@Valid @RequestBody JobOffer jobOffer){
-		return jobOfferService.saveOrUpdateJobOffer(jobOffer);		
+		return jobOfferService.createOrUpdate(jobOffer);
 		
 	}
 	
@@ -97,8 +97,8 @@ public class JobOfferController {
 			@Valid @RequestBody JobOffer jobOfferToUpdate) {
 			
 		System.out.println(jobOfferToUpdate);
-		if (jobOfferService.getJobOfferById(id).isPresent()) {
-			JobOffer initialjobOffer = jobOfferService.getJobOfferById(id).get();
+		if (jobOfferService.getById(id).isPresent()) {
+			JobOffer initialjobOffer = jobOfferService.getById(id).get();
 			
 			if (jobOfferToUpdate != null) {
 				initialjobOffer.setName(jobOfferToUpdate.getName());
@@ -111,7 +111,7 @@ public class JobOfferController {
 				initialjobOffer.setKeywords(jobOfferToUpdate.getKeywords());
 				initialjobOffer.setJobApplicationSet(jobOfferToUpdate.getJobApplicationSet());
 				
-				JobOffer jobOfferUpdated = jobOfferService.saveOrUpdateJobOffer(initialjobOffer);				
+				JobOffer jobOfferUpdated = jobOfferService.createOrUpdate(initialjobOffer);
 				return new ResponseEntity<JobOffer>(jobOfferUpdated, HttpStatus.OK);
 				
 			} else {
@@ -126,6 +126,6 @@ public class JobOfferController {
 	@DeleteMapping(value="/{id}")
 	@Transactional
 	public void deleteJobOffer(@PathVariable(value="id") Long id) {
-		jobOfferService.deleteJobOffer(id);
+		jobOfferService.delete(id);
 	}
 }

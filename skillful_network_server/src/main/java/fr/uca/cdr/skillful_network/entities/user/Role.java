@@ -12,39 +12,34 @@ import javax.persistence.Table;
 import org.hibernate.annotations.NaturalId;
 
 @Entity
-@Table(name="role")
 public class Role {
 
 	public enum Name {
 		ROLE_USER,
-		ROLE_ENTREPRISE,
-		ROLE_ORGANISME;
+		ROLE_COMPANY,
+		ROLE_TRAINING_ORGANIZATION;
 	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private long id;
 	
 	@Enumerated(EnumType.STRING)
     @NaturalId
     @Column(length = 60)
 	private Name name;
 
+	public Role() {
+
+	}
+
 	public Role(Name name) {
 		super();
 		this.name = name;
 	}
 
-	public Role() {
-		super();
-	}
-
-	public Long getId() {
+	public long getId() {
 		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public Name getName() {

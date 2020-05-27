@@ -1,45 +1,28 @@
 package fr.uca.cdr.skillful_network.services.user;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import fr.uca.cdr.skillful_network.entities.user.User;
-import fr.uca.cdr.skillful_network.tools.PageTool;
 
 public interface UserService {
 
-	boolean alreadyExists(String mail);
+	boolean exists(String mail);
 
-	boolean existingMailIsValidated(String mail);
+	boolean isValidated(String mail);
 
-	User getUserById(long id);
+	User getById(long id);
 
-	User saveOrUpdateUser(User user);
+	User getByEmail(String mail);
+
+	Page<User> getByKeyword(Pageable pageable, String keyword);
+
+	List<User> getAll();
+
+	User createOrUpdate(User user);
 	
-	void deleteUser(Long id);
-
-	@Deprecated
-	String createRepoImage();
-
-	@Deprecated
-	boolean updateImage();
-
-	User findByEmail(String mail);
-
-	Page<User> getPageOfEntities(PageTool pageTool);
-
-	Page<User> searchUsersByKeyword(Pageable pageable, String keyword);
-
-	@Deprecated
-	boolean mdpExpired(LocalDateTime dateExpiration,LocalDateTime currentDate );
-
-	@Deprecated
-	void validationMdp(Boolean isExpired, Optional<User> userFromDB);
-
-	List<User> findAll();
+	void delete(Long id);
 
 }

@@ -1,5 +1,7 @@
 package fr.uca.cdr.skillful_network.entities.simulation.exercise;
 
+import fr.uca.cdr.skillful_network.entities.Keyword;
+
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -13,7 +15,7 @@ public class TimedQuestionSet extends QuestionSet {
 		super();
 	}
 
-	public TimedQuestionSet(Set<Question> questions,Long id, String name, ExerciseType type, Set<Keyword> keywords,Long timeInMinutes) {
+	public TimedQuestionSet(Set<Question> questions, Long id, String name, ExerciseType type, Set<Keyword> keywords, Long timeInMinutes) {
 		super(questions,id, name, type, keywords);
 		this.timeInMinutes = timeInMinutes;
 	}

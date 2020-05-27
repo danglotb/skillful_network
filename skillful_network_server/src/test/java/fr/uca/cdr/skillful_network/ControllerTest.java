@@ -2,7 +2,6 @@ package fr.uca.cdr.skillful_network;
 
 import fr.uca.cdr.skillful_network.controller.user.UserController;
 import fr.uca.cdr.skillful_network.entities.user.User;
-import fr.uca.cdr.skillful_network.services.user.SkillService;
 import fr.uca.cdr.skillful_network.services.user.UserService;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,14 +33,11 @@ public class ControllerTest {
     @MockBean
     private UserService userService;
 
-    // TODO should not have to do that...
-    @MockBean
-    private SkillService skillService;
-
     @Before
     public void setUp() {
-        final User user = new User(1L, "name", "lastName");
-        Mockito.when(userService.findAll())
+        final User user = new User();
+        user.setEmail("user.email@test.com");
+        Mockito.when(userService.getAll())
                 .thenReturn(Collections.singletonList(user));
     }
 
@@ -50,7 +46,7 @@ public class ControllerTest {
         mvc.perform(get("/users").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.[0].id").value("1"));;
+                .andExpect(jsonPath("$.[0].id").value("0"));;
     }
 
 }

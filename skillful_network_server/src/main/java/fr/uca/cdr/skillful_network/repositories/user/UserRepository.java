@@ -12,11 +12,10 @@ import fr.uca.cdr.skillful_network.entities.user.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-	Optional<User> findByEmail(String mail);
+	Optional<User> findByEmail(String email);
 
-	Optional<User> findById(Long id);
+	Optional<User> findById(long id);
 
 	Page<User> findByLastNameContainsOrFirstNameContainsAllIgnoreCase(Pageable pageable, String keyword1, String keyword2);
 
-	Optional<User> save(Optional<User> userToSave);
 }

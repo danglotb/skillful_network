@@ -11,16 +11,16 @@ import fr.uca.cdr.skillful_network.tools.PageTool;
 
 public interface TrainingService {
 
-	List<Training> getAllTraining();
+	Training createOrUpdate(Training training);
 
-	Optional<Training> getTrainingById(Long id);
+	List<Training> getAll();
 
-	Page<Training> getPageOfEntities(PageTool pageTool);
+	Optional<Training> getById(long id);
 
-	Page<Training> searchTrainingByKeyword(Pageable pageable, String keyword);
+	Page<Training> getByPage(PageTool pageTool);
 
-	void deleteTraining(Long id);
+	Page<Training> getCandidates(Pageable pageable, String keyword);
 
-	Training saveOrUpdateTraining(Training trainingToUpdate);
+	void delete(long id);
 
 }

@@ -68,18 +68,18 @@ public class AuthenticationController {
     @GetMapping("/user")
     public User getCurrentUser() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return this.userService.findByEmail((String)authentication.getPrincipal());
+        return this.userService.getByEmail((String)authentication.getPrincipal());
     }
 
     @PostMapping(value = "/register")
     public ResponseEntity<?> register(@Valid @RequestBody RegisterForm registerForm) {
         final String email = registerForm.getEmail();
-        if (this.userService.alreadyExists(email)) {
-            if (this.userService.existingMailIsValidated(email)) {
+        if (this.userService.exists(email)) {
+            if (this.userService.isValidated(email)) {
                 return new ResponseEntity<>(true, HttpStatus.OK);//TODO I guess that the true is handled by the front
             } else {
-                User oldUser = this.userService.findByEmail(email);
-                this.userService.deleteUser(oldUser.getId());
+                User oldUser = this.userService.getByEmail(email);
+                this.userService.delete(oldUser.getId());
             }
         }
         final String randomCode = CodeGeneration.generate.apply(10);
@@ -95,7 +95,7 @@ public class AuthenticationController {
 
         this.manageRoles(registerForm, user);
 
-        this.userService.saveOrUpdateUser(user);
+        this.userService.createOrUpdate(user);
         throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
 				String.format("Initialization of user and email send to %s. Proceed.", email)
 		);
@@ -137,7 +137,7 @@ public class AuthenticationController {
     public ResponseEntity<User> whoAmI() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         final String email = (String) authentication.getPrincipal();
-        final User currentUser = this.userService.findByEmail(email);
+        final User currentUser = this.userService.getByEmail(email);
         return new ResponseEntity<>(currentUser, HttpStatus.OK);
     }
 
@@ -152,7 +152,7 @@ public class AuthenticationController {
 			this.emailService.sendEmail(email, randomCode);
         }
 		currentUser.setPassword(randomCode);
-		this.userService.saveOrUpdateUser(currentUser);
+		this.userService.createOrUpdate(currentUser);
 		throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
 				String.format("Reinitialization of user and email send to %s. Proceed.", email)
 		);

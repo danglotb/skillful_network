@@ -5,54 +5,35 @@ import fr.uca.cdr.skillful_network.entities.user.User;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Objects;
 
 @Entity
 @Table(name = "jobApplications")
-public class JobApplication extends Application{
+public class JobApplication extends Application {
 
     @ManyToOne(cascade = CascadeType.REFRESH)
-    @JoinColumn(name = "job_offer_id")
+//    @JoinColumn(name = "job_offer_id")
     @JsonManagedReference
-    private JobOffer jobOffer;
+    private JobOffer offer;
 
     public JobApplication() {
-        super();
+
     }
 
-    public JobApplication(User user, JobOffer jobOffer) {
-        super();
+    public JobApplication(User user, JobOffer offer) {
         this.user = user;
-        this.jobOffer = jobOffer;
-        this.status = ApplicationStatus.SUBMITTED;
+        this.offer = offer;
     }
 
-    public JobApplication(User user, JobOffer jobOffer, ApplicationStatus status, Date submitDate) {
+    public JobApplication(User user, ApplicationStatus status, Date submitDate, JobOffer offer) {
         super(user, status, submitDate);
-        this.jobOffer = jobOffer;
+        this.offer = offer;
     }
 
-    public JobApplication(Long id, User user, JobOffer jobOffer, ApplicationStatus status, Date submitDate) {
-        super(id, user, status, submitDate);
-        this.jobOffer = jobOffer;
+    public JobOffer getOffer() {
+        return offer;
     }
 
-    public JobOffer getJobOffer() {
-        return jobOffer;
-    }
-
-    public void setJobOffer(JobOffer jobOffer) {
-        this.jobOffer = jobOffer;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, user, jobOffer);
-    }
-
-    @Override
-    public String toString() {
-        return super.toString() +
-            ", jobOffer=" + jobOffer.getCompany() + "/" + jobOffer.getName();
+    public void setOffer(JobOffer offer) {
+        this.offer = offer;
     }
 }

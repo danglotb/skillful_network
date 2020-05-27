@@ -10,18 +10,17 @@ import fr.uca.cdr.skillful_network.entities.application.JobOffer;
 import fr.uca.cdr.skillful_network.tools.PageTool;
 
 public interface JobOfferService {
-	
-	List<JobOffer> getAllJobOffer();
-	
-	Optional<JobOffer> getJobOfferById(Long id);
-	
-	Page<JobOffer> getPageOfEntities(PageTool pageTool);
 
-	Page<JobOffer> searchJobOfferByKeyword(Pageable pageable, String keyword);
+	JobOffer createOrUpdate(JobOffer jobOffer);
 	
-	JobOffer saveOrUpdateJobOffer(JobOffer jobOffer);
+	List<JobOffer> getAll();
 	
-	void deleteJobOffer(Long id);
+	Optional<JobOffer> getById(long id);
 	
+	Page<JobOffer> getByPage(PageTool pageTool);
+
+	Page<JobOffer> getCandidates(Pageable pageable, String keyword);
 	
+	void delete(long id);
+
 }
