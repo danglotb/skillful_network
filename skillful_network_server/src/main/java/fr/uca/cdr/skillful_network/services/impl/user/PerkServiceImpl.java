@@ -20,11 +20,6 @@ public abstract class PerkServiceImpl<T  extends Perk> implements PerkService<T>
     }
 
     @Override
-    public T createOrUpdate(T perk) {
-        return this.repository.save(perk);
-    }
-
-    @Override
     public List<T> getAll() {
         return this.repository.findAll();
     }
@@ -44,4 +39,5 @@ public abstract class PerkServiceImpl<T  extends Perk> implements PerkService<T>
     protected String getKindPerk() {
         return this.kindPerk;
     }
+
 }

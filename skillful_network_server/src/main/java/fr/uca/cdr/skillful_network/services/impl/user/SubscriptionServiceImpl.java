@@ -2,13 +2,8 @@ package fr.uca.cdr.skillful_network.services.impl.user;
 
 import java.util.List;
 
-import fr.uca.cdr.skillful_network.entities.user.Skill;
 import fr.uca.cdr.skillful_network.entities.user.Subscription;
-import fr.uca.cdr.skillful_network.repositories.user.SkillRepository;
-import fr.uca.cdr.skillful_network.services.user.SkillService;
 import fr.uca.cdr.skillful_network.services.user.SubscriptionService;
-import fr.uca.cdr.skillful_network.tools.AutoCompletion;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +15,11 @@ public class SubscriptionServiceImpl  extends PerkServiceImpl<Subscription> impl
 
 	public SubscriptionServiceImpl(SubscriptionRepository repository) {
 		super(repository, "subscription");
+	}
+
+	@Override
+	public Subscription createOrUpdate(String perk) {
+		return this.repository.save(new Subscription(perk));
 	}
 
 	@Override

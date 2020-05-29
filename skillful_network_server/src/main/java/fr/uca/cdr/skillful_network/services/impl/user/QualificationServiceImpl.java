@@ -15,16 +15,21 @@ public class QualificationServiceImpl extends PerkServiceImpl<Qualification> imp
     }
 
     @Override
+    public Qualification createOrUpdate(String perk) {
+        return this.repository.save(new Qualification(perk));
+    }
+
+    @Override
     public List<Qualification> getCandidates(String keyword) {
         return ((QualificationRepository) this.repository).search(keyword).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        String.format("None skill could be found with the keyword %s", keyword)));
+                        String.format("None " + this.kindPerk + " could be found with the keyword %s", keyword)));
     }
 
     @Override
     public Qualification getByName(String name) {
         return ((QualificationRepository) this.repository).findByName(name).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        String.format("None skill could be found with the name %s", name)));
+                        String.format("None " + this.kindPerk + " could be found with the name %s", name)));
     }
 }

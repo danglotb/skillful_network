@@ -19,6 +19,11 @@ public class SkillServiceImpl extends PerkServiceImpl<Skill> implements SkillSer
     }
 
     @Override
+    public Skill createOrUpdate(String perk) {
+        return this.repository.save(new Skill(perk));
+    }
+
+    @Override
     public List<Skill> getCandidates(String keyword) {
         return ((SkillRepository) this.repository).search(keyword).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND,
