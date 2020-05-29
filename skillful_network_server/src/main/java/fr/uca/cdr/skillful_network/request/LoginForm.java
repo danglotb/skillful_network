@@ -9,32 +9,14 @@ public class LoginForm{
 
 	@NotNull
 	@Size(min=8,max=20)
-	private String password;
+	public final String password;
 	
 	@NotNull
 	@Email
-	private String email;
+	public final String email;
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
+	public LoginForm(@Size(min = 8, max = 20) String password, @Email String email) {
 		this.password = password;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	@Override
-	public String toString() {
-		return "LoginForm [password=" + password + ", email=" + email + "]";
-	}
-	
-	
 }

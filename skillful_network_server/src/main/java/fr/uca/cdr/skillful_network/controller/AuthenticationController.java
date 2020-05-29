@@ -48,7 +48,7 @@ public class AuthenticationController {
     public ResponseEntity<JwtResponse> login(@Valid @RequestBody LoginForm credentials) {
         final Authentication authenticate;
         try {
-            authenticate = this.service.authentication(credentials.getEmail(), credentials.getPassword());
+            authenticate = this.service.authentication(credentials.email, credentials.password);
         } catch (AuthenticationException e) {
             e.printStackTrace();
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
@@ -70,6 +70,5 @@ public class AuthenticationController {
 				String.format("Reinitialization of user and email send to %s. Proceed.", email)
 		);
     }
-
 
 }

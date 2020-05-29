@@ -2,18 +2,12 @@ package fr.uca.cdr.skillful_network.request;
 
 import javax.validation.constraints.Size;
 
-public class UserPwdUpdateForm {
+public class PasswordForm {
 	
 	@Size(min=2, max=20 , message = "Le mot de passe doit comporter au minimum 2 caractères")
-	private String password;
+	public final String password;
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
+	public PasswordForm(@Size(min = 2, max = 20, message = "Le mot de passe doit comporter au minimum 2 caractères") String password) {
 		this.password = password;
 	}
-	
-	
 }
