@@ -10,7 +10,7 @@ import java.util.Objects;
 @MappedSuperclass
 public abstract class Application {
 
-    enum ApplicationStatus {INIT, SUBMITTED, INVESTIGATING, WAITING, PAUSED, POSTPONED, ACCEPTED, REJECTED}
+    public enum ApplicationStatus {INIT, SUBMITTED, INVESTIGATING, WAITING, PAUSED, POSTPONED, ACCEPTED, REJECTED}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

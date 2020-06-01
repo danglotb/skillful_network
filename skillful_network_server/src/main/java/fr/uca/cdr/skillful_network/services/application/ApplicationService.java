@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface ApplicationService<T extends Application> {
 
-    T createOrUpdate(T application);
+    T create(T application);
+
+    T update(long id, Application.ApplicationStatus status);
 
     List<T> getAll();
 
