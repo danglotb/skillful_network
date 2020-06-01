@@ -37,13 +37,13 @@ public class JobOfferController {
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
     @GetMapping(value = "")
-    public List<JobOffer> getJobs() {
+    public List<JobOffer> getAll() {
         return this.jobOfferService.getAll();
     }
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
     @GetMapping(value = "")
-    public ResponseEntity<Page<JobOffer>> getOffersPerPage(@Valid PageTool pageTool) {
+    public ResponseEntity<Page<JobOffer>> getPerPage(@Valid PageTool pageTool) {
         if (pageTool != null) {
             return new ResponseEntity<>(this.jobOfferService.getByPage(pageTool), HttpStatus.OK);
         } else {
@@ -53,13 +53,13 @@ public class JobOfferController {
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
     @GetMapping(value = "/{id}")
-    public ResponseEntity<JobOffer> getOfferById(@PathVariable("id") Long id) {
+    public ResponseEntity<JobOffer> getById(@PathVariable("id") Long id) {
         return new ResponseEntity<>(this.jobOfferService.getById(id), HttpStatus.OK);
     }
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
     @GetMapping(value = "/search")
-    public ResponseEntity<Page<JobOffer>> getOffersBySearch(@Valid PageTool pageTool,
+    public ResponseEntity<Page<JobOffer>> getBySearch(@Valid PageTool pageTool,
                                                             @RequestParam(name = "keyword", required = false) String keyword) {
         if (pageTool != null && keyword != null) {
             Page<JobOffer> candidates = jobOfferService.getCandidates(pageTool.requestPage(),
@@ -72,14 +72,14 @@ public class JobOfferController {
 
     @PreAuthorize("hasRole('ENTREPRISE')")
     @PostMapping(value = "")
-    public JobOffer createJobOffer(@Valid @RequestBody JobOffer jobOffer) {
+    public JobOffer create(@Valid @RequestBody JobOffer jobOffer) {
         return jobOfferService.createOrUpdate(jobOffer);
     }
 
     @PreAuthorize("hasRole('ENTREPRISE')")
     @PutMapping(value = "/{id}")
     @Transactional
-    public ResponseEntity<JobOffer> updateJobOffer(@PathVariable(value = "id") long id,
+    public ResponseEntity<JobOffer> update(@PathVariable(value = "id") long id,
                                                    @Valid @RequestBody JobOffer jobOfferToUpdate) {
 
         return new ResponseEntity<>(
@@ -101,7 +101,7 @@ public class JobOfferController {
     @PreAuthorize("hasRole('ENTREPRISE')")
     @DeleteMapping(value = "/{id}")
     @Transactional
-    public void deleteJobOffer(@PathVariable(value = "id") Long id) {
+    public void delete(@PathVariable(value = "id") Long id) {
         jobOfferService.delete(id);
     }
 }
