@@ -40,7 +40,7 @@ public class TrainingController {
     }
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
-    @GetMapping(value = "/")
+    @GetMapping(value = "/page")
     public ResponseEntity<Page<Training>> getPerPage(@Valid PageTool pageTool) {
         if (pageTool != null) {
             Page<Training> listTrainingsByPage = this.trainingService.getByPage(pageTool);

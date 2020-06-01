@@ -4,10 +4,12 @@ import fr.uca.cdr.skillful_network.entities.user.Qualification;
 import fr.uca.cdr.skillful_network.repositories.user.QualificationRepository;
 import fr.uca.cdr.skillful_network.services.user.QualificationService;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+@Service
 public class QualificationServiceImpl extends PerkServiceImpl<Qualification> implements QualificationService {
 
     public QualificationServiceImpl(QualificationRepository repository) {

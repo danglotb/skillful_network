@@ -42,7 +42,7 @@ public class JobOfferController {
     }
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
-    @GetMapping(value = "")
+    @GetMapping(value = "/page")
     public ResponseEntity<Page<JobOffer>> getPerPage(@Valid PageTool pageTool) {
         if (pageTool != null) {
             return new ResponseEntity<>(this.jobOfferService.getByPage(pageTool), HttpStatus.OK);
