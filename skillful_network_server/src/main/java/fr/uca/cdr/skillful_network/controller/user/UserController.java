@@ -40,13 +40,13 @@ public class UserController {
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
     @GetMapping(value = "")
-    public List<User> getUsers() {
+    public List<User> getAll() {
         return this.userService.getAll();
     }
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
     @GetMapping(value = "/search")
-    public ResponseEntity<Page<User>> getUsersBySearch(@Valid PageTool pageTool,
+    public ResponseEntity<Page<User>> getBySearch(@Valid PageTool pageTool,
                                                        @RequestParam(name = "keyword", required = false) String keyword) {
         if (pageTool != null && keyword != null) {
             Page<User> listUsersSearchByPage = userService.getByKeyword(pageTool.requestPage(), keyword);
@@ -136,7 +136,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<User> getById(@PathVariable(value = "id") Long id) {
         return ResponseEntity.ok().body(this.userService.getById(id));
     }
 
