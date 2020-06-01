@@ -26,13 +26,13 @@ public class QualificationController {
 
     @PreAuthorize("hasRole('USER')")
     @PostMapping(value = "")
-    public ResponseEntity<Qualification> createQualification(@RequestParam(name="qualificationName") String qualificationName) {
+    public ResponseEntity<Qualification> create(@RequestParam(name="qualificationName") String qualificationName) {
         return new ResponseEntity<>(this.qualificationservice.createOrUpdate(qualificationName), HttpStatus.OK);
     }
 
 	@PreAuthorize("hasRole('USER')")
 	@GetMapping(value = "")
-	public ResponseEntity<List<Qualification>> getAllQualifications() {
+	public ResponseEntity<List<Qualification>> getAll() {
 		return new ResponseEntity<>(this.qualificationservice.getAll(), HttpStatus.OK);
 	}
 

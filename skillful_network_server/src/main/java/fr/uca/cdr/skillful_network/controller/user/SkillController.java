@@ -26,13 +26,13 @@ public class SkillController {
 
 	@PreAuthorize("hasRole('USER')")
 	@PostMapping(value = "")
-	public ResponseEntity<Skill> createQualification(@RequestParam(name="qualificationName") String qualificationName) {
+	public ResponseEntity<Skill> create(@RequestParam(name="qualificationName") String qualificationName) {
 		return new ResponseEntity<>(this.skillService.createOrUpdate(qualificationName), HttpStatus.OK);
 	}
 
 	@PreAuthorize("hasRole('USER')")
 	@GetMapping(value = "")
-	public ResponseEntity<List<Skill>> getAllQualifications() {
+	public ResponseEntity<List<Skill>> getAll() {
 		return new ResponseEntity<>(this.skillService.getAll(), HttpStatus.OK);
 	}
 

@@ -14,7 +14,7 @@ import fr.uca.cdr.skillful_network.tools.PageTool;
 
 public interface TrainingService {
 
-	Training createOrUpdate(Training training);
+	Training create(Training training);
 
 	List<Training> getAll();
 

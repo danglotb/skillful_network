@@ -14,7 +14,7 @@ import fr.uca.cdr.skillful_network.tools.PageTool;
 
 public interface JobOfferService {
 
-	JobOffer createOrUpdate(JobOffer jobOffer);
+	JobOffer create(JobOffer jobOffer);
 	
 	List<JobOffer> getAll();
 	

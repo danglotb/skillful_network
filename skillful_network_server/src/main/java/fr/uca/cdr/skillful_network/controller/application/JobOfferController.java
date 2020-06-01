@@ -73,7 +73,7 @@ public class JobOfferController {
     @PreAuthorize("hasRole('ENTREPRISE')")
     @PostMapping(value = "")
     public JobOffer create(@Valid @RequestBody JobOffer jobOffer) {
-        return jobOfferService.createOrUpdate(jobOffer);
+        return this.jobOfferService.create(jobOffer);
     }
 
     @PreAuthorize("hasRole('ENTREPRISE')")

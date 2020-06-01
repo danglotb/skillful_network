@@ -25,7 +25,7 @@ public class TrainingServiceImpl implements TrainingService {
 	private TrainingRepository repository;
 
 	@Override
-	public Training createOrUpdate(Training training) {
+	public Training create(Training training) {
 		return this.repository.save(training);
 	}
 

@@ -25,7 +25,7 @@ public class JobOfferServiceImpl implements JobOfferService {
 	private JobOfferRepository repository;
 
 	@Override
-	public JobOffer createOrUpdate(JobOffer jobOffer) {
+	public JobOffer create(JobOffer jobOffer) {
 		return this.repository.save(jobOffer);
 	}
 

@@ -22,13 +22,13 @@ public class SubscriptionController {
 
 	@PreAuthorize("hasRole('USER')")
 	@PostMapping(value = "")
-	public ResponseEntity<Subscription> createQualification(@RequestParam(name="qualificationName") String qualificationName) {
+	public ResponseEntity<Subscription> create(@RequestParam(name="qualificationName") String qualificationName) {
 		return new ResponseEntity<>(this.subscriptionService.createOrUpdate(qualificationName), HttpStatus.OK);
 	}
 
 	@PreAuthorize("hasRole('USER')")
 	@GetMapping(value = "")
-	public ResponseEntity<List<Subscription>> getAllQualifications() {
+	public ResponseEntity<List<Subscription>> getAll() {
 		return new ResponseEntity<>(this.subscriptionService.getAll(), HttpStatus.OK);
 	}
 
