@@ -7,7 +7,6 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "trainingApplications")
 public class TrainingApplication extends Application {
 
     @ManyToOne(cascade = CascadeType.ALL)

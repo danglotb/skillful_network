@@ -27,7 +27,7 @@ public class Training {
 
 	private Date dateUpload;
 
-	private Long durationHours;
+	private long durationHours;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade =  CascadeType.PERSIST)
 	private Set<Keyword> keywords;
@@ -111,11 +111,11 @@ public class Training {
 		this.dateUpload = dateUpload;
 	}
 
-	public Long getDurationHours() {
+	public long getDurationHours() {
 		return durationHours;
 	}
 
-	public void setDurationHours(Long durationHours) {
+	public void setDurationHours(long durationHours) {
 		this.durationHours = durationHours;
 	}
 

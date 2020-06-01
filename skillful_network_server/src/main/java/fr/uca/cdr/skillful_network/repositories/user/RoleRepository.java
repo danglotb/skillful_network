@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import fr.uca.cdr.skillful_network.entities.user.Role;
 
-@Repository("roleRepository")
+@Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
 
 	Optional<Role> findByName(Role.Name name);

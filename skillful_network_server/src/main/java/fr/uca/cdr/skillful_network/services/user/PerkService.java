@@ -6,10 +6,11 @@ import java.util.List;
 
 public interface PerkService<T extends Perk> {
 
-    T createOrUpdate(T perk);
+    T createOrUpdate(String perk);
     List<T> getAll();
     List<T> getCandidates(String keyword);
     T getById(long id);
     T getByName(String name);
     void delete(long id);
+
 }

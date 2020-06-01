@@ -31,23 +31,20 @@ public class WebSecurity extends AbstractConfiguration {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
-                .antMatchers(HttpMethod.POST, REGISTER_URL).permitAll()
-                .antMatchers(HttpMethod.POST, LOG_IN_URL).permitAll()
-                .antMatchers(HttpMethod.GET,
+                .antMatchers(HttpMethod.POST, REGISTER_URL, LOG_IN_URL, "/h2/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/favicon.ico",
                         "/v2/api-docs",
                         "/configuration/ui",
                         "/swagger-resources/**",
                         "/configuration/security",
                         "/swagger-ui.html",
                         "/webjars/**",
-                        "/h2",
-                        "h2/**"
-                ).permitAll()
+                        "/h2/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthorizationFilter(authenticationManager()))
                 // this disables session creation on Spring Security
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().headers().frameOptions().disable();
     }
 
     @Override

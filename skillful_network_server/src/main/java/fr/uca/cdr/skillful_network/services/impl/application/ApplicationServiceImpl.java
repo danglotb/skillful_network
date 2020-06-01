@@ -19,8 +19,15 @@ public abstract class ApplicationServiceImpl<T extends Application> implements A
     }
 
     @Override
-    public T createOrUpdate(T application) {
+    public T create(T application) {
         return this.repository.save(application);
+    }
+
+    @Override
+    public T update(long id, Application.ApplicationStatus status) {
+        final T application = this.getById(id);
+        application.setStatus(status);
+        return application;
     }
 
     @Override

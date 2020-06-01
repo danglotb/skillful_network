@@ -29,103 +29,79 @@ import fr.uca.cdr.skillful_network.tools.PageTool;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/offers")
+@RequestMapping("/jobs")
 public class JobOfferController {
 
-	@Autowired
-	JobOfferService jobOfferService;
+    @Autowired
+    private JobOfferService jobOfferService;
 
-	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
-	@GetMapping(value = "")
-	public List<JobOffer> getOffers() {
-		return jobOfferService.getAll();
-	}
-
-	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
-	@GetMapping(value = "/")
-	public ResponseEntity<Page<JobOffer>> getOffersPerPage(@Valid PageTool pageTool) {
-		if (pageTool != null) {
-			Page<JobOffer> listOffersByPage = jobOfferService.getByPage(pageTool);
-			return new ResponseEntity<Page<JobOffer>>(listOffersByPage, HttpStatus.OK);
-		} else {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Données en paramètre non valides");
-		}
-	}
-
-	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
-	@GetMapping(value = "/{id}")
-	public ResponseEntity<JobOffer> getOfferById(@PathVariable("id") Long id) {
-		Optional<JobOffer> offerFromDb = jobOfferService.getById(id);
-		if (offerFromDb.isPresent()) {
-			return new ResponseEntity<JobOffer>(offerFromDb.get(), HttpStatus.OK);
-		} else {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Job offer n'a pas été trouvé avec l'id : " + id);
-		}
-	}
-
-	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
-	@GetMapping(value = "/search")
-	public ResponseEntity<Page<JobOffer>> getOffersBySearch(@Valid PageTool pageTool,
-			@RequestParam(name = "keyword", required = false) String keyword) {
-		if (pageTool != null && keyword != null) {
-			Page<JobOffer> listOffersbySearch = jobOfferService.getCandidates(pageTool.requestPage(),
-					keyword);
-			return new ResponseEntity<Page<JobOffer>>(listOffersbySearch, HttpStatus.OK);
-		} else {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Données en paramètre non valides");
-		}
-	}
-	
-	@GetMapping(value = "/getScore/{id}")
-    public double getScoreById(@PathVariable(value = "id") Long id) {
-        JobOffer jobOffer = jobOfferService.getById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        return jobOffer.getScore();
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @GetMapping(value = "")
+    public List<JobOffer> getAll() {
+        return this.jobOfferService.getAll();
     }
-	
-	@PreAuthorize("hasRole('ENTREPRISE')")
-	@PostMapping(value="")
-	public JobOffer createJobOffer(@Valid @RequestBody JobOffer jobOffer){
-		return jobOfferService.createOrUpdate(jobOffer);
-		
-	}
-	
-	@PreAuthorize("hasRole('ENTREPRISE')")
-	@PutMapping(value="/{id}")
-	@Transactional
-	public ResponseEntity<JobOffer> updateJobOffer(@PathVariable(value = "id") long id,
-			@Valid @RequestBody JobOffer jobOfferToUpdate) {
-			
-		System.out.println(jobOfferToUpdate);
-		if (jobOfferService.getById(id).isPresent()) {
-			JobOffer initialjobOffer = jobOfferService.getById(id).get();
-			
-			if (jobOfferToUpdate != null) {
-				initialjobOffer.setName(jobOfferToUpdate.getName());
-				initialjobOffer.setCompany(jobOfferToUpdate.getCompany());
-				initialjobOffer.setDescription(jobOfferToUpdate.getDescription());
-				initialjobOffer.setType(jobOfferToUpdate.getType());
-				initialjobOffer.setDateBeg(jobOfferToUpdate.getDateBeg());
-				initialjobOffer.setDateEnd(jobOfferToUpdate.getDateEnd());
-				initialjobOffer.setDateUpload(jobOfferToUpdate.getDateUpload());
-				initialjobOffer.setKeywords(jobOfferToUpdate.getKeywords());
-				initialjobOffer.setJobApplicationSet(jobOfferToUpdate.getJobApplicationSet());
-				
-				JobOffer jobOfferUpdated = jobOfferService.createOrUpdate(initialjobOffer);
-				return new ResponseEntity<JobOffer>(jobOfferUpdated, HttpStatus.OK);
-				
-			} else {
-				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Aucune donnée en paramètre");
-			}
-		} else {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune Job Offer trouvée");
-		}
-	}
-	
-	@PreAuthorize("hasRole('ENTREPRISE')")
-	@DeleteMapping(value="/{id}")
-	@Transactional
-	public void deleteJobOffer(@PathVariable(value="id") Long id) {
-		jobOfferService.delete(id);
-	}
+
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @GetMapping(value = "/page")
+    public ResponseEntity<Page<JobOffer>> getPerPage(@Valid PageTool pageTool) {
+        if (pageTool != null) {
+            return new ResponseEntity<>(this.jobOfferService.getByPage(pageTool), HttpStatus.OK);
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Données en paramètre non valides");
+        }
+    }
+
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<JobOffer> getById(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(this.jobOfferService.getById(id), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @GetMapping(value = "/search")
+    public ResponseEntity<Page<JobOffer>> getBySearch(@Valid PageTool pageTool,
+                                                            @RequestParam(name = "keyword", required = false) String keyword) {
+        if (pageTool != null && keyword != null) {
+            Page<JobOffer> candidates = jobOfferService.getCandidates(pageTool.requestPage(),
+                    keyword);
+            return new ResponseEntity<>(candidates, HttpStatus.OK);
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Données en paramètre non valides");
+        }
+    }
+
+    @PreAuthorize("hasRole('ENTREPRISE')")
+    @PostMapping(value = "")
+    public JobOffer create(@Valid @RequestBody JobOffer jobOffer) {
+        return this.jobOfferService.create(jobOffer);
+    }
+
+    @PreAuthorize("hasRole('ENTREPRISE')")
+    @PutMapping(value = "/{id}")
+    @Transactional
+    public ResponseEntity<JobOffer> update(@PathVariable(value = "id") long id,
+                                                   @Valid @RequestBody JobOffer jobOfferToUpdate) {
+
+        return new ResponseEntity<>(
+                this.jobOfferService.update(
+                        id,
+                        jobOfferToUpdate.getName(),
+                        jobOfferToUpdate.getCompany(),
+                        jobOfferToUpdate.getDescription(),
+                        jobOfferToUpdate.getType(),
+                        jobOfferToUpdate.getDateBeg(),
+                        jobOfferToUpdate.getDateEnd(),
+                        jobOfferToUpdate.getDateUpload(),
+                        jobOfferToUpdate.getKeywords(),
+                        jobOfferToUpdate.getRisk(),
+                        jobOfferToUpdate.getComplexity()
+                ), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('ENTREPRISE')")
+    @DeleteMapping(value = "/{id}")
+    @Transactional
+    public void delete(@PathVariable(value = "id") Long id) {
+        jobOfferService.delete(id);
+    }
 }

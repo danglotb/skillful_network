@@ -1,11 +1,11 @@
 package fr.uca.cdr.skillful_network.controller.application;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
+import fr.uca.cdr.skillful_network.entities.application.JobOffer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,75 +32,71 @@ import fr.uca.cdr.skillful_network.tools.PageTool;
 @RequestMapping("/trainings")
 public class TrainingController {
 
-	@Autowired
-	private TrainingService trainingService;
+    @Autowired
+    private TrainingService trainingService;
 
-	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
-	@GetMapping(value = "")
-	public List<Training> getTrainings() {
-		return trainingService.getAll();
-	}
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @GetMapping(value = "")
+    public List<Training> getAll() {
+        return this.trainingService.getAll();
+    }
 
-	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
-	@GetMapping(value = "/")
-	public ResponseEntity<Page<Training>> getTrainingsPerPage(@Valid PageTool pageTool) {
-		if (pageTool != null) {
-			Page<Training> listTrainingsByPage = trainingService.getByPage(pageTool);
-			return new ResponseEntity<Page<Training>>(listTrainingsByPage, HttpStatus.OK);
-		} else {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Données en paramètre non valides");
-		}
-	}
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @GetMapping(value = "/page")
+    public ResponseEntity<Page<Training>> getPerPage(@Valid PageTool pageTool) {
+        if (pageTool != null) {
+            Page<Training> listTrainingsByPage = this.trainingService.getByPage(pageTool);
+            return new ResponseEntity<>(listTrainingsByPage, HttpStatus.OK);
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Données en paramètre non valides");
+        }
+    }
 
-	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
-	@GetMapping(value = "/{id}")
-	public ResponseEntity<Training> getTrainingById(@PathVariable("id") Long id) {
-		Optional<Training> trainingFromDb = trainingService.getById(id);
-		if (trainingFromDb.isPresent()) {
-			return new ResponseEntity<Training>(trainingFromDb.get(), HttpStatus.OK);
-		} else {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Training n'a pas été trouvé avec l'id : " + id);
-		}
-	}
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Training> getById(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(this.trainingService.getById(id), HttpStatus.OK);
+    }
 
-	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
-	@GetMapping(value = "/search")
-	public ResponseEntity<Page<Training>> getTrainingsBySearch(@Valid PageTool pageTool,
-			@RequestParam(name = "keyword", required = false) String keyword) {
-		if (pageTool != null && keyword != null) {
-			Page<Training> lisTrainingsbySearch = trainingService.getCandidates(pageTool.requestPage(),
-					keyword);
-			return new ResponseEntity<Page<Training>>(lisTrainingsbySearch, HttpStatus.OK);
-		} else {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Données en paramètre non valides");
-		}
-	}
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @GetMapping(value = "/search")
+    public ResponseEntity<Page<Training>> getBySearch(@Valid PageTool pageTool,
+                                                               @RequestParam(name = "keyword", required = false) String keyword) {
+        if (pageTool != null && keyword != null) {
+            Page<Training> listBySearch = this.trainingService.getCandidates(pageTool.requestPage(), keyword);
+            return new ResponseEntity<>(listBySearch, HttpStatus.OK);
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Données en paramètre non valides");
+        }
+    }
 
-	// suppression d'une formation
-	@PreAuthorize("hasRole('ORGANISME')")
-	@DeleteMapping(value = "/training/{id}")
-	public void deleteTraining(@PathVariable(value = "id") Long id) {
-		trainingService.delete(id);
-	}
+    @PreAuthorize("hasRole('ORGANISME')")
+    @PostMapping(value = "")
+    public Training create(@Valid @RequestBody Training training) {
+        return this.trainingService.create(training);
+    }
 
-	// Update d'une formation
-	@PreAuthorize("hasRole('ORGANISME')")
-	@PutMapping(value = "/training/{id}")
-	@Transactional
-	public ResponseEntity<Training> updateTraining(@PathVariable(value = "id") Long id,
-			@Valid @RequestBody Training training) {
-		Training trainingToUpdate = trainingService.getById(id)
-				.orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"formation non trouvée : " + id));
-		
-		trainingToUpdate.setName(training.getName());
-		trainingToUpdate.setOrganization(training.getOrganization());
-		trainingToUpdate.setDescription(training.getDescription());
-		trainingToUpdate.setDateBeg(training.getDateBeg());
-		trainingToUpdate.setDateEnd(training.getDateEnd());
-		trainingToUpdate.setDateUpload(training.getDateUpload());
-		trainingToUpdate.setDurationHours(training.getDurationHours());
-		trainingToUpdate.setKeywords(training.getKeywords());
-		Training trainingUpdated = trainingService.createOrUpdate(trainingToUpdate);
-		return new ResponseEntity<Training>(trainingUpdated, HttpStatus.OK);
-	}
+    @PreAuthorize("hasRole('ORGANISME')")
+    @PutMapping(value = "{id}")
+    @Transactional
+    public ResponseEntity<Training> update(@PathVariable(value = "id") Long id,
+                                           @Valid @RequestBody Training training) {
+        return new ResponseEntity<>(this.trainingService.update(
+                id,
+                training.getName(),
+                training.getOrganization(),
+                training.getDescription(),
+                training.getDateBeg(),
+                training.getDateEnd(),
+                training.getDateUpload(),
+                training.getDurationHours(),
+                training.getKeywords()
+        ), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('ORGANISME')")
+    @DeleteMapping(value = "{id}")
+    public void delete(@PathVariable(value = "id") Long id) {
+        this.trainingService.delete(id);
+    }
 }
