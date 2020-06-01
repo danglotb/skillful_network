@@ -24,9 +24,31 @@ http://localhost:4200
 
 You can login using `john@uca.fr` and `12345678`, or create a new account (the temporary code will appear in the console of the backend).
 
-### Hierarchy
+### Code organization
 
 #### Backend
+
+The backend is organized as follows:
+
+Each responsability, _i.e._ `entities`, `repositories`, `services`, `controllers` has its own package.
+Each reponsible package is divided as follow:
+  - `application`: contains classes related to job and training applications.
+  - `user`: contains classes related to the users and their information.
+If any class is direclty in the responsible package, it means that there is no sub-package that corresponds to the class.
+All `services` must be declared as an interface in the package `fr.uca.cdr.skillful_network.services`.
+All implementations of `services` must be in the sub-package `impl`, _i.e._ namely `fr.uca.cdr.skillful_network.services.impl`.
+
+We adopt the following basic rules:
+ - The link between `controllers` and `services` is one-to-one, _i.e._ a `controller` use an unique `service`.
+ - `controllers` must not access directly to `repositories` and must use `services` instead.
+ - All the business logic must be in `services`.
+ - All the network logic must be in the `controllers`.
+ - The link between `services` and `repositories` is one-to-one, _i.e._ a `service` use an unique `repository`.
+
+Others packages are the following:
+ - `request`: contains class definitions of objects send by the frontend.
+ - `security`: contains the classes related to the security configuration.
+ - `tools`: contains helper classes.
 
 ### API
 
