@@ -1,0 +1,64 @@
+[
+  {
+    "offer": {
+      "id": 1,
+      "name": "trainingName1",
+      "organization": "trainingOrganization1",
+      "description": "trainingDescription1",
+      "dateBeg": "Jun 4, 2020 9:42:41 AM",
+      "dateEnd": "Jun 4, 2020 9:42:41 AM",
+      "dateUpload": "Jun 4, 2020 9:42:41 AM",
+      "durationHours": 10,
+      "keywords": [
+        {
+          "id": 1,
+          "name": "keyword1",
+          "jobOffers": [],
+          "trainings": []
+        }
+      ],
+      "trainingApplicationSet": []
+    },
+    "id": 1,
+    "user": {
+      "id": 1,
+      "firstName": "userFirstName",
+      "lastName": "userLastName",
+      "password": "Qwerty123",
+      "birthDate": "Jun 4, 2020 9:42:41 AM",
+      "email": "user@uca.fr",
+      "mobileNumber": "0712345678",
+      "validated": false,
+      "careerGoal": "userCareerGoal",
+      "skillSet": [
+        {
+          "id": 1,
+          "name": "skillName1",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 1,
+          "name": "qualificationName1",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 1,
+          "name": "subscriptionName1",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ]
+    }
+  }
+]

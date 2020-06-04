@@ -10,7 +10,7 @@ public class Skill extends Perk {
         super();
     }
 
-    public Skill(@NotNull(message = "Subscription name cannot be null") @Size(min = 2, max = 20, message = "Subscription name must be between 3 and 20 characters") String name) {
+    public Skill(@NotNull(message = "Skill name cannot be null") @Size(min = 2, max = 20, message = "Skill name must be between 3 and 20 characters") String name) {
         super(name);
     }
 }

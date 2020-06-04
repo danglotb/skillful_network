@@ -1,63 +1,20 @@
 [
   {
     "id": 1,
-    "name": "Fullstack"
-	
+    "name": "keyword1",
+    "jobOffers": [],
+    "trainings": []
   },
   {
     "id": 2,
-    "name": "Application Web"
+    "name": "keyword2",
+    "jobOffers": [],
+    "trainings": []
   },
   {
     "id": 3,
-    "name": "Angular"
-  },
-  {
-    "id": 4,
-    "name": "Java"
-  },
-  {
-    "id": 5,
-    "name": "Spring"
-  },
-  {
-    "id": 6,
-    "name": "HTML5"
-  },
-  {
-    "id": 7,
-    "name": "CSS"
-  },
-  {
-    "id": 8,
-    "name": "Java/J2EE"
-  },
-  {
-    "id": 9,
-    "name": "REST"
-  },
-  {
-    "id": 10,
-    "name": "SOAP"
-  },
-  {
-    "id":11,
-    "name": "HTTPS"
-  },
-  {
-    "id": 12,
-    "name": "TLS"
-  },
-  {
-    "id": 13,
-    "name": "Chiffrage des données"
-  },
-  {
-    "id": 14,
-    "name": "protocol TCP"
-  },
-  {
-    "id": 15,
-    "name": "javascript"
+    "name": "keyword3",
+    "jobOffers": [],
+    "trainings": []
   }
 ]

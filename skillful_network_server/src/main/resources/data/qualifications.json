@@ -1,39 +1,7 @@
 [
   {
     "id": 1,
-    "name": "Bac",
-    "userSet": [{"id": 1},{"id": 3}]
-  },
-  {
-    "id": 2,
-    "name": "BTS",
-    "userSet": [{"id": 4},{"id": 5}]
-  },
-  {
-    "id": 3,
-    "name": "DUT",
-    "userSet": [{"id": 2}]
-  },
-  {
-    "id": 4,
-    "name": "Licence",
-    "userSet": [{"id": 3}]
-  },
-  {
-    "id": 5,
-    "name": "Master",
-    "userSet": [{"id": 2},{"id": 3}]
-  },
-  {
-    "id": 6,
-    "name": "Ingénieur",
-    "userSet": [{"id": 2},{"id": 1}]
-  },
-  {
-    "id": 7,
-    "name": "Doctorat",
-    "userSet": [{"id": 4},{"id": 3}]
+    "name": "qualificationName1",
+    "userList": []
   }
 ]
-
-

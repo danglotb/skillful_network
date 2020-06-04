@@ -28,8 +28,6 @@ public class JSONLoader<T> {
 
     private JsonDeserializer<T> adapter;
     
-    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
     public JSONLoader(String path, Class<T[]> arrayType, JpaRepository<T, Long> repository) {
         this.path = path;
         this.arrayType = arrayType;

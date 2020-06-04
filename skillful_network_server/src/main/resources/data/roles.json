@@ -5,10 +5,10 @@
   },
   {
     "id": 2,
-    "name": "ROLE_ENTREPRISE"
+    "name": "ROLE_COMPANY"
   },
   {
     "id": 3,
-    "name": "ROLE_ORGANISME"
+    "name": "ROLE_TRAINING_ORGANIZATION"
   }
 ]
