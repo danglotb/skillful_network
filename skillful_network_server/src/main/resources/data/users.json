@@ -7,7 +7,7 @@
     "birthDate": "Jun 4, 2020 9:42:41 AM",
     "email": "user@uca.fr",
     "mobileNumber": "0712345678",
-    "validated": false,
+    "validated": true,
     "careerGoal": "userCareerGoal",
     "skillSet": [
       {

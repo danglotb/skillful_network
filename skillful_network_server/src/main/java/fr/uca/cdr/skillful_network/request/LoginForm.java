@@ -9,14 +9,25 @@ public class LoginForm{
 
 	@NotNull
 	@Size(min=8,max=20)
-	public final String password;
+	private String password;
 	
 	@NotNull
 	@Email
-	public final String email;
+	private String email;
+
+	public LoginForm() {
+	}
 
 	public LoginForm(@Size(min = 8, max = 20) String password, @Email String email) {
 		this.password = password;
 		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public String getEmail() {
+		return email;
 	}
 }

@@ -26,22 +26,25 @@ import fr.uca.cdr.skillful_network.entities.user.Subscription;
 public class UserForm {
 
 	@Size(min = 2, max = 20, message = "firstName must be between 2 and 20 characters")
-	public final String firstName;
+	private String firstName;
 
 	@Size(min = 2, max = 20, message = "lastName must be between 2 and 20 characters")
-	public final String lastName;
+	private String lastName;
 
 	@Past
-	public final Date birthDate;
+	private Date birthDate;
 
 	@Deprecated
-	public final String careerGoal;
+	private String careerGoal;
 
-	public final Set<Skill> skillSet;
+	private Set<Skill> skillSet;
 
-	public final Set<Qualification> qualificationSet;
+	private Set<Qualification> qualificationSet;
 
-	public final Set<Subscription> subscriptionSet;
+	private Set<Subscription> subscriptionSet;
+
+	private UserForm() {
+	}
 
 	public UserForm(@Size(min = 2, max = 20, message = "firstName must be between 2 and 20 characters") String firstName, @Size(min = 2, max = 20, message = "lastName must be between 2 and 20 characters") String lastName, @Past Date birthDate, String careerGoal, Set<Skill> skillSet, Set<Qualification> qualificationSet, Set<Subscription> subscriptionSet) {
 		this.firstName = firstName;
@@ -51,5 +54,33 @@ public class UserForm {
 		this.skillSet = skillSet;
 		this.qualificationSet = qualificationSet;
 		this.subscriptionSet = subscriptionSet;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public Date getBirthDate() {
+		return birthDate;
+	}
+
+	public String getCareerGoal() {
+		return careerGoal;
+	}
+
+	public Set<Skill> getSkillSet() {
+		return skillSet;
+	}
+
+	public Set<Qualification> getQualificationSet() {
+		return qualificationSet;
+	}
+
+	public Set<Subscription> getSubscriptionSet() {
+		return subscriptionSet;
 	}
 }

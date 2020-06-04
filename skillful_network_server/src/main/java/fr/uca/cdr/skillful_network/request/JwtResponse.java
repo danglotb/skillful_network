@@ -6,13 +6,23 @@ import java.util.Collection;
 
 public class JwtResponse {
 
-    public final String token;
+    private String token;
 
-    public final Collection<? extends GrantedAuthority> authorities;
+    private Collection<? extends GrantedAuthority> authorities;
 
-    public JwtResponse(String token,  Collection<? extends GrantedAuthority> authorities) {
+    public JwtResponse() {
+    }
+
+    public JwtResponse(String token, Collection<? extends GrantedAuthority> authorities) {
         this.token = token;
         this.authorities = authorities;
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
 }

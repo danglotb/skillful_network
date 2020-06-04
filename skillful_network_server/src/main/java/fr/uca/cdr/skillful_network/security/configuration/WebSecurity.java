@@ -26,6 +26,9 @@ import static fr.uca.cdr.skillful_network.security.SecurityConstants.REGISTER_UR
 public class WebSecurity extends AbstractConfiguration {
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
@@ -49,16 +52,7 @@ public class WebSecurity extends AbstractConfiguration {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(
-                new UserDetailsService() {
-                    @Autowired
-                    private UserService userService;
-
-                    @Override
-                    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-                        return userService.getByEmail(s);
-                    }
-                }).passwordEncoder(bCryptPasswordEncoder);
+        auth.userDetailsService(s -> this.userService.getByEmail(s)).passwordEncoder(this.bCryptPasswordEncoder);
     }
 
     @Bean

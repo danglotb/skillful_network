@@ -61,20 +61,20 @@ public class UserController {
     @PutMapping(value = "")
     public ResponseEntity<User> update(@Valid @RequestBody UserForm userForm) {
         return new ResponseEntity<>(this.userService.update(
-                userForm.firstName,
-                userForm.lastName,
-                userForm.birthDate,
-                userForm.careerGoal,
-                userForm.skillSet,
-                userForm.qualificationSet,
-                userForm.subscriptionSet
+                userForm.getFirstName(),
+                userForm.getLastName(),
+                userForm.getBirthDate(),
+                userForm.getCareerGoal(),
+                userForm.getSkillSet(),
+                userForm.getQualificationSet(),
+                userForm.getSubscriptionSet()
         ), HttpStatus.OK);
     }
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
     @PutMapping("/password")
     public ResponseEntity<User> updatePassword(@Valid @RequestBody PasswordForm passwordUpdate) {
-        return new ResponseEntity<>(this.userService.updatePassword(passwordUpdate.password), HttpStatus.OK);
+        return new ResponseEntity<>(this.userService.updatePassword(passwordUpdate.getPassword()), HttpStatus.OK);
     }
 
     @SuppressWarnings("resource")

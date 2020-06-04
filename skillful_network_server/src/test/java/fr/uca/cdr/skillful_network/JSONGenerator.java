@@ -184,6 +184,7 @@ public class JSONGenerator {
         user.setEmail("user@uca.fr");
         user.setMobileNumber("0712345678");
         user.setCareerGoal("userCareerGoal");
+        user.setValidated(true);
         user.setSkillSet(Collections.singleton(this.skillRepository.getOne(1L)));
         user.setSubscriptionSet(Collections.singleton(this.subscriptionRepository.getOne(1L)));
         user.setQualificationSet(Collections.singleton(this.qualificationRepository.getOne(1L)));

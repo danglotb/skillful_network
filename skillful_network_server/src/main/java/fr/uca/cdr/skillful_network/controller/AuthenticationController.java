@@ -48,7 +48,7 @@ public class AuthenticationController {
     public ResponseEntity<JwtResponse> login(@Valid @RequestBody LoginForm credentials) {
         final Authentication authenticate;
         try {
-            authenticate = this.service.authentication(credentials.email, credentials.password);
+            authenticate = this.service.authentication(credentials.getEmail(), credentials.getPassword());
         } catch (AuthenticationException e) {
             e.printStackTrace();
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
