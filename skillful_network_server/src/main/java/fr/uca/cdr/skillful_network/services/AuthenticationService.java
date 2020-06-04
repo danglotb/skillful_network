@@ -9,7 +9,7 @@ public interface AuthenticationService {
 
     User getCurrentUser();
 
-    User register(String email, String password, Set<String> roles);
+    User register(String email, Set<String> roles);
 
     Authentication authentication(String email, String password);
 

@@ -62,14 +62,18 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public User register(String email, String password, Set<String> roles) {
-        if (this.userService.exists(email)) {
-            if (this.userService.isValidated(email)) {
-                return this.getCurrentUser();
-            } else {
-                User oldUser = this.userService.getByEmail(email);
-                this.userService.delete(oldUser.getId());
+    public User register(String email, Set<String> roles) {
+        try {
+            if (this.userService.exists(email)) {
+                if (this.userService.isValidated(email)) {
+                    return this.userService.getByEmail(email);
+                } else {
+                    User oldUser = this.userService.getByEmail(email);
+                    this.userService.delete(oldUser.getId());
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         final String randomCode = CodeGeneration.generate.apply(10);
         if (this.activeProfile.contains("prod")) {
@@ -78,6 +82,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         final User user = new User();
         user.setEmail(email);
         user.setTemporaryCodeExpirationDate(LocalDateTime.now().plus(24, ChronoUnit.HOURS));
+        logger.debug("Code: {} for {}", randomCode, email);
         final String randomCodeEncrypt = this.encoder.encode(randomCode);
         user.setPassword(randomCodeEncrypt);
         this.manageRoles(roles, user);
