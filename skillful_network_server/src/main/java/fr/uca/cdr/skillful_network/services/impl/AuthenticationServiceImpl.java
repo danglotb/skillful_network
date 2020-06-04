@@ -8,6 +8,8 @@ import fr.uca.cdr.skillful_network.services.AuthenticationService;
 import fr.uca.cdr.skillful_network.services.EmailService;
 import fr.uca.cdr.skillful_network.services.user.RoleService;
 import fr.uca.cdr.skillful_network.services.user.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,6 +34,8 @@ import static fr.uca.cdr.skillful_network.security.SecurityConstants.SECRET;
 public class AuthenticationServiceImpl implements AuthenticationService {
 
     public static final int SIZE_TMP_CODE = 10;
+
+    private static final Logger logger = LoggerFactory.getLogger(AuthenticationService.class);
 
     @Value("${spring.profiles.active}")
     private String activeProfile;
