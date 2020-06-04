@@ -60,3 +60,6 @@ The database for development used in `H2`, that is loaded in the memory. This da
 
 While the application backend is running, the database is available at the following url: `localhost:8080/h2`.
 The username is `sa` and the password is empty ``.
+
+The json files are generated using the test class `fr.uca.cdr.skillful_network.JSONGenerator`. If you need special instances of entities, you should update the test with you required datas by constructing new objects (please, respect the separation of concerns, each entity has its own method to be generated), generate the json file, and commit your change in the `JSONGenerator` and in json files.
+This is done in order to share and populate the development database.
