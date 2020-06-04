@@ -30,7 +30,7 @@ import { FilActualitesComponent } from './home/dashboard/fil-actualites/fil-actu
 import { HeaderComponent } from './home/dashboard/header/header.component';
 import { CandidatureComponent } from './home/dashboard/candidature/candidature.component';
 import { ProfileComponent } from './home/dashboard/profile/profile.component';
-import { MenuprofileComponent } from './menuprofile/menuprofile.component';
+import { MenuSideBarComponent } from './home/menu-side-bar/menu-side-bar.component';
 import { ProfilePictureUploader } from './home/profile-picture-uploader/profile-picture-uploader';
 import { ProfileConfComponent } from './home/profile-conf/profile-conf.component';
 import { UserConfComponent } from './home/profile-conf/user-conf/user-conf.component';
@@ -85,7 +85,7 @@ import { ModalResultComponent } from './home/questionnaire/modal-result/modal-re
         FooterComponent,
         FilActualitesComponent,
         ProfileComponent,
-        MenuprofileComponent,
+        MenuSideBarComponent,
         ProfilePictureUploader,
         ProfileConfComponent,
         UserConfComponent,

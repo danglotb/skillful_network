@@ -1,4 +1,3 @@
-<!-- C'est cette balise qui indique ou charger la vue du composant correspondant à l'URL actuelle -->
-<div class="progressBarDiv" *ngIf="stillLogged" ><mat-progress-spinner class="is-loading" mode="indeterminate"></mat-progress-spinner></div>
-<router-outlet *ngIf="!stillLogged">
+<div class="progressBarDiv" *ngIf="isLogging" ><mat-progress-spinner class="is-loading" mode="indeterminate"></mat-progress-spinner></div>
+<router-outlet *ngIf="!isLogging">
 </router-outlet>

@@ -69,13 +69,13 @@ export class LoginComponent implements OnInit {
     }
     response.then((data) => {
       this.tokenStorage.saveTokenAndCurrentUsername(data.token, data.authorities, this.isChecked ? 'local' : '');
+      this.userService.initUserLogged();
       if (this.doDisplayCodeVerif) {
         this.router.navigate(['/password']);
       } else {
         this.router.navigate(['/home']);
       }
-    })
-      .catch((error) => {
+    }).catch((error) => {
         this.isLoginFailed = true;
       });
   }
