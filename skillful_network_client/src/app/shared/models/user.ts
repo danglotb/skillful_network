@@ -1,6 +1,4 @@
-import { LoginComponent } from 'src/app/login/login.component';
 import { ChipValue } from './chip-value';
-import { Subscription } from 'rxjs';
 
 export class User {
   private _id: number;
@@ -9,8 +7,6 @@ export class User {
   private _password: string;
   private _email: string;
   private _birthDate: Date;
-  private _qualification: string;
-  private _competences: string[];
   private _mobileNumber: string;
   private _status: string;
   private _validated: boolean;
@@ -27,7 +23,6 @@ export class User {
     this._firstName = data.firstName;
     this._email = data.email;
     this._status = data.status;
-    this._qualification = data.qualification;
     this._lastName = data.lastName;
     this._password = data.password;
     this._birthDate = data.birthDate;

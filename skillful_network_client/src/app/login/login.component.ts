@@ -7,7 +7,7 @@ import { User } from '../shared/models/user';
 import { Router } from '@angular/router';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
-import { MyDialogComponent } from '../my-dialog/my-dialog.component';
+import { ExistingAccountDialog } from './existing-account-dialog/existing-account-dialog.component';
 import { JwtResponse } from '../shared/models/jwt-response';
 
 @Component({
@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
   login() {
     localStorage.clear();
     sessionStorage.clear();
-    let response : Promise<JwtResponse>;
+    let response: Promise<JwtResponse>;
     if (this.doDisplayCodeVerif) {
       response = this.authService.login(this.inscriptionFormGroup.value.emailInscription, this.codeForm.value.code);
     } else {
@@ -76,23 +76,27 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/home']);
       }
     }).catch((error) => {
-        this.isLoginFailed = true;
-      });
+      this.isLoginFailed = true;
+    });
   }
 
   register() {
     this.role = ['ROLE_USER'];
     this.authService.register({ email: this.inscriptionFormGroup.value.emailInscription, role: this.role })
       .then((response) => {
-        this.openDialog('L\' adresse email  ' + this.inscriptionFormGroup.value.emailInscription + '   que vous avez insérée existe déjà. Veuillez vous connecter.');
+        this.openDialog('L\'adresse email  ' + this.inscriptionFormGroup.value.emailInscription + ' que vous avez insérée existe déjà. Veuillez vous connecter.');
         this.router.navigate(['/login']);
       }).catch((error) => {
-        this.doDisplayCodeVerif = true;
+        if (error.status == 403) {
+          this.doDisplayCodeVerif = true;
+        } else {
+          console.log(error);
+        }
       });
   }
 
   openDialog(message: string) {
-    let dialogRef = this.dialog.open(MyDialogComponent, {
+    let dialogRef = this.dialog.open(ExistingAccountDialog, {
       width: '700px',
       data: message
     });

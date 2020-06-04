@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MyDialogComponent } from './my-dialog.component';
+import { ExistingAccountDialog } from './existing-account-dialog.component';
 
-describe('MyDialogComponent', () => {
-  let component: MyDialogComponent;
-  let fixture: ComponentFixture<MyDialogComponent>;
+describe('ExistingAccountDialog', () => {
+  let component: ExistingAccountDialog;
+  let fixture: ComponentFixture<ExistingAccountDialog>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MyDialogComponent ]
+      declarations: [ ExistingAccountDialog ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MyDialogComponent);
+    fixture = TestBed.createComponent(ExistingAccountDialog);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

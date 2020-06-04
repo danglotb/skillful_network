@@ -57,7 +57,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NewPasswordComponent } from './home/profile-conf/new-password/new-password.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MyDialogComponent } from './my-dialog/my-dialog.component';
+import { ExistingAccountDialog } from './login/existing-account-dialog/existing-account-dialog.component';
 import { GoalValidationModalComponent } from './home/dashboard/simulation/goal-validation-modal/goal-validation-modal.component';
 import { SimulationSynthesisComponent } from './home/simulation-synthesis/simulation-synthesis.component';
 import { SimSynQuestionListComponent } from './home/simulation-synthesis/sim-syn-question-list/sim-syn-question-list.component';
@@ -105,7 +105,7 @@ import { ModalResultComponent } from './home/questionnaire/modal-result/modal-re
         QuestionnaireComponent,
         NewPasswordComponent,
         PageDataComponent,
-        MyDialogComponent,
+        ExistingAccountDialog,
         GoalValidationModalComponent,
         SimulationSynthesisComponent,
         SimSynQuestionListComponent,
@@ -129,7 +129,7 @@ import { ModalResultComponent } from './home/questionnaire/modal-result/modal-re
     ],
 
     entryComponents: [
-        MyDialogComponent
+        ExistingAccountDialog
     ],
 
     providers: [
