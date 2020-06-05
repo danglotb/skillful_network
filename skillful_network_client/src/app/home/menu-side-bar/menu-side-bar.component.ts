@@ -29,7 +29,7 @@ export class MenuSideBarComponent implements OnInit {
     }).catch( (error => {
         if (error.error.status == 404) {
           this.userService.userLogged.photoProfile = this.sanitizer.bypassSecurityTrustUrl(
-            'https://www.gravatar.com/avatar/' + this.userService.userLogged.id + '?s=32&d=identicon&r=PG'
+            'https://www.gravatar.com/avatar/' + this.userService.userLogged.id + '?s=128&d=identicon&r=PG'
           );
         }
       })
