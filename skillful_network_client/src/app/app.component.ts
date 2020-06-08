@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
         data: this.tokenStorageService.getToken()
       }).then(data => {
         this.userService.initUserLoggedWithObject(data)
-        this.isLogging = true;
+        this.isLogging = false;
       }).catch(err => {
         console.log(err);
         localStorage.clear()
@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
         this.snackBar.open("Votre token a été expiré, veuillez vous connectez de nouveau !", "", {
           duration: 5000,
         });
-        this.isLogging = true;
+        this.isLogging = false;
       })
     } else if (this.tokenStorageService.getToken() != null) {
       this.api.post({ endpoint: "/whoami", data: this.tokenStorageService.getToken() }).then(data => {
@@ -46,12 +46,12 @@ export class AppComponent implements OnInit {
         this.snackBar.open("Vous êtes déja connecté, veuillez vous déconnecter pour vous connecter à un autre compte !", "", {
           duration: 5000,
         });
-        this.isLogging = true;
+        this.isLogging = false;
       }
       ).catch(err => {
         localStorage.clear()
         this.router.navigate(['/login']);
-        this.isLogging = true;
+        this.isLogging = false;
       })
     }
   }

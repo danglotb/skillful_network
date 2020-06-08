@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { Candidature } from "../../shared/models/candidature";
 import { ApiHelperService } from "../../shared/services/api-helper.service";
 import { ActivatedRoute } from "@angular/router";
+import { CardComponent } from '../../shared/components/card/card.component';
 
 @Component({
   selector: 'app-profile-conf',
@@ -15,34 +16,30 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ['./profile-conf.component.scss']
 })
 export class ProfileConfComponent {
-  
+
   userLogged: User;
   parentGroup: FormGroup;
   public listCandidature: Candidature[];
 
   constructor(
     private formBuilder: FormBuilder,
-    private userService: UserService, 
-    private api: ApiHelperService, 
-    private route: ActivatedRoute, 
+    private userService: UserService,
+    private api: ApiHelperService,
+    private route: ActivatedRoute,
     private ts: TokenStorageService) { }
 
   ngOnInit() {
-    this.api.get({ endpoint: `/user` }).then(data => {
-      console.log(data);
-      this.userLogged = data;
-      this.createForm();
-      this.api.get({ endpoint: `/applications/jobs/user/` + data.id })
-        .then(candidatures => {
-          this.listCandidature = candidatures;
-        })
-    })
-      .catch((error) => {
-        console.log(error);
-      });
+    this.userLogged = this.userService.userLogged;
+    this.createForm();
+    // this.api.get({ endpoint: `/applications/jobs/user/` + this.userLogged.id })
+    //   .then(candidatures => {
+    //     this.listCandidature = candidatures;
+    //   }).catch((error) => {
+    //     console.log(error);
+    //   });
   }
 
-  createForm() {
+  private createForm() {
     this.parentGroup = this.formBuilder.group({
       formUserInfos: this.formBuilder.group({
         'lastName': [this.userLogged.lastName, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
@@ -88,7 +85,7 @@ export class ProfileConfComponent {
 
     // partie Qualif /!\ cette partie du formulaire est vide si rien n'est touché
     const formValueQ = this.parentGroup.get('formQualInfos').value;
-    if (formValueQ['qualificationSet'].length> 0) {
+    if (formValueQ['qualificationSet'].length > 0) {
       this.userLogged.qualificationSet = formValueQ['qualificationSet'];
     }
 

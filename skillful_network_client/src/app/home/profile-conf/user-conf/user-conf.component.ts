@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
-import {  FormGroup } from '@angular/forms';
-import {DateAdapter} from '@angular/material/core';
+import { FormGroup } from '@angular/forms';
+import { DateAdapter } from '@angular/material/core';
+
 @Component({
   selector: 'app-user-conf',
   templateUrl: './user-conf.component.html',
@@ -9,11 +10,12 @@ import {DateAdapter} from '@angular/material/core';
 
 export class UserConfComponent {
 
+  public title : string = 'Informations'
+  @Input() userInfoGroup: FormGroup;
+
   constructor(private _adapter: DateAdapter<any>) {
     this._adapter.setLocale('fr');
   }
-
-  @Input() userInfoGroup: FormGroup;
 
   ngOnInit() { }
 

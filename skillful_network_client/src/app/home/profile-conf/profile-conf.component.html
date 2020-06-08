@@ -3,6 +3,9 @@
         <div class="div1">
             <app-user-conf [userInfoGroup]="parentGroup.get('formUserInfos')"></app-user-conf>
         </div>
+        <div class="div6">
+            <app-candidatures-user [listCandidature]="listCandidature"></app-candidatures-user>
+        </div>
         <div class="div2">
             <app-chip-conf title="Qualifications" label="Nouvelle qualification" detail="qualification"
                 [chipInfoGroup]="parentGroup.get('formQualInfos')" [userChipList]="userLogged.qualificationSet">
@@ -17,15 +20,6 @@
             <app-chip-conf class="div4" title="Abonnements" label="Nouvel abonnement" detail="abonnement"
                 [chipInfoGroup]="parentGroup.get('formSubscriptInfos')" userChipName="subscriptUnit"
                 [userChipList]="userLogged.subscriptionSet"></app-chip-conf>
-        </div>
-        <div class="div5">
-            <app-simulation></app-simulation>
-        </div>
-        <div class="div6">
-            <app-candidatures-user [listCandidature]="listCandidature"></app-candidatures-user>
-        </div>
-        <div class="div7">
-            <app-new-password></app-new-password>
         </div>
         <div class="div8">
             <div fxLayout="row" fxLayoutAlign="center center" novalidate>
