@@ -28,7 +28,6 @@ import { FooterComponent } from './home/dashboard/footer/footer.component';
 import { ChatComponent } from './home/dashboard/chat/chat.component';
 import { FilActualitesComponent } from './home/dashboard/fil-actualites/fil-actualites.component';
 import { HeaderComponent } from './home/dashboard/header/header.component';
-import { CandidatureComponent } from './home/dashboard/candidature/candidature.component';
 import { ProfileComponent } from './home/dashboard/profile/profile.component';
 import { MenuSideBarComponent } from './home/menu-side-bar/menu-side-bar.component';
 import { ProfilePictureUploader } from './home/profile-picture-uploader/profile-picture-uploader';
@@ -38,7 +37,7 @@ import { UserService } from './shared/services/user.service';
 import { DetailsUserComponent } from './home/user/details-user/details-user.component';
 import { SubscriptComponent } from './home/user/subscript/subscript.component';
 import { QualificationsComponent } from './home/user/qualifications/qualifications.component';
-import { CandidaturesUserComponent } from './home/user/candidatures/candidatures-user.component';
+import { JobApplicationsList } from './home/profile-conf/job-applications-list/job-applications-list.component';
 import { SkillsComponent } from './home/user/skills/skills.component';
 import { FormationsAssocieesComponent } from './home/offre/formations-associees/formations-associees.component';
 import { ExigencesComponent } from './home/offre/exigences/exigences.component';
@@ -81,7 +80,6 @@ import { CardComponent } from './shared/components/card/card.component';
         SimulationComponent,
         FooterComponent,
         HeaderComponent,
-        CandidatureComponent,
         ChatComponent,
         FooterComponent,
         FilActualitesComponent,
@@ -93,7 +91,7 @@ import { CardComponent } from './shared/components/card/card.component';
         DetailsUserComponent,
         SubscriptComponent,
         QualificationsComponent,
-        CandidaturesUserComponent,
+        JobApplicationsList,
         SkillsComponent,
         FormationsAssocieesComponent,
         ExigencesComponent,

@@ -8,7 +8,7 @@ import {HttpClient} from '@angular/common/http';
 
 import {ChipValue} from '../../shared/models/chip-value';
 import {DomSanitizer} from '@angular/platform-browser';
-import {Candidature} from "../../shared/models/candidature";
+import {Application} from "../../shared/models/application";
 
 @Component({
     selector: 'app-user',
@@ -21,7 +21,7 @@ export class UserComponent implements OnInit {
     public listQualif: ChipValue[];
     public listSkill: ChipValue[];
     public listSubscript: ChipValue[];
-    public listCandidature: Candidature[];
+    public listCandidature: Application[];
     public statusUser: string;
     public loading: boolean;
     public image_user: any;

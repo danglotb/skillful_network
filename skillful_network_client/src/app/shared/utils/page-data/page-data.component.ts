@@ -5,7 +5,7 @@ import {MatSort, Sort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {PageEvent} from '@angular/material/paginator';
 import { UserService } from '../../services/user.service';
-import { CandidatureService } from '../../services/candidature.service';
+import { JobApplicationService } from '../../services/job-applications.service';
 import { JobOfferService } from '../../services/job-offer.service';
 import { Training } from '../../models/training';
 import {NgForm} from '@angular/forms';
@@ -53,7 +53,7 @@ export class PageDataComponent implements OnInit {
 
   constructor(private trainingService: TrainingService, 
     private userService: UserService, 
-    public candidatureService: CandidatureService, 
+    public candidatureService: JobApplicationService, 
     public jobOfferService: JobOfferService) { }
     
 

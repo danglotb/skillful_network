@@ -9,7 +9,7 @@
             <div class="zone1"> <app-informations [post]="jobDetails" [choixListe]="choixListe"></app-informations></div>
             <div class="zone2"> <app-exigences [post]="jobDetails"></app-exigences></div>
             <div class="zone3" *ngIf="choixListe=='emploi'"><app-formations-associees [post]="jobDetails" ></app-formations-associees></div>
-            <div class="zone4" *ngIf="!cs.verifierCandidature(jobOfferId, listCandidature)"> <app-candidater [post]="jobDetails"></app-candidater></div>
+            <!-- <div class="zone4" *ngIf="!cs.verifierCandidature(jobOfferId, listCandidature)"> <app-candidater [post]="jobDetails"></app-candidater></div> -->
         </div>
     </div>
 </div>

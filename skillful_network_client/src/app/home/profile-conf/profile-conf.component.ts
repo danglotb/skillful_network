@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { UserService } from "../../shared/services/user.service"
 import { User } from 'src/app/shared/models/user';
 import { Subscription } from 'rxjs';
-import { Candidature } from "../../shared/models/candidature";
+import { Application } from "../../shared/models/application";
 import { ApiHelperService } from "../../shared/services/api-helper.service";
 import { ActivatedRoute } from "@angular/router";
 import { CardComponent } from '../../shared/components/card/card.component';
@@ -19,14 +19,15 @@ export class ProfileConfComponent {
 
   userLogged: User;
   parentGroup: FormGroup;
-  public listCandidature: Candidature[];
+  public jobApplicationsList: Application[];
 
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
     private api: ApiHelperService,
     private route: ActivatedRoute,
-    private ts: TokenStorageService) { }
+    private ts: TokenStorageService
+  ) { }
 
   ngOnInit() {
     this.userLogged = this.userService.userLogged;

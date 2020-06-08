@@ -2,10 +2,10 @@ import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { CandidatureService } from 'src/app/shared/services/candidature.service';
+import { JobApplicationService } from 'src/app/shared/services/job-applications.service';
 import { JobOfferService } from '../../shared/services/job-offer.service';
 import { JobOffer } from '../../shared/models/job-offer';
-import { Candidature } from '../../shared/models/candidature';
+import { Application } from '../../shared/models/application';
 import { NgForm } from '@angular/forms';
 
 
@@ -34,7 +34,7 @@ export class JobOfferListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(public candidatureService: CandidatureService, public offerService: JobOfferService) {
+  constructor(public candidatureService: JobApplicationService, public offerService: JobOfferService) {
   }
 
   ngOnInit(): void {

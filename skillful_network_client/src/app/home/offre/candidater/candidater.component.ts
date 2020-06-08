@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {JobDetails, Trainings} from '../offre';
 import {ApiHelperService} from '../../../shared/services/api-helper.service';
-import {CandidatureService} from '../../../shared/services/candidature.service';
 import {ActivatedRoute} from '@angular/router';
 
 
