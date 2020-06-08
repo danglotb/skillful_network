@@ -1,6 +1,10 @@
 package fr.uca.cdr.skillful_network;
 
 
+import fr.uca.cdr.skillful_network.entities.application.JobApplication;
+import fr.uca.cdr.skillful_network.entities.application.TrainingApplication;
+import fr.uca.cdr.skillful_network.repositories.application.JobApplicationRepository;
+import fr.uca.cdr.skillful_network.repositories.application.TrainingApplicationRepository;
 import fr.uca.cdr.skillful_network.tools.json.JSONLoader;
 import fr.uca.cdr.skillful_network.tools.json.UserAdapter;
 
@@ -93,6 +97,27 @@ public class Application {
 			}
 		};
 	}
+
+	@Bean
+	@Profile({"dev"})
+	ApplicationRunner initJobApplicationRepository(JobApplicationRepository jobApplicationRepository) {
+		return args -> {
+			if (jobApplicationRepository.findAll().isEmpty()) {
+				new JSONLoader<>("src/main/resources/data/job-offer-applications.json", JobApplication[].class, jobApplicationRepository).load();
+			}
+		};
+	}
+
+	@Bean
+	@Profile({"dev"})
+	ApplicationRunner initTrainingApplicationRepository(TrainingApplicationRepository trainingApplicationRepository) {
+		return args -> {
+			if (trainingApplicationRepository.findAll().isEmpty()) {
+				new JSONLoader<>("src/main/resources/data/training-applications.json", TrainingApplication[].class, trainingApplicationRepository).load();
+			}
+		};
+	}
+
 
 }
 

@@ -2,7 +2,9 @@ package fr.uca.cdr.skillful_network.services.impl.application;
 
 import fr.uca.cdr.skillful_network.entities.application.Application;
 import fr.uca.cdr.skillful_network.repositories.application.ApplicationRepository;
+import fr.uca.cdr.skillful_network.services.AuthenticationService;
 import fr.uca.cdr.skillful_network.services.application.ApplicationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
@@ -13,6 +15,9 @@ import java.util.List;
 public abstract class ApplicationServiceImpl<T extends Application> implements ApplicationService<T> {
 
     protected JpaRepository<T, Long> repository;
+
+    @Autowired
+    private AuthenticationService authenticationService;
 
     public ApplicationServiceImpl(JpaRepository<T, Long> repository) {
         this.repository = repository;
@@ -47,6 +52,11 @@ public abstract class ApplicationServiceImpl<T extends Application> implements A
     @Override
     public List<T> getByUserId(long id) {
         return ((ApplicationRepository<T>)this.repository).findByUserId(id).orElse(Collections.emptyList());
+    }
+
+    @Override
+    public List<T> getForCurrentUser() {
+        return this.getByUserId(authenticationService.getCurrentUser().getId());
     }
 
     @Override

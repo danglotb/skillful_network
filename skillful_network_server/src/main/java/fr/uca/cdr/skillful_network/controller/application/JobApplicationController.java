@@ -32,6 +32,11 @@ public class JobApplicationController {
         return new ResponseEntity<>(this.jobApplicationService.getById(id), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/user")
+    public ResponseEntity<List<JobApplication>> getForCurrentUser() {
+        return new ResponseEntity<>(this.jobApplicationService.getForCurrentUser(), HttpStatus.OK);
+    }
+
     @GetMapping(value = "/user/{id}")
     public ResponseEntity<List<JobApplication>> getByUserId(@PathVariable(value = "id") long id) {
         return new ResponseEntity<>(this.jobApplicationService.getByUserId(id), HttpStatus.OK);

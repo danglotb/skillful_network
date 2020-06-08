@@ -16,6 +16,8 @@ public interface ApplicationService<T extends Application> {
 
     List<T> getByUserId(long userId);
 
+    List<T> getForCurrentUser();
+
     List<T> getByOfferId(long offerId);
 
     void delete(long id);

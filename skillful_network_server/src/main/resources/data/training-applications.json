@@ -5,9 +5,9 @@
       "name": "trainingName1",
       "organization": "trainingOrganization1",
       "description": "trainingDescription1",
-      "dateBeg": "Jun 4, 2020 9:42:41 AM",
-      "dateEnd": "Jun 4, 2020 9:42:41 AM",
-      "dateUpload": "Jun 4, 2020 9:42:41 AM",
+      "dateBeg": "Jun 8, 2020 5:14:17 PM",
+      "dateEnd": "Jun 8, 2020 5:14:17 PM",
+      "dateUpload": "Jun 8, 2020 5:14:17 PM",
       "durationHours": 10,
       "keywords": [
         {
@@ -25,10 +25,10 @@
       "firstName": "userFirstName",
       "lastName": "userLastName",
       "password": "Qwerty123",
-      "birthDate": "Jun 4, 2020 9:42:41 AM",
+      "birthDate": "Jun 8, 2020 5:14:17 PM",
       "email": "user@uca.fr",
       "mobileNumber": "0712345678",
-      "validated": false,
+      "validated": true,
       "careerGoal": "userCareerGoal",
       "skillSet": [
         {
@@ -59,6 +59,8 @@
           "name": "ROLE_USER"
         }
       ]
-    }
+    },
+    "status": "ACCEPTED",
+    "submitDate": "Jun 8, 2020 5:14:17 PM"
   }
 ]

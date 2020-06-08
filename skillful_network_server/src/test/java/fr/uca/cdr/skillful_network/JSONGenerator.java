@@ -1,6 +1,7 @@
 package fr.uca.cdr.skillful_network;
 
 import fr.uca.cdr.skillful_network.entities.Keyword;
+import fr.uca.cdr.skillful_network.entities.application.Application;
 import fr.uca.cdr.skillful_network.entities.application.JobApplication;
 import fr.uca.cdr.skillful_network.entities.application.JobOffer;
 import fr.uca.cdr.skillful_network.entities.application.Training;
@@ -160,6 +161,8 @@ public class JSONGenerator {
     private void generateJobApplications(User user, final long idJob){
         final JobApplication application = new JobApplication(
                 user,
+                Application.ApplicationStatus.ACCEPTED,
+                new Date(),
                 this.jobOfferRepository.getOne(idJob)
         );
         this.entityManager.persistAndFlush(application);
@@ -169,6 +172,8 @@ public class JSONGenerator {
     private void generateTrainingApplications(User user, final long idTraining) {
         final TrainingApplication application = new TrainingApplication(
                 user,
+                Application.ApplicationStatus.ACCEPTED,
+                new Date(),
                 this.trainingRepository.getOne(idTraining)
         );
         this.entityManager.persistAndFlush(application);
@@ -195,7 +200,7 @@ public class JSONGenerator {
         this.saveTo("users", User[].class, this.userRepository);
     }
 
-    @Ignore
+//    @Ignore
     @Test
     public void generateJSON() {
         this.generateSkills();
