@@ -4,8 +4,6 @@ import { User } from '../models/user/user';
 import { ApiHelperService } from './api-helper.service';
 
 import { Subject } from 'rxjs';
-import { ChipValue } from '../models/chip-value';
-
 
 @Injectable({
   providedIn: 'root'
@@ -55,7 +53,7 @@ export class UserService {
     return promise;
   }
 
-  public findByContain(option: string , contain: string): Promise<ChipValue> {
+  public findByContain(option: string , contain: string): Promise<any> {
     return this.api.get( {endpoint : `/${option}/candidates` , queryParams: {contain }});
   }
 

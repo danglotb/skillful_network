@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ChipValue } from 'src/app/shared/models/chip-value';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { UserService } from 'src/app/shared/services/user.service';
 
@@ -10,7 +9,7 @@ import { UserService } from 'src/app/shared/services/user.service';
 })
 export class ChipConfComponent implements OnInit {
   @Input() chipInfoGroup : FormGroup;
-  @Input() userChipList : ChipValue[];
+  // @Input() userChipList : ChipValue[];
 
   @Input() title : string;
   @Input() label : string;
@@ -19,7 +18,7 @@ export class ChipConfComponent implements OnInit {
   titleAlert: string = 'This field is required';
   post: any = '';
   chips:string[];
-  public listChip: ChipValue[];
+  // public listChip: ChipValue[];
   public chip: string;
   isLoading:boolean;
   visible = true;
@@ -30,8 +29,8 @@ export class ChipConfComponent implements OnInit {
   constructor(private formBuilder: FormBuilder , private service : UserService) {}
 
   ngOnInit(): void {
-    this.listChip = this.userChipList;
-    this.chipInfoGroup.value['chipValues'] = this.listChip;
+    // this.listChip = this.userChipList;
+    // this.chipInfoGroup.value['chipValues'] = this.listChip;
     console.log(this.chipInfoGroup);
     this.chipInfoGroup.valueChanges.subscribe(data=>{
       this.isLoading=false;
@@ -56,16 +55,16 @@ export class ChipConfComponent implements OnInit {
   addChip() {
     console.log(this.chipInfoGroup.value['chipValue']);
     console.log(this.chipInfoGroup);
-    this.listChip.push(new ChipValue(this.chipInfoGroup.value['chipValue']));
-    this.chipInfoGroup.value['Values'] = this.listChip;
+    // this.listChip.push(new ChipValue(this.chipInfoGroup.value['chipValue']));
+    // this.chipInfoGroup.value['Values'] = this.listChip;
   }
   
   
-  removeChip(chip : ChipValue): void {
-    const index = this.listChip.indexOf(chip);
-    if (index >=0) {
-      this.listChip.splice(index, 1);
-    }
+  removeChip(chip : string): void {
+    // const index = this.listChip.indexOf(chip);
+    // if (index >=0) {
+      // this.listChip.splice(index, 1);
+    // }
   
   }
  

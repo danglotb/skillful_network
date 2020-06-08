@@ -1,10 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {JobDetails, Trainings} from './offre';
-import {MOCK_OFFRE} from './offre.mock';
 import { JobApplicationService } from '../../shared/services/job-applications.service';
-import { IPost } from '../../shared/models/mock.candidature';
-import {JobDetailsService} from '../../shared/services/job-details.service';
 import {ApiHelperService} from '../../shared/services/api-helper.service';
 
 @Component({
@@ -21,7 +18,6 @@ export class OffreComponent implements OnInit {
 
   public trainings: Trainings;
   public jobDetails: JobDetails;
-  listCandidature: IPost[];
 
   constructor(private api: ApiHelperService, public cs: JobApplicationService, private route: ActivatedRoute) { }
 

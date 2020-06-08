@@ -6,7 +6,6 @@ import {ApiHelperService} from '../../shared/services/api-helper.service';
 import {environment} from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 
-import {ChipValue} from '../../shared/models/chip-value';
 import {DomSanitizer} from '@angular/platform-browser';
 import {Application} from "../../shared/models/application/application";
 
@@ -18,9 +17,9 @@ import {Application} from "../../shared/models/application/application";
 export class UserComponent implements OnInit {
 
     public user: User;
-    public listQualif: ChipValue[];
-    public listSkill: ChipValue[];
-    public listSubscript: ChipValue[];
+    public listQualif: string[];
+    public listSkill: string[];
+    public listSubscript: string[];
     public listCandidature: Application[];
     public statusUser: string;
     public loading: boolean;
@@ -50,13 +49,13 @@ export class UserComponent implements OnInit {
             .then(([userData, listQualif, listSkill, listSubscript, listCandidature]) => {
                 this.user = new User(userData);
                 console.log('this.user');
-                if (this.user.status === '1') {
-                    this.statusUser = 'Chercheur d\'emploi';
-                    console.log(this.user.status);
-                    console.log(this.statusUser);
-                } else {
-                    this.statusUser = 'Etudiant';
-                }
+                // if (this.user.status === '1') {
+                //     this.statusUser = 'Chercheur d\'emploi';
+                //     console.log(this.user.status);
+                //     console.log(this.statusUser);
+                // } else {
+                //     this.statusUser = 'Etudiant';
+                // }
                 console.log(this.user.photo);
                 if (this.user.photo) {
                     this.http.get(environment.base_url + `/users/image/${this.user.id}`, {responseType: 'blob'})
