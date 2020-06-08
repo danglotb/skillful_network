@@ -1,6 +1,6 @@
 
 import { Injectable } from '@angular/core';
-import { User } from '../models/user';
+import { User } from '../models/user/user';
 import { ApiHelperService } from './api-helper.service';
 
 import { Subject } from 'rxjs';

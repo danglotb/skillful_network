@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ApiHelperService} from './api-helper.service';
-import {JobOffer} from '../models/job-offer';
+import {JobOffer} from '../models/application/job-offer';
 
 
 @Injectable({

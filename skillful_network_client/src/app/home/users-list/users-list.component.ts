@@ -1,5 +1,5 @@
 import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
-import {User} from '../../shared/models/user';
+import {User} from '../../shared/models/user/user';
 import {UserService} from '../../shared/services/user.service';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Application } from 'src/app/shared/models/application';
+import { Application } from 'src/app/shared/models/application/application';
 import { JobApplicationService } from 'src/app/shared/services/job-applications.service';
 
 @Component({

@@ -3,7 +3,7 @@ import { UserService } from './../shared/services/user.service';
 import { ApiHelperService } from './../shared/services/api-helper.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { User } from '../shared/models/user';
+import { User } from '../shared/models/user/user';
 
 @Component({
   selector: 'app-password-confirmation',

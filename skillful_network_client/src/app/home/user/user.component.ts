@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {User} from '../../shared/models/user';
+import {User} from '../../shared/models/user/user';
 import {UserService} from '../../shared/services/user.service';
 import {ApiHelperService} from '../../shared/services/api-helper.service';
 import {environment} from '../../../environments/environment';
@@ -8,7 +8,7 @@ import {HttpClient} from '@angular/common/http';
 
 import {ChipValue} from '../../shared/models/chip-value';
 import {DomSanitizer} from '@angular/platform-browser';
-import {Application} from "../../shared/models/application";
+import {Application} from "../../shared/models/application/application";
 
 @Component({
     selector: 'app-user',

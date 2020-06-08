@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { User } from '../../shared/models/user';
+import { User } from '../../shared/models/user/user';
 import { UserService } from '../../shared/services/user.service';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';

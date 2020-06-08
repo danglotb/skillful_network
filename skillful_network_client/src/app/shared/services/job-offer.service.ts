@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { JobOffer } from '../models/job-offer';
+import { JobOffer } from '../models/application/job-offer';
 import { MOCK_JOBOFFER } from '../models/mock.job-offers';
 import { ApiHelperService } from './api-helper.service';
 

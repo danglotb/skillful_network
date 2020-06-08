@@ -4,8 +4,8 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { JobApplicationService } from 'src/app/shared/services/job-applications.service';
 import { JobOfferService } from '../../shared/services/job-offer.service';
-import { JobOffer } from '../../shared/models/job-offer';
-import { Application } from '../../shared/models/application';
+import { JobOffer } from '../../shared/models/application/job-offer';
+import { Application } from '../../shared/models/application/application';
 import { NgForm } from '@angular/forms';
 
 

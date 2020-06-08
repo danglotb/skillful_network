@@ -3,9 +3,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { stringToKeyValue } from '@angular/flex-layout/extended/typings/style/style-transforms';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from "../../shared/services/user.service"
-import { User } from 'src/app/shared/models/user';
+import { User } from 'src/app/shared/models/user/user';
 import { Subscription } from 'rxjs';
-import { Application } from "../../shared/models/application";
+import { Application } from "../../shared/models/application/application";
 import { ApiHelperService } from "../../shared/services/api-helper.service";
 import { ActivatedRoute } from "@angular/router";
 import { CardComponent } from '../../shared/components/card/card.component';

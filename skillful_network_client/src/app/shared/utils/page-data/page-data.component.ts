@@ -7,9 +7,9 @@ import {PageEvent} from '@angular/material/paginator';
 import { UserService } from '../../services/user.service';
 import { JobApplicationService } from '../../services/job-applications.service';
 import { JobOfferService } from '../../services/job-offer.service';
-import { Training } from '../../models/training';
+import { Training } from '../../models/application/training';
 import {NgForm} from '@angular/forms';
-import { JobOffer } from '../../models/job-offer';
+import { JobOffer } from '../../models/application/job-offer';
 
 
 

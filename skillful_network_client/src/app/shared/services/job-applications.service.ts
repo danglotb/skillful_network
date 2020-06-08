@@ -1,5 +1,5 @@
 
-import { Application } from '../models/application';
+import { Application } from '../models/application/application';
 import { Injectable } from '@angular/core';
 import { ApiHelperService } from './api-helper.service';
 

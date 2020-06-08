@@ -1,5 +1,5 @@
 import { TrainingService } from './../../shared/services/training.service';
-import { Training } from './../../shared/models/training';
+import { Training } from '../../shared/models/application/training';
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort, Sort} from '@angular/material/sort';

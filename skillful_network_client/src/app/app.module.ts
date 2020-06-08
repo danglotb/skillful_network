@@ -23,12 +23,10 @@ import { UsersListComponent } from './home/users-list/users-list.component';
 import { TokenHttpInterceptorService } from './shared/interceptors/token-http-interceptor.service';
 import { PasswordConfirmationComponent } from './password-confirmation/password-confirmation.component';
 import { PasswordForgottenComponent } from './password-forgotten/password-forgotten.component';
-import { SimulationComponent } from './home/dashboard/simulation/simulation.component';
 import { FooterComponent } from './home/dashboard/footer/footer.component';
 import { ChatComponent } from './home/dashboard/chat/chat.component';
 import { FilActualitesComponent } from './home/dashboard/fil-actualites/fil-actualites.component';
 import { HeaderComponent } from './home/dashboard/header/header.component';
-import { ProfileComponent } from './home/dashboard/profile/profile.component';
 import { MenuSideBarComponent } from './home/menu-side-bar/menu-side-bar.component';
 import { ProfilePictureUploader } from './home/profile-picture-uploader/profile-picture-uploader';
 import { ProfileConfComponent } from './home/profile-conf/profile-conf.component';
@@ -48,8 +46,6 @@ import { FormationListComponent } from './home/formation-list/formation-list.com
 import { JobOfferListComponent } from './home/job-offer-list/job-offer-list.component';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { getFrenchPaginatorIntl } from './shared/utils/customMatPaginationIntl';
-import { SimulationStartComponent } from './home/simulation-start/simulation-start.component';
-import { QuestionnaireComponent } from './home/questionnaire/questionnaire.component';
 import { MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
 import { PageDataComponent } from './shared/utils/page-data/page-data.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -57,12 +53,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { NewPasswordComponent } from './home/profile-conf/new-password/new-password.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ExistingAccountDialog } from './login/existing-account-dialog/existing-account-dialog.component';
-import { GoalValidationModalComponent } from './home/dashboard/simulation/goal-validation-modal/goal-validation-modal.component';
-import { SimulationSynthesisComponent } from './home/simulation-synthesis/simulation-synthesis.component';
-import { SimSynQuestionListComponent } from './home/simulation-synthesis/sim-syn-question-list/sim-syn-question-list.component';
-import { SimSynInfoComponent } from './home/simulation-synthesis/sim-syn-info/sim-syn-info.component';
 import { ChipConfComponent } from './home/profile-conf/chip-conf/chip-conf.component';
-import { ModalResultComponent } from './home/questionnaire/modal-result/modal-result.component';
 import { CardComponent } from './shared/components/card/card.component';
 
 
@@ -77,13 +68,11 @@ import { CardComponent } from './shared/components/card/card.component';
         UsersListComponent,
         PasswordConfirmationComponent,
         PasswordForgottenComponent,
-        SimulationComponent,
         FooterComponent,
         HeaderComponent,
         ChatComponent,
         FooterComponent,
         FilActualitesComponent,
-        ProfileComponent,
         MenuSideBarComponent,
         ProfilePictureUploader,
         ProfileConfComponent,
@@ -100,17 +89,10 @@ import { CardComponent } from './shared/components/card/card.component';
         OffreComponent,
         FormationListComponent,
         JobOfferListComponent,
-        SimulationStartComponent,
-        QuestionnaireComponent,
         NewPasswordComponent,
         PageDataComponent,
         ExistingAccountDialog,
-        GoalValidationModalComponent,
-        SimulationSynthesisComponent,
-        SimSynQuestionListComponent,
-        SimSynInfoComponent,
         ChipConfComponent,
-        ModalResultComponent,
         CardComponent,
     ],
 

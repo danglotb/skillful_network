@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/shared/models/user';
+import { User } from 'src/app/shared/models/user/user';
 import { MatDialog } from '@angular/material/dialog';
 import { ProfilePictureUploader } from '../profile-picture-uploader/profile-picture-uploader';
 import { UserService } from '../../shared/services/user.service';
