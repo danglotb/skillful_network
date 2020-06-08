@@ -1,4 +1,4 @@
-import {IJobOffer} from './mock.job-offers';
+import { JobApplication } from './job-application';
 
 export class JobOffer {
 
@@ -11,8 +11,11 @@ export class JobOffer {
     private _dateEnd: Date;
     private _dateUpload: Date;
     private _keywords: string[];
+    private _risk: string;
+    private _complexity: string;
+    private _jobApplications: JobApplication[];
 
-    constructor(data: IJobOffer) {
+    constructor(data: any) {
         this.id = data.id;
         this.name = data.name;
         this.company = data.company;
@@ -22,9 +25,36 @@ export class JobOffer {
         this.dateEnd = data.dateEnd;
         this.dateUpload = data.dateUpload;
         this.keywords = data.keywords;
+        this.risk = data.risk;
+        this.complexity = data.complexity;
+        this.jobApplications = data.jobApplicationSet;
     }
 
-    /* GETTERS & SETTERS */
+    public set jobApplications(jobApplications : JobApplication[]) {
+        this._jobApplications = jobApplications;
+    }
+
+    public get jobApplications() : JobApplication[] {
+        return this._jobApplications;
+    }
+
+
+    public get risk() : string {
+        return this._risk;
+    }
+
+    public set risk(risk: string) {
+        this._risk = risk;
+    }
+
+    public get complexity() : string {
+        return this._complexity;
+    }
+
+    public set complexity(complexity : string) {
+        this._complexity = complexity;
+    }
+
     get id(): number {
         return this._id;
     }

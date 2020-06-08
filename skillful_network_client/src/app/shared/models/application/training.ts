@@ -1,34 +1,47 @@
-import{ITraining} from './mock.training'
+import { TrainingApplication } from './training-application';
+
 export class Training {
-    // tslint:disable-next-line:variable-name
+
     private _id: number;
-    // tslint:disable-next-line:variable-name
     private _name: string;
-    private _organisation: string;
+    private _organization: string;
     private _description: string;
-    private _financer: string;
     private _dateBeg: Date;
     private _dateEnd: Date;
     private _durationHours: number;
     private _dateUpload: Date;
-    private _prerequisites: string[];
     private _keywords: string[];
+    private _trainingApplications: TrainingApplication[];
 
-    constructor(data: ITraining) {
+    constructor(data: any) {
         this.id = data.id;
         this.name = data.name;
-        this.organisation = data.organisation;
+        this.organization = data.organization;
         this.description = data.description;
-        this.financer = data.financer;
         this.dateBeg = data.dateBeg;
         this.dateEnd = data.dateEnd;
         this.durationHours = data.durationHours;
         this.dateUpload = data.dateUpload;
-        this.prerequisites = data.prerequisites;
         this.keywords = data.keywords;
+        this.trainingApplications = data.trainingApplicationSet;
     }
 
-    /* GETTERS & SETTERS */
+    public set trainingApplications(trainingApplications : TrainingApplication[]) {
+        this._trainingApplications = trainingApplications;
+    }
+
+    public get trainingApplications() : TrainingApplication[] {
+        return this._trainingApplications;
+    }
+
+    public get organization() : string {
+        return this._organization;
+    }
+    
+    public set organization(organization: string) {
+        this._organization = organization;
+    }
+
     get id(): number {
         return this._id;
     }
@@ -37,13 +50,6 @@ export class Training {
         this._id = value;
     }
 
-    get organisation(): string {
-        return this._organisation;
-    }
-
-    set organisation(value: string) {
-        this._organisation = value;
-    }
     get description(): string {
         return this._description;
     }
@@ -58,14 +64,6 @@ export class Training {
 
     set keywords(value: string[]) {
         this._keywords = value;
-    }
-
-    get prerequisites(): string[] {
-        return this._prerequisites;
-    }
-
-    set prerequisites(value: string[]) {
-        this._prerequisites = value;
     }
 
     get dateUpload(): Date {
@@ -108,15 +106,4 @@ export class Training {
         this._dateBeg = value;
     }
 
-    get financer(): string {
-        return this._financer;
-    }
-
-    set financer(value: string) {
-        this._financer = value;
-    }
 }
-
-
-
-
