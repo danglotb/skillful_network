@@ -9,8 +9,7 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-  constructor(private api: ApiHelperService) {
-  }
+  constructor(private api: ApiHelperService) {}
 
   public userLogged;
   userLoggedSubject = new Subject<User>();
