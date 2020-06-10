@@ -1,5 +1,6 @@
 import { JobApplication } from '../application/job-application';
 import { TrainingApplication } from '../application/training-application';
+import { Perk } from './perk';
 
 export class User {
 
@@ -13,9 +14,9 @@ export class User {
   private _validated: boolean;
   private _careerGoal: string;
   private _photo: boolean;
-  private _skillSet: string[];
-  private _qualificationSet: string[];
-  private _subscriptionSet: string[];
+  private _skillSet: Perk[];
+  private _qualificationSet: Perk[];
+  private _subscriptionSet: Perk[];
   private _photoProfile: any;
   private _role: string[];
   private _jobApplications: JobApplication[];
@@ -113,22 +114,22 @@ export class User {
   public set photo(value: boolean) {
     this._photo = value;
   }
-  public get skillSet(): string[] {
+  public get skillSet(): Perk[] {
     return this._skillSet;
   }
-  public set skillSet(value: string[]) {
+  public set skillSet(value: Perk[]) {
     this._skillSet = value;
   }
-  public get qualificationSet(): string[] {
+  public get qualificationSet(): Perk[] {
     return this._qualificationSet;
   }
-  public set qualificationSet(value: string[]) {
+  public set qualificationSet(value: Perk[]) {
     this._qualificationSet = value;
   }
-  public get subscriptionSet(): string[] {
+  public get subscriptionSet(): Perk[] {
     return this._subscriptionSet;
   }
-  public set subscriptionSet(value: string[]) {
+  public set subscriptionSet(value: Perk[]) {
     this._subscriptionSet = value;
   }
   public get photoProfile(): any {
