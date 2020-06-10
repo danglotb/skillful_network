@@ -4,6 +4,7 @@ import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { MenuSideBarComponent } from './menu-side-bar/menu-side-bar.component';
 import { FilActualitesComponent } from './fil-actualites/fil-actualites.component';
+import { ListsModule } from './lists/list.module';
 
 @NgModule({
     declarations: [
@@ -12,5 +13,8 @@ import { FilActualitesComponent } from './fil-actualites/fil-actualites.componen
         MenuSideBarComponent,
         FilActualitesComponent
     ],
+    imports: [
+        ListsModule
+    ]
 })
 export class HomeModule { }
