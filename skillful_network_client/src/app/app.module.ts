@@ -31,7 +31,6 @@ import { MenuSideBarComponent } from './home/menu-side-bar/menu-side-bar.compone
 import { ProfilePictureUploader } from './home/profile-picture-uploader/profile-picture-uploader';
 import { ProfileConfComponent } from './home/profile-conf/profile-conf.component';
 import { UserConfComponent } from './home/profile-conf/user-conf/user-conf.component';
-import { UserService } from './shared/services/user.service';
 import { DetailsUserComponent } from './home/user/details-user/details-user.component';
 import { SubscriptComponent } from './home/user/subscript/subscript.component';
 import { QualificationsComponent } from './home/user/qualifications/qualifications.component';
@@ -54,9 +53,7 @@ import { NewPasswordComponent } from './home/profile-conf/new-password/new-passw
 import { MatDialogModule } from '@angular/material/dialog';
 import { ExistingAccountDialog } from './login/existing-account-dialog/existing-account-dialog.component';
 import { ChipConfComponent } from './home/profile-conf/chip-conf/chip-conf.component';
-import { CardComponent } from './shared/components/card/card.component';
-
-
+import { ComponentModule } from './shared/components/component.module';
 
 @NgModule({
     declarations: [ // Chaque composant que vous créez doit être déclaré ici
@@ -93,10 +90,10 @@ import { CardComponent } from './shared/components/card/card.component';
         PageDataComponent,
         ExistingAccountDialog,
         ChipConfComponent,
-        CardComponent,
     ],
 
     imports: [
+        ComponentModule,
         BrowserModule,
         AppRoutingModule, // Toutes nos routes sont définies dans ce module
         BrowserAnimationsModule, // Nécessaire pour les animations Angular Material
@@ -129,7 +126,6 @@ import { CardComponent } from './shared/components/card/card.component';
             provide: MAT_RADIO_DEFAULT_OPTIONS,
             useValue: { color: 'primary' },
         },
-        UserService,
         MatDatepickerModule,
         MatNativeDateModule
     ],
