@@ -1,8 +1,5 @@
 <header>
-    <div class="logoHeader recherche">
-        <a [routerLink]="['/home']"><img src="/assets/pictures/Logo_complet.png " alt="logo " style="width: 45px; "></a>
-    </div>
-    <div class="recherche">
+    <a [routerLink]="['/home']"><img src="/assets/pictures/Logo_complet.png " alt="logo" style="width: 45px; "></a>
         <button mat-button [matMenuTriggerFor]="menu" class="boutonMenu"><i class="material-icons">
             </i></button>
         <mat-menu #menu="matMenu">
@@ -11,7 +8,6 @@
             <a mat-menu-item [routerLink]="['/home']">Notifications</a>
             <a mat-menu-item [routerLink]="['/']">Déconnexion</a>
         </mat-menu>
-    </div>
     <div>
         <mat-toolbar class="toolbar positionToolbar" fxLayout.md="row" fxLayout.lt-md="column"
             fxLayoutAlign="center center">
@@ -43,5 +39,4 @@
             </form>
         </div>
     </div>
-    <div></div>
 </header>
