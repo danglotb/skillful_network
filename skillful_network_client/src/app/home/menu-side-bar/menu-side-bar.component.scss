@@ -1,18 +1,23 @@
-
 img {
-    margin-top: 7px;
-    width: 90%;
-    border: 1px solid #f5f5f5;
-    border-radius:50%;
+  margin-top: 7px;
+  width: 90%;
+  border: 2px solid #5b7787;
+  border-radius: 50%;
 }
 .vertical-menu {
   margin-top: 50px;
+  text-align: center;
   width: 100%;
+  color: #5b7787;
+}
+
+a {
+  color: #5b7787;
 }
 
 .vertical-menu a {
-  background-color: #5b7787;
-  color: gray;
+  // background-color: #5b7787;
+  color: #5b7787;
   display: block;
   padding: 12px;
   text-decoration: none;
@@ -20,106 +25,101 @@ img {
 
 .vertical-menu a:hover {
   background-color: #ccc;
-
 }
 
 .vertical-menu a.active {
-  background-color: #4CAF50; /* Add a green color to the "active/current" link */
-  color: white;
+  background-color: #4caf50; /* Add a green color to the "active/current" link */
+  color: #5b7787;
 }
 .image {
-    opacity: 1;
-    display: block;
-    transition: .5s ease;
-    backface-visibility: hidden;
-  }
-  .middle {
-    transition: .5s ease;
-    opacity: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    text-align: center;
-  }
-  .container {
-      position : relative;
-  }
-  .container:hover .middle {
-    opacity: 1;
-  }
-  .container:hover .image {
-    opacity: 0.6;
-  }
-  
-  .text {
+  opacity: 1;
+  display: block;
+  transition: 0.5s ease;
+  backface-visibility: hidden;
+}
+.middle {
+  transition: 0.5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+.container {
+  position: relative;
+}
+.container:hover .middle {
+  opacity: 1;
+}
+.container:hover .image {
+  opacity: 0.6;
+}
 
-    color: white;
-    font-size: 16px;
+.text {
+  color: #5b7787;
+  font-size: 16px;
 
-    border-radius: 5px 5px 5px 5px;
-  }
-.iconsProfile{
-
+  border-radius: 5px 5px 5px 5px;
+}
+.iconsProfile {
   justify-content: center;
-  color: white;
+  color: #5b7787;
   margin-top: 20px;
 }
-.menuProfile{
-
+.menuProfile {
   display: flex;
   justify-content: center;
   font-size: 2em;
-
-
-
 }
- .divIcons{
-   display: none;
- }
-
-.photoProfile{
-      display: block;
-      border-radius: 50%;
-      margin-bottom: 25px;
+.divIcons {
+  display: none;
 }
-.lienProfile{
+
+.photoProfile {
+  display: block;
+  border-radius: 50%;
+  margin-bottom: 25px;
+}
+.lienProfile {
   margin-top: 25px;
 }
-    
-.lienProfile a{
 
-    text-decoration: none;
-    margin: auto;
-    font-size: 1.2rem;
-    font-style: italic;
-    font-weight: 500;
-    color: white;
-
+.lienProfile a {
+  text-decoration: none;
+  margin: auto;
+  font-size: 1.2rem;
+  font-style: italic;
+  font-weight: 500;
+  color: #5b7787;
 }
 
-.border-profile{
-   display: flex;
-   justify-content: center; 
+.border-profile {
+  display: flex;
+  justify-content: center;
 }
-@media screen and (max-width: 961px){
-  .divIcons, a{
+@media screen and (max-width: 961px) {
+  .divIcons,
+  a {
     display: block;
     margin: auto;
     margin-bottom: 30px;
     text-decoration: none;
   }
-  .photoProfile, .lienProfile, .vertical-menu{
+  .photoProfile,
+  .lienProfile,
+  .vertical-menu {
     display: none;
     margin-bottom: 0;
   }
 }
+
 /* ================= effet upload image ===============*/
 
 .profilePhoto {
   margin: 20px auto;
-  max-width:200px;
+  max-width: 200px;
   position: relative;
   border-radius: 50%;
   &:hover {
@@ -127,7 +127,7 @@ img {
       display: flex;
       justify-content: center;
       align-content: center;
-      background-color: rgba(0,0,0,0);
+      background-color: rgba(0, 0, 0, 0);
       p {
         display: block;
       }
@@ -142,32 +142,29 @@ img {
   .overlay {
     position: absolute;
     width: 80%;
-   
+
     overflow: hidden;
-    height:80%;
-    border-radius:50%;
+    height: 80%;
+    border-radius: 50%;
 
     input {
-      width:100%;
-      position:absolute;
-      opacity:0;
-      bottom:20px;
-      z-index:2;
-
+      width: 100%;
+      position: absolute;
+      opacity: 0;
+      bottom: 20px;
+      z-index: 2;
     }
-    .appPhoto{
+    .appPhoto {
       font-size: 50px;
     }
     .upIMG {
       position: absolute;
-      bottom:50px;
+      bottom: 50px;
       font-weight: bold;
       margin-bottom: 0;
-      color:#fff;
-      width:70%;
+      color: #5b7787;
+      width: 70%;
       display: none;
     }
   }
-
 }
-

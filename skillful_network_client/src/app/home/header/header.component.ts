@@ -12,6 +12,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
 
   }
+  
   onSearch() {
     console.log("works");
   }
