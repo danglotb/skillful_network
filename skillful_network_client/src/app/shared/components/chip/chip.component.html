@@ -1,0 +1,40 @@
+<app-card-component [title]='title' [cardRef]='chipManagementContent'></app-card-component>
+
+<ng-template #chipManagementContent>
+
+    <mat-chip-list>
+        <mat-chip *ngFor="let chip of chipValues" (removed)="removeChip(chip)" class="chip">
+            {{chip.name}}
+            <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+    </mat-chip-list>
+
+    <hr>
+
+    <form class='formAddChip' [formGroup]="chipInfoGroup" (submit)="addChip()" fxLayout="column" fxLayoutAlign="center center" novalidate>
+        <div class='row'>
+            <div class='column'>
+                <div class="progressBarDiv">
+                    <mat-progress-bar *ngIf="isLoading" class="is-loading" mode="indeterminate"></mat-progress-bar>
+                </div>
+                <mat-form-field>
+                    <mat-label>{{addingLabel}}</mat-label>
+                    <input formControlName="chipValue" type="text" matInput [matAutocomplete]="auto"
+                        placeholder={{detail}} class="form-control">
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <ng-container *ngIf="!isLoading">
+                            <mat-option *ngFor="let chip of convertToString(candidateChips)" [value]="chip">
+                                {{chip}}
+                            </mat-option>
+                        </ng-container>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </div>
+            <div class='column' id="addButton" fxFlex="30">
+                <button type="submit" mat-raised-button color="primary"
+                    [disabled]="chipInfoGroup.invalid">Ajouter</button>
+            </div>
+        </div>
+    </form>
+
+</ng-template>
