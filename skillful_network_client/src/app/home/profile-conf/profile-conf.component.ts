@@ -9,6 +9,7 @@ import { Application } from "../../shared/models/application/application";
 import { ApiHelperService } from "../../shared/services/api-helper.service";
 import { ActivatedRoute } from "@angular/router";
 import { CardComponent } from '../../shared/components/card/card.component';
+import { Perk } from 'src/app/shared/models/user/perk';
 
 @Component({
   selector: 'app-profile-conf',
@@ -17,9 +18,11 @@ import { CardComponent } from '../../shared/components/card/card.component';
 })
 export class ProfileConfComponent {
 
-  userLogged: User;
-  parentGroup: FormGroup;
+  public userLogged: User;
+  public parentGroup: FormGroup;
   public jobApplicationsList: Application[];
+
+  public qualificationsTitle: string = 'Qualifications';
 
   constructor(
     private formBuilder: FormBuilder,

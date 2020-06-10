@@ -15,7 +15,6 @@ import { LoginComponent } from './login/login.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './shared/modules/material/material.module';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { DashboardComponent } from './home/dashboard/dashboard.component';
 import { UserComponent } from './home/user/user.component';
@@ -101,10 +100,7 @@ import { ComponentModule } from './shared/components/component.module';
         FormsModule, // Permet d'appliquer [(ngModel)] aux inputs
         ReactiveFormsModule, // Va nous permettre de créer des Model Driven Forms
         MaterialModule, // Ce module que nous avons créé contient l'ensemble des modules graphiques material à utiliser dans le projet
-        FlexLayoutModule, // Permet de positionner à l'aide des fxFlex, fxLayout, fxLayoutAlign etc.
-        MatNativeDateModule,
-        MatDialogModule,
-        MatFormFieldModule,
+        FlexLayoutModule // Permet de positionner à l'aide des fxFlex, fxLayout, fxLayoutAlign etc.     
     ],
 
     entryComponents: [

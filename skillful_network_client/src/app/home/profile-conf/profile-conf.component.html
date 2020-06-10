@@ -6,21 +6,21 @@
         <div class="div6">
             <job-applications-list></job-applications-list>
         </div>
-        <!-- <div class="div2">
-            <app-chip-conf title="Qualifications" label="Nouvelle qualification" detail="qualification"
-                [chipInfoGroup]="parentGroup.get('formQualInfos')" [userChipList]="userLogged.qualificationSet">
-            </app-chip-conf>
+        <div class='div2'>
+            <app-chip title="Qualifications" typePerk="qualifications"
+                [chipValues]='this.userLogged.qualificationSet' addingLabel="Nouvelle qualification"
+                detail="qualification"></app-chip>
         </div>
-        <div class="div3">
-            <app-chip-conf class="div3" title="Compétences" label="Nouvelle compétence" detail="compétence"
-                [chipInfoGroup]="parentGroup.get('formSkillInfos')" [userChipList]="userLogged.skillSet">
-            </app-chip-conf>
+        <div class='div2'>
+            <app-chip title="Compétences" typePerk="skills"
+                [chipValues]='this.userLogged.skillSet' addingLabel="Nouvelle compétence"
+                detail="compétence"></app-chip>
         </div>
-        <div class="div4">
-            <app-chip-conf class="div4" title="Abonnements" label="Nouvel abonnement" detail="abonnement"
-                [chipInfoGroup]="parentGroup.get('formSubscriptInfos')" userChipName="subscriptUnit"
-                [userChipList]="userLogged.subscriptionSet"></app-chip-conf>
-        </div> -->
+        <div class='div2'>
+            <app-chip title="Abonnements" typePerk="subcriptions"
+                [chipValues]='this.userLogged.subscriptionSet' addingLabel="Nouvel abonnement"
+                detail="abonnement"></app-chip>
+        </div>
         <div class="div8">
             <div fxLayout="row" fxLayoutAlign="center center" novalidate>
                 <div class="btn-profil">
