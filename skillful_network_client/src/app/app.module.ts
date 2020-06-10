@@ -10,43 +10,29 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './shared/modules/material/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { UserComponent } from './home/lists/elements/user/user.component';
-import { UsersListComponent } from './home/lists/users-list/users-list.component';
 import { TokenHttpInterceptorService } from './shared/interceptors/token-http-interceptor.service';
 import { PasswordConfirmationComponent } from './password-confirmation/password-confirmation.component';
 import { PasswordForgottenComponent } from './password-forgotten/password-forgotten.component';
-import { FooterComponent } from './home/footer/footer.component';
-import { FilActualitesComponent } from './home/fil-actualites/fil-actualites.component';
-import { HeaderComponent } from './home/header/header.component';
-import { MenuSideBarComponent } from './home/menu-side-bar/menu-side-bar.component';
-import { ProfilePictureUploader } from './home/profile-picture-uploader/profile-picture-uploader';
-import { ProfileConfComponent } from './home/profile-conf/profile-conf.component';
-import { UserConfComponent } from './home/profile-conf/user-conf/user-conf.component';
 import { DetailsUserComponent } from './home/lists/elements/user/details-user/details-user.component';
 import { SubscriptComponent } from './home/lists/elements/user/subscript/subscript.component';
 import { QualificationsComponent } from './home/lists/elements/user/qualifications/qualifications.component';
-import { JobApplicationsList } from './home/profile-conf/job-applications-list/job-applications-list.component';
 import { SkillsComponent } from './home/lists/elements/user/skills/skills.component';
 import { FormationsAssocieesComponent } from './home/lists/elements/offre/formations-associees/formations-associees.component';
 import { ExigencesComponent } from './home/lists/elements/offre/exigences/exigences.component';
 import { CandidaterComponent } from './home/lists/elements/offre/candidater/candidater.component';
 import { InformationsComponent } from './home/lists/elements/offre/informations/informations.component';
 import { OffreComponent } from './home/lists/elements/offre/offre.component';
-import { FormationListComponent } from './home/lists/formation-list/formation-list.component';
-import { JobOfferListComponent } from './home/lists/job-offer-list/job-offer-list.component';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { getFrenchPaginatorIntl } from './shared/utils/customMatPaginationIntl';
 import { MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
 import { PageDataComponent } from './shared/utils/page-data/page-data.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { NewPasswordComponent } from './home/profile-conf/new-password/new-password.component';
 import { ExistingAccountDialog } from './login/existing-account-dialog/existing-account-dialog.component';
 import { ComponentModule } from './shared/components/component.module';
 import { HomeModule } from './home/home.module';
@@ -55,28 +41,17 @@ import { HomeModule } from './home/home.module';
     declarations: [ // Chaque composant que vous créez doit être déclaré ici
         AppComponent,
         LoginComponent,
-        UserComponent,
-        UsersListComponent,
         PasswordConfirmationComponent,
         PasswordForgottenComponent,
-        FilActualitesComponent,
-        MenuSideBarComponent,
-        ProfilePictureUploader,
-        ProfileConfComponent,
-        UserConfComponent,
         DetailsUserComponent,
         SubscriptComponent,
         QualificationsComponent,
-        JobApplicationsList,
         SkillsComponent,
         FormationsAssocieesComponent,
         ExigencesComponent,
         CandidaterComponent,
         InformationsComponent,
         OffreComponent,
-        FormationListComponent,
-        JobOfferListComponent,
-        NewPasswordComponent,
         PageDataComponent,
         ExistingAccountDialog,
     ],
