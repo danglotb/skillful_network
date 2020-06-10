@@ -17,7 +17,6 @@ public abstract class Application {
     protected long id;
 
     @ManyToOne(cascade = CascadeType.REFRESH)
-//    @JoinColumn(name = "user_id")
     @JsonManagedReference
     protected User user;
 

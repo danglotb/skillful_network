@@ -26,8 +26,8 @@ public class QualificationController {
 
     @PreAuthorize("hasRole('USER')")
     @PostMapping(value = "")
-    public ResponseEntity<Qualification> create(@RequestParam(name="qualificationName") String qualificationName) {
-        return new ResponseEntity<>(this.qualificationservice.createOrUpdate(qualificationName), HttpStatus.OK);
+    public ResponseEntity<Qualification> create(@RequestParam(name="name") String name) {
+        return new ResponseEntity<>(this.qualificationservice.createOrUpdate(name), HttpStatus.OK);
     }
 
 	@PreAuthorize("hasRole('USER')")

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SkillRepository extends JpaRepository<Skill, Long>{
 
-	@Query(value="select name from skills where name like %:keyword%", nativeQuery = true)
+	@Query(value="select * from skill where name like %:keyword%", nativeQuery = true)
 	Optional<List<Skill>> search(@Param("keyword")String keyword);
 
 	Optional<Skill> findByName(String name);

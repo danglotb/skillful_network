@@ -22,8 +22,8 @@ public class SubscriptionController {
 
 	@PreAuthorize("hasRole('USER')")
 	@PostMapping(value = "")
-	public ResponseEntity<Subscription> create(@RequestParam(name="qualificationName") String qualificationName) {
-		return new ResponseEntity<>(this.subscriptionService.createOrUpdate(qualificationName), HttpStatus.OK);
+	public ResponseEntity<Subscription> create(@RequestParam(name="name") String name) {
+		return new ResponseEntity<>(this.subscriptionService.createOrUpdate(name), HttpStatus.OK);
 	}
 
 	@PreAuthorize("hasRole('USER')")

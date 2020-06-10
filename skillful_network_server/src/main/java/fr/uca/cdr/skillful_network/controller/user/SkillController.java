@@ -26,8 +26,8 @@ public class SkillController {
 
 	@PreAuthorize("hasRole('USER')")
 	@PostMapping(value = "")
-	public ResponseEntity<Skill> create(@RequestParam(name="qualificationName") String qualificationName) {
-		return new ResponseEntity<>(this.skillService.createOrUpdate(qualificationName), HttpStatus.OK);
+	public ResponseEntity<Skill> create(@RequestParam(name="name") String name) {
+		return new ResponseEntity<>(this.skillService.createOrUpdate(name), HttpStatus.OK);
 	}
 
 	@PreAuthorize("hasRole('USER')")

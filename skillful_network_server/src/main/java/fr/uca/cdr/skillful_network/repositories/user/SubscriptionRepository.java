@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface SubscriptionRepository extends JpaRepository<Subscription, Long> {
 
-	@Query(value="select name from skills where name like %:keyword%", nativeQuery = true)
+	@Query(value="select * from subscription where name like %:keyword%", nativeQuery = true)
 	Optional<List<Subscription>> search(@Param("keyword")String keyword);
 
 	Optional<Subscription> findByName(String name);
