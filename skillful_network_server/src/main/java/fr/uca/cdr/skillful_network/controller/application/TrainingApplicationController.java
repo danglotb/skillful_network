@@ -1,6 +1,7 @@
 package fr.uca.cdr.skillful_network.controller.application;
 
 import fr.uca.cdr.skillful_network.entities.application.Application;
+import fr.uca.cdr.skillful_network.entities.application.JobApplication;
 import fr.uca.cdr.skillful_network.entities.application.Training;
 import fr.uca.cdr.skillful_network.entities.application.TrainingApplication;
 import fr.uca.cdr.skillful_network.entities.user.User;
@@ -32,6 +33,11 @@ public class TrainingApplicationController {
     @GetMapping(value = "/{id}")
     public ResponseEntity<TrainingApplication> getById(@PathVariable(value = "id") long id) {
         return new ResponseEntity<>(this.trainingApplicationService.getById(id), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/user")
+    public ResponseEntity<List<TrainingApplication>> getForCurrentUser() {
+        return new ResponseEntity<>(this.trainingApplicationService.getForCurrentUser(), HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('ORGANISME')")
