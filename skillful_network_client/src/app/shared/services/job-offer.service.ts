@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { JobOffer } from '../models/application/job-offer';
 import { ApiHelperService } from './api-helper.service';
+import { SearchService } from './abstract-search.service';
 
 @Injectable({
     providedIn: 'root'
 })
-export class JobOfferService {
+export class JobOfferService extends SearchService<JobOffer> {
 
-    constructor(private api: ApiHelperService) {
+    constructor(protected api: ApiHelperService) {
+        super(api);
     }
 
     public findById(id: number): JobOffer {
@@ -31,6 +33,10 @@ export class JobOfferService {
         return promise;
     }
 ​
+    public getBySearch(keyword: string, page: number, size: number, sortOrder: string, field: string): Promise<JobOffer> {
+        return super._getBySearch('jobs', keyword, page, size, sortOrder, field);
+    }
+
     public findAllByPage(page: number,
         size: number,
         sortOrder: String,

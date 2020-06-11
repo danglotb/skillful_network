@@ -1,16 +1,17 @@
 import {Injectable} from '@angular/core';
 import {Training} from '../models/application/training';
 import { ApiHelperService } from './api-helper.service';
+import { SearchService } from './abstract-search.service';
 
 
 @Injectable({
     providedIn: 'root'
 })
-export class TrainingService {
+export class TrainingService extends SearchService<Training> {
     public trainings: Training[];
 
-    constructor(private api: ApiHelperService) {
- 
+    constructor(protected api: ApiHelperService) {
+        super(api);
     }
 
     public findById(id: number): Training{
@@ -54,6 +55,10 @@ export class TrainingService {
               });
           });
           return promise;
+    }
+
+    public getBySearch(keyword: string, page: number, size: number, sortOrder: string, field: string): Promise<Training> {
+        return super._getBySearch('trainings', keyword, page, size, sortOrder, field);
     }
 
     public getTrainingBySearch(keyword: string, page: number, size: number, order: string, field: string): Promise<any> {
