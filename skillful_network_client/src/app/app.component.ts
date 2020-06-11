@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from './shared/services/token-storage.service';
-import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
-import { filter } from 'rxjs/operators';
-import { pipe } from 'rxjs';
+import { Router } from '@angular/router';
 import { ApiHelperService } from './shared/services/api-helper.service';
 import { UserService } from './shared/services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from './shared/services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -14,13 +13,20 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class AppComponent implements OnInit {
 
-  isLogging : boolean;
+  isLogging: boolean;
 
   private urlActual: String;
 
-  constructor(private tokenStorageService: TokenStorageService, private snackBar: MatSnackBar, private router: Router, private api: ApiHelperService, private userService: UserService) {
+  constructor(
+    private tokenStorageService: TokenStorageService,
+    private snackBar: MatSnackBar,
+    private router: Router,
+    private api: ApiHelperService,
+    private authService: AuthService,
+    private userService: UserService) {
 
   }
+
   ngOnInit(): void {
     if (!this.urlIsAboutLogin()) {
       this.isLogging = true;
@@ -28,7 +34,7 @@ export class AppComponent implements OnInit {
         endpoint: "/whoami",
         data: this.tokenStorageService.getToken()
       }).then(data => {
-        this.userService.initUserLoggedWithObject(data)
+        this.authService.initUserLoggedWithObject(data)
         this.isLogging = false;
       }).catch(err => {
         console.log(err);
@@ -41,7 +47,7 @@ export class AppComponent implements OnInit {
       })
     } else if (this.tokenStorageService.getToken() != null) {
       this.api.post({ endpoint: "/whoami", data: this.tokenStorageService.getToken() }).then(data => {
-        this.userService.updateUser(data, false);
+        this.authService.initUserLoggedWithObject(data);
         this.router.navigate(['/home']);
         this.snackBar.open("Vous êtes déja connecté, veuillez vous déconnecter pour vous connecter à un autre compte !", "", {
           duration: 5000,

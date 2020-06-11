@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from '../shared/services/user.service';
 import { MatDialog } from '@angular/material/dialog';
+import { TokenStorageService } from '../shared/services/token-storage.service';
 
 @Component({
   selector: 'app-home',
@@ -9,14 +9,17 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  constructor(private router: Router, private userService: UserService, public dialog: MatDialog) {
+  constructor(
+    private router: Router,
+    private service: TokenStorageService,
+    public dialog: MatDialog) {
   }
 
   ngOnInit() {
   }
 
   logOut() {
-    this.userService.disconnect();
+    this.service.signOut();
     this.router.navigate(['/login']);
   }
 }

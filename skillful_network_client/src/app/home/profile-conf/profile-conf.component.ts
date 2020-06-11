@@ -1,15 +1,8 @@
-import { TokenStorageService } from 'src/app/shared/services/token-storage.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { stringToKeyValue } from '@angular/flex-layout/extended/typings/style/style-transforms';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from "../../shared/services/user.service"
 import { User } from 'src/app/shared/models/user/user';
-import { Subscription } from 'rxjs';
 import { Application } from "../../shared/models/application/application";
-import { ApiHelperService } from "../../shared/services/api-helper.service";
-import { ActivatedRoute } from "@angular/router";
-import { CardComponent } from '../../shared/components/card/card.component';
-import { Perk } from 'src/app/shared/models/user/perk';
 
 @Component({
   selector: 'app-profile-conf',
@@ -27,20 +20,11 @@ export class ProfileConfComponent {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private api: ApiHelperService,
-    private route: ActivatedRoute,
-    private ts: TokenStorageService
   ) { }
 
   ngOnInit() {
-    this.userLogged = this.userService.userLogged;
+    this.userLogged = this.userService.getCurrentUser();
     this.createForm();
-    // this.api.get({ endpoint: `/applications/jobs/user/` + this.userLogged.id })
-    //   .then(candidatures => {
-    //     this.listCandidature = candidatures;
-    //   }).catch((error) => {
-    //     console.log(error);
-    //   });
   }
 
   private createForm() {
@@ -99,7 +83,7 @@ export class ProfileConfComponent {
       this.userLogged.subscriptionSet = formValueSu['subscriptionSet'];
     }
     // Boom !
-    this.userService.updateUser(this.userLogged);
+    this.userService.update(this.userLogged);
   }
 
   onResetForm() {

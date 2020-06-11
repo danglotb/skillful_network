@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiHelperService } from '../shared/services/api-helper.service';
-import { UserService } from '../shared/services/user.service';
 import { AuthService } from '../shared/services/auth.service';
 import { TokenStorageService } from '../shared/services/token-storage.service';
-import { User } from '../shared/models/user/user';
 import { Router } from '@angular/router';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogModule, MatDialog } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { ExistingAccountDialog } from './existing-account-dialog/existing-account-dialog.component';
 import { JwtResponse } from '../shared/models/jwt-response';
 
@@ -43,7 +41,6 @@ export class LoginComponent implements OnInit {
   dialogResult = "";
 
   constructor(private api: ApiHelperService,
-    private userService: UserService,
     private router: Router,
     private formBuilder: FormBuilder,
     private authService: AuthService,
@@ -69,7 +66,7 @@ export class LoginComponent implements OnInit {
     }
     response.then((data) => {
       this.tokenStorage.saveTokenAndCurrentUsername(data.token, data.authorities, this.isChecked ? 'local' : '');
-      this.userService.initUserLogged();
+      this.authService.initUserLogged();
       if (this.doDisplayCodeVerif) {
         this.router.navigate(['/password']);
       } else {

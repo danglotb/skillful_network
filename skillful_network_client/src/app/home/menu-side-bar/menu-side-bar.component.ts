@@ -23,13 +23,14 @@ export class MenuSideBarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    let currentUser : User = this.userService.getCurrentUser();
     this.userService.getCurrentProfilePicture().then( data => {
       const objectURL = URL.createObjectURL(data);
-      this.userService.userLogged.photoProfile = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+      currentUser.photoProfile = this.sanitizer.bypassSecurityTrustUrl(objectURL);
     }).catch( (error => {
         if (error.error.status == 404) {
-          this.userService.userLogged.photoProfile = this.sanitizer.bypassSecurityTrustUrl(
-            'https://www.gravatar.com/avatar/' + this.userService.userLogged.id + '?s=128&d=identicon&r=PG'
+          currentUser.photoProfile = this.sanitizer.bypassSecurityTrustUrl(
+            'https://www.gravatar.com/avatar/' + currentUser.id + '?s=128&d=identicon&r=PG'
           );
         }
       })
@@ -37,19 +38,21 @@ export class MenuSideBarComponent implements OnInit {
   }
 
   onSelectFile(e) {
+    let currentUser : User = this.userService.getCurrentUser();
     if (e.target.files) {
       var reader = new FileReader();
       reader.readAsDataURL(e.target.files[0]);
       reader.onload = (event: any) => {
         console.log(event.target)
-        this.userService.userLogged.photoProfile = event.target.result;
+        currentUser.photoProfile = event.target.result;
       }
     }
   }
 
   openModalProfile() {
+    let currentUser : User = this.userService.getCurrentUser();
     const dialogRef = this.dialog.open(ProfilePictureUploader, {
-      data: { user: this.userService.userLogged.photoProfile }
+      data: { user: currentUser.photoProfile }
     });
   }
 
