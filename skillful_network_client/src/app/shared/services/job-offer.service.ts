@@ -3,6 +3,8 @@ import { JobOffer } from '../models/application/job-offer';
 import { ApiHelperService } from './api-helper.service';
 import { SearchService } from './abstract-search.service';
 
+const ROOT_ENDPOINT: string = '/jobs/';
+
 @Injectable({
     providedIn: 'root'
 })
@@ -12,70 +14,13 @@ export class JobOfferService extends SearchService<JobOffer> {
         super(api);
     }
 
-    public findById(id: number): JobOffer {
-        return null;
+    public findById(id: number): Promise<JobOffer> {
+        return this.api.get( { endpoint: ROOT_ENDPOINT + id });
     }
 
-    // Import depuis le Backend
-    public findAll(page: number, size: number, order: string, field: string): Promise<any> {
-        let promise = new Promise((resolve, reject) => {
-            this.api.get({ endpoint: '/offers/', queryParams: { page: page, size: size, sortOrder: order, field: field } })
-                .then(
-                    res => {
-                        resolve(res);
-                    },
-                    msg => {
-                        reject(msg);
-                    }
-                ).catch((error) => {
-                });
-        });
-        return promise;
-    }
-​
     public getBySearch(keyword: string, page: number, size: number, sortOrder: string, field: string): Promise<JobOffer> {
         return super._getBySearch('jobs', keyword, page, size, sortOrder, field);
     }
 
-    public findAllByPage(page: number,
-        size: number,
-        sortOrder: String,
-        fieldToSort: String): Promise<any> {
-        let promise = new Promise((resolve, reject) => {
-        this.api.get({
-            endpoint: '/offers/',
-            queryParams: { "page": page, "size": size, "sortOrder": sortOrder, "field": fieldToSort }
-        })
-            .then(
-            res => {
-                resolve(res);
-            },
-            msg => {
-                reject(msg);
-            }
-            ).catch((error) => {
-            });
-        });
-        return promise;
-    }
-
-
-
-    public getOffersBySearch(keyword: string, page: number, size: number, order: string, field: string): Promise<any> {
-        let promise = new Promise((resolve, reject) => {
-            this.api.get({ endpoint: `/offers/search`, queryParams: { keyword: keyword, page: page, size: size, sortOrder: order, field: field } })
-                .then(
-                    res => {
-                        resolve(res);
-                    },
-                    msg => {
-                        reject(msg);
-                    }
-                ).catch((error) => {
-                    console.log("request not found")
-                });
-        });
-        return promise;
-    }
 }
 
