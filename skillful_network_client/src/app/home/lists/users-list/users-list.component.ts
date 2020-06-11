@@ -56,8 +56,8 @@ export class UsersListComponent implements OnInit {
   @HostListener('document:keydown', ['$event']) handleKeyboardEvent(event) {
     this.event = event;
     this.keyEvent = true;
-
   }
+  
   onSearchOnInit() {
     this.userService.getUsersBySearch(this.keyword, this.page = this.pageIndex, this.size = this.pageSize, this.checkOrder(), this.checkField()).then(res => {
       this.length = res.totalElements;

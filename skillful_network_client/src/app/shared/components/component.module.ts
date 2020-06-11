@@ -6,10 +6,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { CardComponent } from './card/card.component';
 import { MaterialModule } from '../modules/material/material.module';
 import { ChipComponent } from './chip/chip.component';
+import { ListComponent } from './list/list.component';
 
 const COMPONENT_MODULES = [
     CardComponent,
-    ChipComponent
+    ChipComponent,
+    ListComponent,
 ]
 
 const REACTIVE_FORM_DIRECTIVES = [
