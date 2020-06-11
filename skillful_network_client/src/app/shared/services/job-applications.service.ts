@@ -8,23 +8,15 @@ import { ApiHelperService } from './api-helper.service';
 })
 export class JobApplicationService {
 
-  private rootEndpoint : string = '/applications/jobs/';
+  private rootEndpoint: string = '/applications/jobs/';
 
   constructor(private api: ApiHelperService) { }
 
-  public getJobApplicationsForCurrentUser() : Promise<Application[]> {
-    return this.api.get( { endpoint: this.rootEndpoint + 'user' } );
+  public getForCurrentUser(): Promise<Application[]> {
+    return this.api.get({ endpoint: this.rootEndpoint + 'user' });
   }
 
-  async getAllUserApllications(userId) : Promise<Application[]>{
-    let endPoint = '/applications/jobs/user/'+userId;
-    try{
-      let candidatures = await this.api.get({ endpoint:endPoint});
-      return candidatures;
-    }catch(ex){
-      return null;
-    }
-    
-    
+  public getByUserId(id: number): Promise<Application[]> {
+    return this.api.get({ endpoint: this.rootEndpoint + 'user/' + id });
   }
 }

@@ -17,13 +17,11 @@ export class JobApplicationsList implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.jobApplicationService.getJobApplicationsForCurrentUser().then( data => {
-        console.log(data);
-        this.jobApplicationsList = data;
-        console.log(this.jobApplicationsList);
-      }).catch(error => {
-          console.log(error);
-      });
+    this.jobApplicationService.getForCurrentUser().then(data => {
+      this.jobApplicationsList = data;
+    }).catch(error => {
+      console.log(error);
+    });
   }
 
 }
