@@ -81,8 +81,7 @@ export class LoginComponent implements OnInit {
   }
 
   register() {
-    this.role = ['ROLE_USER'];
-    this.authService.register({ email: this.inscriptionFormGroup.value.emailInscription, role: this.role })
+    this.authService.register(this.inscriptionFormGroup.value.emailInscription, ['ROLE_USER'])
       .then((response) => {
         this.openDialog('L\'adresse email  ' + this.inscriptionFormGroup.value.emailInscription + ' que vous avez insérée existe déjà. Veuillez vous connecter.');
         this.router.navigate(['/login']);
