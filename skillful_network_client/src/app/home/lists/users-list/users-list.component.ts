@@ -10,11 +10,12 @@ import { UserService } from 'src/app/shared/services/user.service';
 
 export class UsersListComponent implements OnInit {
 
-  displayedColumns: string[] = ['lastName', 'firstName', 'birthdate'];
+  displayedColumns: string[] = ['lastName', 'firstName', 'birthdate', 'details'];
   listElements: ListElement[] = [
     new ListElement("Nom", "lastName"),
     new ListElement("Prénom", "firstName"),
-    new ListElement("Date de naissance", "birthdate")
+    new ListElement("Date de naissance", "birthdate"),
+    new ListElement("Détails", "details")
   ]
 
   constructor(public service: UserService) {

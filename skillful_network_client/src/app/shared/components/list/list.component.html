@@ -3,10 +3,20 @@
 <ng-template #listContent>
     <div fxLayoutAlign="center center">
         <div class="mat-elevation-z3 table-container">
-            <table mat-table [dataSource]="dataSource" (matSortChange)="change($event)" matSort >
+            <table mat-table [dataSource]="dataSource" (matSortChange)="change($event)" matSort>
                 <ng-container *ngFor="let listElement of listElements" matColumnDef={{listElement.matColumnDef}}>
                     <mat-header-cell *matHeaderCellDef mat-sort-header>{{listElement.header}}</mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element[listElement.matColumnDef]}} </mat-cell>
+                    <div *ngIf="!isDetails(listElement.matColumnDef); then thenBlock else elseBlock"></div>
+                    <ng-template #thenBlock>
+                        <mat-cell *matCellDef="let element"> {{element[listElement.matColumnDef]}}</mat-cell>
+                    </ng-template>
+                    <ng-template #elseBlock>
+                        <mat-cell *matCellDef="let element">
+                            <a routerLink="/home/{{type}}/{{element.id}}"><button mat-icon-button title="Détails">
+                                    <mat-icon>visibility</mat-icon>
+                                </button></a>
+                        </mat-cell>
+                    </ng-template>
                 </ng-container>
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                 <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>

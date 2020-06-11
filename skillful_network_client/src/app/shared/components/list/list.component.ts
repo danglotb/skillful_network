@@ -7,6 +7,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 
+import { ActivatedRoute, Router } from "@angular/router";
+
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -18,6 +20,7 @@ export class ListComponent implements OnInit {
   @Input() displayedColumns: string[];
   @Input() listElements: ListElement[];
   @Input() service: SearchService<any>;
+  @Input() type: string;
 
   dataSource;
 
@@ -25,8 +28,6 @@ export class ListComponent implements OnInit {
   private keyword = '';
   private pageIndex = 1;
   private field: string;
-  private page: number;
-  private size: number;
   public pageSize = 10;
   public pageSizeOptions: number[] = [10, 25, 50, 100];
   public length: number;
@@ -47,14 +48,16 @@ export class ListComponent implements OnInit {
     this.field = event.active;
     this.onSearch();
   }
+
   constructor() { }
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.service.getBySearch(this.keyword, this.page = this.pageIndex, this.size = this.pageSize, this.checkOrder(), this.checkField()).then(res => {
-      this.length = res.totalElements;
-      this.dataSource = new MatTableDataSource<any>(res.content);
-    }).finally(() => this.isLoading = false);
+    this.service.getBySearch(this.keyword, this.pageIndex, this.pageSize, this.checkOrder(), this.checkField())
+      .then(res => {
+        this.length = res.totalElements;
+        this.dataSource = new MatTableDataSource<any>(res.content);
+      }).finally(() => this.isLoading = false);
   }
 
   onSearch() {
@@ -63,7 +66,7 @@ export class ListComponent implements OnInit {
       this.pageIndex = this.paginator.pageIndex + 1;
     }
     const keyword = this.search.value.keyword;
-    this.service.getBySearch(keyword, this.page = this.pageIndex, this.size = this.pageSize, this.checkOrder(), this.checkField())
+    this.service.getBySearch(keyword, this.pageIndex, this.pageSize, this.checkOrder(), this.checkField())
       .then((res: { totalElements: number; content: any[]; }) => {
         this.length = res.totalElements;
         this.dataSource = new MatTableDataSource<any>(res.content);
@@ -85,6 +88,10 @@ export class ListComponent implements OnInit {
       this.order = 'DESCENDING';
     }
     return this.order;
+  }
+
+  isDetails(matColumnDef : string) {
+    return matColumnDef === 'details';
   }
 
 }

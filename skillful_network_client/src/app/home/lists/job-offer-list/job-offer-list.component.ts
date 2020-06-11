@@ -10,11 +10,12 @@ import { JobOfferService } from 'src/app/shared/services/job-offer.service';
 
 export class JobOfferListComponent implements OnInit {
 
-  displayedColumns: string[] = ['name', 'company', 'dateUpload'];
+  displayedColumns: string[] = ['name', 'company', 'dateUpload', 'details'];
   listElements: ListElement[] = [
     new ListElement("Nom", "name"),
     new ListElement("Entreprise", "company"),
-    new ListElement("Date de mise en ligne", "dateUpload")
+    new ListElement("Date de mise en ligne", "dateUpload"),
+    new ListElement("Détails", "details")
   ]
 
   constructor(public service: JobOfferService) {

@@ -10,9 +10,10 @@ export const HOME_ROUTES = [
   { path: '', component: FilActualitesComponent },
   { path: 'profile', component: ProfileConfComponent },
   { path: 'users-list', component: UsersListComponent },
-  { path: 'user/:id', component: UserComponent },
-  { path: 'offre/:id', component: OffreComponent, data: { type: 'emploi' } },
-  { path: 'formation/:id', component: OffreComponent, data: { type: 'formation' } },
-  { path: 'formation-list', component: FormationListComponent },
   { path: 'job-offer-list', component: JobOfferListComponent },
+  { path: 'formation-list', component: FormationListComponent },
+  { path: 'user/:id', component: UserComponent },
+  { path: 'job/:id', component: OffreComponent, data: { type: 'emploi' } },
+  { path: 'training/:id', component: OffreComponent, data: { type: 'formation' } },
+  
 ];

@@ -10,12 +10,13 @@ import { ListElement } from 'src/app/shared/components/list/list-element';
 
 export class FormationListComponent implements OnInit {
 
-  displayedColumns: string[] = ['name', 'organization', 'dateBeg', 'durationHours'];
+  displayedColumns: string[] = ['name', 'organization', 'dateBeg', 'durationHours', 'details'];
   listElements: ListElement[] = [
     new ListElement("Nom", "name"),
     new ListElement("Formateur", "organization"),
     new ListElement("Date de début", "dateBeg"),
-    new ListElement("Durée", "durationHours")
+    new ListElement("Durée", "durationHours"),
+    new ListElement("Détails", "details")
   ]
   constructor(public service: TrainingService) {
 

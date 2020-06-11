@@ -7,6 +7,7 @@ import { CardComponent } from './card/card.component';
 import { MaterialModule } from '../modules/material/material.module';
 import { ChipComponent } from './chip/chip.component';
 import { ListComponent } from './list/list.component';
+import { RouterModule } from '@angular/router';
 
 const COMPONENT_MODULES = [
     CardComponent,
@@ -27,6 +28,7 @@ const REACTIVE_FORM_DIRECTIVES = [
         COMPONENT_MODULES
     ],
     imports: [
+        RouterModule,
         MaterialModule,
         CommonModule,
         REACTIVE_FORM_DIRECTIVES
