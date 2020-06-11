@@ -1,10 +1,5 @@
 import { TrainingService } from '../../../shared/services/training.service';
-import { Training } from '../../../shared/models/application/training';
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort, Sort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
-import {PageEvent} from '@angular/material/paginator';
+import { Component, OnInit } from '@angular/core';
 import { ListElement } from 'src/app/shared/components/list/list-element';
 
 @Component({
@@ -13,16 +8,16 @@ import { ListElement } from 'src/app/shared/components/list/list-element';
   styleUrls: ['./formation-list.component.scss']
 })
 
-​export class FormationListComponent implements OnInit {
-  
-  displayedColumns: string[] = ['name', 'organization', 'dateBeg', 'duration'];
+export class FormationListComponent implements OnInit {
+
+  displayedColumns: string[] = ['name', 'organization', 'dateBeg', 'durationHours'];
   listElements: ListElement[] = [
     new ListElement("Nom", "name"),
     new ListElement("Formateur", "organization"),
     new ListElement("Date de début", "dateBeg"),
-    new ListElement("Durée", "duration")
+    new ListElement("Durée", "durationHours")
   ]
-  constructor() {
+  constructor(public service: TrainingService) {
 
   }
 
@@ -32,5 +27,5 @@ import { ListElement } from 'src/app/shared/components/list/list-element';
 }
 
 
-​
+
 

@@ -30,7 +30,6 @@ import { OffreComponent } from './home/lists/elements/offre/offre.component';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { getFrenchPaginatorIntl } from './shared/utils/customMatPaginationIntl';
 import { MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
-import { PageDataComponent } from './shared/utils/page-data/page-data.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ExistingAccountDialog } from './login/existing-account-dialog/existing-account-dialog.component';
@@ -52,7 +51,6 @@ import { HomeModule } from './home/home.module';
         CandidaterComponent,
         InformationsComponent,
         OffreComponent,
-        PageDataComponent,
         ExistingAccountDialog,
     ],
 

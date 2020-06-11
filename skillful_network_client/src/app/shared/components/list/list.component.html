@@ -8,29 +8,6 @@
                     <mat-header-cell *matHeaderCellDef mat-sort-header>{{listElement.header}}</mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element[listElement.matColumnDef]}} </mat-cell>
                 </ng-container>
-                <!-- <ng-container *ngFor="let listElement of listElements"> -->
-                    <!-- {{listElement.matColumnDef}} -->
-                    <!-- <app-list-element [matColumnDef]=listElement.matColumnDef [header]=listElement.header> -->
-                    <!-- </app-list-element> -->
-                <!-- </ng-container> -->
-                <!-- <ng-container matColumnDef="firstName">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Prénom </mat-header-cell>
-                    <mat-cell *matCellDef="let user"> {{user.firstName}} </mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="lastName">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Nom </mat-header-cell>
-                    <mat-cell *matCellDef="let user"> {{user.lastName}} </mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="birthDate">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Date de naissance </mat-header-cell>
-                    <mat-cell *matCellDef="let user"> {{user.birthDate | date: "dd/MM/yyyy"}}</mat-cell>
-                </ng-container> -->
-                <!-- <ng-container matColumnDef="details">
-                    <mat-header-cell *matHeaderCellDef> Details </mat-header-cell>
-                    <mat-cell *matCellDef="let user"> <a [routerLink]="['/home/user/'+user.id]">
-                            <mat-icon>visibility</mat-icon>
-                        </a></mat-cell>
-                </ng-container> -->
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                 <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
             </table>
@@ -38,6 +15,17 @@
                 [hidePageSize]="hidePageSize" [showFirstLastButtons]="showFirstLastButtons" [length]="length"
                 class="mat-paginator-container">
             </mat-paginator>
+            <form [formGroup]="search" (ngSubmit)="onSearch() " class="form-group">
+                <mat-form-field appearance="legacy">
+                    <mat-label>Recherche</mat-label>
+                    <mat-icon matSuffix>search</mat-icon>
+                    <input formControlName="keyword" type="textarea" matInput placeholder="Recherche">
+                    <mat-hint>Appuyez sur Entrée après saisie</mat-hint>
+                </mat-form-field>
+            </form>
         </div>
+    </div>
+    <div class="progressBarDiv" *ngIf="isLoading">
+        <mat-progress-spinner class="is-loading" mode="indeterminate"></mat-progress-spinner>
     </div>
 </ng-template>
