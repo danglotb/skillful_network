@@ -59,8 +59,9 @@ public class AuthenticationController {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
                     "Wrong credentials, please try again or contact an administrator.");
         }
-        final String token = this.service.login((User) authenticate.getPrincipal());
-        return new ResponseEntity<>(new JwtResponse(token, authenticate.getAuthorities()), HttpStatus.OK);
+        final User user = (User) authenticate.getPrincipal();
+        final String token = this.service.login(user);
+        return new ResponseEntity<>(new JwtResponse(user, token, authenticate.getAuthorities()), HttpStatus.OK);
     }
 
     @PostMapping(value = "/whoami")
