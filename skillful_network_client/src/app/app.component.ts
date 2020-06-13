@@ -22,8 +22,7 @@ export class AppComponent implements OnInit {
     private snackBar: MatSnackBar,
     private router: Router,
     private api: ApiHelperService,
-    private authService: AuthService,
-    private userService: UserService) {
+    private authService: AuthService) {
 
   }
 
@@ -34,6 +33,7 @@ export class AppComponent implements OnInit {
         endpoint: "/whoami",
         data: this.tokenStorageService.getToken()
       }).then(data => {
+        this.authService.user = data;
         this.isLogging = false;
       }).catch(err => {
         console.log(err);
@@ -46,6 +46,7 @@ export class AppComponent implements OnInit {
       })
     } else if (this.tokenStorageService.getToken() != null) {
       this.api.post({ endpoint: "/whoami", data: this.tokenStorageService.getToken() }).then(data => {
+        this.authService.user = data;
         this.router.navigate(['/home']);
         this.snackBar.open("Vous êtes déja connecté, veuillez vous déconnecter pour vous connecter à un autre compte !", "", {
           duration: 5000,

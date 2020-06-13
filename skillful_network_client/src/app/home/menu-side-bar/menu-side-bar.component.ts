@@ -21,8 +21,7 @@ export class MenuSideBarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let currentUser: User;
-    this.userService.getCurrentUser().then(data => currentUser = data);
+    let currentUser: User = this.userService.getCurrentUser();
     console.log(currentUser);
     this.userService.getCurrentProfilePicture().then(data => {
       const objectURL = URL.createObjectURL(data);

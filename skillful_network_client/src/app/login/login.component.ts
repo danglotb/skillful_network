@@ -66,6 +66,7 @@ export class LoginComponent implements OnInit {
     }
     response.then((data) => {
       this.tokenStorage.saveTokenAndCurrentUsername(data.token, data.authorities, this.isChecked ? 'local' : '');
+      this.authService.user = data.user;
       if (this.doDisplayCodeVerif) {
         this.router.navigate(['/password']);
       } else {

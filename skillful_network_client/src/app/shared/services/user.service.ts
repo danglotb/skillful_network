@@ -33,7 +33,7 @@ export class UserService extends SearchService<User> {
     return this.api.get({ endpoint: ROOT_ENDPOINT + 'profilePicture' });
   }
 
-  public getCurrentUser(): Promise<User> {
+  public getCurrentUser(): User {
     return this.authService.getCurrentUser();
   }
 

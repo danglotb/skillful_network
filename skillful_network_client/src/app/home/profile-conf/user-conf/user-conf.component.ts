@@ -14,25 +14,23 @@ export class UserConfComponent {
 
   public title: string = 'Informations'
   @Input() userLogged: User;
-  formGroup: FormGroup = new FormGroup({});
+  formGroup: FormGroup;
 
   constructor(
-    private _adapter: DateAdapter<any>,
-    private userService: UserService
+    private _adapter: DateAdapter<any>
   ) {
     this._adapter.setLocale('fr');
   }
 
   ngOnInit() {
-    this.userService.getCurrentUser().then(data => {
-      this.formGroup = new FormGroup({
-        lastName: new FormControl(data.lastName, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
-        firstName: new FormControl(data.firstName, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
-        birthDate: new FormControl(data.birthDate, Validators.required),
-        email: new FormControl(data.email, [Validators.required, Validators.email]),
-        mobileNumber: new FormControl(data.mobileNumber, [Validators.required, Validators.minLength(10)]),
-        careerGoal: new FormControl(data.careerGoal, [Validators.required, Validators.minLength(3)])
-      });
+    console.log(this.userLogged);
+    this.formGroup = new FormGroup({
+      lastName: new FormControl(this.userLogged.lastName, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
+      firstName: new FormControl(this.userLogged.firstName, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
+      birthDate: new FormControl(this.userLogged.birthDate, Validators.required),
+      email: new FormControl(this.userLogged.email, [Validators.required, Validators.email]),
+      mobileNumber: new FormControl(this.userLogged.mobileNumber, [Validators.required, Validators.minLength(10)]),
+      careerGoal: new FormControl(this.userLogged.careerGoal, [Validators.required, Validators.minLength(3)])
     });
   }
 

@@ -4,7 +4,7 @@ import { Perk } from './perk';
 
 export class User {
 
-  private _id: number;
+  private _id: number = -1;
   private _firstName: string;
   private _lastName: string;
   private _password: string;

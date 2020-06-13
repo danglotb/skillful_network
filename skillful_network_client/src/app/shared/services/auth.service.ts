@@ -8,6 +8,8 @@ import { User } from '../models/user/user';
 })
 export class AuthService {
 
+  private _user: User = new User({ id: -1 });
+
   constructor(private api: ApiHelperService) { }
 
   public login(email: string, password: string): Promise<JwtResponse> {
@@ -18,8 +20,21 @@ export class AuthService {
     return this.api.post({ endpoint: '/register', data: { email: email, role: roles } });
   }
 
-  public getCurrentUser(): Promise<User> {
-    return this.api.get({ endpoint: '/user' });
+  public getCurrentUser(): User {
+    if (this._user.id == -1) {
+      this.api.get({ endpoint: '/user' }).then(data => {
+        this._user = data;
+      });
+    }
+    return this.user;
   }
-  
+
+  public set user(user: User) { 
+    this._user = user;
+  }
+
+  public get user() : User {
+    return this._user;
+  }
+
 }
