@@ -15,6 +15,9 @@ import { ITS_JUST_ANGULAR } from '@angular/core/src/r3_symbols';
 export class ProfileConfComponent {
 
   public userLogged: User;
+  public chipQualificationValues: Perk[] = [];
+  public chipSkillValues: Perk[] = [];
+  public chipSubscriptionValues: Perk[] = [];
   private lastUserLogged: User;
 
   @ViewChild('userConfiguration') userConfiguration: UserConfComponent;
@@ -27,10 +30,13 @@ export class ProfileConfComponent {
   ) { }
 
   ngOnInit() {
-    this.userLogged = this.userService.getCurrentUser();
-    this.lastUserLogged = JSON.parse(JSON.stringify(this.userLogged));
-    console.log(this.lastUserLogged);
-    console.log(this.userLogged);
+    this.userService.getCurrentUser().then(data => {
+      this.userLogged = data;
+      this.lastUserLogged = JSON.parse(JSON.stringify(this.userLogged));
+      this.chipQualificationValues = this.userLogged.qualificationSet;
+      this.chipSkillValues = this.userLogged.skillSet;
+      this.chipSubscriptionValues = this.userLogged.subscriptionSet;
+    });
   }
 
   onUpdateForm() {
@@ -45,8 +51,10 @@ export class ProfileConfComponent {
   }
 
   changed(): boolean {
-    return this.userLogged.lastName !== this.lastUserLogged.lastName ||
-          JSON.stringify(this.userLogged.qualificationSet) !== JSON.stringify(this.lastUserLogged.qualificationSet);
+    return this.userLogged != undefined && (
+      this.userLogged.lastName !== this.lastUserLogged.lastName ||
+      JSON.stringify(this.userLogged.qualificationSet) !== JSON.stringify(this.lastUserLogged.qualificationSet)
+    );
   }
 
 }

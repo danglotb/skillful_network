@@ -33,7 +33,7 @@ export class ProfilePictureUploader {
     this.http.post(environment.base_url + '/users/uploadProfilePicture', body).toPromise()
     .then((res) => {
       console.log(res);
-      this.userService.getCurrentUser().photoProfile = this.profilPicture;
+      // this.userService.getCurrentUser().photoProfile = this.profilPicture; // TODO
     })
     this.dialogRef.close();
   }

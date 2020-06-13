@@ -21,7 +21,8 @@ export class MenuSideBarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let currentUser: User = this.userService.getCurrentUser();
+    let currentUser: User;
+    this.userService.getCurrentUser().then(data => currentUser = data);
     console.log(currentUser);
     this.userService.getCurrentProfilePicture().then(data => {
       const objectURL = URL.createObjectURL(data);
@@ -39,21 +40,19 @@ export class MenuSideBarComponent implements OnInit {
   }
 
   onSelectFile(e) {
-    let currentUser: User = this.userService.getCurrentUser();
     if (e.target.files) {
       var reader = new FileReader();
       reader.readAsDataURL(e.target.files[0]);
       reader.onload = (event: any) => {
         console.log(event.target)
-        currentUser.photoProfile = event.target.result;
+        this.photoProfile = event.target.result;
       }
     }
   }
 
   openModalProfile() {
-    let currentUser: User = this.userService.getCurrentUser();
     const dialogRef = this.dialog.open(ProfilePictureUploader, {
-      data: { user: currentUser.photoProfile }
+      data: { user: this.photoProfile }
     });
   }
 

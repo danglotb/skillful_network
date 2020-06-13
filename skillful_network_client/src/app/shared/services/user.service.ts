@@ -15,29 +15,26 @@ const ROOT_ENDPOINT: string = '/users/';
 })
 export class UserService extends SearchService<User> {
 
-
   constructor(
     protected api: ApiHelperService,
     private authService: AuthService) {
     super(api);
   }
 
-  public update(user: User) {
-    this.api.put({ endpoint: ROOT_ENDPOINT, data: user }).then(updatedUser =>
-      this.authService.initUserLoggedWithObject(updatedUser)
-    ).catch(error => console.log(error));
+  public update(user: User) : Promise<User> {
+    return this.api.put({ endpoint: ROOT_ENDPOINT, data: user });
   }
 
   public getBySearch(keyword: string, page: number, size: number, sortOrder: string, field: string): Promise<User> {
     return super._getBySearch("users", keyword, page, size, sortOrder, field);
   }
 
-  public getCurrentProfilePicture(): Promise<User> {
+  public getCurrentProfilePicture(): Promise<any> {
     return this.api.get({ endpoint: ROOT_ENDPOINT + 'profilePicture' });
   }
 
-  public getCurrentUser(): User {
-    return this.authService.userLogged;
+  public getCurrentUser(): Promise<User> {
+    return this.authService.getCurrentUser();
   }
 
   // DEPRECATED
