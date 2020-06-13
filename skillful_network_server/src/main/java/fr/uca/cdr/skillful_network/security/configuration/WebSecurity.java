@@ -55,10 +55,4 @@ public class WebSecurity extends AbstractConfiguration {
         auth.userDetailsService(s -> this.userService.getByEmail(s)).passwordEncoder(this.bCryptPasswordEncoder);
     }
 
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
-        return source;
-    }
 }
