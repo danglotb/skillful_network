@@ -12,6 +12,10 @@ export class AuthService {
 
   constructor(private api: ApiHelperService) { }
 
+  public whoami(token: string) : Promise<User> {
+    return this.api.post({ endpoint: "/whoami", data: token });
+  }
+
   public login(email: string, password: string): Promise<JwtResponse> {
     return this.api.post({ endpoint: '/login', data: { email: email, password: password } });
   }

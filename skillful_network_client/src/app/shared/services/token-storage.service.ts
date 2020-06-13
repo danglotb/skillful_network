@@ -45,11 +45,6 @@ export class TokenStorageService {
     return localStorage.getItem(TOKEN_KEY) || sessionStorage.getItem(TOKEN_KEY);
   }
 
-  // DEPRECATED
-  public getCurrentUser() {
-    return JSON.parse(localStorage.getItem(USERNAME_KEY) || JSON.parse(sessionStorage.getItem(USERNAME_KEY)));
-  }
-
   public getAuthorities(): string[] {
     let roles: string [];
     let authorities: any;
