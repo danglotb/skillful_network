@@ -32,7 +32,23 @@ export class UserConfComponent {
       mobileNumber: new FormControl(this.userLogged.mobileNumber, [Validators.required, Validators.minLength(10)]),
       careerGoal: new FormControl(this.userLogged.careerGoal, [Validators.required, Validators.minLength(3)])
     });
+    this.formGroup.valueChanges.subscribe(data => {
+      this.userLogged.lastName = data.lastName;
+      this.userLogged.firstName = data.firstName;
+      this.userLogged.birthDate = data.birthDate;
+      this.userLogged.email = data.email;
+      this.userLogged.mobileNumber = data.mobileNumber;
+      this.userLogged.careerGoal = data.careerGoal;
+    });
   }
 
+  public initValue(user: User) : void {
+    this.formGroup.value.lastName = user.lastName;
+    this.formGroup.value.firstName = user.firstName;
+    this.formGroup.value.birthDate = user.birthDate;
+    this.formGroup.value.email = user.email;
+    this.formGroup.value.mobileNumber = user.mobileNumber;
+    this.formGroup.value.careerGoal = user.careerGoal;
+  }
 
 }

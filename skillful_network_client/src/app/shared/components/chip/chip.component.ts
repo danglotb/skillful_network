@@ -42,7 +42,7 @@ export class ChipComponent implements OnInit {
             this.candidateChips.push(candidates[indexCandidate]);
           }
           this.isLoading = false;
-        }).catch()
+        }).catch( ignored => {})
       }
     })
   }

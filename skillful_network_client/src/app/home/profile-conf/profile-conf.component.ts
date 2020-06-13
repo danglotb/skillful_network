@@ -36,13 +36,20 @@ export class ProfileConfComponent {
   }
 
   onResetForm() {
-    window.location.reload();
+    this.userLogged = this.lastUserLogged;
   }
 
   changed(): boolean {
     return this.userLogged != undefined && (
       this.userLogged.lastName !== this.lastUserLogged.lastName ||
-      JSON.stringify(this.userLogged.qualificationSet) !== JSON.stringify(this.lastUserLogged.qualificationSet)
+      this.userLogged.firstName !== this.lastUserLogged.firstName ||
+      this.userLogged.email !== this.lastUserLogged.email ||
+      this.userLogged.birthDate !== this.lastUserLogged.birthDate ||
+      this.userLogged.mobileNumber !== this.lastUserLogged.mobileNumber ||
+      this.userLogged.careerGoal !== this.lastUserLogged.careerGoal ||
+      JSON.stringify(this.userLogged.qualificationSet) !== JSON.stringify(this.lastUserLogged.qualificationSet) ||
+      JSON.stringify(this.userLogged.subscriptionSet) !== JSON.stringify(this.lastUserLogged.subscriptionSet) ||
+      JSON.stringify(this.userLogged.skillSet) !== JSON.stringify(this.lastUserLogged.skillSet)
     );
   }
 
