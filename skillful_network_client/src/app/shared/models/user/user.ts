@@ -144,4 +144,8 @@ export class User {
   public set careerGoal(value: string) {
     this._careerGoal = value;
   }
+
+  public equals(that: any) : boolean {
+    return that instanceof User && that.id === this.id;
+  }
 }

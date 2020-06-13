@@ -30,4 +30,9 @@ export class UserConfComponent {
     });
   }
 
+  onChange() : void {
+    console.log(this.myGroup);
+    // this.userLogged = new User();
+  }
+
 }

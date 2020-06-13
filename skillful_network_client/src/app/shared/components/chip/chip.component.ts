@@ -84,4 +84,8 @@ export class ChipComponent implements OnInit {
     return Perk.convertToString(perks);
   }
 
+  public changed(perks: Perk[]) {
+    return !(JSON.stringify(perks) === JSON.stringify(this.chipValues));
+  }
+
 }

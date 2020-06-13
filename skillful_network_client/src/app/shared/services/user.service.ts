@@ -23,18 +23,8 @@ export class UserService extends SearchService<User> {
   }
 
   public update(user: User) {
-    let userLogged: User = this.authService.userLogged;
-    userLogged.firstName = user.firstName;
-    userLogged.lastName = user.lastName;
-    userLogged.birthDate = user.birthDate;
-    userLogged.email = user.email;
-    userLogged.mobileNumber = user.mobileNumber;
-    userLogged.careerGoal = user.careerGoal;
-    userLogged.skillSet = user.skillSet;
-    userLogged.qualificationSet = user.qualificationSet;
-    userLogged.subscriptionSet = user.subscriptionSet;
-    this.api.put({ endpoint: ROOT_ENDPOINT, data: userLogged }).then(user =>
-      this.authService.initUserLoggedWithObject(user)
+    this.api.put({ endpoint: ROOT_ENDPOINT, data: user }).then(updatedUser =>
+      this.authService.initUserLoggedWithObject(updatedUser)
     ).catch(error => console.log(error));
   }
 

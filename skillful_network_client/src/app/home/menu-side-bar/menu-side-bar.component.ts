@@ -11,32 +11,35 @@ import { DomSanitizer } from "@angular/platform-browser";
   styleUrls: ['./menu-side-bar.component.scss']
 })
 export class MenuSideBarComponent implements OnInit {
-  
+
   public photoProfile: any;
 
   constructor(
-      public dialog: MatDialog, 
-      public userService: UserService,
-      private sanitizer: DomSanitizer) {
+    public dialog: MatDialog,
+    public userService: UserService,
+    private sanitizer: DomSanitizer) {
   }
 
   ngOnInit(): void {
-    let currentUser : User = this.userService.getCurrentUser();
-    this.userService.getCurrentProfilePicture().then( data => {
+    let currentUser: User = this.userService.getCurrentUser();
+    console.log(currentUser);
+    this.userService.getCurrentProfilePicture().then(data => {
       const objectURL = URL.createObjectURL(data);
       currentUser.photoProfile = this.sanitizer.bypassSecurityTrustUrl(objectURL);
-    }).catch( (error => {
-        if (error.error.status == 404) {
-          currentUser.photoProfile = this.sanitizer.bypassSecurityTrustUrl(
-            'https://www.gravatar.com/avatar/' + currentUser.id + '?s=128&d=identicon&r=PG'
-          );
-        }
-      })
-    ).finally(() => this.photoProfile = currentUser.photoProfile)
+    }).catch((error => {
+      if (error.error.status == 404) {
+        currentUser.photoProfile = this.sanitizer.bypassSecurityTrustUrl(
+          'https://www.gravatar.com/avatar/' + currentUser.id + '?s=128&d=identicon&r=PG'
+        );
+      }
+    })
+    ).finally(() => {
+      this.photoProfile = currentUser.photoProfile;
+    })
   }
 
   onSelectFile(e) {
-    let currentUser : User = this.userService.getCurrentUser();
+    let currentUser: User = this.userService.getCurrentUser();
     if (e.target.files) {
       var reader = new FileReader();
       reader.readAsDataURL(e.target.files[0]);
@@ -48,7 +51,7 @@ export class MenuSideBarComponent implements OnInit {
   }
 
   openModalProfile() {
-    let currentUser : User = this.userService.getCurrentUser();
+    let currentUser: User = this.userService.getCurrentUser();
     const dialogRef = this.dialog.open(ProfilePictureUploader, {
       data: { user: currentUser.photoProfile }
     });

@@ -26,8 +26,12 @@ export class AuthService {
 
   public initUserLogged(): void {
     this.getCurrentUser().then( data => {
-      this._userLogged = data;
-    }).catch(error => console.log(console.error()));
+      this.userLogged = data;
+    }).catch(error => console.log(error));
+  }
+  
+  public set userLogged(user: User) {
+    this._userLogged = user;
   }
 
   public get userLogged() : User {

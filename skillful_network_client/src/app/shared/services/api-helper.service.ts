@@ -36,7 +36,7 @@ export class ApiHelperService {
       params: queryParams
     };
 
-    console.log(method + ' ' + endpoint + ' ' + queryParams);
+    console.log(method + ' ' + endpoint + ' ' + JSON.stringify(queryParams));
 
     let req: Observable<any> = null;
     if (methodWanted === 'get') {

@@ -4,6 +4,8 @@ import { UserService } from "../../shared/services/user.service"
 import { User } from 'src/app/shared/models/user/user';
 import { ChipComponent } from 'src/app/shared/components/chip/chip.component';
 import { UserConfComponent } from './user-conf/user-conf.component';
+import { Perk } from 'src/app/shared/models/user/perk';
+import { ITS_JUST_ANGULAR } from '@angular/core/src/r3_symbols';
 
 @Component({
   selector: 'app-profile-conf',
@@ -13,6 +15,7 @@ import { UserConfComponent } from './user-conf/user-conf.component';
 export class ProfileConfComponent {
 
   public userLogged: User;
+  private lastUserLogged: User;
 
   @ViewChild('userConfiguration') userConfiguration: UserConfComponent;
   @ViewChild('chipQualifications') chipQualifications: ChipComponent;
@@ -25,14 +28,16 @@ export class ProfileConfComponent {
 
   ngOnInit() {
     this.userLogged = this.userService.getCurrentUser();
+    this.lastUserLogged = JSON.parse(JSON.stringify(this.userLogged));
+    console.log(this.lastUserLogged);
+    console.log(this.userLogged);
   }
 
   onUpdateForm() {
-    this.userLogged = this.userConfiguration.userLogged;
-    this.userLogged.qualificationSet = this.chipQualifications.chipValues;
-    this.userLogged.skillSet = this.chipSkills.chipValues;
-    this.userLogged.subscriptionSet = this.chipSubscriptions.chipValues;
-    this.userService.update(this.userLogged);
+    if (this.changed()) {
+      this.userService.update(this.userLogged);
+      this.lastUserLogged = new User(this.userLogged);
+    }
   }
 
   onResetForm() {
@@ -40,7 +45,8 @@ export class ProfileConfComponent {
   }
 
   changed(): boolean {
-    return true;
+    return this.userLogged.lastName !== this.lastUserLogged.lastName ||
+          JSON.stringify(this.userLogged.qualificationSet) !== JSON.stringify(this.lastUserLogged.qualificationSet);
   }
 
 }
