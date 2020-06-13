@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { HeaderComponent } from './header/header.component';
 import { MenuSideBarComponent } from './menu-side-bar/menu-side-bar.component';
-import { FilActualitesComponent } from './fil-actualites/fil-actualites.component';
+import { NewsFeedComponent } from './news-feed/news-feed.component';
 import { ListsModule } from './lists/list.module';
 import { ProfileConfModule } from './profile-conf/profile-conf.module';
 import { ComponentModule } from '../shared/components/component.module';
@@ -16,7 +16,7 @@ import { ProfilePictureUploader } from './profile-picture-uploader/profile-pictu
         HomeComponent,
         HeaderComponent,
         MenuSideBarComponent,
-        FilActualitesComponent,
+        NewsFeedComponent,
         ProfilePictureUploader
     ],
     imports: [
