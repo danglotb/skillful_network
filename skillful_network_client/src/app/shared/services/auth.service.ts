@@ -31,7 +31,7 @@ export class AuthService {
   }
 
   public get userLogged() : User {
-    if (this._userLogged == null) {
+    if (this._userLogged == undefined) {
       this.initUserLogged();
     }
     return this._userLogged;

@@ -1,7 +1,7 @@
 <div class="menuprofile">
     <div class="lienProfile" fxLayout="column">
         <div fxlayout="row" fxLayoutAlign="center center" class="photoProfile container profilePhoto">
-            <img [src]="userService.getCurrentUser().photoProfile" alt="Avatar" class="image effetImage">
+            <img [src]="photoProfile" alt="Avatar" class="image effetImage">
             <div class="overlay middle">
                 <input type="file">
                 <p class="text upIMG" cursor="none" (click)="openModalProfile()"><i class="material-icons appPhoto"

@@ -3,8 +3,6 @@ import { User } from 'src/app/shared/models/user/user';
 import { MatDialog } from '@angular/material/dialog';
 import { ProfilePictureUploader } from '../profile-picture-uploader/profile-picture-uploader';
 import { UserService } from '../../shared/services/user.service';
-import { environment } from "../../../environments/environment";
-import { HttpClient } from "@angular/common/http";
 import { DomSanitizer } from "@angular/platform-browser";
 
 @Component({
@@ -34,7 +32,7 @@ export class MenuSideBarComponent implements OnInit {
           );
         }
       })
-    )
+    ).finally(() => this.photoProfile = currentUser.photoProfile)
   }
 
   onSelectFile(e) {
