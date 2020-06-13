@@ -33,7 +33,9 @@ export class UserService extends SearchService<User> {
     userLogged.skillSet = user.skillSet;
     userLogged.qualificationSet = user.qualificationSet;
     userLogged.subscriptionSet = user.subscriptionSet;
-    this.api.put({ endpoint: ROOT_ENDPOINT, data: userLogged });
+    this.api.put({ endpoint: ROOT_ENDPOINT, data: userLogged }).then(user =>
+      this.authService.initUserLoggedWithObject(user)
+    ).catch(error => console.log(error));
   }
 
   public getBySearch(keyword: string, page: number, size: number, sortOrder: string, field: string): Promise<User> {
@@ -41,13 +43,13 @@ export class UserService extends SearchService<User> {
   }
 
   public getCurrentProfilePicture(): Promise<User> {
-    return this.api.get({ endpoint: ROOT_ENDPOINT +  'profilePicture' });
+    return this.api.get({ endpoint: ROOT_ENDPOINT + 'profilePicture' });
   }
-  
+
   public getCurrentUser(): User {
     return this.authService.userLogged;
-  } 
-  
+  }
+
   // DEPRECATED
   public updateUserPassword(passwordToUpdate: string): Promise<any> {
     return this.api.put({ endpoint: '/users/password', data: { password: passwordToUpdate } });

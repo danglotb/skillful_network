@@ -1,37 +1,32 @@
-<form [formGroup]="parentGroup" (submit)="onUpdateForm()" (reset)="onResetForm()">
+<form (submit)="onUpdateForm()" (reset)="onResetForm()">
     <div class="parent">
         <div class="div1">
-            <app-user-conf [userInfoGroup]="parentGroup.get('formUserInfos')"></app-user-conf>
+            <app-user-conf #userConfiguration [userLogged]=userLogged></app-user-conf>
         </div>
-        <!-- <div class="div6">
-            <job-applications-list></job-applications-list>
-        </div> -->
         <div class='div2'>
-            <app-chip title="Qualifications" typePerk="qualifications"
+            <app-chip #chipQualifications title="Qualifications" typePerk="qualifications"
                 [chipValues]='this.userLogged.qualificationSet' addingLabel="Nouvelle qualification"
                 detail="qualification"></app-chip>
         </div>
         <div class='div2'>
-            <app-chip title="Compétences" typePerk="skills"
-                [chipValues]='this.userLogged.skillSet' addingLabel="Nouvelle compétence"
-                detail="compétence"></app-chip>
+            <app-chip #chipSkills title="Compétences" typePerk="skills" [chipValues]='this.userLogged.skillSet'
+                addingLabel="Nouvelle compétence" detail="compétence"></app-chip>
         </div>
         <div class='div2'>
-            <app-chip title="Abonnements" typePerk="subcriptions"
-                [chipValues]='this.userLogged.subscriptionSet' addingLabel="Nouvel abonnement"
-                detail="abonnement"></app-chip>
+            <app-chip #chipSubscriptions title="Abonnements" typePerk="subcriptions"
+                [chipValues]='this.userLogged.subscriptionSet' addingLabel="Nouvel abonnement" detail="abonnement">
+            </app-chip>
         </div>
         <div class="div8">
             <div fxLayout="row" fxLayoutAlign="center center" novalidate>
                 <div class="btn-profil">
-                    <button type="submit" class="btn-profil" mat-raised-button color="primary"
-                        [disabled]="parentGroup.invalid">Sauvegarder</button>
+                    <button type="submit" class="btn-profil" mat-raised-button color="primary" [disabled]=!changed()>
+                        Sauvegarder</button>
                 </div>
                 <div class="btn-profil">
                     <button type="reset" class="btn-profil" mat-raised-button color="warn">Annuler</button>
                 </div>
             </div>
-
         </div>
     </div>
 </form>

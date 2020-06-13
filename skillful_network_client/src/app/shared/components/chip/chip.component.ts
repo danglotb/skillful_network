@@ -13,7 +13,7 @@ export class ChipComponent implements OnInit {
 
   @Input() typePerk: string;
   @Input() title: string;
-  @Input() chipValues: Perk[];
+  @Input() public chipValues: Perk[];
   @Input() addingLabel: string;
   @Input() detail: string;
 

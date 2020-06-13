@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ViewChild } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { UserService } from "../../shared/services/user.service"
 import { User } from 'src/app/shared/models/user/user';
-import { Application } from "../../shared/models/application/application";
+import { ChipComponent } from 'src/app/shared/components/chip/chip.component';
+import { UserConfComponent } from './user-conf/user-conf.component';
 
 @Component({
   selector: 'app-profile-conf',
@@ -12,77 +13,25 @@ import { Application } from "../../shared/models/application/application";
 export class ProfileConfComponent {
 
   public userLogged: User;
-  public parentGroup: FormGroup;
-  public jobApplicationsList: Application[];
 
-  public qualificationsTitle: string = 'Qualifications';
+  @ViewChild('userConfiguration') userConfiguration: UserConfComponent;
+  @ViewChild('chipQualifications') chipQualifications: ChipComponent;
+  @ViewChild('chipSkills') chipSkills: ChipComponent;
+  @ViewChild('chipSubscriptions') chipSubscriptions: ChipComponent;
 
   constructor(
-    private formBuilder: FormBuilder,
     private userService: UserService,
   ) { }
 
   ngOnInit() {
     this.userLogged = this.userService.getCurrentUser();
-    this.createForm();
-  }
-
-  private createForm() {
-    this.parentGroup = this.formBuilder.group({
-      formUserInfos: this.formBuilder.group({
-        'lastName': [this.userLogged.lastName, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
-        'firstName': [this.userLogged.firstName, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
-        'birthDate': [this.userLogged.birthDate, Validators.required],
-        'email': [this.userLogged.email, [Validators.required, Validators.email]],
-        'mobileNumber': [this.userLogged.mobileNumber, [Validators.required, Validators.minLength(10)]],
-        'careerGoal': [this.userLogged.careerGoal, [Validators.required, Validators.minLength(3)]]
-      }),
-
-      formSkillInfos: this.formBuilder.group({
-        'chipValues': this.userLogged.skillSet,
-        'chipValue': [null, [Validators.minLength(2), Validators.maxLength(20)]]
-      }),
-
-      formQualInfos: this.formBuilder.group({
-        'chipValues': this.userLogged.qualificationSet,
-        'chipValue': [null, [Validators.minLength(2), Validators.maxLength(20)]]
-      }),
-
-      formSubscriptInfos: this.formBuilder.group({
-        'chipValues': this.userLogged.subscriptionSet,
-        'chipValue': [null, [Validators.minLength(2), Validators.maxLength(20)]]
-      })
-    });
   }
 
   onUpdateForm() {
-    // partie User
-    const formValueU = this.parentGroup.get('formUserInfos').value;
-    this.userLogged.firstName = formValueU['firstName'];
-    this.userLogged.lastName = formValueU['lastName'];
-    this.userLogged.birthDate = formValueU['birthDate'];
-    this.userLogged.email = formValueU['email'];
-    this.userLogged.mobileNumber = formValueU['mobileNumber'];
-    this.userLogged.careerGoal = formValueU['careerGoal'];
-
-    // partie Skill /!\ cette partie du formulaire est vide si rien n'est touché
-    const formValueS = this.parentGroup.get('formSkillInfos').value;
-    if (formValueS['skillSet'].length > 0) {
-      this.userLogged.skillSet = formValueS['skillSet'];
-    }
-
-    // partie Qualif /!\ cette partie du formulaire est vide si rien n'est touché
-    const formValueQ = this.parentGroup.get('formQualInfos').value;
-    if (formValueQ['qualificationSet'].length > 0) {
-      this.userLogged.qualificationSet = formValueQ['qualificationSet'];
-    }
-
-    // partie Subscr /!\ cette partie du formulaire est vide si rien n'est touché
-    const formValueSu = this.parentGroup.get('formSubscriptInfos').value;
-    if (formValueSu['subscriptionSet'].length > 0) {
-      this.userLogged.subscriptionSet = formValueSu['subscriptionSet'];
-    }
-    // Boom !
+    this.userLogged = this.userConfiguration.userLogged;
+    this.userLogged.qualificationSet = this.chipQualifications.chipValues;
+    this.userLogged.skillSet = this.chipSkills.chipValues;
+    this.userLogged.subscriptionSet = this.chipSubscriptions.chipValues;
     this.userService.update(this.userLogged);
   }
 
@@ -90,8 +39,8 @@ export class ProfileConfComponent {
     window.location.reload();
   }
 
-  ngOnDestroy() {
-    // this.userLSubscription.unsubscribe();
+  changed(): boolean {
+    return true;
   }
 
 }

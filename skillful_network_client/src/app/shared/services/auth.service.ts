@@ -10,7 +10,7 @@ export class AuthService {
 
   constructor(private api: ApiHelperService) { }
 
-  public userLogged: User;
+  private _userLogged: User;
 
   public login(email: string, password: string): Promise<JwtResponse> {
     return this.api.post({ endpoint: '/login', data: { email: email, password: password } });
@@ -26,12 +26,19 @@ export class AuthService {
 
   public initUserLogged(): void {
     this.getCurrentUser().then( data => {
-      this.userLogged = data;
+      this._userLogged = data;
     }).catch(error => console.log(console.error()));
   }
 
+  public get userLogged() : User {
+    if (this._userLogged == null) {
+      this.initUserLogged();
+    }
+    return this._userLogged;
+  }
+
   public initUserLoggedWithObject(data: any): void {
-    this.userLogged = new User(data);
+    this._userLogged = new User(data);
   }
 
 }
