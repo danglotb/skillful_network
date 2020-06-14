@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/danglotb/skillful_network.svg?branch=master)](https://travis-ci.org/danglotb/skillful_network)
+
 # Skillful Network
 
 ## Run
