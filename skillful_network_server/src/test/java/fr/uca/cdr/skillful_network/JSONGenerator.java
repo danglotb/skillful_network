@@ -200,7 +200,7 @@ public class JSONGenerator {
         this.saveTo("users", User[].class, this.userRepository);
     }
 
-//    @Ignore
+    @Ignore
     @Test
     public void generateJSON() {
         this.generateSkills();
