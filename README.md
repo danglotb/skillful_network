@@ -22,9 +22,18 @@ Check that the application is running by going to the following url:
 http://localhost:4200
 ```
 
-You can login using `john@uca.fr` and `12345678`, or create a new account (the temporary code will appear in the console of the backend).
+You can login using `user@uca.fr` and `Qwerty123`, or create a new account (the temporary code will appear in the console of the backend).
 
 ### Code organization
+
+#### Frontend
+
+  **WIP**
+
+  - `app`: root of the project
+    - `login`: contains everything related to the first screen: login and register.
+    - `shared`: contains common and shared apis.
+    - `home`: contains everythin concerning the rest of the platform.
 
 #### Backend
 
