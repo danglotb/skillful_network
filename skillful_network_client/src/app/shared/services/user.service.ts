@@ -1,11 +1,9 @@
 
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
 
 import { User } from '../models/user/user';
 import { ApiHelperService } from './api-helper.service';
 import { SearchService } from './abstract-search.service'
-import { deprecate } from 'util';
 import { AuthService } from './auth.service';
 
 const ROOT_ENDPOINT: string = '/users/';

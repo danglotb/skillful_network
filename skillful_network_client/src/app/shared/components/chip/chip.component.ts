@@ -42,7 +42,7 @@ export class ChipComponent implements OnInit {
             this.candidateChips.push(candidates[indexCandidate]);
           }
           this.isLoading = false;
-        }).catch( ignored => {})
+        }).catch(ignored => { })
       }
     })
   }
@@ -50,16 +50,10 @@ export class ChipComponent implements OnInit {
   addChip() {
     let chipValue: string = this.chipInfoGroup.value['chipValue'];
     let indexPerk: number = this.indexOf(chipValue);
-    console.log(chipValue);
-    console.log(indexPerk);
     if (indexPerk >= 0) {
       this.chipValues.push(this.candidateChips[indexPerk]);
     } else {
-      //TODO the creation should be done in the profile-conf component
-      this.service.create(this.typePerk, chipValue).then(data => {
-        console.log(data);
-        this.chipValues.push(data);
-      }).catch();
+      this.chipValues.push(new Perk({ id: -1, name: chipValue }));
     }
     this.chipInfoGroup.value['chipValue'] = '';
   }
