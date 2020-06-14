@@ -30,12 +30,21 @@ You can login using `user@uca.fr` and `Qwerty123`, or create a new account (the 
 
 #### Frontend
 
-  **WIP**
+The backend is organized as follows:
 
   - `app`: root of the project
     - `login`: contains everything related to the first screen: login and register.
     - `shared`: contains common and shared apis.
+      - `components`: contains abstract and custom material components. Should be reused a maximum.
+      - `models`: contains classes to represent the data manipulated by the application.
+      - `services`: contains all the `services` to requests the backend
     - `home`: contains everythin concerning the rest of the platform.
+
+We must reuse a maximum the abstract `components` in order to avoid redundancy of code. Create a new one if you need to.
+Every requests made to the backend should be handled by the `shared.services.ApiHelperService`, _i.e._ calls to the API `http: HttpClient`.
+However, every `components` must use a unique and dedicated `service` to make these requests, and not direclty the `shared.services.ApiHelperService`.
+The relation between frontend `services` and backend `controllers` must be one-to-one, _i.e._ each frontend `service` requests a unique backend `controller`.
+But, a `service` can use others `services` if it needs to.
 
 #### Backend
 
