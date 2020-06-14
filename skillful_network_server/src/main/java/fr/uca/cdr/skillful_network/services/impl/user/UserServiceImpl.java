@@ -15,6 +15,9 @@ import fr.uca.cdr.skillful_network.entities.user.Qualification;
 import fr.uca.cdr.skillful_network.entities.user.Skill;
 import fr.uca.cdr.skillful_network.entities.user.Subscription;
 import fr.uca.cdr.skillful_network.services.AuthenticationService;
+import fr.uca.cdr.skillful_network.services.user.QualificationService;
+import fr.uca.cdr.skillful_network.services.user.SkillService;
+import fr.uca.cdr.skillful_network.services.user.SubscriptionService;
 import fr.uca.cdr.skillful_network.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -41,6 +44,15 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private AuthenticationService authenticationService;
+
+    @Autowired
+    private QualificationService qualificationService;
+
+    @Autowired
+    private SkillService skillService;
+
+    @Autowired
+    private SubscriptionService subscriptionService;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -111,9 +123,9 @@ public class UserServiceImpl implements UserService {
         currentUser.setLastName(lastName);
         currentUser.setBirthDate(birthDate);
         currentUser.setCareerGoal(careerGoal);
-        currentUser.setSkillSet(skillSet);
-        currentUser.setQualificationSet(qualificationSet);
-        currentUser.setSubscriptionSet(subscriptionSet);
+        currentUser.setQualificationSet(this.qualificationService.createNewAndUpdateGivenSet(qualificationSet));
+        currentUser.setSkillSet(this.skillService.createNewAndUpdateGivenSet(skillSet));
+        currentUser.setSubscriptionSet(this.subscriptionService.createNewAndUpdateGivenSet(subscriptionSet));
         this.userRepository.save(currentUser);
         return currentUser;
     }

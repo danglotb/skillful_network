@@ -6,7 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public abstract class PerkServiceImpl<T  extends Perk> implements PerkService<T> {
 
@@ -17,6 +19,19 @@ public abstract class PerkServiceImpl<T  extends Perk> implements PerkService<T>
     public PerkServiceImpl(JpaRepository<T, Long> repository, String kindPerk) {
         this.repository = repository;
         this.kindPerk = kindPerk;
+    }
+
+    @Override
+    public Set<T> createNewAndUpdateGivenSet(Set<T> perks) {
+        final Set<T> perksWithNew = new HashSet<>();
+        perks.forEach(perk -> {
+            if (perk.getId() >= 0) {
+                perksWithNew.add(perk);
+            } else {
+                perksWithNew.add(this.createOrUpdate(perk.getName()));
+            }
+        });
+        return perksWithNew;
     }
 
     @Override
