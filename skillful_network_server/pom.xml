@@ -147,11 +147,8 @@
 			<version>3.4.0</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.jacoco</groupId>
-			<artifactId>org.jacoco.core</artifactId>
-			<version>0.7.9</version>
-		</dependency>
+
+
 	</dependencies>
 
 	<profiles>
@@ -171,7 +168,14 @@
 					<plugin>
 						<groupId>org.jacoco</groupId>
 						<artifactId>jacoco-maven-plugin</artifactId>
-						<version>0.8.1</version>
+						<version>0.8.5</version>
+						<dependencies>
+							<dependency>
+								<groupId>org.jacoco</groupId>
+								<artifactId>org.jacoco.core</artifactId>
+								<version>0.8.5</version>
+							</dependency>
+						</dependencies>
 						<executions>
 							<execution>
 								<goals>
