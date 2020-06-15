@@ -10,6 +10,7 @@ cache:
 env:
   - SCRIPT=travis-backend-run.sh
   - SCRIPT=travis-backend-test.sh
+  - SCRIPT=travis-backend-coverage.sh
   - SCRIPT=travis-frontend.sh
 
 script:
