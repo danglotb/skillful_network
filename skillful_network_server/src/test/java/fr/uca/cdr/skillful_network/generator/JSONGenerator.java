@@ -1,4 +1,4 @@
-package fr.uca.cdr.skillful_network;
+package fr.uca.cdr.skillful_network.generator;
 
 import fr.uca.cdr.skillful_network.entities.Keyword;
 import fr.uca.cdr.skillful_network.entities.application.Application;

@@ -1,4 +1,4 @@
-package fr.uca.cdr.skillful_network;
+package fr.uca.cdr.skillful_network.controllers.user;
 
 import fr.uca.cdr.skillful_network.controller.user.UserController;
 import fr.uca.cdr.skillful_network.entities.user.User;
@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @RunWith(SpringRunner.class)
 @WebMvcTest(UserController.class)
-public class ControllerTest {
+public class UserControllerTest {
 
     @Autowired
     private MockMvc mvc;
