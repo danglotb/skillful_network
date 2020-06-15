@@ -8,11 +8,15 @@ import { MaterialModule } from '../modules/material/material.module';
 import { ChipComponent } from './chip/chip.component';
 import { ListComponent } from './list/list.component';
 import { RouterModule } from '@angular/router';
+import { UserPageComponent } from './user/user-page.component';
+import { UserConfComponent } from './user/user-conf/user-conf.component';
 
 const COMPONENT_MODULES = [
     CardComponent,
     ChipComponent,
     ListComponent,
+    UserPageComponent,
+    UserConfComponent
 ]
 
 const REACTIVE_FORM_DIRECTIVES = [

@@ -8,17 +8,26 @@ import { MaterialModule } from 'src/app/shared/modules/material/material.module'
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from 'src/app/app-routing.module';
+import { UserComponent } from './elements/user/user.component';
 
 const REACTIVE_FORM_DIRECTIVES = [
     FormsModule,
     ReactiveFormsModule
 ]
 
+const COMPONENT_MODULES = [
+    UsersListComponent,
+    JobOfferListComponent,
+    FormationListComponent,
+    UserComponent
+]
+
 @NgModule({
     declarations: [
-        UsersListComponent,
-        JobOfferListComponent,
-        FormationListComponent
+        COMPONENT_MODULES
+    ],
+    exports: [
+        COMPONENT_MODULES
     ],
     imports: [
         ComponentModule,

@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
 import { User } from 'src/app/shared/models/user/user';
-import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-user-conf',
@@ -14,6 +13,7 @@ export class UserConfComponent {
 
   public title: string = 'Informations'
   @Input() userLogged: User;
+  @Input() readonly: boolean;
   formGroup: FormGroup;
 
   constructor(
@@ -40,6 +40,9 @@ export class UserConfComponent {
       this.userLogged.mobileNumber = data.mobileNumber;
       this.userLogged.careerGoal = data.careerGoal;
     });
+    if (this.readonly) {
+      this.formGroup.disable();
+    }
   }
 
   public initValue(user: User): void {
