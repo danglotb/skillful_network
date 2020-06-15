@@ -37,6 +37,7 @@ export class ProfileConfComponent {
 
   onResetForm() {
     this.userLogged = this.lastUserLogged;
+    this.userConfiguration.initValue(this.userLogged);
   }
 
   changed(): boolean {
