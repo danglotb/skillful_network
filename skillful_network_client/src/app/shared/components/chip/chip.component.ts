@@ -16,6 +16,7 @@ export class ChipComponent implements OnInit {
   @Input() public chipValues: Perk[];
   @Input() addingLabel: string;
   @Input() detail: string;
+  @Input() readOnly: boolean;
 
   chipInfoGroup: FormGroup;
   isLoading: boolean

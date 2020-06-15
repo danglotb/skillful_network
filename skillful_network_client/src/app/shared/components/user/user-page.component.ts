@@ -12,7 +12,7 @@ import { UserService } from '../../services/user.service';
 export class UserPageComponent {
 
   @Input() userLogged: User; 
-  @Input() readonly: boolean;
+  @Input() readOnly: boolean;
 
   private lastUserLogged: User;
 
@@ -26,7 +26,6 @@ export class UserPageComponent {
   ) { }
 
   ngOnInit() {
-    // this.userLogged = this.userService.getCurrentUser();
     this.lastUserLogged = JSON.parse(JSON.stringify(this.userLogged));
   }
 

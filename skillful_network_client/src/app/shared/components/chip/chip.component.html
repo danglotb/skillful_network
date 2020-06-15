@@ -5,13 +5,13 @@
     <mat-chip-list>
         <mat-chip *ngFor="let chip of chipValues" (removed)="removeChip(chip)" class="chip">
             {{chip.name}}
-            <mat-icon matChipRemove>cancel</mat-icon>
+            <mat-icon *ngIf=!this.readOnly matChipRemove>cancel</mat-icon>
         </mat-chip>
     </mat-chip-list>
 
     <hr>
 
-    <form class='formAddChip' [formGroup]="chipInfoGroup" (submit)="addChip()" fxLayout="column" fxLayoutAlign="center center" novalidate>
+    <form *ngIf=!this.readOnly class='formAddChip' [formGroup]="chipInfoGroup" (submit)="addChip()" fxLayout="column" fxLayoutAlign="center center" novalidate>
         <div class='row'>
             <div class='column'>
                 <div class="progressBarDiv">
