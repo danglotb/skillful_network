@@ -1,4 +1,4 @@
-package fr.uca.cdr.skillful_network;
+package fr.uca.cdr.skillful_network.repositories.user;
 
 import fr.uca.cdr.skillful_network.entities.user.User;
 import fr.uca.cdr.skillful_network.repositories.user.UserRepository;
@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles("test")
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class RepositoryTest {
+public class UserRepositoryTest {
 
     @Autowired
     private TestEntityManager entityManager;
