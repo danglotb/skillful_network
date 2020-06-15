@@ -42,13 +42,16 @@ export class UserConfComponent {
     });
   }
 
-  public initValue(user: User) : void {
-    this.formGroup.value.lastName = user.lastName;
-    this.formGroup.value.firstName = user.firstName;
-    this.formGroup.value.birthDate = user.birthDate;
-    this.formGroup.value.email = user.email;
-    this.formGroup.value.mobileNumber = user.mobileNumber;
-    this.formGroup.value.careerGoal = user.careerGoal;
+  public initValue(user: User): void {
+    this.formGroup.setValue({ 
+      lastName: user.lastName, 
+      firstName: user.firstName,
+      birthDate: user.birthDate,
+      email: user.email,
+      mobileNumber: user.mobileNumber,
+      careerGoal: user.careerGoal
+    });
+    this.userLogged = user;
   }
 
 }
