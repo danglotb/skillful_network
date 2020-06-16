@@ -14,7 +14,7 @@ export class JobOfferService extends SearchService<JobOffer> {
         super(api);
     }
 
-    public findById(id: number): Promise<JobOffer> {
+    public getById(id: number): Promise<JobOffer> {
         return this.api.get( { endpoint: ROOT_ENDPOINT + id });
     }
 

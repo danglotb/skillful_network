@@ -18,11 +18,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { TokenHttpInterceptorService } from './shared/interceptors/token-http-interceptor.service';
 import { PasswordConfirmationComponent } from './password-confirmation/password-confirmation.component';
 import { PasswordForgottenComponent } from './password-forgotten/password-forgotten.component';
-import { FormationsAssocieesComponent } from './home/lists/elements/offre/formations-associees/formations-associees.component';
-import { ExigencesComponent } from './home/lists/elements/offre/exigences/exigences.component';
-import { CandidaterComponent } from './home/lists/elements/offre/candidater/candidater.component';
-import { InformationsComponent } from './home/lists/elements/offre/informations/informations.component';
-import { OffreComponent } from './home/lists/elements/offre/offre.component';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { getFrenchPaginatorIntl } from './shared/utils/customMatPaginationIntl';
 import { MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
@@ -38,11 +33,6 @@ import { HomeModule } from './home/home.module';
         LoginComponent,
         PasswordConfirmationComponent,
         PasswordForgottenComponent,
-        FormationsAssocieesComponent,
-        ExigencesComponent,
-        CandidaterComponent,
-        InformationsComponent,
-        OffreComponent,
         ExistingAccountDialog,
     ],
 

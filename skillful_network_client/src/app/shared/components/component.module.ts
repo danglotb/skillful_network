@@ -10,6 +10,7 @@ import { ListComponent } from './list/list.component';
 import { RouterModule } from '@angular/router';
 import { UserPageComponent } from './user/user-page.component';
 import { UserConfComponent } from './user/user-conf/user-conf.component';
+import { FormCardComponent } from './form-card/form-card.component';
 
 const COMPONENT_MODULES = [
     CardComponent,
@@ -27,6 +28,7 @@ const REACTIVE_FORM_DIRECTIVES = [
 @NgModule({
     declarations: [
         COMPONENT_MODULES,
+        FormCardComponent,
     ],
     exports: [
         COMPONENT_MODULES

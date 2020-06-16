@@ -1,4 +1,4 @@
-<app-card-component [title]='title' [cardRef]='formUserInfo'></app-card-component>
+<!-- <app-card-component [title]='title' [cardRef]='formUserInfo'></app-card-component>
 
 <ng-template #formUserInfo>
   <form [formGroup]="formGroup" novalidate>
@@ -47,4 +47,16 @@
     </mat-form-field>
 
   </form>
-</ng-template>
+</ng-template> -->
+
+<app-form-card 
+  [title]=title
+  [readonly]=false
+  [formGroup]=this.formGroup
+  [keys]=keys
+  [labels]=labels
+  [placeholders]='this.placeholders'
+  [hints]='this.hints'
+  [icons]='this.icons'
+  [types]='this.types'
+></app-form-card>

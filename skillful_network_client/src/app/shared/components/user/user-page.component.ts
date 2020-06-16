@@ -40,13 +40,13 @@ export class UserPageComponent {
 
   onUpdateForm() {
     if (this.changed()) {
-      this.userService.update(this.userLogged);
-      this.lastUserLogged = new User(this.userLogged);
+      this.userService.update(this.userLogged)
+        .then(updatedUser => this.lastUserLogged = updatedUser);
     }
   }
 
   onResetForm() {
-    this.userLogged = this.lastUserLogged;
+    this.userLogged = new User(this.lastUserLogged);
     this.userConfiguration.init(this.userLogged);
   }
 

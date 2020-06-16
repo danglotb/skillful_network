@@ -1,0 +1,27 @@
+<app-card-component [title]='title' [cardRef]='formTemplate'></app-card-component>
+
+<ng-template #formTemplate>
+    <form [formGroup]="this.formGroup" novalidate>
+        <ng-container *ngFor="let key of this.keys">
+            <div *ngIf="types[key] == 'input'; then thenBlock else elseBlock"></div>
+            <ng-template #thenBlock>
+                <mat-form-field class="tabelement">
+                    <mat-label>{{labels[key]}}</mat-label>
+                    <input [formControlName]="key" matInput [placeholder]="(placeholders[key])" class="form-control">
+                    <mat-hint align="end">{{hints[key]}}</mat-hint>
+                    <mat-icon matSuffix>{{icons[key]}}</mat-icon>
+                </mat-form-field>
+            </ng-template>
+            <ng-template #elseBlock>
+                <mat-form-field class="tabelement">
+                    <mat-label>{{labels[key]}}</mat-label>
+                    <input matInput [matDatepicker]="myDatepicker" [formControlName]="key" matInput
+                        [placeholder]="(placeholders[key])" class="form-control">
+                    <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+                    <mat-datepicker #myDatepicker></mat-datepicker>
+                </mat-form-field>
+            </ng-template>
+        </ng-container>
+
+    </form>
+</ng-template>

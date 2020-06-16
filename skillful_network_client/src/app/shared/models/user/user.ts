@@ -4,148 +4,43 @@ import { Perk } from './perk';
 
 export class User {
 
-  private _id: number = -1;
-  private _firstName: string;
-  private _lastName: string;
-  private _password: string;
-  private _birthDate: Date;
-  private _email: string;
-  private _mobileNumber: string;
-  private _validated: boolean;
-  private _careerGoal: string;
-  private _photo: boolean;
-  private _skillSet: Perk[];
-  private _qualificationSet: Perk[];
-  private _subscriptionSet: Perk[];
-  private _photoProfile: any;
-  private _role: string[];
-  private _jobApplications: JobApplication[];
-  private _trainingApplications: TrainingApplication[];
+  public id: number = -1;
+  public firstName: string;
+  public lastName: string;
+  public password: string;
+  public birthDate: Date;
+  public email: string;
+  public mobileNumber: string;
+  public validated: boolean;
+  public careerGoal: string;
+  public photo: boolean;
+  public skillSet: Perk[];
+  public qualificationSet: Perk[];
+  public subscriptionSet: Perk[];
+  public photoProfile: any;
+  public role: string[];
+  public jobApplications: JobApplication[];
+  public trainingApplications: TrainingApplication[];
 
   constructor(data: any) {
-    this._id = data.id;
-    this._firstName = data.firstName;
-    this._email = data.email;
-    this._lastName = data.lastName;
-    this._password = data.password;
-    this._birthDate = data.birthDate;
-    this._email = data.email;
-    this._mobileNumber = data.mobileNumber;
-    this._validated = data.validated;
-    this._photo = data.photo;
-    this._skillSet = data.skillSet;
-    this._qualificationSet = data.qualificationSet;
-    this._subscriptionSet = data.subscriptionSet;
-    this._photoProfile = data.photoProfile;
-    this._careerGoal = data.careerGoal;
-    this._role = ['user'];
+    this.id = data.id;
+    this.firstName = data.firstName;
+    this.email = data.email;
+    this.lastName = data.lastName;
+    this.password = data.password;
+    this.birthDate = data.birthDate;
+    this.email = data.email;
+    this.mobileNumber = data.mobileNumber;
+    this.validated = data.validated;
+    this.photo = data.photo;
+    this.skillSet = data.skillSet;
+    this.qualificationSet = data.qualificationSet;
+    this.subscriptionSet = data.subscriptionSet;
+    this.photoProfile = data.photoProfile;
+    this.careerGoal = data.careerGoal;
+    this.role = ['user'];
     this.trainingApplications = data.trainingApplicationSet;
     this.jobApplications = data.jobApplicationSet;
   }
 
-  public set jobApplications(jobApplications: JobApplication[]) {
-    this._jobApplications = jobApplications;
-  }
-
-  public get jobApplications(): JobApplication[] {
-    return this._jobApplications;
-  }
-
-  public set trainingApplications(trainingApplications: TrainingApplication[]) {
-    this._trainingApplications = trainingApplications;
-  }
-
-  public get trainingApplications(): TrainingApplication[] {
-    return this._trainingApplications;
-  }
-
-  public get id(): number {
-    return this._id;
-  }
-  public set id(value: number) {
-    this._id = value;
-  }
-  public get firstName(): string {
-    return this._firstName;
-  }
-  public set firstName(value: string) {
-    this._firstName = value;
-  }
-  public get lastName(): string {
-    return this._lastName;
-  }
-  public set lastName(value: string) {
-    this._lastName = value;
-  }
-  public get password(): string {
-    return this._password;
-  }
-  public set password(value: string) {
-    this._password = value;
-  }
-  get birthDate(): Date {
-    return this._birthDate;
-  }
-  set birthDate(value: Date) {
-    this._birthDate = value;
-  }
-  public get email(): string {
-    return this._email;
-  }
-  public set email(value: string) {
-    this._email = value;
-  }
-  public get mobileNumber(): string {
-    return this._mobileNumber;
-  }
-  public set mobileNumber(value: string) {
-    this._mobileNumber = value;
-
-  }
-  public get validated(): boolean {
-    return this._validated;
-  }
-  public set validated(value: boolean) {
-    this._validated = value;
-  }
-  public get photo(): boolean {
-    return this._photo;
-  }
-  public set photo(value: boolean) {
-    this._photo = value;
-  }
-  public get skillSet(): Perk[] {
-    return this._skillSet;
-  }
-  public set skillSet(value: Perk[]) {
-    this._skillSet = value;
-  }
-  public get qualificationSet(): Perk[] {
-    return this._qualificationSet;
-  }
-  public set qualificationSet(value: Perk[]) {
-    this._qualificationSet = value;
-  }
-  public get subscriptionSet(): Perk[] {
-    return this._subscriptionSet;
-  }
-  public set subscriptionSet(value: Perk[]) {
-    this._subscriptionSet = value;
-  }
-  public get photoProfile(): any {
-    return this._photoProfile;
-  }
-  public set photoProfile(value: any) {
-    this._photoProfile = value;
-  }
-  public get careerGoal(): string {
-    return this._careerGoal;
-  }
-  public set careerGoal(value: string) {
-    this._careerGoal = value;
-  }
-
-  public equals(that: any) : boolean {
-    return that instanceof User && that.id === this.id;
-  }
 }
