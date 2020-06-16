@@ -19,7 +19,7 @@ export class UserService extends SearchService<User> {
     super(api);
   }
 
-  public update(user: User) : Promise<User> {
+  public update(user: User): Promise<User> {
     return this.api.put({ endpoint: ROOT_ENDPOINT, data: user });
   }
 
@@ -31,8 +31,12 @@ export class UserService extends SearchService<User> {
     return this.api.get({ endpoint: ROOT_ENDPOINT + 'profilePicture' });
   }
 
-  public getCurrentUser(): User {
+  public getCurrentUser(): Promise<User> {
     return this.authService.getCurrentUser();
+  }
+
+  public getById(id: number): Promise<User> {
+    return this.api.get({ endpoint: ROOT_ENDPOINT + id })
   }
 
   // DEPRECATED

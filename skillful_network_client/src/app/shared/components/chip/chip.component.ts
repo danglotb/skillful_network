@@ -16,6 +16,7 @@ export class ChipComponent implements OnInit {
   @Input() public chipValues: Perk[];
   @Input() addingLabel: string;
   @Input() detail: string;
+  @Input() readOnly: boolean;
 
   chipInfoGroup: FormGroup;
   isLoading: boolean
@@ -80,6 +81,14 @@ export class ChipComponent implements OnInit {
 
   public changed(perks: Perk[]) {
     return !(JSON.stringify(perks) === JSON.stringify(this.chipValues));
+  }
+
+  public init(chipValues: Perk[]): void {
+    this.chipInfoGroup.setValue({
+      chipValues: chipValues,
+      chipValue: ''
+    });
+    this.chipValues = chipValues;
   }
 
 }

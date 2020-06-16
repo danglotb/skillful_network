@@ -18,10 +18,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { TokenHttpInterceptorService } from './shared/interceptors/token-http-interceptor.service';
 import { PasswordConfirmationComponent } from './password-confirmation/password-confirmation.component';
 import { PasswordForgottenComponent } from './password-forgotten/password-forgotten.component';
-import { DetailsUserComponent } from './home/lists/elements/user/details-user/details-user.component';
-import { SubscriptComponent } from './home/lists/elements/user/subscript/subscript.component';
-import { QualificationsComponent } from './home/lists/elements/user/qualifications/qualifications.component';
-import { SkillsComponent } from './home/lists/elements/user/skills/skills.component';
 import { FormationsAssocieesComponent } from './home/lists/elements/offre/formations-associees/formations-associees.component';
 import { ExigencesComponent } from './home/lists/elements/offre/exigences/exigences.component';
 import { CandidaterComponent } from './home/lists/elements/offre/candidater/candidater.component';
@@ -42,10 +38,6 @@ import { HomeModule } from './home/home.module';
         LoginComponent,
         PasswordConfirmationComponent,
         PasswordForgottenComponent,
-        DetailsUserComponent,
-        SubscriptComponent,
-        QualificationsComponent,
-        SkillsComponent,
         FormationsAssocieesComponent,
         ExigencesComponent,
         CandidaterComponent,
