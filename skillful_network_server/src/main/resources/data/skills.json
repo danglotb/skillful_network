@@ -1,7 +1,52 @@
 [
   {
     "id": 1,
-    "name": "skillName1",
+    "name": "Organisation",
+    "userList": []
+  },
+  {
+    "id": 2,
+    "name": "Technical savvy",
+    "userList": []
+  },
+  {
+    "id": 3,
+    "name": "Communication",
+    "userList": []
+  },
+  {
+    "id": 4,
+    "name": "Proactive",
+    "userList": []
+  },
+  {
+    "id": 5,
+    "name": "Problem solving",
+    "userList": []
+  },
+  {
+    "id": 6,
+    "name": "Networking skills",
+    "userList": []
+  },
+  {
+    "id": 7,
+    "name": "Networking skills",
+    "userList": []
+  },
+  {
+    "id": 8,
+    "name": "Proactive",
+    "userList": []
+  },
+  {
+    "id": 9,
+    "name": "Communication",
+    "userList": []
+  },
+  {
+    "id": 10,
+    "name": "Problem solving",
     "userList": []
   }
 ]

@@ -18,17 +18,17 @@
       ]
     ],
     "id": 1,
-    "name": "jobOffer1",
-    "company": "company1",
-    "description": "descriptions1",
+    "name": "Legacy Healthcare Consultant",
+    "company": "Marie SEM",
+    "description": "Distributed interactive moratorium",
     "type": "type1",
-    "dateBeg": "Jun 8, 2020 5:14:17 PM",
-    "dateEnd": "Jun 8, 2020 5:14:17 PM",
-    "dateUpload": "Jun 8, 2020 5:14:17 PM",
+    "dateBeg": "Jun 16, 2020 9:41:28 AM",
+    "dateEnd": "Jun 16, 2020 9:41:28 AM",
+    "dateUpload": "Jun 16, 2020 9:41:28 AM",
     "keywords": [
       {
-        "id": 1,
-        "name": "keyword1",
+        "id": 8,
+        "name": "Problem solving",
         "jobOffers": [],
         "trainings": []
       }

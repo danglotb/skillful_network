@@ -1,7 +1,52 @@
 [
   {
     "id": 1,
-    "name": "qualificationName1",
+    "name": "Associate Degree in Computer Science",
+    "userList": []
+  },
+  {
+    "id": 2,
+    "name": "Master of Law",
+    "userList": []
+  },
+  {
+    "id": 3,
+    "name": "Bachelor of Psychology",
+    "userList": []
+  },
+  {
+    "id": 4,
+    "name": "Bachelor of Medicine",
+    "userList": []
+  },
+  {
+    "id": 5,
+    "name": "Bachelor of Law",
+    "userList": []
+  },
+  {
+    "id": 6,
+    "name": "Master of Biomedical Science",
+    "userList": []
+  },
+  {
+    "id": 7,
+    "name": "Master of Biological Science",
+    "userList": []
+  },
+  {
+    "id": 8,
+    "name": "Master of Education",
+    "userList": []
+  },
+  {
+    "id": 9,
+    "name": "Bachelor of Business",
+    "userList": []
+  },
+  {
+    "id": 10,
+    "name": "Bachelor of Creative Arts",
     "userList": []
   }
 ]

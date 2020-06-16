@@ -24,8 +24,7 @@ public abstract class Perk {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected long id;
 
-    @NotNull(message = "Subscription name cannot be null")
-    @Size(min = 2, max = 20, message = "Subscription name must be between 3 and 20 characters")
+    @NotNull(message = "Perk name cannot be null")
     @Column(name = "name", nullable = false)
     protected String name;
 
@@ -37,18 +36,18 @@ public abstract class Perk {
         super();
     }
 
-    public Perk(@NotNull(message = "Subscription name cannot be null") @Size(min = 2, max = 20, message = "Subscription name must be between 3 and 20 characters") String name) {
+    public Perk(@NotNull(message = "Perk name cannot be null") String name) {
         this.name = name;
     }
 
-    private Perk(@NotNull(message = "Subscription name cannot be null") @Size(min = 2, max = 20, message = "Subscription name must be between 3 and 20 characters") String name,
+    private Perk(@NotNull(message = "Perk name cannot be null") String name,
                  Set<User> userList) {
         this.name = name;
         this.userList = userList;
     }
 
     private Perk(long id,
-                 @NotNull(message = "Subscription name cannot be null") @Size(min = 2, max = 20, message = "Subscription name must be between 3 and 20 characters") String name,
+                 @NotNull(message = "Perk name cannot be null") String name,
                  Set<User> userList) {
         this.id = id;
         this.name = name;

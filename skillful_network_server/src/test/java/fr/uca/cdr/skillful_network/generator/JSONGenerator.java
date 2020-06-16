@@ -1,5 +1,6 @@
 package fr.uca.cdr.skillful_network.generator;
 
+import com.github.javafaker.Faker;
 import fr.uca.cdr.skillful_network.entities.Keyword;
 import fr.uca.cdr.skillful_network.entities.application.Application;
 import fr.uca.cdr.skillful_network.entities.application.JobApplication;
@@ -22,7 +23,6 @@ import fr.uca.cdr.skillful_network.repositories.user.SkillRepository;
 import fr.uca.cdr.skillful_network.repositories.user.SubscriptionRepository;
 import fr.uca.cdr.skillful_network.repositories.user.UserRepository;
 import fr.uca.cdr.skillful_network.tools.json.JSONLoader;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,15 +34,22 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.Random;
+import java.util.Set;
 
 import static fr.uca.cdr.skillful_network.entities.user.Role.Name.ROLE_COMPANY;
 import static fr.uca.cdr.skillful_network.entities.user.Role.Name.ROLE_TRAINING_ORGANIZATION;
 import static fr.uca.cdr.skillful_network.entities.user.Role.Name.ROLE_USER;
+import static org.junit.Assert.fail;
 
 @ActiveProfiles("test")
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class JSONGenerator {
+
+    private Faker faker = new Faker(Locale.FRANCE);
 
     @Autowired
     private TestEntityManager entityManager;
@@ -77,30 +84,50 @@ public class JSONGenerator {
     @Autowired
     private UserRepository userRepository;
 
+    private static final long SEED_RANDOM = 23L;
+
+    private final Random RANDOM = new Random(SEED_RANDOM);
+
     private static final String PREFIX_PATH = "src/main/resources/data/";
 
     private static final String EXTENSION_JSON = ".json";
 
     @SuppressWarnings("all")
-    private void saveTo(String name, Class<?> clazz,  JpaRepository<?, Long> repository) {
+    private void saveTo(String name, Class<?> clazz, JpaRepository<?, Long> repository) {
         new JSONLoader(PREFIX_PATH + name + EXTENSION_JSON, clazz, repository).save(repository.findAll());
     }
 
+    private Object getRandomElement(JpaRepository<?, Long> repository) {
+        final List<?> elements = repository.findAll();
+        if (elements.isEmpty()) {
+            fail("Should have at least one element in " + repository.toString());
+        }
+        return elements.get(RANDOM.nextInt(elements.size()));
+    }
+
+    private static final int NB_PERKS = 10;
+
     private void generateSkills() {
-        final Skill skillName1 = new Skill("skillName1");
-        this.entityManager.persistAndFlush(skillName1);
+        for (int i = 0; i < NB_PERKS; i++) {
+            final Skill skillName1 = new Skill(this.faker.job().keySkills());
+            this.entityManager.persistAndFlush(skillName1);
+        }
         this.saveTo("skills", Skill[].class, this.skillRepository);
     }
 
     private void generateSubscriptions() {
-        final Subscription subscriptionName1 = new Subscription("subscriptionName1");
-        this.entityManager.persistAndFlush(subscriptionName1);
+        for (int i = 0; i < NB_PERKS; i++) {
+            final Subscription subscriptionName1 = new Subscription(this.faker.programmingLanguage().name());
+            this.entityManager.persistAndFlush(subscriptionName1);
+        }
         this.saveTo("subscriptions", Subscription[].class, this.subscriptionRepository);
     }
 
     private void generateQualifications() {
-        final Qualification qualificationName1 = new Qualification("qualificationName1");
-        this.entityManager.persistAndFlush(qualificationName1);
+        for (int i = 0; i < NB_PERKS; i++) {
+            final Qualification qualificationName1 = new Qualification(this.faker.educator().course());
+            this.entityManager.persistAndFlush(qualificationName1);
+        }
         this.saveTo("qualifications", Qualification[].class, this.qualificationRepository);
     }
 
@@ -114,26 +141,26 @@ public class JSONGenerator {
         this.saveTo("roles", Role[].class, this.roleRepository);
     }
 
+    private final static int NB_KEYWORDS = 20;
+
     private void generateKeywords() {
-        final Keyword keyword1 = new Keyword("keyword1");
-        final Keyword keyword2 = new Keyword("keyword2");
-        final Keyword keyword3 = new Keyword("keyword3");
-        this.entityManager.persistAndFlush(keyword1);
-        this.entityManager.persistAndFlush(keyword2);
-        this.entityManager.persistAndFlush(keyword3);
+        for (int i = 0; i < NB_KEYWORDS; i++) {
+            final Keyword keyword1 = new Keyword(this.faker.job().keySkills());
+            this.entityManager.persistAndFlush(keyword1);
+        }
         this.saveTo("keywords", Keyword[].class, this.keywordRepository);
     }
 
     private void generateJobOffers() {
         final JobOffer jobOffer1 = new JobOffer(
-                "jobOffer1",
-                "company1",
-                "descriptions1",
+                this.faker.job().title(),
+                this.faker.company().name(),
+                this.faker.company().catchPhrase(),
                 "type1",
                 new Date(),
                 new Date(),
                 new Date(),
-                Collections.singleton(this.keywordRepository.getOne(1L)),
+                Collections.singleton((Keyword) this.getRandomElement(this.keywordRepository)),
                 JobOffer.Risk.MODERATE,
                 JobOffer.Complexity.MODERATE,
                 Collections.emptySet()
@@ -144,21 +171,21 @@ public class JSONGenerator {
 
     private void generateTrainings() {
         final Training training1 = new Training(
-                "trainingName1",
-                "trainingOrganization1",
-                "trainingDescription1",
+                this.faker.educator().course(),
+                this.faker.educator().university(),
+                this.faker.educator().campus(),
                 new Date(),
                 new Date(),
                 new Date(),
                 10L,
-                Collections.singleton(this.keywordRepository.getOne(1L)),
+                Collections.singleton((Keyword) this.getRandomElement(this.keywordRepository)),
                 Collections.emptySet()
         );
         this.entityManager.persistAndFlush(training1);
         this.saveTo("trainings", Training[].class, this.trainingRepository);
     }
 
-    private void generateJobApplications(User user, final long idJob){
+    private void generateJobApplications(User user, final long idJob) {
         final JobApplication application = new JobApplication(
                 user,
                 Application.ApplicationStatus.ACCEPTED,
@@ -180,27 +207,78 @@ public class JSONGenerator {
         this.saveTo("training-applications", TrainingApplication[].class, this.trainingApplicationRepository);
     }
 
+    private static int NB_USERS_TO_GENERATE = 10;
+
     private void generateUsers() {
-        final User user = new User();
-        user.setFirstName("userFirstName");
-        user.setLastName("userLastName");
-        user.setPassword("Qwerty123");
-        user.setBirthDate(new Date());
-        user.setEmail("user@uca.fr");
-        user.setMobileNumber("0712345678");
-        user.setCareerGoal("userCareerGoal");
-        user.setValidated(true);
-        user.setSkillSet(Collections.singleton(this.skillRepository.getOne(1L)));
-        user.setSubscriptionSet(Collections.singleton(this.subscriptionRepository.getOne(1L)));
-        user.setQualificationSet(Collections.singleton(this.qualificationRepository.getOne(1L)));
-        user.setRoles(Collections.singleton(this.roleRepository.findByName(ROLE_USER).get()));
+        final User user = this.generateUser(
+                this.faker.name().firstName(),
+                this.faker.name().lastName(),
+                "Qwerty123",
+                this.faker.date().birthday(),
+                "user@uca.fr",
+                this.faker.phoneNumber().cellPhone(),
+                this.faker.job().title(),
+                true,
+                Collections.singleton((Skill) this.getRandomElement(this.skillRepository)),
+                Collections.singleton((Subscription) this.getRandomElement(this.subscriptionRepository)),
+                Collections.singleton((Qualification) this.getRandomElement(this.qualificationRepository)),
+                Collections.singleton(this.roleRepository.findByName(ROLE_USER).get())
+        );
         this.entityManager.persistAndFlush(user);
+        for (int i = 0 ; i < NB_USERS_TO_GENERATE ; i++) {
+            this.entityManager.persistAndFlush(this.generateUser());
+        }
         this.generateJobApplications(user, 1L);
         this.generateTrainingApplications(user, 1L);
         this.saveTo("users", User[].class, this.userRepository);
     }
 
-    @Ignore
+    private User generateUser() {
+        return this.generateUser(
+                this.faker.name().firstName(),
+                this.faker.name().lastName(),
+                this.faker.internet().password(8, 10, true, true, true),
+                this.faker.date().birthday(),
+                this.faker.internet().emailAddress(),
+                this.faker.phoneNumber().cellPhone(),
+                this.faker.job().title(),
+                true,
+                Collections.singleton((Skill) this.getRandomElement(this.skillRepository)),
+                Collections.singleton((Subscription) this.getRandomElement(this.subscriptionRepository)),
+                Collections.singleton((Qualification) this.getRandomElement(this.qualificationRepository)),
+                Collections.singleton(this.roleRepository.findByName(ROLE_USER).get())
+        );
+    }
+
+    private User generateUser(
+            String firstName,
+            String lastName,
+            String password,
+            Date birthday,
+            String email,
+            String mobile,
+            String careerGoal,
+            boolean validated,
+            Set<Skill> skillSet,
+            Set<Subscription> subscriptionSet,
+            Set<Qualification> qualificationSet,
+            Set<Role> roleSet) {
+        final User user = new User();
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setPassword(password);
+        user.setBirthDate(birthday);
+        user.setEmail(email);
+        user.setMobileNumber(mobile);
+        user.setCareerGoal(careerGoal);
+        user.setValidated(validated);
+        user.setSkillSet(skillSet);
+        user.setSubscriptionSet(subscriptionSet);
+        user.setQualificationSet(qualificationSet);
+        user.setRoles(roleSet);
+        return user;
+    }
+
     @Test
     public void generateJSON() {
         this.generateSkills();

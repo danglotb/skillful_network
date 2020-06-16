@@ -1,19 +1,121 @@
 [
   {
     "id": 1,
-    "name": "keyword1",
+    "name": "Self-motivated",
     "jobOffers": [],
     "trainings": []
   },
   {
     "id": 2,
-    "name": "keyword2",
+    "name": "Organisation",
     "jobOffers": [],
     "trainings": []
   },
   {
     "id": 3,
-    "name": "keyword3",
+    "name": "Fast learner",
+    "jobOffers": [],
+    "trainings": []
+  },
+  {
+    "id": 4,
+    "name": "Self-motivated",
+    "jobOffers": [],
+    "trainings": []
+  },
+  {
+    "id": 5,
+    "name": "Leadership",
+    "jobOffers": [],
+    "trainings": []
+  },
+  {
+    "id": 6,
+    "name": "Problem solving",
+    "jobOffers": [],
+    "trainings": []
+  },
+  {
+    "id": 7,
+    "name": "Communication",
+    "jobOffers": [],
+    "trainings": []
+  },
+  {
+    "id": 8,
+    "name": "Problem solving",
+    "jobOffers": [],
+    "trainings": []
+  },
+  {
+    "id": 9,
+    "name": "Communication",
+    "jobOffers": [],
+    "trainings": []
+  },
+  {
+    "id": 10,
+    "name": "Fast learner",
+    "jobOffers": [],
+    "trainings": []
+  },
+  {
+    "id": 11,
+    "name": "Problem solving",
+    "jobOffers": [],
+    "trainings": []
+  },
+  {
+    "id": 12,
+    "name": "Proactive",
+    "jobOffers": [],
+    "trainings": []
+  },
+  {
+    "id": 13,
+    "name": "Confidence",
+    "jobOffers": [],
+    "trainings": []
+  },
+  {
+    "id": 14,
+    "name": "Communication",
+    "jobOffers": [],
+    "trainings": []
+  },
+  {
+    "id": 15,
+    "name": "Networking skills",
+    "jobOffers": [],
+    "trainings": []
+  },
+  {
+    "id": 16,
+    "name": "Work under pressure",
+    "jobOffers": [],
+    "trainings": []
+  },
+  {
+    "id": 17,
+    "name": "Technical savvy",
+    "jobOffers": [],
+    "trainings": []
+  },
+  {
+    "id": 18,
+    "name": "Communication",
+    "jobOffers": [],
+    "trainings": []
+  },
+  {
+    "id": 19,
+    "name": "Teamwork",
+    "jobOffers": [],
+    "trainings": []
+  },
+  {
+    "id": 20,
+    "name": "Self-motivated",
     "jobOffers": [],
     "trainings": []
   }

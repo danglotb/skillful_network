@@ -1,17 +1,17 @@
 [
   {
     "id": 1,
-    "name": "trainingName1",
-    "organization": "trainingOrganization1",
-    "description": "trainingDescription1",
-    "dateBeg": "Jun 8, 2020 5:14:17 PM",
-    "dateEnd": "Jun 8, 2020 5:14:17 PM",
-    "dateUpload": "Jun 8, 2020 5:14:17 PM",
+    "name": "Associate Degree in Nursing",
+    "organization": "Brookville College",
+    "description": "Icelyn Campus",
+    "dateBeg": "Jun 16, 2020 9:41:28 AM",
+    "dateEnd": "Jun 16, 2020 9:41:28 AM",
+    "dateUpload": "Jun 16, 2020 9:41:28 AM",
     "durationHours": 10,
     "keywords": [
       {
-        "id": 1,
-        "name": "keyword1",
+        "id": 9,
+        "name": "Communication",
         "jobOffers": [],
         "trainings": []
       }
