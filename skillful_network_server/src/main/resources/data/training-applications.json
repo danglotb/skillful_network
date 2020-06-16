@@ -2,17 +2,17 @@
   {
     "offer": {
       "id": 1,
-      "name": "trainingName1",
-      "organization": "trainingOrganization1",
-      "description": "trainingDescription1",
-      "dateBeg": "Jun 8, 2020 5:14:17 PM",
-      "dateEnd": "Jun 8, 2020 5:14:17 PM",
-      "dateUpload": "Jun 8, 2020 5:14:17 PM",
+      "name": "Associate Degree in Nursing",
+      "organization": "Brookville College",
+      "description": "Icelyn Campus",
+      "dateBeg": "Jun 16, 2020 9:41:28 AM",
+      "dateEnd": "Jun 16, 2020 9:41:28 AM",
+      "dateUpload": "Jun 16, 2020 9:41:28 AM",
       "durationHours": 10,
       "keywords": [
         {
-          "id": 1,
-          "name": "keyword1",
+          "id": 9,
+          "name": "Communication",
           "jobOffers": [],
           "trainings": []
         }
@@ -22,32 +22,32 @@
     "id": 1,
     "user": {
       "id": 1,
-      "firstName": "userFirstName",
-      "lastName": "userLastName",
+      "firstName": "Laura",
+      "lastName": "Colin",
       "password": "Qwerty123",
-      "birthDate": "Jun 8, 2020 5:14:17 PM",
+      "birthDate": "Oct 20, 1958 8:38:53 AM",
       "email": "user@uca.fr",
-      "mobileNumber": "0712345678",
+      "mobileNumber": "0754237044",
       "validated": true,
-      "careerGoal": "userCareerGoal",
+      "careerGoal": "Regional Administration Assistant",
       "skillSet": [
         {
-          "id": 1,
-          "name": "skillName1",
+          "id": 4,
+          "name": "Proactive",
           "userList": []
         }
       ],
       "qualificationSet": [
         {
-          "id": 1,
-          "name": "qualificationName1",
+          "id": 9,
+          "name": "Bachelor of Business",
           "userList": []
         }
       ],
       "subscriptionSet": [
         {
-          "id": 1,
-          "name": "subscriptionName1",
+          "id": 8,
+          "name": "Nim",
           "userList": []
         }
       ],
@@ -61,6 +61,6 @@
       ]
     },
     "status": "ACCEPTED",
-    "submitDate": "Jun 8, 2020 5:14:17 PM"
+    "submitDate": "Jun 16, 2020 9:41:28 AM"
   }
 ]
