@@ -11,10 +11,11 @@ import { UserService } from '../../services/user.service';
 })
 export class UserPageComponent {
 
-  @Input() userLogged: User; 
   @Input() readOnly: boolean;
 
+  private userLogged: User;
   private lastUserLogged: User;
+  private isLoading: boolean;
 
   @ViewChild('userConfiguration') userConfiguration: UserConfComponent;
   @ViewChild('chipQualifications') chipQualifications: ChipComponent;
@@ -25,8 +26,16 @@ export class UserPageComponent {
     private userService: UserService,
   ) { }
 
-  ngOnInit() {
+  public async init(gettingUser: Promise<User>) {
+    this.isLoading = true;
+    const result = await gettingUser
+    this.userLogged = result;
+    this.userConfiguration.init(this.userLogged);
+    this.chipQualifications.init(this.userLogged.qualificationSet);
+    this.chipSkills.init(this.userLogged.skillSet);
+    this.chipSubscriptions.init(this.userLogged.subscriptionSet);
     this.lastUserLogged = JSON.parse(JSON.stringify(this.userLogged));
+    this.isLoading = false;
   }
 
   onUpdateForm() {
@@ -38,11 +47,11 @@ export class UserPageComponent {
 
   onResetForm() {
     this.userLogged = this.lastUserLogged;
-    this.userConfiguration.initValue(this.userLogged);
+    this.userConfiguration.init(this.userLogged);
   }
 
   changed(): boolean {
-    return this.userLogged != undefined && (
+    return this.userLogged != undefined && this.lastUserLogged != undefined && (
       this.userLogged.lastName !== this.lastUserLogged.lastName ||
       this.userLogged.firstName !== this.lastUserLogged.firstName ||
       this.userLogged.email !== this.lastUserLogged.email ||

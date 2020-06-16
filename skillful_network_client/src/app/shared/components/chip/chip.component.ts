@@ -83,4 +83,12 @@ export class ChipComponent implements OnInit {
     return !(JSON.stringify(perks) === JSON.stringify(this.chipValues));
   }
 
+  public init(chipValues: Perk[]): void {
+    this.chipInfoGroup.setValue({
+      chipValues: chipValues,
+      chipValue: ''
+    });
+    this.chipValues = chipValues;
+  }
+
 }

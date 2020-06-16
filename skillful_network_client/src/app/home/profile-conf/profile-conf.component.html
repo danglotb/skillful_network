@@ -1,1 +1,4 @@
-<app-user-page [userLogged]=(userLogged) [readOnly]="false"></app-user-page>
+<app-user-page #userPage [readOnly]="false"></app-user-page>
+<div class="progressBarDiv" *ngIf="isLoading">
+    <mat-progress-spinner class="is-loading" mode="indeterminate"></mat-progress-spinner>
+</div>

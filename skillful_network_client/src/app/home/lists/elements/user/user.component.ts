@@ -1,22 +1,30 @@
-import {Component, OnInit} from '@angular/core';
-import {User} from '../../../../shared/models/user/user';
-import {UserService} from '../../../../shared/services/user.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { User } from '../../../../shared/models/user/user';
+import { UserService } from '../../../../shared/services/user.service';
+import { UserPageComponent } from 'src/app/shared/components/user/user-page.component';
 
 @Component({
-    selector: 'app-user',
-    templateUrl: './user.component.html',
-    styleUrls: ['./user.component.scss']
+  selector: 'app-user',
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
 
-    public userLogged: User;
+  @ViewChild(UserPageComponent) userPage: UserPageComponent;
 
-    constructor(
-      private userService: UserService,
-    ) { }
+  constructor(
+    private userService: UserService,
+    private router: Router
+  ) { }
+
+  ngOnInit() {
+  }
   
-    ngOnInit() {
-      this.userLogged = this.userService.getCurrentUser();
-    }
-  
+  ngAfterViewInit() {
+    let splittedUrl = this.router.url.split('/');
+    this.userPage.init(Promise.resolve(this.userService.getById(+ splittedUrl[splittedUrl.length - 1])));
+  }
+
 }

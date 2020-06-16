@@ -24,9 +24,9 @@ export class AuthService {
     return this.api.post({ endpoint: '/register', data: { email: email, role: roles } });
   }
 
-  public getCurrentUser(): User {
+  public async getCurrentUser(): Promise<User> {
     if (this._user.id == -1) {
-      this.api.get({ endpoint: '/user' }).then(data => {
+      await this.api.get({ endpoint: '/user' }).then(data => {
         this._user = data;
       });
     }

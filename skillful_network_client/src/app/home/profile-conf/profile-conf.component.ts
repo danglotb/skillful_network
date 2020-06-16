@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { UserService } from "../../shared/services/user.service"
 import { User } from 'src/app/shared/models/user/user';
+import { UserPageComponent } from 'src/app/shared/components/user/user-page.component';
 
 @Component({
   selector: 'app-profile-conf',
@@ -9,14 +10,14 @@ import { User } from 'src/app/shared/models/user/user';
 })
 export class ProfileConfComponent {
 
-  public userLogged: User;
+  @ViewChild(UserPageComponent) userPage: UserPageComponent;
 
   constructor(
     private userService: UserService,
   ) { }
 
-  ngOnInit() {
-    this.userLogged = this.userService.getCurrentUser();
+  ngAfterViewInit() {
+    this.userPage.init(this.userService.getCurrentUser());
   }
 
 }
