@@ -10,6 +10,7 @@ import { AppRoutingModule } from '../app-routing.module';
 import { HomeComponent } from './home.component';
 import { ProfilePictureUploader } from './profile-picture-uploader/profile-picture-uploader';
 import { ProfileConfComponent } from './profile-conf/profile-conf.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
     declarations: [
@@ -21,6 +22,7 @@ import { ProfileConfComponent } from './profile-conf/profile-conf.component';
         ProfileConfComponent
     ],
     imports: [
+        CommonModule,
         ListsModule,
         ComponentModule,
         MaterialModule,
