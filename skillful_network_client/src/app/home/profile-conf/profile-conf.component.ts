@@ -11,13 +11,16 @@ import { UserPageComponent } from 'src/app/shared/components/user/user-page.comp
 export class ProfileConfComponent {
 
   @ViewChild(UserPageComponent) userPage: UserPageComponent;
+  isLoading: boolean = false;
 
   constructor(
     private userService: UserService,
   ) { }
 
   ngAfterViewInit() {
+    this.isLoading = true;
     this.userPage.init(this.userService.getCurrentUser());
+    this.isLoading = false;
   }
 
 }
