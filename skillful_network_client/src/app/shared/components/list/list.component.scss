@@ -1,65 +1,63 @@
-h1 {
-    text-align: center;
-}
-
+#paginatorAndSearch,
 table {
-    width: 100%;
-    text-align: center;
+    width: 90%;
+    padding-right: 5%;
+    padding-left: 5%;
 }
 
-mat-header-cell,
-mat-cell {
-    justify-content: center;
-}
+// mat-header-cell,
+// mat-cell {
+//     justify-content: center;
+// }
 
-.mat-card-header {
-    display: block;
-}
+// .mat-card-header {
+//     display: block;
+// }
 
-.mat-card-title {
-    text-align: center;
-    margin-left: 30%;
-    margin-top: 1rem;
-}
+// .mat-card-title {
+//     text-align: center;
+//     margin-left: 30%;
+//     margin-top: 1rem;
+// }
 
-.mat-form-field {
-    font-size: 14px;
-    width: 300px;
-}
+// .mat-form-field {
+//     font-size: 14px;
+//     width: 300px;
+// }
 
-td,
-th {
-    width: 20%;
-}
+// td,
+// th {
+//     width: 20%;
+// }
 
-.btnIcon {
-    margin-top: 7px;
-}
+// .btnIcon {
+//     margin-top: 7px;
+// }
 
-.table-container {
-    width: 80%;
-}
+// .table-container {
+//     width: 80%;
+// }
 
-.cursor {
-    cursor: pointer;
-}
+// .cursor {
+//     cursor: pointer;
+// }
 
-.boutonSearch {
-    display: none;
-}
+// .boutonSearch {
+//     display: none;
+// }
 
-.progressBarDiv {
-    margin-top: 12%;
-}
+// .progressBarDiv {
+//     margin-top: 12%;
+// }
 
-.is-loading {
-    margin: 0 auto;
-}
+// .is-loading {
+//     margin: 0 auto;
+// }
 
-@media screen and (max-width: 640px) {
-    .mat-form-field {
-        font-size: 10px;
-        padding: 10px;
-        width: 300px;
-    }
-}
+// @media screen and (max-width: 640px) {
+//     .mat-form-field {
+//         font-size: 10px;
+//         padding: 10px;
+//         width: 300px;
+//     }
+// }

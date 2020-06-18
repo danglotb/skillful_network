@@ -1,7 +1,7 @@
 mat-card {
     background-color: 245, 245, 245, 1;
-    min-height: 400px;
-    max-height: 600px;
+    min-height: 110px;
+    max-height: 800px;
 }
 
 mat-card-title {
@@ -9,4 +9,8 @@ mat-card-title {
     font-size: 1.5rem;
     font-style: italic;
     text-align: center;
+}
+
+mat-card-content {
+    height: 60%;
 }
