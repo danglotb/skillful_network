@@ -3,9 +3,9 @@
 <ng-template #formTemplate>
     <form [formGroup]="this.formGroup" novalidate>
         <ng-container *ngFor="let key of this.keys">
-            <div *ngIf="types[key] == 'input'; then thenBlock else elseBlock"></div>
+            <div *ngIf="types[key] == 'input'; then thenBlock else elseBlock"></div><br>
             <ng-template #thenBlock>
-                <mat-form-field class="tabelement">
+                <mat-form-field>
                     <mat-label>{{labels[key]}}</mat-label>
                     <input [formControlName]="key" matInput [placeholder]="(placeholders[key])" class="form-control">
                     <mat-hint align="end">{{hints[key]}}</mat-hint>
@@ -13,7 +13,7 @@
                 </mat-form-field>
             </ng-template>
             <ng-template #elseBlock>
-                <mat-form-field class="tabelement">
+                <mat-form-field>
                     <mat-label>{{labels[key]}}</mat-label>
                     <input matInput [matDatepicker]="myDatepicker" [formControlName]="key" matInput
                         [placeholder]="(placeholders[key])" class="form-control">

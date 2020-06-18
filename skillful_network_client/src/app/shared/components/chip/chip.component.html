@@ -11,9 +11,9 @@
 
     <hr>
 
-    <form *ngIf=!this.readOnly class='formAddChip' [formGroup]="chipInfoGroup" (submit)="addChip()" fxLayout="column" fxLayoutAlign="center center" novalidate>
-        <div class='row'>
-            <div class='column'>
+    <form *ngIf=!this.readOnly class='formAddChip' [formGroup]="chipInfoGroup" (submit)="addChip()" novalidate>
+        <div fxLayout="row" fxLayoutAlign="space-evenly center" >
+            <div>
                 <div class="progressBarDiv">
                     <mat-progress-bar *ngIf="isLoading" class="is-loading" mode="indeterminate"></mat-progress-bar>
                 </div>
@@ -30,8 +30,8 @@
                     </mat-autocomplete>
                 </mat-form-field>
             </div>
-            <div class='column' id="addButton" fxFlex="30">
-                <button type="submit" mat-raised-button color="primary"
+            <div>
+                <button type="submit" mat-raised-button color="skillful"
                     [disabled]="chipInfoGroup.invalid">Ajouter</button>
             </div>
         </div>
