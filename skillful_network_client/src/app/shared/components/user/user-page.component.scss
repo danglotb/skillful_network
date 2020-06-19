@@ -5,22 +5,27 @@
   width: 120px;
 }
 
+app-user-conf{
+  padding-left: 15%;
+  padding-right: 15%;
+  width: 70%;
+}
+
 @media screen and (min-width: 1200px) {
   .parent {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 2fr 1fr 1fr;
-    grid-column-gap: 10px;
-    grid-row-gap: 10px;
+    grid-column-gap: 5px;
+    grid-row-gap: 5px;
     margin: 30px;
   }
   .chip-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr;
-    grid-column-gap: 10px;
-    grid-row-gap: 10px;
-    margin: 30px;
+    grid-column-gap: 3px;
+    grid-row-gap: 3px;
   }
 }
 
@@ -29,15 +34,19 @@
     padding-top: 10px;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(5, 1fr);
-    grid-row-gap: 5px;
-    margin: 15px;
+    grid-template-rows: 3fr 5fr 1fr;
+    grid-row-gap: 3px;
+    margin: 30px;
   }
   .chip-container {
+    app-chip {
+      padding-left: 15%;
+      padding-right: 15%;
+      width: 70%;
+    }
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: repeat(3, 1fr);
-    grid-row-gap: 5px;
-    margin: 15px;
+    grid-row-gap: 3px;
   }
 }
