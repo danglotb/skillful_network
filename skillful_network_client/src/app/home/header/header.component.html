@@ -1,34 +1,6 @@
-<header>
-    <a [routerLink]="['/home']"><img src="/assets/pictures/Logo_complet.png " alt="logo" style="width: 45px; "></a>
-        <button mat-button [matMenuTriggerFor]="menu" class="boutonMenu"><i class="material-icons">
-            </i></button>
-        <mat-menu #menu="matMenu">
-            <a mat-menu-item [routerLink]="['/home']">Accueil</a>
-            <a mat-menu-item [routerLink]="['/home/profile']">Profil</a>
-            <a mat-menu-item [routerLink]="['/home']">Notifications</a>
-            <a mat-menu-item [routerLink]="['/']">Déconnexion</a>
-        </mat-menu>
-    <div>
-        <mat-toolbar class="toolbar positionToolbar" fxLayout.md="row" fxLayout.lt-md="column"
-            fxLayoutAlign="center center">
-            <div class="menu">
-                <div class="menuDisp" fxLayout="row " fxLayoutAlign="center center ">
-                    <div>
-                        <a [routerLink]="['/home']" mat-button>Accueil</a>
-                    </div>
-                    <div>
-                        <a [routerLink]="['/home/profile']" mat-button>Profil</a>
-                    </div>
-                    <div>
-                        <a [routerLink]="['/home']" mat-button>Notifications</a>
-                    </div>
-                    <div>
-                        <a [routerLink]="['/']" (click)="logout()" mat-button>Déconnexion</a>
-                    </div>
-                </div>
-            </div>
-        </mat-toolbar>
-    </div>
+<header fxLayout="row" fxLayoutAlign="start center">
+    <a [routerLink]="['/home']"><img src="/assets/pictures/Logo.png " alt="logo" style="height: 45px; width: 45px;">
+    </a>
     <div class="recherche">
         <div>
             <form action=" " class="formulaire">
@@ -39,4 +11,17 @@
             </form>
         </div>
     </div>
+    <a mat-button color="skillful" [matMenuTriggerFor]="menu" class="buttonMenu" >Menu</a>
+    <mat-menu #menu="matMenu">
+        <a class="mat-menu-item" [routerLink]="['/home']">Accueil</a>
+        <a mat-menu-item [routerLink]="['/home/profile']">Profil</a>
+        <a mat-menu-item [routerLink]="['/home']">Notifications</a>
+        <a mat-menu-item [routerLink]="['/']">Déconnexion</a>
+    </mat-menu>
+    <mat-toolbar fxLayout="row" fxLayoutAlign="center center">
+        <a color="skillful" [routerLink]="['/home']" mat-button>Accueil</a>
+        <a color="skillful" [routerLink]="['/home/profile']" mat-button>Profil</a>
+        <a color="skillful" [routerLink]="['/home']" mat-button>Notifications</a>
+        <a color="skillful" [routerLink]="['/']" (click)="logout()" mat-button>Déconnexion</a>
+    </mat-toolbar>
 </header>
