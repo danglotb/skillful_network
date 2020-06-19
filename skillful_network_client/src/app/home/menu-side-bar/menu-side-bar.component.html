@@ -1,26 +1,34 @@
-<div class="menuprofile">
-    <div class="lienProfile" fxLayout="column">
-        <div fxlayout="row" fxLayoutAlign="center center" class="photoProfile container profilePhoto">
-            <img [src]="photoProfile" alt="Avatar" class="image effetImage">
-            <div class="overlay middle">
-                <input type="file">
+<div class="parent">
+    <!-- <div class="lienProfile"> -->
+        <!-- <div class="photoProfile container profilePhoto"> -->
+            <img [src]="photoProfile" alt="Avatar" class="image effetImage" style="width: 44px; height: 44px;">
+            <!-- <div class="overlay middle"> -->
+                <!-- <input type="file">
                 <p class="text upIMG" cursor="none" (click)="openModalProfile()"><i class="material-icons appPhoto"
                         matTooltip="Ajouter une image" matTooltipPosition="below">
                         add_a_photo
-                    </i></p>
-            </div>
-        </div>
-        <div class="vertical-menu">
-            <p><a [routerLink]="['/home/profile']" class="lienProfile">Profil</a></p>
-            <p><a [routerLink]="['/home']" class="lienProfile">Candidatures</a></p>
-            <p><a [routerLink]="['/home/users-list']" class="lienProfile">Utilisateurs</a></p>
-            <p><a [routerLink]="['/home/job-offer-list']" class="lienProfile">Offres d'emploi</a></p>
-            <p><a [routerLink]="['/home/formation-list']" class="lienProfile">Offres de formation</a></p>
-            <p><a [routerLink]="['/home']" class="lienProfile">Contact</a></p>
-        </div>
-    </div>
+                    </i></p> -->
+            <!-- </div> -->
+        <!-- </div> -->
+    <!-- </div> -->
+    <a [routerLink]="['/home/profile']" mat-button color="skillful">{{this.name}}</a>
+    <i class="material-icons md-24" matTooltip="Voir la liste de vos candidatures" matTooltipPosition="right">create</i>
+    <a [routerLink]="['/home']" mat-button color="skillful">
+        Candidatures
+    </a>
+    <i class="material-icons md-24" matTooltip="Voir la liste des utilisateurs"
+        matTooltipPosition="right">settings_ethernet</i>
+    <a [routerLink]="['/home/users-list']" mat-button color="skillful">Utilisateurs</a>
+    <i class="material-icons md-24" matTooltip="Voir la liste des opportunités d'emploi"
+        matTooltipPosition="right">file_copy</i>
+    <a [routerLink]="['/home/job-offer-list']" mat-button color="skillful">Offres d'emploi</a>
+    <i class="material-icons md-24" matTooltip="Voir la liste des formations" matTooltipPosition="right">menu_book</i>
+    <a [routerLink]="['/home/formation-list']" mat-button color="skillful">Offres de formation</a>
+    <i class="material-icons md-24" matTooltip="" matTooltipPosition="right">mail</i>
+    <a [routerLink]="['/home']" mat-button color="skillful">Contact</a>
 </div>
-<div class="divIcons" fxLayout="column">
+
+<!-- <div class="divIcons" fxLayout="column">
     <a [routerLink]="['/home/profile']"><i class="divIcons material-icons iconsProfile" matTooltip="Profil"
             matTooltipPosition="right">
             account_circle
@@ -45,4 +53,4 @@
             matTooltipPosition="right">
             mail
         </i></a>
-</div>
+</div> -->

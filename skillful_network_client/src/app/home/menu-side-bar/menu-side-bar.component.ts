@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { User } from 'src/app/shared/models/user/user';
 import { MatDialog } from '@angular/material/dialog';
 import { ProfilePictureUploader } from '../profile-picture-uploader/profile-picture-uploader';
@@ -13,6 +13,7 @@ import { DomSanitizer } from "@angular/platform-browser";
 export class MenuSideBarComponent implements OnInit {
 
   public photoProfile: any;
+  public name: string;
 
   constructor(
     public dialog: MatDialog,
@@ -23,8 +24,12 @@ export class MenuSideBarComponent implements OnInit {
   ngOnInit(): void {
     let currentUser: User;
     this.userService.getCurrentUser().then(
-      data => currentUser = data
+      data => {
+        currentUser = data;
+        this.name = currentUser.firstName + ' ' + currentUser.lastName;
+      }
     );
+    
     this.userService.getCurrentProfilePicture().then(data => {
       const objectURL = URL.createObjectURL(data);
       currentUser.photoProfile = this.sanitizer.bypassSecurityTrustUrl(objectURL);
