@@ -17,32 +17,29 @@ export class MenuSideBarComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    public userService: UserService,
-    private sanitizer: DomSanitizer) {
+    public userService: UserService) {
   }
 
   ngOnInit(): void {
     let currentUser: User;
     this.userService.getCurrentUser().then(
       data => {
-        currentUser = data;
-        this.name = currentUser.firstName + ' ' + currentUser.lastName;
+        currentUser = new User(data);
+        // if (currentUser.profilePicture == null) { // if so, the user did not yet upload its own profile picture
+        //   currentUser.profilePicture = this.sanitizer.bypassSecurityTrustUrl(
+        //     'https://www.gravatar.com/avatar/' + currentUser.id + '?s=128&d=identicon&r=PG'
+        //   );
+        // }
+        // Might need the following code when the backend provides a profile picture
+        // const objectURL = URL.createObjectURL(data);
+        // currentUser.profilePicture = this.sanitizer.bypassSecurityTrustUrl(objectURL);
       }
-    );
-    
-    this.userService.getCurrentProfilePicture().then(data => {
-      const objectURL = URL.createObjectURL(data);
-      currentUser.photoProfile = this.sanitizer.bypassSecurityTrustUrl(objectURL);
-    }).catch((error => {
-      if (error.error.status == 404) {
-        currentUser.photoProfile = this.sanitizer.bypassSecurityTrustUrl(
-          'https://www.gravatar.com/avatar/' + currentUser.id + '?s=128&d=identicon&r=PG'
-        );
-      }
-    })
     ).finally(() => {
-      this.photoProfile = currentUser.photoProfile;
+      this.name = currentUser.firstName + ' ' + currentUser.lastName;
+      console.log(currentUser.profilePicture)
+      this.photoProfile = currentUser.profilePicture;
     })
+
   }
 
   onSelectFile(e) {

@@ -8,6 +8,9 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 
 import { ActivatedRoute, Router } from "@angular/router";
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { DomSanitizer } from '@angular/platform-browser';
+import { User } from '../../models/user/user';
 
 @Component({
   selector: 'app-list',
@@ -49,7 +52,9 @@ export class ListComponent implements OnInit {
     this.onSearch();
   }
 
-  constructor() { }
+  constructor(
+    private sanitizer: DomSanitizer
+  ) { }
 
   ngOnInit(): void {
     this.isLoading = true;
@@ -75,7 +80,7 @@ export class ListComponent implements OnInit {
 
   checkField() {
     if (this.field == null) {
-      return this.field = this.displayedColumns[0];
+      return this.field = this.displayedColumns[1];
     } else {
       return this.field;
     }
@@ -90,8 +95,18 @@ export class ListComponent implements OnInit {
     return this.order;
   }
 
-  isDetails(matColumnDef : string) {
+  isDetails(matColumnDef: string) {
     return matColumnDef === 'details';
+  }
+
+  isPicture(matColumnDef: string) {
+    return matColumnDef === 'picture';
+  }
+
+  getImage(element: any) {
+    if (this.type == 'user') { // working but not respecting the open/close principle, need to be refactored.
+      return new User(element).profilePicture;
+    }
   }
 
 }

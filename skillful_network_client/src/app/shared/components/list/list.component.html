@@ -9,7 +9,17 @@
                         <mat-header-cell *matHeaderCellDef mat-sort-header>{{listElement.header}}</mat-header-cell>
                         <div *ngIf="!isDetails(listElement.matColumnDef); then thenBlock else elseBlock"></div>
                         <ng-template #thenBlock>
-                            <mat-cell *matCellDef="let element"> {{element[listElement.matColumnDef]}}</mat-cell>
+                            <div *ngIf="!isPicture(listElement.matColumnDef); then thenThenBlock else thenElseBlock">
+                            </div>
+                            <ng-template #thenThenBlock>
+                                <mat-cell *matCellDef="let element"> {{element[listElement.matColumnDef]}}</mat-cell>
+                            </ng-template>
+                            <ng-template #thenElseBlock>
+                                <mat-cell *matCellDef="let element">
+                                    <img [src]="getImage(element)" alt="Avatar"
+                                    style="border: 2px solid #5b7787; border-radius: 50%; width: 32px; height: 32px;">
+                                </mat-cell>
+                            </ng-template>
                         </ng-template>
                         <ng-template #elseBlock>
                             <mat-cell *matCellDef="let element">
