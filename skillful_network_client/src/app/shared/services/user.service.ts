@@ -31,6 +31,14 @@ export class UserService extends SearchService<User> {
     return this.api.get({ endpoint: ROOT_ENDPOINT + 'profilePicture' });
   }
 
+  public getProfilePictureById(id: number) : Promise<any> {
+    return this.api.get({ endpoint: ROOT_ENDPOINT + 'profilePicture/' + id });
+  }
+
+  public getImage(id: number) : Promise<any> {
+    return this.getProfilePictureById(id);
+  }
+
   public getCurrentUser(): Promise<User> {
     return this.authService.getCurrentUser();
   }

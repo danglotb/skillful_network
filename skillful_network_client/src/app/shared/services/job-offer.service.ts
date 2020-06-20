@@ -22,5 +22,9 @@ export class JobOfferService extends SearchService<JobOffer> {
         return super._getBySearch('jobs', keyword, page, size, sortOrder, field);
     }
 
+    public getImage(id: number) : Promise<any> {
+        return undefined;
+    }
+
 }
 

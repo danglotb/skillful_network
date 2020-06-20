@@ -1,6 +1,7 @@
 import { JobApplication } from '../application/job-application';
 import { TrainingApplication } from '../application/training-application';
 import { Perk } from './perk';
+import { DomSanitizer } from '@angular/platform-browser';
 
 export class User {
 
@@ -13,16 +14,18 @@ export class User {
   public mobileNumber: string;
   public validated: boolean;
   public careerGoal: string;
-  public photo: boolean;
   public skillSet: Perk[];
   public qualificationSet: Perk[];
   public subscriptionSet: Perk[];
-  public photoProfile: any;
-  public role: string[];
-  public jobApplications: JobApplication[];
-  public trainingApplications: TrainingApplication[];
+  public jobApplicationSet: JobApplication[];
+  public trainingApplicationSet: TrainingApplication[];
+  public roles: string[];
+  public profilePicture: any;
 
-  constructor(data: any) {
+  constructor(
+    data: any,
+    // private sanitizer: DomSanitizer
+  ) {
     this.id = data.id;
     this.firstName = data.firstName;
     this.email = data.email;
@@ -32,15 +35,18 @@ export class User {
     this.email = data.email;
     this.mobileNumber = data.mobileNumber;
     this.validated = data.validated;
-    this.photo = data.photo;
     this.skillSet = data.skillSet;
     this.qualificationSet = data.qualificationSet;
     this.subscriptionSet = data.subscriptionSet;
-    this.photoProfile = data.photoProfile;
+    if (data.profilePicture == null) {
+      this.profilePicture = 'https://www.gravatar.com/avatar/' + this.id + '?s=128&d=identicon&r=PG'
+    } else {
+      this.profilePicture = data.profilePicture;
+    }
     this.careerGoal = data.careerGoal;
-    this.role = ['user'];
-    this.trainingApplications = data.trainingApplicationSet;
-    this.jobApplications = data.jobApplicationSet;
+    this.roles = ['user'];
+    this.trainingApplicationSet = data.trainingApplicationSet;
+    this.jobApplicationSet = data.jobApplicationSet;
   }
 
 }

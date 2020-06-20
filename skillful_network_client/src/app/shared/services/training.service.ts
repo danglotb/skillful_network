@@ -25,5 +25,9 @@ export class TrainingService extends SearchService<Training> {
     public getBySearch(keyword: string, page: number, size: number, sortOrder: string, field: string): Promise<Training> {
         return super._getBySearch('trainings', keyword, page, size, sortOrder, field);
     }
+
+    public getImage(id: number) : Promise<any> {
+        return undefined;
+    }
     
 }
