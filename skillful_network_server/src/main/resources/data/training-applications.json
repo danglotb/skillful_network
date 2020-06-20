@@ -2,17 +2,17 @@
   {
     "offer": {
       "id": 1,
-      "name": "Associate Degree in Nursing",
-      "organization": "Brookville College",
-      "description": "Icelyn Campus",
-      "dateBeg": "Jun 16, 2020 9:41:28 AM",
-      "dateEnd": "Jun 16, 2020 9:41:28 AM",
-      "dateUpload": "Jun 16, 2020 9:41:28 AM",
+      "name": "Associate Degree in Medicine",
+      "organization": "Ostbarrow University",
+      "description": "Mallowtown Campus",
+      "dateBeg": "Jun 20, 2020 7:06:34 PM",
+      "dateEnd": "Jun 20, 2020 7:06:34 PM",
+      "dateUpload": "Jun 20, 2020 7:06:34 PM",
       "durationHours": 10,
       "keywords": [
         {
           "id": 9,
-          "name": "Communication",
+          "name": "Teamwork",
           "jobOffers": [],
           "trainings": []
         }
@@ -22,32 +22,32 @@
     "id": 1,
     "user": {
       "id": 1,
-      "firstName": "Laura",
-      "lastName": "Colin",
+      "firstName": "Charlotte",
+      "lastName": "Gérard",
       "password": "Qwerty123",
-      "birthDate": "Oct 20, 1958 8:38:53 AM",
+      "birthDate": "May 15, 1961 6:32:25 PM",
       "email": "user@uca.fr",
-      "mobileNumber": "0754237044",
+      "mobileNumber": "+33 782884227",
       "validated": true,
-      "careerGoal": "Regional Administration Assistant",
+      "careerGoal": "Principal Officer",
       "skillSet": [
         {
           "id": 4,
-          "name": "Proactive",
+          "name": "Leadership",
           "userList": []
         }
       ],
       "qualificationSet": [
         {
           "id": 9,
-          "name": "Bachelor of Business",
+          "name": "Bachelor of Health Science",
           "userList": []
         }
       ],
       "subscriptionSet": [
         {
           "id": 8,
-          "name": "Nim",
+          "name": "BlooP",
           "userList": []
         }
       ],
@@ -61,6 +61,6 @@
       ]
     },
     "status": "ACCEPTED",
-    "submitDate": "Jun 16, 2020 9:41:28 AM"
+    "submitDate": "Jun 20, 2020 7:06:35 PM"
   }
 ]

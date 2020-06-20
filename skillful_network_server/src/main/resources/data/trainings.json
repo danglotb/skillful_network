@@ -1,17 +1,17 @@
 [
   {
     "id": 1,
-    "name": "Associate Degree in Nursing",
-    "organization": "Brookville College",
-    "description": "Icelyn Campus",
-    "dateBeg": "Jun 16, 2020 9:41:28 AM",
-    "dateEnd": "Jun 16, 2020 9:41:28 AM",
-    "dateUpload": "Jun 16, 2020 9:41:28 AM",
+    "name": "Associate Degree in Medicine",
+    "organization": "Ostbarrow University",
+    "description": "Mallowtown Campus",
+    "dateBeg": "Jun 20, 2020 7:06:34 PM",
+    "dateEnd": "Jun 20, 2020 7:06:34 PM",
+    "dateUpload": "Jun 20, 2020 7:06:34 PM",
     "durationHours": 10,
     "keywords": [
       {
         "id": 9,
-        "name": "Communication",
+        "name": "Teamwork",
         "jobOffers": [],
         "trainings": []
       }

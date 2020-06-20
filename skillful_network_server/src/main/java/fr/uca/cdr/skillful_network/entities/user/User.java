@@ -22,6 +22,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import fr.uca.cdr.skillful_network.entities.application.JobApplication;
 import fr.uca.cdr.skillful_network.entities.application.TrainingApplication;
 import org.springframework.security.core.GrantedAuthority;
@@ -62,6 +63,8 @@ public class User implements UserDetails  {
 	@Deprecated
 	private boolean validated = false;
 
+	@JsonIgnore
+	@Transient
 	@Deprecated
 	private LocalDateTime temporaryCodeExpirationDate;
 
@@ -90,6 +93,8 @@ public class User implements UserDetails  {
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<Role> roles = new HashSet<>();
 
+	private byte[] profilePicture;
+
 	@Transient
 	private Collection<? extends GrantedAuthority> authorities;
 
@@ -113,7 +118,8 @@ public class User implements UserDetails  {
 			Set<JobApplication> jobApplicationSet,
 			Set<TrainingApplication> trainingApplicationSet,
 			Set<Role> roles,
-			Collection<? extends GrantedAuthority> authorities) {
+			Collection<? extends GrantedAuthority> authorities,
+			byte[] profilePicture) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.password = password;
@@ -130,6 +136,7 @@ public class User implements UserDetails  {
 		this.trainingApplicationSet = trainingApplicationSet;
 		this.roles = roles;
 		this.authorities = authorities;
+		this.profilePicture = profilePicture;
 	}
 
 	private User(
@@ -149,7 +156,8 @@ public class User implements UserDetails  {
 			Set<JobApplication> jobApplicationSet,
 			Set<TrainingApplication> trainingApplicationSet,
 			Set<Role> roles,
-			Collection<? extends GrantedAuthority> authorities) {
+			Collection<? extends GrantedAuthority> authorities,
+			byte[] profilePicture) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -167,6 +175,7 @@ public class User implements UserDetails  {
 		this.trainingApplicationSet = trainingApplicationSet;
 		this.roles = roles;
 		this.authorities = authorities;
+		this.profilePicture = profilePicture;
 	}
 
 	public static User copy(User user) {
@@ -189,8 +198,17 @@ public class User implements UserDetails  {
 				user.getJobApplicationSet(),
 				user.getTrainingApplicationSet(),
 				user.getRoles(),
-				authorities
+				authorities,
+				user.getProfilePicture()
 		);
+	}
+
+	public byte[] getProfilePicture() {
+		return profilePicture;
+	}
+
+	public void setProfilePicture(byte[] profilePicture) {
+		this.profilePicture = profilePicture;
 	}
 
 	@Override

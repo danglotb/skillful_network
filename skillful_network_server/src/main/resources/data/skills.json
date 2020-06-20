@@ -1,27 +1,27 @@
 [
   {
     "id": 1,
-    "name": "Organisation",
+    "name": "Networking skills",
     "userList": []
   },
   {
     "id": 2,
-    "name": "Technical savvy",
+    "name": "Work under pressure",
     "userList": []
   },
   {
     "id": 3,
-    "name": "Communication",
+    "name": "Organisation",
     "userList": []
   },
   {
     "id": 4,
-    "name": "Proactive",
+    "name": "Leadership",
     "userList": []
   },
   {
     "id": 5,
-    "name": "Problem solving",
+    "name": "Communication",
     "userList": []
   },
   {
@@ -31,22 +31,22 @@
   },
   {
     "id": 7,
-    "name": "Networking skills",
+    "name": "Self-motivated",
     "userList": []
   },
   {
     "id": 8,
-    "name": "Proactive",
+    "name": "Confidence",
     "userList": []
   },
   {
     "id": 9,
-    "name": "Communication",
+    "name": "Work under pressure",
     "userList": []
   },
   {
     "id": 10,
-    "name": "Problem solving",
+    "name": "Proactive",
     "userList": []
   }
 ]

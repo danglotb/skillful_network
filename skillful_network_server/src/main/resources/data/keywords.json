@@ -1,25 +1,25 @@
 [
   {
     "id": 1,
-    "name": "Self-motivated",
+    "name": "Work under pressure",
     "jobOffers": [],
     "trainings": []
   },
   {
     "id": 2,
-    "name": "Organisation",
+    "name": "Self-motivated",
     "jobOffers": [],
     "trainings": []
   },
   {
     "id": 3,
-    "name": "Fast learner",
+    "name": "Problem solving",
     "jobOffers": [],
     "trainings": []
   },
   {
     "id": 4,
-    "name": "Self-motivated",
+    "name": "Organisation",
     "jobOffers": [],
     "trainings": []
   },
@@ -37,85 +37,85 @@
   },
   {
     "id": 7,
-    "name": "Communication",
-    "jobOffers": [],
-    "trainings": []
-  },
-  {
-    "id": 8,
-    "name": "Problem solving",
-    "jobOffers": [],
-    "trainings": []
-  },
-  {
-    "id": 9,
-    "name": "Communication",
-    "jobOffers": [],
-    "trainings": []
-  },
-  {
-    "id": 10,
-    "name": "Fast learner",
-    "jobOffers": [],
-    "trainings": []
-  },
-  {
-    "id": 11,
-    "name": "Problem solving",
-    "jobOffers": [],
-    "trainings": []
-  },
-  {
-    "id": 12,
-    "name": "Proactive",
-    "jobOffers": [],
-    "trainings": []
-  },
-  {
-    "id": 13,
-    "name": "Confidence",
-    "jobOffers": [],
-    "trainings": []
-  },
-  {
-    "id": 14,
-    "name": "Communication",
-    "jobOffers": [],
-    "trainings": []
-  },
-  {
-    "id": 15,
-    "name": "Networking skills",
-    "jobOffers": [],
-    "trainings": []
-  },
-  {
-    "id": 16,
     "name": "Work under pressure",
     "jobOffers": [],
     "trainings": []
   },
   {
-    "id": 17,
-    "name": "Technical savvy",
+    "id": 8,
+    "name": "Organisation",
     "jobOffers": [],
     "trainings": []
   },
   {
-    "id": 18,
-    "name": "Communication",
-    "jobOffers": [],
-    "trainings": []
-  },
-  {
-    "id": 19,
+    "id": 9,
     "name": "Teamwork",
     "jobOffers": [],
     "trainings": []
   },
   {
-    "id": 20,
+    "id": 10,
+    "name": "Teamwork",
+    "jobOffers": [],
+    "trainings": []
+  },
+  {
+    "id": 11,
     "name": "Self-motivated",
+    "jobOffers": [],
+    "trainings": []
+  },
+  {
+    "id": 12,
+    "name": "Communication",
+    "jobOffers": [],
+    "trainings": []
+  },
+  {
+    "id": 13,
+    "name": "Problem solving",
+    "jobOffers": [],
+    "trainings": []
+  },
+  {
+    "id": 14,
+    "name": "Organisation",
+    "jobOffers": [],
+    "trainings": []
+  },
+  {
+    "id": 15,
+    "name": "Communication",
+    "jobOffers": [],
+    "trainings": []
+  },
+  {
+    "id": 16,
+    "name": "Self-motivated",
+    "jobOffers": [],
+    "trainings": []
+  },
+  {
+    "id": 17,
+    "name": "Leadership",
+    "jobOffers": [],
+    "trainings": []
+  },
+  {
+    "id": 18,
+    "name": "Confidence",
+    "jobOffers": [],
+    "trainings": []
+  },
+  {
+    "id": 19,
+    "name": "Organisation",
+    "jobOffers": [],
+    "trainings": []
+  },
+  {
+    "id": 20,
+    "name": "Communication",
     "jobOffers": [],
     "trainings": []
   }

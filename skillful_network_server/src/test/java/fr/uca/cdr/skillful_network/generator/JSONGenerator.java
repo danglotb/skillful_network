@@ -279,6 +279,7 @@ public class JSONGenerator {
         return user;
     }
 
+    // TODO add assertions
     @Test
     public void generateJSON() {
         this.generateSkills();
