@@ -6,7 +6,7 @@
 
 Clone the projet:
 ```sh
-git clone https://git.univ-cotedazur.fr/centre-de-reference-defis-du-numerique/skillful-network.git
+git clone https://github.com/danglotb/skillful_network.git
 ```
 
 Run the frontend:
