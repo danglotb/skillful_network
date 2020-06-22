@@ -1,56 +1,30 @@
 <div class="parent">
-    <!-- <div class="lienProfile"> -->
-        <!-- <div class="photoProfile container profilePhoto"> -->
-            <img [src]="photoProfile" alt="Avatar" class="image effetImage" style="width: 44px; height: 44px;">
-            <!-- <div class="overlay middle"> -->
-                <!-- <input type="file">
-                <p class="text upIMG" cursor="none" (click)="openModalProfile()"><i class="material-icons appPhoto"
-                        matTooltip="Ajouter une image" matTooltipPosition="below">
-                        add_a_photo
-                    </i></p> -->
-            <!-- </div> -->
-        <!-- </div> -->
-    <!-- </div> -->
+    <a [routerLink]="['/home/profile']"><img [src]="photoProfile" alt="Avatar" class="photoProfile image effetImage"
+            style="width: 44px; height: 44px;"></a>
     <a [routerLink]="['/home/profile']" mat-button color="skillful">{{this.name}}</a>
-    <i class="material-icons md-24" matTooltip="Voir la liste de vos candidatures" matTooltipPosition="right">create</i>
+    <a [routerLink]="['/home']">
+        <i class="material-icons md-24" matTooltip="Voir la liste de vos candidatures"
+            matTooltipPosition="right">create</i>
+    </a>
     <a [routerLink]="['/home']" mat-button color="skillful">
         Candidatures
     </a>
-    <i class="material-icons md-24" matTooltip="Voir la liste des utilisateurs"
-        matTooltipPosition="right">settings_ethernet</i>
+    <a [routerLink]="['/home/users-list']">
+        <i class="material-icons md-24" matTooltip="Voir la liste des utilisateurs"
+            matTooltipPosition="right">settings_ethernet</i>
+    </a>
     <a [routerLink]="['/home/users-list']" mat-button color="skillful">Utilisateurs</a>
-    <i class="material-icons md-24" matTooltip="Voir la liste des opportunités d'emploi"
+    <a [routerLink]="['/home/job-offer-list']" >
+        <i class="material-icons md-24" matTooltip="Voir la liste des opportunités d'emploi"
         matTooltipPosition="right">file_copy</i>
+    </a>
     <a [routerLink]="['/home/job-offer-list']" mat-button color="skillful">Offres d'emploi</a>
-    <i class="material-icons md-24" matTooltip="Voir la liste des formations" matTooltipPosition="right">menu_book</i>
+    <a [routerLink]="['/home/formation-list']">
+        <i class="material-icons md-24" matTooltip="Voir la liste des formations" matTooltipPosition="right">menu_book</i>
+    </a>
     <a [routerLink]="['/home/formation-list']" mat-button color="skillful">Offres de formation</a>
-    <i class="material-icons md-24" matTooltip="" matTooltipPosition="right">mail</i>
+    <a [routerLink]="['/home']">
+        <i class="material-icons md-24" matTooltip="" matTooltipPosition="right">mail</i>
+    </a>
     <a [routerLink]="['/home']" mat-button color="skillful">Contact</a>
 </div>
-
-<!-- <div class="divIcons" fxLayout="column">
-    <a [routerLink]="['/home/profile']"><i class="divIcons material-icons iconsProfile" matTooltip="Profil"
-            matTooltipPosition="right">
-            account_circle
-        </i></a>
-    <a [routerLink]="['/home']"><i class="divIcons material-icons iconsProfile" matTooltip="Candidature"
-            matTooltipPosition="right">
-            create
-        </i></a>
-    <a [routerLink]="['/home/users-list']"><i class="divIcons material-icons iconsProfile" matTooltip="Utilisateurs"
-            matTooltipPosition="right">
-            settings_ethernet
-        </i></a>
-    <a [routerLink]="['/home/job-offer-list']"><i class="divIcons material-icons iconsProfile"
-            matTooltip="Offres d'emploi" matTooltipPosition="right">
-            file_copy
-        </i></a>
-    <a [routerLink]="['/home/formation-list']"><i class="divIcons material-icons iconsProfile"
-            matTooltip="Offres de formation" matTooltipPosition="right">
-            menu_book
-        </i></a>
-    <a [routerLink]="['/']"><i class="divIcons material-icons iconsProfile" matTooltip="Contact"
-            matTooltipPosition="right">
-            mail
-        </i></a>
-</div> -->

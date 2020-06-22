@@ -1,4 +1,4 @@
-img {
+.photoProfile {
   margin-top: 7px;
   width: 90%;
   border: 2px solid #5b7787;
@@ -8,10 +8,12 @@ img {
 
 i {
   justify-self: center;
+  display: inline;
 }
 
 a {
   justify-self: start;
+  display: inline;
 }
 
 .parent {
@@ -24,142 +26,20 @@ a {
   grid-row-gap: 3px;
 }
 
-// .image {
-//   opacity: 1;
-//   display: block;
-//   transition: 0.5s ease;
-//   backface-visibility: hidden;
-// }
+@media screen and (min-width: 1024px) {
+  .parent {
+    .mat-button {
+      display: inline;
+    }
+  }
+}
 
-// .middle {
-//   transition: 0.5s ease;
-//   opacity: 0;
-//   position: absolute;
-//   top: 50%;
-//   left: 50%;
-//   transform: translate(-50%, -50%);
-//   -ms-transform: translate(-50%, -50%);
-//   text-align: center;
-// }
-
-// .container {
-//   position: relative;
-// }
-// .container:hover .middle {
-//   opacity: 1;
-// }
-// .container:hover .image {
-//   opacity: 0.6;
-// }
-
-// .text {
-//   color: #5b7787;
-//   font-size: 16px;
-//   border-radius: 5px 5px 5px 5px;
-// }
-// // .iconsProfile {
-// //   justify-content: center;
-// //   color: #5b7787;
-// //   margin-top: 20px;
-// // }
-// // .menuProfile {
-// //   display: flex;
-// //   justify-content: center;
-// //   font-size: 2em;
-// // }
-// // .divIcons {
-// //   display: none;
-// // }
-
-// .photoProfile {
-//   display: block;
-//   border-radius: 50%;
-//   margin-bottom: 25px;
-// }
-// .lienProfile {
-//   margin-top: 25px;
-// }
-
-// .lienProfile a {
-//   text-decoration: none;
-//   margin: auto;
-//   font-size: 1.2rem;
-//   font-style: italic;
-//   font-weight: 500;
-//   color: #5b7787;
-// }
-
-// .border-profile {
-//   display: flex;
-//   justify-content: center;
-// }
-
-// @media screen and (max-width: 961px) {
-//   .divIcons,
-//   a {
-//     display: block;
-//     margin: auto;
-//     margin-bottom: 30px;
-//     text-decoration: none;
-//   }
-//   .photoProfile,
-//   .lienProfile,
-//   .vertical-menu {
-//     display: none;
-//     margin-bottom: 0;
-//   }
-// }
-
-// // /* ================= effet upload image ===============*/
-
-// .profilePhoto {
-//   margin: 20px auto;
-//   max-width: 200px;
-//   position: relative;
-//   border-radius: 50%;
-//   &:hover {
-//     .overlay {
-//       display: flex;
-//       justify-content: center;
-//       align-content: center;
-//       background-color: rgba(0, 0, 0, 0);
-//       p {
-//         display: block;
-//       }
-//     }
-//   }
-//   .effetImage {
-//     display: block;
-//     width: 100%;
-//     border-radius: 50%;
-//     height: auto;
-//   }
-//   .overlay {
-//     position: absolute;
-//     width: 80%;
-
-//     overflow: hidden;
-//     height: 80%;
-//     border-radius: 50%;
-
-//     input {
-//       width: 100%;
-//       position: absolute;
-//       opacity: 0;
-//       bottom: 20px;
-//       z-index: 2;
-//     }
-//     .appPhoto {
-//       font-size: 50px;
-//     }
-//     .upIMG {
-//       position: absolute;
-//       bottom: 50px;
-//       font-weight: bold;
-//       margin-bottom: 0;
-//       color: #5b7787;
-//       width: 70%;
-//       display: none;
-//     }
-//   }
-// }
+@media screen and (max-width: 1024px) {
+  .parent {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, 1fr);
+    .mat-button {
+      display: none;
+    }
+  }
+}
