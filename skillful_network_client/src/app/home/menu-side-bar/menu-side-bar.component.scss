@@ -8,10 +8,12 @@
 
 i {
   justify-self: center;
+  display: inline;
 }
 
 a {
   justify-self: start;
+  display: inline;
 }
 
 .parent {
@@ -22,6 +24,24 @@ a {
   grid-template-rows: repeat(6, 1fr);
   grid-column-gap: 5px;
   grid-row-gap: 3px;
+}
+
+@media screen and (min-width: 1024px) {
+  .parent {
+    .mat-button {
+      display: inline;
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .parent {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, 1fr);
+    .mat-button {
+      display: none;
+    }
+  }
 }
 
 // .image {
