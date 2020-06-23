@@ -58,7 +58,20 @@ number(initials) type: message
 
 with `number`, the task number (can be subtask), `initials` your initials, `type` the type of the changes, `message` the message describing the commit.
 
+For example, in the same context, a commit message would be:
+
+```
+0(bd) doc: add Version Control System section with nomenclature for branches and commits
+```
+
 #### Project, Issues, Status and Pull-requests
+
+If the pull request is fixing a issue, you can add in one of the commit message a reference to the issue: `FIX #number`. This will be added at the end of the commit message.
+
+For example, I can add to the previous commit message `FIX #20` to link it to the issue as follow:
+```
+0(bd) doc: add Version Control System section with nomenclature for branches and commits FIX #20
+```
 
 ### Code organization
 
