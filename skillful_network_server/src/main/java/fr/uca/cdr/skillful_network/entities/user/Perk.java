@@ -28,7 +28,8 @@ public abstract class Perk {
     @Column(name = "name", nullable = false)
     protected String name;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "subscriptionSet")
+    // TODO check the mappedBy
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
     protected Set<User> userList = new HashSet<User>();
 
