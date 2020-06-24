@@ -52,6 +52,8 @@ public class UserTest {
 
         /*
             We compare hashcode with others objects to verify the uniqueness
+                - hashcode null -> false
+                - hashcode not user -> false
                 - hashcode itself -> true
                 - hashcode user with same id, email AND mobile -> true
                 - hashcode user with different id, email OR mobile -> false
@@ -64,6 +66,8 @@ public class UserTest {
         user.setEmail(EMAIL);
         user.setMobileNumber(MOBILE);
 
+        assertNotEquals(user.hashCode(), null);
+        assertNotEquals(user.hashCode(), new Object().hashCode());
         assertEquals(user.hashCode(), user.hashCode());
 
         final User userEquals = new User();
