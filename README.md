@@ -26,6 +26,53 @@ http://localhost:4200
 
 You can login using `user@uca.fr` and `Qwerty123`, or create a new account (the temporary code will appear in the console of the backend).
 
+### Version Control Service (VCS)
+
+#### Pull-requets based development
+
+We use pull-request based development. That is to say, no one is allowed to push direclty to the master, but must use the pull-request feature of GitHub.
+The pull-request must be as small as possible, reduced to the smallest changes possible.
+You cannot merge your own pull-request, and to merge the pull-request of someone, the continuous integration must pass and must go through each changes ensuring at least the best practices (described in the next section) are respected.
+When a pull-request is merged, please, remove it from the repository.
+
+#### Branches and commits nomenclature
+
+We use the following convention. For branches:
+
+```
+number-initials-type-what
+```
+
+with `number`, the task number (can be subtask), `initials` your initials, `type` the type of the changes, `what` an abstract words refering to the what your branch is achieving.
+
+For example, if I create a branch for the task 0, that is a documentation branch about VCS, I'll create the following branch:
+```
+0-bd-doc-vcs
+```
+
+For commits:
+
+```
+number(initials) type: message
+```
+
+with `number`, the task number (can be subtask), `initials` your initials, `type` the type of the changes, `message` the message describing the commit.
+
+For example, in the same context, a commit message would be:
+
+```
+0(bd) doc: add Version Control System section with nomenclature for branches and commits
+```
+
+#### Project, Issues, Status and Pull-requests
+
+If the pull request is fixing a issue, you can add in one of the commit message a reference to the issue: `FIX #number`. This will be added at the end of the commit message.
+
+For example, I can add to the previous commit message `FIX #20` to link it to the issue as follow:
+```
+0(bd) doc: add Version Control System section with nomenclature for branches and commits FIX #20
+```
+
 ### Code organization
 
 #### Frontend

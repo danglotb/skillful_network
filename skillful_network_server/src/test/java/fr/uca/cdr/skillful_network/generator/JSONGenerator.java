@@ -280,6 +280,9 @@ public class JSONGenerator {
     }
 
     // TODO add assertions
+    // TODO fix coma in the date
+    // TODO check to generate unique values with Faker
+    // TODO try to export the value from h2 db to json
     @Test
     public void generateJSON() {
         this.generateSkills();
