@@ -44,7 +44,7 @@ public class JSONLoader<T> {
         this.classType = classType;
     }
 
-    private Gson getGson() {
+    public Gson getGson() {
         if (this.adapter != null) {
             return new GsonBuilder().setPrettyPrinting()
                     .registerTypeAdapter(this.classType, this.adapter)

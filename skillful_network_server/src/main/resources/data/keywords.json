@@ -1,37 +1,37 @@
 [
   {
     "id": 1,
-    "name": "Work under pressure",
+    "name": "ECMAScript",
     "jobOffers": [],
     "trainings": []
   },
   {
     "id": 2,
-    "name": "Self-motivated",
+    "name": "Networking skills",
     "jobOffers": [],
     "trainings": []
   },
   {
     "id": 3,
-    "name": "Problem solving",
+    "name": "LotusScript",
     "jobOffers": [],
     "trainings": []
   },
   {
     "id": 4,
-    "name": "Organisation",
+    "name": "OBJ2",
     "jobOffers": [],
     "trainings": []
   },
   {
     "id": 5,
-    "name": "Leadership",
+    "name": "Confidence",
     "jobOffers": [],
     "trainings": []
   },
   {
     "id": 6,
-    "name": "Problem solving",
+    "name": "Teamwork",
     "jobOffers": [],
     "trainings": []
   },
@@ -43,79 +43,79 @@
   },
   {
     "id": 8,
-    "name": "Organisation",
+    "name": "Qalb",
     "jobOffers": [],
     "trainings": []
   },
   {
     "id": 9,
-    "name": "Teamwork",
+    "name": "MAD (Michigan Algorithm Decoder)",
     "jobOffers": [],
     "trainings": []
   },
   {
     "id": 10,
-    "name": "Teamwork",
+    "name": "Q# (Microsoft programming language)",
     "jobOffers": [],
     "trainings": []
   },
   {
     "id": 11,
-    "name": "Self-motivated",
+    "name": "Technical savvy",
     "jobOffers": [],
     "trainings": []
   },
   {
     "id": 12,
-    "name": "Communication",
-    "jobOffers": [],
-    "trainings": []
-  },
-  {
-    "id": 13,
     "name": "Problem solving",
     "jobOffers": [],
     "trainings": []
   },
   {
+    "id": 13,
+    "name": "Claire",
+    "jobOffers": [],
+    "trainings": []
+  },
+  {
     "id": 14,
-    "name": "Organisation",
+    "name": "NewtonScript",
     "jobOffers": [],
     "trainings": []
   },
   {
     "id": 15,
-    "name": "Communication",
+    "name": "MPD",
     "jobOffers": [],
     "trainings": []
   },
   {
     "id": 16,
-    "name": "Self-motivated",
+    "name": "Processing.js",
     "jobOffers": [],
     "trainings": []
   },
   {
     "id": 17,
-    "name": "Leadership",
+    "name": "REXX",
     "jobOffers": [],
     "trainings": []
   },
   {
     "id": 18,
-    "name": "Confidence",
+    "name": "Klerer-May System",
     "jobOffers": [],
     "trainings": []
   },
   {
     "id": 19,
-    "name": "Organisation",
+    "name": "Proactive",
     "jobOffers": [],
     "trainings": []
   },
   {
     "id": 20,
-    "name": "Communication",
+    "name": "Cesil",
     "jobOffers": [],
     "trainings": []
   }

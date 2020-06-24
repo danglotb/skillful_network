@@ -1,17 +1,17 @@
 [
   {
     "id": 1,
-    "name": "Associate Degree in Medicine",
-    "organization": "Ostbarrow University",
-    "description": "Mallowtown Campus",
-    "dateBeg": "Jun 20, 2020 7:06:34 PM",
-    "dateEnd": "Jun 20, 2020 7:06:34 PM",
-    "dateUpload": "Jun 20, 2020 7:06:34 PM",
+    "name": "Master of Applied Science (Psychology)",
+    "organization": "Ironbarrow College",
+    "description": "Ironbarrow Campus",
+    "dateBeg": "Jun 24, 2020 5:30:32 PM",
+    "dateEnd": "Jun 24, 2020 5:30:32 PM",
+    "dateUpload": "Jun 24, 2020 5:30:32 PM",
     "durationHours": 10,
     "keywords": [
       {
-        "id": 9,
-        "name": "Teamwork",
+        "id": 17,
+        "name": "REXX",
         "jobOffers": [],
         "trainings": []
       }

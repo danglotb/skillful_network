@@ -1,47 +1,47 @@
 [
   {
     "id": 1,
-    "name": "Networking skills",
-    "userList": []
-  },
-  {
-    "id": 2,
-    "name": "Work under pressure",
-    "userList": []
-  },
-  {
-    "id": 3,
-    "name": "Organisation",
-    "userList": []
-  },
-  {
-    "id": 4,
-    "name": "Leadership",
-    "userList": []
-  },
-  {
-    "id": 5,
-    "name": "Communication",
-    "userList": []
-  },
-  {
-    "id": 6,
-    "name": "Networking skills",
-    "userList": []
-  },
-  {
-    "id": 7,
     "name": "Self-motivated",
     "userList": []
   },
   {
-    "id": 8,
+    "id": 2,
+    "name": "Networking skills",
+    "userList": []
+  },
+  {
+    "id": 3,
+    "name": "Leadership",
+    "userList": []
+  },
+  {
+    "id": 4,
     "name": "Confidence",
     "userList": []
   },
   {
-    "id": 9,
+    "id": 5,
+    "name": "Fast learner",
+    "userList": []
+  },
+  {
+    "id": 6,
+    "name": "Problem solving",
+    "userList": []
+  },
+  {
+    "id": 7,
+    "name": "Communication",
+    "userList": []
+  },
+  {
+    "id": 8,
     "name": "Work under pressure",
+    "userList": []
+  },
+  {
+    "id": 9,
+    "name": "Organisation",
     "userList": []
   },
   {

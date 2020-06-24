@@ -1,12 +1,15 @@
 package fr.uca.cdr.skillful_network.generator;
 
 import com.github.javafaker.Faker;
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
 import fr.uca.cdr.skillful_network.entities.Keyword;
 import fr.uca.cdr.skillful_network.entities.application.Application;
 import fr.uca.cdr.skillful_network.entities.application.JobApplication;
 import fr.uca.cdr.skillful_network.entities.application.JobOffer;
 import fr.uca.cdr.skillful_network.entities.application.Training;
 import fr.uca.cdr.skillful_network.entities.application.TrainingApplication;
+import fr.uca.cdr.skillful_network.entities.user.Perk;
 import fr.uca.cdr.skillful_network.entities.user.Qualification;
 import fr.uca.cdr.skillful_network.entities.user.Role;
 import fr.uca.cdr.skillful_network.entities.user.Skill;
@@ -32,12 +35,17 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.File;
+import java.io.FileReader;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import java.util.Set;
+import java.util.function.Function;
 
 import static fr.uca.cdr.skillful_network.entities.user.Role.Name.ROLE_COMPANY;
 import static fr.uca.cdr.skillful_network.entities.user.Role.Name.ROLE_TRAINING_ORGANIZATION;
@@ -48,8 +56,6 @@ import static org.junit.Assert.fail;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class JSONGenerator {
-
-    private Faker faker = new Faker(Locale.FRANCE);
 
     @Autowired
     private TestEntityManager entityManager;
@@ -88,13 +94,37 @@ public class JSONGenerator {
 
     private final Random RANDOM = new Random(SEED_RANDOM);
 
+    private final Faker FAKER = new Faker(Locale.FRANCE, RANDOM);
+
     private static final String PREFIX_PATH = "src/main/resources/data/";
 
     private static final String EXTENSION_JSON = ".json";
 
+    private static final String NEW_LINE = System.getProperty("line.properties");
+
     @SuppressWarnings("all")
     private void saveTo(String name, Class<?> clazz, JpaRepository<?, Long> repository) {
-        new JSONLoader(PREFIX_PATH + name + EXTENSION_JSON, clazz, repository).save(repository.findAll());
+        boolean jsonFilesHasBeenUpdated = true;
+        final JSONLoader jsonLoader = new JSONLoader(PREFIX_PATH + name + EXTENSION_JSON, clazz, repository);
+        if (new File(PREFIX_PATH + name + EXTENSION_JSON).exists()) {
+            try (final JsonReader reader = new JsonReader(new FileReader(
+                    new File(PREFIX_PATH + name + EXTENSION_JSON)
+            ))) {
+                final Gson gson = jsonLoader.getGson();
+                List elements =  Arrays.asList(gson.fromJson(reader, clazz));
+                jsonFilesHasBeenUpdated = repository.findAll().stream().allMatch(elements::contains);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+        jsonLoader.save(repository.findAll());
+        if (!jsonFilesHasBeenUpdated) {
+            fail(
+                    "[CI] This assertion is meant to be run in in ci." + NEW_LINE +
+                    "When modifiying the generation of json files, you must also update the json files" + NEW_LINE +
+                            "Please, push the modification of the json files, or remove the changes in the generator."
+            );
+        }
     }
 
     private Object getRandomElement(JpaRepository<?, Long> repository) {
@@ -107,29 +137,34 @@ public class JSONGenerator {
 
     private static final int NB_PERKS = 10;
 
-    private void generateSkills() {
-        for (int i = 0; i < NB_PERKS; i++) {
-            final Skill skillName1 = new Skill(this.faker.job().keySkills());
-            this.entityManager.persistAndFlush(skillName1);
+    private <T extends Perk> boolean add(Set<T> perks, T perk) {
+        if (perks.stream().anyMatch(p -> p.getName().equals(perk.getName()))) {
+            return false;
+        } else {
+            return perks.add(perk);
         }
-        this.saveTo("skills", Skill[].class, this.skillRepository);
     }
 
-    private void generateSubscriptions() {
-        for (int i = 0; i < NB_PERKS; i++) {
-            final Subscription subscriptionName1 = new Subscription(this.faker.programmingLanguage().name());
-            this.entityManager.persistAndFlush(subscriptionName1);
+    private <T extends Perk> void  generatePerks(Set<T> perks,
+                               String name,
+                               Class<?> perkClassArray,
+                               int nbPerk,
+                               JpaRepository<T, Long> perkRepository,
+                               Function<Faker, T> create) {
+        while (perks.size() < nbPerk) {
+            final T perk = create.apply(this.FAKER);
+            if (this.add(perks, perk)) {
+                this.entityManager.persistAndFlush(perk);
+            }
         }
-        this.saveTo("subscriptions", Subscription[].class, this.subscriptionRepository);
+        this.saveTo(name, perkClassArray, perkRepository);
     }
 
-    private void generateQualifications() {
-        for (int i = 0; i < NB_PERKS; i++) {
-            final Qualification qualificationName1 = new Qualification(this.faker.educator().course());
-            this.entityManager.persistAndFlush(qualificationName1);
-        }
-        this.saveTo("qualifications", Qualification[].class, this.qualificationRepository);
-    }
+    private Function<Faker, Skill> createSkill = (faker) -> new Skill(faker.job().keySkills());
+
+    private Function<Faker, Qualification> createQualification = (faker) -> new Qualification(faker.educator().course());
+
+    private Function<Faker, Subscription> createSubscription = (faker) -> new Subscription(faker.programmingLanguage().name());
 
     private void generateRoles() {
         final Role roleUser = new Role(ROLE_USER);
@@ -143,19 +178,28 @@ public class JSONGenerator {
 
     private final static int NB_KEYWORDS = 20;
 
+    private Function<Faker, Keyword> createKeyword = (faker) -> new Keyword(
+            RANDOM.nextBoolean() ?
+                    faker.job().keySkills() : faker.programmingLanguage().name()
+    );
+
     private void generateKeywords() {
-        for (int i = 0; i < NB_KEYWORDS; i++) {
-            final Keyword keyword1 = new Keyword(this.faker.job().keySkills());
-            this.entityManager.persistAndFlush(keyword1);
+        final Set<Keyword> keywords = new HashSet<>();
+        while (keywords.size() < NB_KEYWORDS) {
+            final Keyword keyword = this.createKeyword.apply(this.FAKER);
+            if (keywords.stream().noneMatch(k -> k.getName().equals(keyword.getName()))) {
+                keywords.add(keyword);
+                this.entityManager.persistAndFlush(keyword);
+            }
         }
         this.saveTo("keywords", Keyword[].class, this.keywordRepository);
     }
 
     private void generateJobOffers() {
         final JobOffer jobOffer1 = new JobOffer(
-                this.faker.job().title(),
-                this.faker.company().name(),
-                this.faker.company().catchPhrase(),
+                this.FAKER.job().title(),
+                this.FAKER.company().name(),
+                this.FAKER.company().catchPhrase(),
                 "type1",
                 new Date(),
                 new Date(),
@@ -171,9 +215,9 @@ public class JSONGenerator {
 
     private void generateTrainings() {
         final Training training1 = new Training(
-                this.faker.educator().course(),
-                this.faker.educator().university(),
-                this.faker.educator().campus(),
+                this.FAKER.educator().course(),
+                this.FAKER.educator().university(),
+                this.FAKER.educator().campus(),
                 new Date(),
                 new Date(),
                 new Date(),
@@ -211,13 +255,13 @@ public class JSONGenerator {
 
     private void generateUsers() {
         final User user = this.generateUser(
-                this.faker.name().firstName(),
-                this.faker.name().lastName(),
+                this.FAKER.name().firstName(),
+                this.FAKER.name().lastName(),
                 "Qwerty123",
-                this.faker.date().birthday(),
+                this.FAKER.date().birthday(),
                 "user@uca.fr",
-                this.faker.phoneNumber().cellPhone(),
-                this.faker.job().title(),
+                this.FAKER.phoneNumber().cellPhone(),
+                this.FAKER.job().title(),
                 true,
                 Collections.singleton((Skill) this.getRandomElement(this.skillRepository)),
                 Collections.singleton((Subscription) this.getRandomElement(this.subscriptionRepository)),
@@ -235,13 +279,13 @@ public class JSONGenerator {
 
     private User generateUser() {
         return this.generateUser(
-                this.faker.name().firstName(),
-                this.faker.name().lastName(),
-                this.faker.internet().password(8, 10, true, true, true),
-                this.faker.date().birthday(),
-                this.faker.internet().emailAddress(),
-                this.faker.phoneNumber().cellPhone(),
-                this.faker.job().title(),
+                this.FAKER.name().firstName(),
+                this.FAKER.name().lastName(),
+                this.FAKER.internet().password(8, 10, true, true, true),
+                this.FAKER.date().birthday(),
+                this.FAKER.internet().emailAddress(),
+                this.FAKER.phoneNumber().cellPhone(),
+                this.FAKER.job().title(),
                 true,
                 Collections.singleton((Skill) this.getRandomElement(this.skillRepository)),
                 Collections.singleton((Subscription) this.getRandomElement(this.subscriptionRepository)),
@@ -281,13 +325,12 @@ public class JSONGenerator {
 
     // TODO add assertions
     // TODO fix coma in the date
-    // TODO check to generate unique values with Faker
     // TODO try to export the value from h2 db to json
     @Test
     public void generateJSON() {
-        this.generateSkills();
-        this.generateSubscriptions();
-        this.generateQualifications();
+        this.generatePerks(new HashSet<>(),  "skills", Skill[].class, NB_PERKS, this.skillRepository, this.createSkill);
+        this.generatePerks(new HashSet<>(), "qualifications", Qualification[].class, NB_PERKS, this.qualificationRepository, this.createQualification);
+        this.generatePerks(new HashSet<>(), "subscriptions", Subscription[].class, NB_PERKS, this.subscriptionRepository, this.createSubscription);
         this.generateRoles();
         this.generateKeywords();
         this.generateJobOffers();
