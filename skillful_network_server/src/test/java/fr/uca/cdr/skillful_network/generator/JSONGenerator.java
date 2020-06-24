@@ -1,6 +1,8 @@
 package fr.uca.cdr.skillful_network.generator;
 
 import com.github.javafaker.Faker;
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
 import fr.uca.cdr.skillful_network.entities.Keyword;
 import fr.uca.cdr.skillful_network.entities.application.Application;
 import fr.uca.cdr.skillful_network.entities.application.JobApplication;
@@ -33,6 +35,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.File;
+import java.io.FileReader;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
@@ -42,9 +47,11 @@ import java.util.Random;
 import java.util.Set;
 import java.util.function.Function;
 
+import static com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Text.NEW_LINE;
 import static fr.uca.cdr.skillful_network.entities.user.Role.Name.ROLE_COMPANY;
 import static fr.uca.cdr.skillful_network.entities.user.Role.Name.ROLE_TRAINING_ORGANIZATION;
 import static fr.uca.cdr.skillful_network.entities.user.Role.Name.ROLE_USER;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 @ActiveProfiles("test")
@@ -97,8 +104,27 @@ public class JSONGenerator {
 
     @SuppressWarnings("all")
     private void saveTo(String name, Class<?> clazz, JpaRepository<?, Long> repository) {
+        boolean jsonFilesHasBeenUpdated = true;
         final JSONLoader jsonLoader = new JSONLoader(PREFIX_PATH + name + EXTENSION_JSON, clazz, repository);
+        if (new File(PREFIX_PATH + name + EXTENSION_JSON).exists()) {
+            try (final JsonReader reader = new JsonReader(new FileReader(
+                    new File(PREFIX_PATH + name + EXTENSION_JSON)
+            ))) {
+                final Gson gson = jsonLoader.getGson();
+                List elements =  Arrays.asList(gson.fromJson(reader, clazz));
+                jsonFilesHasBeenUpdated = repository.findAll().stream().allMatch(elements::contains);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
         jsonLoader.save(repository.findAll());
+        if (!jsonFilesHasBeenUpdated) {
+            fail(
+                    "[CI] This assertion is meant to be run in in ci." + NEW_LINE +
+                    "When modifiying the generation of json files, you must also update the json files" + NEW_LINE +
+                            "Please, push the modification of the json files, or remove the changes in the generator."
+            );
+        }
     }
 
     private Object getRandomElement(JpaRepository<?, Long> repository) {
@@ -121,6 +147,7 @@ public class JSONGenerator {
 
     private <T extends Perk> void  generatePerks(Set<T> perks,
                                String name,
+                               Class<?> perkClassArray,
                                int nbPerk,
                                JpaRepository<T, Long> perkRepository,
                                Function<Faker, T> create) {
@@ -130,7 +157,7 @@ public class JSONGenerator {
                 this.entityManager.persistAndFlush(perk);
             }
         }
-        this.saveTo(name, perks.toArray().getClass(), perkRepository);
+        this.saveTo(name, perkClassArray, perkRepository);
     }
 
     private Function<Faker, Skill> createSkill = (faker) -> new Skill(faker.job().keySkills());
@@ -301,9 +328,9 @@ public class JSONGenerator {
     // TODO try to export the value from h2 db to json
     @Test
     public void generateJSON() {
-        this.generatePerks(new HashSet<>(), "skills", NB_PERKS, this.skillRepository, this.createSkill);
-        this.generatePerks(new HashSet<>(), "qualifications", NB_PERKS, this.qualificationRepository, this.createQualification);
-        this.generatePerks(new HashSet<>(), "subscriptions", NB_PERKS, this.subscriptionRepository, this.createSubscription);
+        this.generatePerks(new HashSet<>(),  "skills", Skill[].class, NB_PERKS, this.skillRepository, this.createSkill);
+        this.generatePerks(new HashSet<>(), "qualifications", Qualification[].class, NB_PERKS, this.qualificationRepository, this.createQualification);
+        this.generatePerks(new HashSet<>(), "subscriptions", Subscription[].class, NB_PERKS, this.subscriptionRepository, this.createSubscription);
         this.generateRoles();
         this.generateKeywords();
         this.generateJobOffers();
