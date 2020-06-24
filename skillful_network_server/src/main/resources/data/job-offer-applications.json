@@ -19,17 +19,17 @@
         ]
       ],
       "id": 1,
-      "name": "Accounting Associate",
-      "company": "Barbier SARL",
-      "description": "De-engineered contextually-based encoding",
+      "name": "Manufacturing Representative",
+      "company": "Lopéz EI",
+      "description": "Organic grid-enabled knowledge user",
       "type": "type1",
-      "dateBeg": "Jun 20, 2020 7:06:34 PM",
-      "dateEnd": "Jun 20, 2020 7:06:34 PM",
-      "dateUpload": "Jun 20, 2020 7:06:34 PM",
+      "dateBeg": "Jun 24, 2020 4:50:43 PM",
+      "dateEnd": "Jun 24, 2020 4:50:43 PM",
+      "dateUpload": "Jun 24, 2020 4:50:43 PM",
       "keywords": [
         {
-          "id": 8,
-          "name": "Organisation",
+          "id": 13,
+          "name": "Claire",
           "jobOffers": [],
           "trainings": []
         }
@@ -41,32 +41,32 @@
     "id": 1,
     "user": {
       "id": 1,
-      "firstName": "Charlotte",
-      "lastName": "Gérard",
+      "firstName": "Maeva",
+      "lastName": "Dupont",
       "password": "Qwerty123",
-      "birthDate": "May 15, 1961 6:32:25 PM",
+      "birthDate": "Jul 3, 1984 3:59:57 AM",
       "email": "user@uca.fr",
-      "mobileNumber": "+33 782884227",
+      "mobileNumber": "+33 6 86 81 69 68",
       "validated": true,
-      "careerGoal": "Principal Officer",
+      "careerGoal": "International Marketing Agent",
       "skillSet": [
         {
-          "id": 4,
-          "name": "Leadership",
+          "id": 10,
+          "name": "Proactive",
           "userList": []
         }
       ],
       "qualificationSet": [
         {
-          "id": 9,
-          "name": "Bachelor of Health Science",
+          "id": 5,
+          "name": "Associate Degree in Creative Arts",
           "userList": []
         }
       ],
       "subscriptionSet": [
         {
-          "id": 8,
-          "name": "BlooP",
+          "id": 9,
+          "name": "TADS",
           "userList": []
         }
       ],
@@ -80,6 +80,6 @@
       ]
     },
     "status": "ACCEPTED",
-    "submitDate": "Jun 20, 2020 7:06:35 PM"
+    "submitDate": "Jun 24, 2020 4:50:43 PM"
   }
 ]

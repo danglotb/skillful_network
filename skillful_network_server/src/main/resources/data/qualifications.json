@@ -1,52 +1,52 @@
 [
   {
     "id": 1,
-    "name": "Associate Degree in Business",
+    "name": "Associate Degree in Teaching",
     "userList": []
   },
   {
     "id": 2,
-    "name": "Master of Architectural Technology",
+    "name": "Associate Degree in Business",
     "userList": []
   },
   {
     "id": 3,
-    "name": "Bachelor of Nursing",
+    "name": "Master of Architectural Technology",
     "userList": []
   },
   {
     "id": 4,
-    "name": "Bachelor of Information Systems",
+    "name": "Master of Computer Science",
     "userList": []
   },
   {
     "id": 5,
-    "name": "Bachelor of Biological Science",
+    "name": "Associate Degree in Creative Arts",
     "userList": []
   },
   {
     "id": 6,
-    "name": "Master of Law",
+    "name": "Associate Degree in Design",
     "userList": []
   },
   {
     "id": 7,
-    "name": "Master of Health Science",
+    "name": "Master of Psychology",
     "userList": []
   },
   {
     "id": 8,
-    "name": "Master of Teaching",
+    "name": "Bachelor of Engineering",
     "userList": []
   },
   {
     "id": 9,
-    "name": "Bachelor of Health Science",
+    "name": "Master of Health Science",
     "userList": []
   },
   {
     "id": 10,
-    "name": "Bachelor of Architectural Technology",
+    "name": "Bachelor of Criminology",
     "userList": []
   }
 ]
