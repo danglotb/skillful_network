@@ -135,6 +135,7 @@ public class UserServiceImpl implements UserService {
         final User currentUser = this.authenticationService.getCurrentUser();
         final String cipheredPassword = this.passwordEncoder.encode(password);
         currentUser.setPassword(cipheredPassword);
+        currentUser.setValidated(Boolean.TRUE);
         this.userRepository.save(currentUser);
         return currentUser;
     }
