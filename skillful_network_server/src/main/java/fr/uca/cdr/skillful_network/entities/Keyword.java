@@ -92,16 +92,16 @@ public class Keyword {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Keyword keyword = (Keyword) o;
         return id == keyword.id &&
-                Objects.equals(name, keyword.name);
+                name.equals(keyword.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
     }
 }
