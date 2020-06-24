@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -368,5 +369,20 @@ public class User implements UserDetails  {
 
 	public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
 		this.authorities = authorities;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		User user = (User) o;
+		return id == user.id &&
+				email.equals(user.email) &&
+				mobileNumber.equals(user.mobileNumber);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, email, mobileNumber);
 	}
 }
