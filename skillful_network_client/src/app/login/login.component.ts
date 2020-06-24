@@ -83,7 +83,7 @@ export class LoginComponent implements OnInit {
         this.openDialog('L\'adresse email  ' + this.inscriptionFormGroup.value.emailInscription + ' que vous avez insérée existe déjà. Veuillez vous connecter.');
         this.router.navigate(['/login']);
       }).catch((error) => {
-        if (error.status == 403) {
+        if (error.status == 401) {
           this.doDisplayCodeVerif = true;
         } else {
           console.log(error);
