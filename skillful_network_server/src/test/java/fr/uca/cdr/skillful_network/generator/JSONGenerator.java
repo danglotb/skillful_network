@@ -47,11 +47,9 @@ import java.util.Random;
 import java.util.Set;
 import java.util.function.Function;
 
-import static com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Text.NEW_LINE;
 import static fr.uca.cdr.skillful_network.entities.user.Role.Name.ROLE_COMPANY;
 import static fr.uca.cdr.skillful_network.entities.user.Role.Name.ROLE_TRAINING_ORGANIZATION;
 import static fr.uca.cdr.skillful_network.entities.user.Role.Name.ROLE_USER;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 @ActiveProfiles("test")
@@ -101,6 +99,8 @@ public class JSONGenerator {
     private static final String PREFIX_PATH = "src/main/resources/data/";
 
     private static final String EXTENSION_JSON = ".json";
+
+    private static final String NEW_LINE = System.getProperty("line.properties");
 
     @SuppressWarnings("all")
     private void saveTo(String name, Class<?> clazz, JpaRepository<?, Long> repository) {
