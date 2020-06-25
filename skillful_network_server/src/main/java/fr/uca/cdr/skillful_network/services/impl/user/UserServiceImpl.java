@@ -11,9 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.google.common.io.Files;
-import fr.uca.cdr.skillful_network.entities.user.Qualification;
-import fr.uca.cdr.skillful_network.entities.user.Skill;
-import fr.uca.cdr.skillful_network.entities.user.Subscription;
+import fr.uca.cdr.skillful_network.entities.user.*;
 import fr.uca.cdr.skillful_network.services.AuthenticationService;
 import fr.uca.cdr.skillful_network.services.user.QualificationService;
 import fr.uca.cdr.skillful_network.services.user.SkillService;
@@ -28,7 +26,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import fr.uca.cdr.skillful_network.entities.user.User;
 import fr.uca.cdr.skillful_network.repositories.user.UserRepository;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
@@ -126,6 +123,17 @@ public class UserServiceImpl implements UserService {
         currentUser.setQualificationSet(this.qualificationService.createNewAndUpdateGivenSet(qualificationSet));
         currentUser.setSkillSet(this.skillService.createNewAndUpdateGivenSet(skillSet));
         currentUser.setSubscriptionSet(this.subscriptionService.createNewAndUpdateGivenSet(subscriptionSet));
+        this.userRepository.save(currentUser);
+        return currentUser;
+    }
+
+    @Override
+    public User updateConfirmationRegister(String firstName, String lastName, Set<Role> roleSet) {
+	    final User currentUser = this.authenticationService.getCurrentUser();
+        currentUser.setFirstName(firstName);
+        currentUser.setLastName(lastName);
+        currentUser.setRoles(roleSet);
+        currentUser.setValidated(Boolean.TRUE);
         this.userRepository.save(currentUser);
         return currentUser;
     }
