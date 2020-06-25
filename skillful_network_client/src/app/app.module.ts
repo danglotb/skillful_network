@@ -26,6 +26,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { ExistingAccountDialog } from './login/existing-account-dialog/existing-account-dialog.component';
 import { ComponentModule } from './shared/components/component.module';
 import { HomeModule } from './home/home.module';
+import { RegistrationConfirmationComponent } from './registration-confirmation/registration-confirmation.component';
 
 @NgModule({
     declarations: [ // Chaque composant que vous créez doit être déclaré ici
@@ -34,6 +35,7 @@ import { HomeModule } from './home/home.module';
         PasswordConfirmationComponent,
         PasswordForgottenComponent,
         ExistingAccountDialog,
+        RegistrationConfirmationComponent,
     ],
 
     imports: [
