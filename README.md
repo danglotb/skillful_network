@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/danglotb/skillful_network.svg?branch=master)](https://travis-ci.org/danglotb/skillful_network) [![Coverage Status](https://coveralls.io/repos/github/danglotb/skillful_network/badge.svg?branch=master)](https://coveralls.io/github/danglotb/skillful_network?branch=master)
+[![Build Status](https://travis-ci.com/danglotb/skillful_network.svg?branch=master)](https://travis-ci.org/danglotb/skillful_network) [![Coverage Status](https://coveralls.io/repos/github/danglotb/skillful_network/badge.svg?branch=master)](https://coveralls.io/github/danglotb/skillful_network?branch=master)
 
 # Skillful Network
 
