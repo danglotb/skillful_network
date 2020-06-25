@@ -19,7 +19,7 @@ import { CommonModule } from '@angular/common';
         MenuSideBarComponent,
         NewsFeedComponent,
         ProfilePictureUploader,
-        ProfileConfComponent
+        ProfileConfComponent,
     ],
     imports: [
         CommonModule,

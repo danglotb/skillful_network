@@ -27,6 +27,7 @@ import { ExistingAccountDialog } from './login/existing-account-dialog/existing-
 import { ComponentModule } from './shared/components/component.module';
 import { HomeModule } from './home/home.module';
 import { RegistrationConfirmationComponent } from './registration-confirmation/registration-confirmation.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
     declarations: [ // Chaque composant que vous créez doit être déclaré ici
@@ -48,7 +49,8 @@ import { RegistrationConfirmationComponent } from './registration-confirmation/r
         FormsModule, // Permet d'appliquer [(ngModel)] aux inputs
         ReactiveFormsModule, // Va nous permettre de créer des Model Driven Forms
         MaterialModule, // Ce module que nous avons créé contient l'ensemble des modules graphiques material à utiliser dans le projet
-        FlexLayoutModule // Permet de positionner à l'aide des fxFlex, fxLayout, fxLayoutAlign etc.     
+        FlexLayoutModule, // Permet de positionner à l'aide des fxFlex, fxLayout, fxLayoutAlign etc. 
+        MatSelectModule   // Permet d'utiliser le mat-select: sélection d'option dans un formulaire 
     ],
 
     entryComponents: [
