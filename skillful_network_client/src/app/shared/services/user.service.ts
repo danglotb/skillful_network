@@ -52,4 +52,8 @@ export class UserService extends SearchService<User> {
     return this.api.put({ endpoint: '/users/password', data: { password: passwordToUpdate } });
   }
 
+  public updateConfirmationRegister(firstName: string, lastName: string, roleSet: string [] ): Promise<any> {
+    return this.api.put({ endpoint: '/users/confirmation', data: { firstName: firstName, lastName : lastName, roleSet : roleSet } });
+  }
+
 }

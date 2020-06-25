@@ -6,6 +6,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
+import fr.uca.cdr.skillful_network.request.ConfirmationRegisterForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -68,6 +69,17 @@ public class UserController {
                 userForm.getSkillSet(),
                 userForm.getQualificationSet(),
                 userForm.getSubscriptionSet()
+        ), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    @Transactional
+    @PutMapping(value = "/confirmation")
+    public ResponseEntity<User> updateConfirmationRegister(@Valid @RequestBody ConfirmationRegisterForm confirmationRegisterForm) {
+        return new ResponseEntity<>(this.userService.updateConfirmationRegister(
+                confirmationRegisterForm.getFirstName(),
+                confirmationRegisterForm.getLastName(),
+                confirmationRegisterForm.getRoleSet()
         ), HttpStatus.OK);
     }
 
