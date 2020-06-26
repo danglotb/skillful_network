@@ -31,7 +31,7 @@ public interface UserService {
 
 	User update(String firstName, String lastName, Date birthDate, String careerGoal, Set<Skill> skillSet, Set<Qualification> qualificationSet, Set<Subscription> subscriptionSet);
 
-	User updateConfirmationRegister(String firstName, String lastName, Set<Role> roleSet);
+	User updateConfirmationRegister(String firstName, String lastName, Set<String> roleSet);
 
 	User updatePassword(String password);
 
