@@ -1,23 +1,10 @@
 package fr.uca.cdr.skillful_network.entities.user;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -34,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-public class User implements UserDetails  {
+public class User implements UserDetails, Followable, Follower  {
 
 	private static final long serialVersionUID = 1L;
 
@@ -98,6 +85,21 @@ public class User implements UserDetails  {
 
 	@Transient
 	private Collection<? extends GrantedAuthority> authorities;
+
+	private FollowableStatus followableStatus = FollowableStatus.on;
+	private FollowableNotification followableNotifiable = FollowableNotification.all;
+
+	@OneToMany(mappedBy = "followed", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+//		@JoinColumn(name = "followed")
+//  	@JsonIgnoreProperties("user")
+//  	@JsonBackReference
+	Set<FollowStateTracker> followableSet = new HashSet<>();
+
+	@OneToMany(mappedBy = "follower", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+//		@JoinColumn(name = "follower")
+//		@JsonIgnoreProperties("user")
+//  	@JsonBackReference
+    Set<FollowStateTracker> followerSet = new HashSet<>();
 
 	public User() {
 		super();
@@ -384,5 +386,67 @@ public class User implements UserDetails  {
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, email, mobileNumber);
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////
+	// FOLLOWABLE Methods
+	////////////////////////////////////////////////////////////////////////////////////
+
+	public Set<FollowStateTracker> getFollowableSet() { return this.followableSet; }
+	public void setFollowableSet(Set<FollowStateTracker> followableSet) { this.followableSet = followableSet; }
+
+	public Set<FollowStateTracker> getFollowerSet() { return this.followerSet; }
+	public void setFollowerSet(Set<FollowStateTracker> followerSet) { this.followerSet = followerSet; }
+
+	@Override
+	public FollowableStatus getFollowableStatus() { return this.followableStatus; }
+	@Override
+	public void setFollowableStatus(FollowableStatus status) { this.followableStatus = status; }
+
+	@Override
+	public FollowableNotification getFollowableNotifiable() { return this.followableNotifiable; }
+	@Override
+	public void setFollowableNotifiable(FollowableNotification followableNotifiable) { this.followableNotifiable = followableNotifiable; }
+
+	@Override
+	public Set<User> getFollowers() { return null; }
+
+	@Override
+	public void banFollower(User follower) { }
+
+	@Override
+	public void notify(Set<String> notifications) { }
+
+	////////////////////////////////////////////////////////////////////////////////////
+	// FOLLOWER Methods
+	////////////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void follow(User followable) {
+
+	}
+
+	@Override
+	public void unfollow(User followable) {
+
+	}
+
+	@Override
+	public void getAllFollowed() {
+
+	}
+
+	@Override
+	public LinkedHashMap<Object, Boolean> getNotifications() {
+		return null;
+	}
+
+	@Override
+	public void setNotifications(Set<String> notifications, Boolean read) {
+
+	}
+
+	@Override
+	public void popNotifications(Set<String> notifications) {
+
 	}
 }
