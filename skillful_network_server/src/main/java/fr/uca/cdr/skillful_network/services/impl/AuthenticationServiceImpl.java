@@ -89,8 +89,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         this.userService.createOrUpdate(user);
         return null;
     }
-
-    private void manageRoles(Set<String> rolesAsString, User user) {
+    @Override
+    public void manageRoles(Set<String> rolesAsString, User user) {
         final Set<Role> roles = new HashSet<>();
         rolesAsString.forEach(roleAsString -> roles.add(
                 this.roleService.findByName(Role.Name.valueOf(roleAsString))
