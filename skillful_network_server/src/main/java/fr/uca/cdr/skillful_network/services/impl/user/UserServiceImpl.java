@@ -128,11 +128,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateConfirmationRegister(String firstName, String lastName, Set<Role> roleSet) {
+    public User updateConfirmationRegister(String firstName, String lastName, Set<String> roleSet) {
 	    final User currentUser = this.authenticationService.getCurrentUser();
         currentUser.setFirstName(firstName);
         currentUser.setLastName(lastName);
-        currentUser.setRoles(roleSet);
+        this.authenticationService.manageRoles(roleSet,currentUser);
         currentUser.setValidated(Boolean.TRUE);
         this.userRepository.save(currentUser);
         return currentUser;
