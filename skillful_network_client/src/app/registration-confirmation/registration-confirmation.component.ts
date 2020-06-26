@@ -33,13 +33,13 @@ export class RegistrationConfirmationComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  
+
   //intégre les formControl au sein du formGroup
   buildForm() {
     this.registrationForm = this.formBuilder.group({
       selectRole: new FormControl('', Validators.required),
-      name: new FormControl('', Validators.required),
-      firstName: new FormControl('')
+      name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
+      firstName: new FormControl('', [Validators.required,Validators.minLength(3), Validators.maxLength(20)])
     });
   }
 
@@ -52,7 +52,7 @@ export class RegistrationConfirmationComponent implements OnInit {
   //Change le validator selon le rôle
   setValidator(event: Event) {
     if (this.getSelected(this.event) == 'ROLE_USER') {
-      this.registrationForm.get('firstName').setValidators(Validators.required);
+      this.registrationForm.get('firstName').setValidators([Validators.required,Validators.minLength(3), Validators.maxLength(20)]);
     } else {
       this.registrationForm.get('firstName').setValidators([]);
     }
@@ -60,8 +60,13 @@ export class RegistrationConfirmationComponent implements OnInit {
   }
 
   async registration() {
-    await this.userService.updateConfirmationRegister(this.registrationForm.value.firstName, this.registrationForm.value.name, [this.selectedValue])
-      .then((data) => {
+    let response;
+    if(this.selectedValue == 'ROLE_USER'){
+      response = this.userService.updateConfirmationRegister(this.registrationForm.value.firstName, this.registrationForm.value.name, [this.selectedValue]);
+    }else{
+      response = this.userService.updateConfirmationRegister(" ", this.registrationForm.value.name, [this.selectedValue]);
+    }
+    await response.then((data) => {
         this.authService.user = data;
         console.log(data);
         this.router.navigate(['/home']);
