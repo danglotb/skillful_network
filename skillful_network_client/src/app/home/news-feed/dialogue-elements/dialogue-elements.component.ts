@@ -9,17 +9,15 @@ import { Publication } from 'src/app/shared/models/application/publication';
   styleUrls: ['./dialogue-elements.component.scss']
 })
 export class DialogueElementsComponent implements OnInit {
-  public listPublication: Publication[];
+
   publicationControl: FormControl;
   public formPost: FormGroup;
   // publication: publication = new publication({});
-  constructor( private fb: FormBuilder, public pub: PublicationService) { 
+  constructor( private fb: FormBuilder) { 
     this._buildForm();
   }
 
   onSubmit() {
-    let publication = new Publication(this.formPost.value);
-    this.pub.ajoutpublication(publication);
   }
 
   private _buildForm() {
