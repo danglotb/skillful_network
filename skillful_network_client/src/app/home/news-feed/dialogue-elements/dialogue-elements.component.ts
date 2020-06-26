@@ -1,4 +1,3 @@
-import { PublicationService } from './../../../shared/services/publication.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder } from "@angular/forms";
 import { Publication } from 'src/app/shared/models/application/publication';
@@ -12,7 +11,6 @@ export class DialogueElementsComponent implements OnInit {
 
   publicationControl: FormControl;
   public formPost: FormGroup;
-  // publication: publication = new publication({});
   constructor( private fb: FormBuilder) { 
     this._buildForm();
   }
