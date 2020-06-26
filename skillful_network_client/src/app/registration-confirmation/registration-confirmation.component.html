@@ -14,7 +14,7 @@
                 (submit)="registration()">
                 <mat-form-field>
                     <mat-label>Vous êtes: </mat-label>
-                    <mat-select formControlName="selectRole" (selectionChange)="setValidator($event)">
+                    <mat-select formControlName="selectRole" (selectionChange)="getSelected($event)" (selectionChange)="setValidator($event)" >
                         <mat-option *ngFor="let role of roles" [value]="role">
                             {{role.valueView}}
                         </mat-option>
