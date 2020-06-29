@@ -53,7 +53,7 @@ export class UserService extends SearchService<User> {
   }
 
   public updateConfirmationRegister(firstName: string, lastName: string, roleSet: string [] ): Promise<any> {
-    return this.api.put({ endpoint: '/users/confirmation', data: { firstName: firstName, lastName : lastName, roleSet : roleSet } });
+    return this.api.put({ endpoint: ROOT_ENDPOINT+'confirmation', data: { firstName: firstName, lastName : lastName, roleSet : roleSet } });
   }
 
 }
