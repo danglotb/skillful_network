@@ -14,8 +14,6 @@ import { ProfileConfComponent } from './profile-conf/profile-conf.component';
 import { CommonModule } from '@angular/common';
 import { DialogueElementsComponent } from './news-feed/dialogue-elements/dialogue-elements.component';
 import { AddPublicationComponent } from './news-feed/add-publication/add-publication.component';
-import { ListPublicationsComponent } from './news-feed/list-publications/list-publications.component';
-import { PublicationComponent } from './news-feed/list-publications/publication/publication.component';
 
 @NgModule({
     declarations: [
@@ -27,8 +25,6 @@ import { PublicationComponent } from './news-feed/list-publications/publication/
         ProfileConfComponent,
         DialogueElementsComponent,
         AddPublicationComponent,
-        ListPublicationsComponent,
-        PublicationComponent
     ],
     imports: [
         CommonModule,
