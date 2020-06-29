@@ -38,7 +38,6 @@ import { PublicationComponent } from './news-feed/list-publications/publication/
         ReactiveFormsModule,
         MaterialModule,
         AppRoutingModule
-      
     ]
 })
 export class HomeModule { }

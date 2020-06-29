@@ -1,5 +1,5 @@
 <div class="div-dialogue">
-    <h1 mat-dialog-title id="title-modal">Créer un post</h1>
+    <h1 mat-dialog-title id="title-modal">Créer une publication</h1>
     <form [formGroup]="formPost" (ngSubmit)="onSubmit()">
         <mat-form-field class="example-full-width">
             <mat-label></mat-label>
@@ -15,8 +15,8 @@
                 <div><span class="material-icons" id="video-icon">video_call</span></div>
             </div>
             <div mat-dialog-actions>
-                <button mat-button color="primary" mat-dialog-close class="bouton-right">Annuler</button>
-                <button  mat-button color="primary" [disabled]="!formPost.valid" type="submit" class="bouton-right">Publier</button>
+                <button mat-button color="skillful" mat-dialog-close>Annuler</button>
+                <button  mat-button color="skillful" [disabled]="!formPost.valid" type="submit">Publier</button>
             </div>
         </div>
     </form>
