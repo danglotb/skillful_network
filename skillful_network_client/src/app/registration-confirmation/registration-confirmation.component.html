@@ -14,7 +14,8 @@
                 (submit)="registration()">
                 <mat-form-field>
                     <mat-label>Vous êtes: </mat-label>
-                    <mat-select formControlName="selectRole" (selectionChange)="getSelected($event)" (selectionChange)="setValidator($event)" >
+                    <mat-select formControlName="selectRole" (selectionChange)="getSelected($event)"
+                        (selectionChange)="setValidator($event)">
                         <mat-option *ngFor="let role of roles" [value]="role">
                             {{role.valueView}}
                         </mat-option>
@@ -39,15 +40,16 @@
                     <mat-label>Prénom</mat-label>
                     <input formControlName="firstName" matInput
                         placeholder="{{registrationForm.value.selectRole.valueView}}" class="form-control">
-                    <mat-icon matSuffix>face</mat-icon>
+                    <mat-icon color="primary">
+                        <i class="material-icons md-32">face</i>
+                    </mat-icon>
                     <mat-error
                         *ngIf="registrationForm.get('firstName').hasError && registrationForm.get('firstName').dirty || registrationForm.get('firstName').touched">
                         <span *ngIf="registrationForm.get('firstName').hasError('required')">Votre prénom est
                             <strong>requis</strong></span>
                     </mat-error>
                 </mat-form-field>
-                <button [disabled]="registrationForm.invalid" type="submit" mat-raised-button
-                    color="primary">Connexion</button>
+                <button [disabled]="registrationForm.invalid" type="submit" color="skillful" mat-raised-button>Connexion</button>
             </form>
         </mat-card-content>
     </mat-card>
