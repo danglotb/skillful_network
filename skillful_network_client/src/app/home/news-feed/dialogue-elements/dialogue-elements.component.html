@@ -1,0 +1,23 @@
+<div class="div-dialogue">
+    <h1 mat-dialog-title id="title-modal">Créer une publication</h1>
+    <form [formGroup]="formPost" (ngSubmit)="onSubmit()">
+        <mat-form-field class="example-full-width">
+            <mat-label></mat-label>
+            <textarea formControlName="publication" matInput placeholder="Qu'est-ce-que vous souhaitez publiez ?" id="message-dialogue"></textarea>
+            <mat-error class="form-control-feedback" *ngIf="formPost.get('publication').hasError('required') || formPost.get('publication').touched">
+                <span>Min.5 caractères.</span>
+            </mat-error>
+        </mat-form-field>
+        <div class="div-bottom">
+            <div class="div-icones">
+                <div><span class="material-icons" id="post-icon">post_add</span></div>
+                <div><span class="material-icons" id="photo-icon">add_a_photo</span></div>
+                <div><span class="material-icons" id="video-icon">video_call</span></div>
+            </div>
+            <div mat-dialog-actions>
+                <button mat-button color="skillful" mat-dialog-close>Annuler</button>
+                <button  mat-button color="skillful" [disabled]="!formPost.valid" type="submit">Publier</button>
+            </div>
+        </div>
+    </form>
+</div>

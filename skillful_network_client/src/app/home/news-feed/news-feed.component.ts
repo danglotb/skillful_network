@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-news-feed',
   templateUrl: './news-feed.component.html',
@@ -8,7 +8,6 @@ import { Component, OnInit, Input } from '@angular/core';
 export class NewsFeedComponent implements OnInit {
 
   constructor() { }
-
   ngOnInit(): void {
 
   }
