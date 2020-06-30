@@ -5,7 +5,7 @@
                 alt="logo université">
         </div>
         <mat-card-title fxLayoutAlign="center center">Finalisation inscription
-            <i class="material-icons">
+            <i class="material-icons md-24 skillfull-orange">
                 perm_identity
             </i>
         </mat-card-title>
@@ -15,34 +15,36 @@
                 <mat-form-field>
                     <mat-label>Vous êtes: </mat-label>
                     <mat-select formControlName="selectRole" (selectionChange)="getSelected($event)"
-                        (selectionChange)="setValidator($event)">
-                        <mat-option *ngFor="let role of roles" [value]="role">
-                            {{role.valueView}}
+                        (selectionChange)="setValidator($event)" >
+                        <mat-option *ngFor="let item of roles | keyvalue" value="{{item.key}}">
+                            {{item.value}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                <!--NAME-->
                 <mat-form-field>
                     <mat-label>Nom</mat-label>
-                    <input formControlName="name" matInput placeholder="{{registrationForm.value.selectRole.valueView}}"
+                    <input formControlName="name" matInput placeholder="Entrer votre nom"
                         class="form-control">
-                    <mat-icon *ngIf="registrationForm.value.selectRole.value != 'ROLE_USER'" matSuffix>business
-                    </mat-icon>
-                    <mat-icon *ngIf="registrationForm.value.selectRole.value == 'ROLE_USER'" matSuffix>face</mat-icon>
+                        <i *ngIf="registrationForm.value.selectRole == 'ROLE_TRAINING_ORGANIZATION'" class="material-icons md-24">
+                            school
+                        </i>
+                        <i *ngIf="registrationForm.value.selectRole == 'ROLE_COMPANY'" class="material-icons md-24">
+                            business
+                        </i>
+                        <i *ngIf="registrationForm.value.selectRole == 'ROLE_USER'" class="material-icons md-24">
+                            account_circle
+                        </i>
                     <mat-error
                         *ngIf="registrationForm.get('name').hasError && registrationForm.get('name').dirty || registrationForm.get('name').touched">
                         <span *ngIf="registrationForm.get('name').hasError('required')">Votre nom est
                             <strong>requis</strong></span>
                     </mat-error>
                 </mat-form-field>
-                <!--FIRST NAME-->
-                <mat-form-field *ngIf="registrationForm.value.selectRole.value == 'ROLE_USER'">
+                <mat-form-field *ngIf="registrationForm.value.selectRole == 'ROLE_USER'">
                     <mat-label>Prénom</mat-label>
                     <input formControlName="firstName" matInput
-                        placeholder="{{registrationForm.value.selectRole.valueView}}" class="form-control">
-                    <mat-icon color="primary">
-                        <i class="material-icons md-32">face</i>
-                    </mat-icon>
+                        placeholder="Entrer votre prénom" class="form-control">
+                        <i class="material-icons md-24">account_circle</i>
                     <mat-error
                         *ngIf="registrationForm.get('firstName').hasError && registrationForm.get('firstName').dirty || registrationForm.get('firstName').touched">
                         <span *ngIf="registrationForm.get('firstName').hasError('required')">Votre prénom est
