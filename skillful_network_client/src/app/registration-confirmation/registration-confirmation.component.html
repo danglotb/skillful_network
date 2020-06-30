@@ -15,17 +15,18 @@
                 <mat-form-field>
                     <mat-label>Vous êtes: </mat-label>
                     <mat-select formControlName="selectRole" (selectionChange)="getSelected($event)"
-                        (selectionChange)="setValidator($event)" >
+                        (selectionChange)="setValidator($event)">
                         <mat-option *ngFor="let item of roles | keyvalue" value="{{item.key}}">
                             {{item.value}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                <mat-form-field>
+                <mat-form-field display="flex">
                     <mat-label>Nom</mat-label>
-                    <input formControlName="name" matInput placeholder="Entrer votre nom"
-                        class="form-control">
-                        <i *ngIf="registrationForm.value.selectRole == 'ROLE_TRAINING_ORGANIZATION'" class="material-icons md-24">
+                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                        <input formControlName="name" matInput placeholder="Entrer votre nom" class="form-control">
+                        <i *ngIf="registrationForm.value.selectRole == 'ROLE_TRAINING_ORGANIZATION'"
+                            class="material-icons md-24">
                             school
                         </i>
                         <i *ngIf="registrationForm.value.selectRole == 'ROLE_COMPANY'" class="material-icons md-24">
@@ -34,24 +35,28 @@
                         <i *ngIf="registrationForm.value.selectRole == 'ROLE_USER'" class="material-icons md-24">
                             account_circle
                         </i>
+                    </div>
                     <mat-error
                         *ngIf="registrationForm.get('name').hasError && registrationForm.get('name').dirty || registrationForm.get('name').touched">
                         <span *ngIf="registrationForm.get('name').hasError('required')">Votre nom est
                             <strong>requis</strong></span>
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field *ngIf="registrationForm.value.selectRole == 'ROLE_USER'">
+                <mat-form-field *ngIf="registrationForm.value.selectRole == 'ROLE_USER'" display="flex">
                     <mat-label>Prénom</mat-label>
-                    <input formControlName="firstName" matInput
-                        placeholder="Entrer votre prénom" class="form-control">
+                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                        <input formControlName="firstName" matInput placeholder="Entrer votre prénom"
+                            class="form-control">
                         <i class="material-icons md-24">account_circle</i>
+                    </div>
                     <mat-error
                         *ngIf="registrationForm.get('firstName').hasError && registrationForm.get('firstName').dirty || registrationForm.get('firstName').touched">
                         <span *ngIf="registrationForm.get('firstName').hasError('required')">Votre prénom est
                             <strong>requis</strong></span>
                     </mat-error>
                 </mat-form-field>
-                <button [disabled]="registrationForm.invalid" type="submit" color="skillful" mat-raised-button>Connexion</button>
+                <button [disabled]="registrationForm.invalid" type="submit" color="skillful"
+                    mat-raised-button>Connexion</button>
             </form>
         </mat-card-content>
     </mat-card>
