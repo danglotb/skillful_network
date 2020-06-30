@@ -27,11 +27,11 @@ import static fr.uca.cdr.skillful_network.security.SecurityConstants.REGISTER_UR
 public class WebSecurity extends AbstractConfiguration {
 
     // ###########################################################################
-    // WebSecurityConfigurerAdapter boolean for HTTP Pattern Matcher Security toggle
-    // to me be set in application.properties file :
-    // - security enabled (or empty/null/commented, default then):
+    // WebSecurity boolean toggle for HTTP Pattern Matcher enablement.
+    // To be modified in application.properties file :
+    // - for security enabled (default or empty/null/commented):
     // api.security.httpPatternMatcher.disabled=false
-    // - security disabled :
+    // - for security disabled :
     // api.security.httpPatternMatcher.disabled=true
     // ###########################################################################
 
