@@ -1,6 +1,7 @@
 package fr.uca.cdr.skillful_network.entities.user;
 
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 public interface Follower {
@@ -10,8 +11,8 @@ public interface Follower {
 
     public void follow(User followable);
     public void unfollow(User followable);
-    public void getAllFollowed();
-    public LinkedHashMap<Object, Boolean> getNotifications();
-    public void setNotifications(Set<String> notifications, Boolean read);
-    public void  popNotifications(Set<String> notifications);
+    public Set<User> getAllFollowed();
+    public LinkedHashSet<Notification> getAllNotifications();
+    public void setNotificationsReadStatus(Set<Notification> notifications, Boolean isRead);
+    public void popNotifications(Set<Notification> notifications);
 }

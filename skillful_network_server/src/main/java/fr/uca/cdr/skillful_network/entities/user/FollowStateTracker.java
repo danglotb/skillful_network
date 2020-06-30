@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Past;
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
@@ -30,7 +31,8 @@ public class FollowStateTracker {
 //    @JsonManagedReference
     private User follower;
 
-    private LinkedHashMap<Object, Boolean> notifications = new LinkedHashMap<>();
+//    private LinkedHashMap<Object, Boolean> notifications = new LinkedHashMap<>();
+    private LinkedHashSet<Notification> notifications = new LinkedHashSet<>();
 
     // Followable states
     private FollowableStatus followedStatus;
@@ -68,15 +70,29 @@ public class FollowStateTracker {
     public void setFollowerNotifiable(FollowerNotification followerNotifiable) { this.followerNotifiable = followerNotifiable; }
 
     // Notification Management
-    public LinkedHashMap<Object, Boolean> getNotifications() { return this.notifications; }
-    public void pushNotifications(Set<Object> notifications) {
-        notifications.forEach(notification -> this.notifications.putIfAbsent(notification, true));
+    public LinkedHashSet<Notification> getNotifications() { return this.notifications; }
+
+    public void pushNotifications(Set<Notification> notifications) {
+        notifications.forEach(notification -> {
+            notification.setRead(false);
+            this.notifications.add(notification);
+        });
     }
-    public void popNotifications(Set<Object> notifications) {
+
+    public void popNotifications(Set<Notification> notifications) {
         notifications.forEach( notification -> this.notifications.remove(notification) );
     }
-    public void setNotificationStatus(Set<Object> notifications, Boolean read) {
-        notifications.forEach( notification -> this.notifications.replace(notification, read) );
+
+    public void setNotificationStatus(Set<Notification> notifications, Boolean read) {
+        notifications.forEach(notification -> {
+            this.notifications.forEach(notif -> {
+                if (notification.getId() == notif.getId()) {
+                    notif.setRead(read);
+                }
+            });
+
+        });
     }
-    public void cleanNotifications() { this.notifications.clear();}
+
+     public void cleanNotifications() { this.notifications.clear();}
 }

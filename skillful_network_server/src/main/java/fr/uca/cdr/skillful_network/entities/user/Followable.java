@@ -11,7 +11,7 @@ public interface Followable {
 
     public Set<User> getFollowers();
     public void banFollower(User follower);
-    public void notify(Set<String> notifications);
+    public void notify(Set<Notification> notifications);
 
     public FollowableStatus getFollowableStatus();
     public void setFollowableStatus(FollowableStatus status);

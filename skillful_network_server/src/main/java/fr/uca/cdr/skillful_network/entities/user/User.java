@@ -2,6 +2,7 @@ package fr.uca.cdr.skillful_network.entities.user;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import javax.persistence.*;
@@ -395,9 +396,6 @@ public class User implements UserDetails, Followable, Follower  {
 	public Set<FollowStateTracker> getFollowableSet() { return this.followableSet; }
 	public void setFollowableSet(Set<FollowStateTracker> followableSet) { this.followableSet = followableSet; }
 
-	public Set<FollowStateTracker> getFollowerSet() { return this.followerSet; }
-	public void setFollowerSet(Set<FollowStateTracker> followerSet) { this.followerSet = followerSet; }
-
 	@Override
 	public FollowableStatus getFollowableStatus() { return this.followableStatus; }
 	@Override
@@ -409,44 +407,89 @@ public class User implements UserDetails, Followable, Follower  {
 	public void setFollowableNotifiable(FollowableNotification followableNotifiable) { this.followableNotifiable = followableNotifiable; }
 
 	@Override
-	public Set<User> getFollowers() { return null; }
+	public Set<User> getFollowers() {
+		return this.followableSet.stream()
+			.map(item -> item.getFollower())
+			.collect(Collectors.toSet());
+	}
 
 	@Override
-	public void banFollower(User follower) { }
+	public void banFollower(User follower) {
+		this.followableSet.forEach(item -> {
+					if ( follower.getId() == item.getFollower().getId()) {
+						item.setFollowerStatus(FollowerStatus.banned);
+					}});
+	}
 
 	@Override
-	public void notify(Set<String> notifications) { }
+	public void notify(Set<Notification> notifications) {
+		this.followableSet.forEach(item -> { item.pushNotifications(notifications); });
+	}
 
 	////////////////////////////////////////////////////////////////////////////////////
 	// FOLLOWER Methods
 	////////////////////////////////////////////////////////////////////////////////////
+
+	public Set<FollowStateTracker> getFollowerSet() { return this.followerSet; }
+	public void setFollowerSet(Set<FollowStateTracker> followerSet) { this.followerSet = followerSet; }
+
 	@Override
 	public void follow(User followable) {
-
+		this.followerSet.add(new FollowStateTracker(followable, this));
 	}
 
 	@Override
 	public void unfollow(User followable) {
-
+		Optional<FollowStateTracker> fst = this.followerSet.stream()
+				.map(item -> {
+					if ( followable.getId() == item.getFollowed().getId()) { return item;}
+					return null;
+				})
+				.findFirst();
+		if (fst.isPresent())  { this.followerSet.remove(fst.get()); }
 	}
 
 	@Override
-	public void getAllFollowed() {
-
+	public Set<User> getAllFollowed() {
+		return this.followerSet.stream()
+				.map(item -> item.getFollowed())
+				.collect(Collectors.toSet());
 	}
 
 	@Override
-	public LinkedHashMap<Object, Boolean> getNotifications() {
-		return null;
+	public LinkedHashSet<Notification> getAllNotifications() {
+
+		LinkedHashSet<Notification> notificationSet = new LinkedHashSet<>();
+
+		// loop on follower fst and get notifications
+		this.followerSet.forEach(fst -> {
+			notificationSet.addAll(fst.getNotifications());
+
+			// loop on fst notifications
+			// fst.getNotifications().entrySet().forEach( notif -> { notificationSet.put(notif.getKey(), notif.getValue()); });
+		});
+		return notificationSet;
 	}
 
 	@Override
-	public void setNotifications(Set<String> notifications, Boolean read) {
+	public void setNotificationsReadStatus(Set<Notification> notifications, Boolean isRead) {
+		// loop on follower fst
+		this.followerSet.forEach(fst -> {
 
+			// loop on fst notifications
+			fst.getNotifications().forEach( item -> {
+
+				// compare notification
+				if (notifications.contains(item)) { item.setRead(isRead); }
+			});
+		});
 	}
 
 	@Override
-	public void popNotifications(Set<String> notifications) {
-
+	public void popNotifications(Set<Notification> notifications) {
+		// loop on follower fst
+		this.followerSet.forEach(fst -> {
+			fst.popNotifications(notifications);
+		});
 	}
 }
