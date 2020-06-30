@@ -16,6 +16,10 @@ import { keyValuesToMap } from '@angular/flex-layout/extended/typings/style/styl
   styleUrls: ['./registration-confirmation.component.scss']
 })
 export class RegistrationConfirmationComponent implements OnInit {
+  //template
+  @Input() title:string = "Finalisation inscription";
+  @Input() icon:string = "person_outline";
+
 
   roles = new Map();
 

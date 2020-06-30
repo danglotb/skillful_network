@@ -1,15 +1,6 @@
-<div class="container">
-    <mat-card class="connectionForm">
-        <div class="logo">
-            <img fxLayoutAlign="center center" class="logoUniversite" src="assets/pictures/Logo_complet.png"
-                alt="logo université">
-        </div>
-        <mat-card-title fxLayoutAlign="center center">Finalisation inscription
-            <i class="material-icons md-24 skillfull-orange">
-                perm_identity
-            </i>
-        </mat-card-title>
-        <mat-card-content>
+<app-login-view-component [title]='title' [loginRef]='FinalInscription' [icon]='icon'></app-login-view-component>
+
+<ng-template #FinalInscription>
             <form [formGroup]="registrationForm" fxLayout="column" fxLayoutAlign="center center" novalidate
                 (submit)="registration()">
                 <mat-form-field>
@@ -58,6 +49,4 @@
                 <button [disabled]="registrationForm.invalid" type="submit" color="skillful"
                     mat-raised-button>Connexion</button>
             </form>
-        </mat-card-content>
-    </mat-card>
-</div>
+</ng-template>
