@@ -1,0 +1,34 @@
+
+#publication-card{
+   margin-top: 5%;
+   margin-left: 15%;
+   margin-right: 15%;
+}
+#title-publication{
+    font-size: 20px;
+    background-color: white;
+    padding-top: 15px;
+    padding-bottom: 15px; 
+}
+.div-principal{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.div-icones{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between !important; 
+    color: #5b7787;
+    padding-top: 18px;
+}
+#video-icon{
+    font-size: 32px;
+}
+#post-icon{
+    font-size: 28px;
+}
+#photo-icon{
+    font-size: 25x;  
+    padding-top: 2px;
+}
