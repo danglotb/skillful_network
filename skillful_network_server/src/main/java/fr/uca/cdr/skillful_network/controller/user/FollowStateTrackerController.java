@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -90,10 +91,10 @@ public class FollowStateTrackerController {
     //Optional<List<Notification>> getAllNotificationsByFollowable(User followable) {};
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
-    @GetMapping(value = "/read/{followerId}/{isRead]")
-    public void setNotifcationsReadStatus(@PathVariable(value = "followerId") Long followerId, List<Notification> notifications, Boolean isRead)  {};
+    @GetMapping(value = "/read/{followerId}")
+    public void setNotifcationsReadStatus(@PathVariable(value = "followerId") Long followerId, @Valid @RequestBody List<Notification> notifications, @RequestParam(name = "read", defaultValue = "true") Boolean isRead)  {};
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
     @GetMapping(value = "/pop/{followerId}")
-    public void popNotifications(@PathVariable(value = "followerId") Long followerId, List<Notification> notifications) {};;
+    public void popNotifications(@PathVariable(value = "followerId") Long followerId, @Valid @RequestBody List<Notification> notifications) {};;
 }
