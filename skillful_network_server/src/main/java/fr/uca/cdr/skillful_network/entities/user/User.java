@@ -1,23 +1,11 @@
 package fr.uca.cdr.skillful_network.entities.user;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -34,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-public class User implements UserDetails  {
+public class User implements UserDetails, Followable, Follower  {
 
 	private static final long serialVersionUID = 1L;
 
@@ -98,6 +86,15 @@ public class User implements UserDetails  {
 
 	@Transient
 	private Collection<? extends GrantedAuthority> authorities;
+
+	private FollowableStatus followableStatus = FollowableStatus.on;
+	private FollowableNotification followableNotifiable = FollowableNotification.all;
+
+	@OneToMany(mappedBy = "followed", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+	private Set<FollowStateTracker> followableSet = new HashSet<>();
+
+	@OneToMany(mappedBy = "follower", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+	private Set<FollowStateTracker> followerSet = new HashSet<>();
 
 	public User() {
 		super();
@@ -384,5 +381,94 @@ public class User implements UserDetails  {
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, email, mobileNumber);
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////
+	// FOLLOWABLE Methods
+	////////////////////////////////////////////////////////////////////////////////////
+
+	public Set<FollowStateTracker> getFollowableSet() { return this.followableSet; }
+	public void setFollowableSet(Set<FollowStateTracker> followableSet) { this.followableSet = followableSet; }
+
+	@Override
+	public FollowableStatus getFollowableStatus() { return this.followableStatus; }
+	@Override
+	public void setFollowableStatus(FollowableStatus status) { this.followableStatus = status; }
+
+	@Override
+	public FollowableNotification getFollowableNotifiable() { return this.followableNotifiable; }
+	@Override
+	public void setFollowableNotifiable(FollowableNotification followableNotifiable) { this.followableNotifiable = followableNotifiable; }
+
+	@Override
+	public Set<User> getFollowers() {
+		return this.followableSet.stream()
+			.map(FollowStateTracker::getFollower)
+			.collect(Collectors.toSet());
+	}
+
+	@Override
+	public void banFollower(User follower) {
+		this.followableSet.stream()
+				.filter( item -> follower.getId() == item.getFollower().getId())
+				.forEach( item -> item.setFollowerStatus(FollowerStatus.banned));
+	}
+
+	@Override
+	public void notify(Set<Notification> notifications) {
+		this.followableSet.forEach(item -> item.pushNotifications(notifications) );
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////
+	// FOLLOWER Methods
+	////////////////////////////////////////////////////////////////////////////////////
+
+	public Set<FollowStateTracker> getFollowerSet() { return this.followerSet; }
+	public void setFollowerSet(Set<FollowStateTracker> followerSet) { this.followerSet = followerSet; }
+
+	@Override
+	public void follow(User followable) {
+		this.followerSet.add(new FollowStateTracker(followable, this));
+	}
+
+	@Override
+	public void unfollow(User followable) {
+		Optional<FollowStateTracker> fst = this.followerSet.stream()
+				.filter( item -> followable.getId() == item.getFollowed().getId() )
+				.findFirst();
+		fst.ifPresent( this.followerSet::remove );
+	}
+
+	@Override
+	public Set<User> getAllFollowed() {
+		return this.followerSet.stream()
+				.map( FollowStateTracker::getFollowed )
+				.collect(Collectors.toSet());
+	}
+
+	@Override
+	public Set<Notification> getAllNotifications() {
+
+		// for Set<Notification> we can do this :
+		 return this.followerSet.stream()
+		 	.flatMap(follower -> follower.getNotifications().stream())
+		 	.collect(Collectors.toSet());
+
+		// if we have LinkedHashSet<V>, we could use this :
+		// LinkedHashSet<Notification> notificationSet = new LinkedHashSet<>();
+		// this.followerSet.forEach( fst -> notificationSet.addAll(fst.getNotifications()) );
+		// if we have LinkedHashMap<K, V>, we could use this :
+		// fst.getNotifications().entrySet().forEach( notif -> { notificationSet.put(notif.getKey(), notif.getValue()); });
+		// return notificationSet;
+	}
+
+	@Override
+	public void setNotificationsReadStatus(Set<Notification> notifications, Boolean isRead) {
+		this.followerSet.forEach( fst -> fst.setNotificationStatus(notifications, isRead) );
+	}
+
+	@Override
+	public void popNotifications(Set<Notification> notifications) {
+		this.followerSet.forEach( fst -> fst.popNotifications(notifications) );
 	}
 }
