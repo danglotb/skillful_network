@@ -49,8 +49,8 @@ public class RoleControllerTest {
     public void testGetRoles() throws Exception {
         mvc.perform(get("/roles").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
-//                .andExpect(jsonPath("$[0].value").value("User"));
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.ROLE_USER").value("User"));
 
     }
 }
