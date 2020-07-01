@@ -20,8 +20,8 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
     @Autowired
     private FollowStateTrackerRepository fstRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+//    @Autowired
+//    private UserRepository userRepository;
 
     @Autowired
     private UserService userService;

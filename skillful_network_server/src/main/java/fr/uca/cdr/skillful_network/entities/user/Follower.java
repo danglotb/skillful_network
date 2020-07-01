@@ -12,7 +12,7 @@ public interface Follower {
     public void follow(User followable);
     public void unfollow(User followable);
     public Set<User> getAllFollowed();
-    public LinkedHashSet<Notification> getAllNotifications();
+    public Set<Notification> getAllNotifications();
     public void setNotificationsReadStatus(Set<Notification> notifications, Boolean isRead);
     public void popNotifications(Set<Notification> notifications);
 }

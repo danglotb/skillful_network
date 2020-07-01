@@ -91,10 +91,10 @@ public class FollowStateTrackerController {
     //Optional<List<Notification>> getAllNotificationsByFollowable(User followable) {};
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
-    @GetMapping(value = "/read/{followerId}")
+    @PostMapping(value = "/read/{followerId}")
     public void setNotifcationsReadStatus(@PathVariable(value = "followerId") Long followerId, @Valid @RequestBody List<Notification> notifications, @RequestParam(name = "read", defaultValue = "true") Boolean isRead)  {};
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
-    @GetMapping(value = "/pop/{followerId}")
+    @PostMapping(value = "/pop/{followerId}")
     public void popNotifications(@PathVariable(value = "followerId") Long followerId, @Valid @RequestBody List<Notification> notifications) {};;
 }

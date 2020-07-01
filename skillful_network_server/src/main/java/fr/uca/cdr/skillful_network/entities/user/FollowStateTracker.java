@@ -23,15 +23,13 @@ public class FollowStateTracker {
 
     @ManyToOne(cascade = CascadeType.REFRESH)
     @JsonIgnoreProperties( { "followableSet", "followerSet"})
-//    @JsonManagedReference
     private User followed;
 
     @ManyToOne(cascade = CascadeType.REFRESH)
     @JsonIgnoreProperties( { "followableSet", "followerSet"})
-//    @JsonManagedReference
     private User follower;
 
-//    private LinkedHashMap<Object, Boolean> notifications = new LinkedHashMap<>();
+    // Notifications List : ordered and unique items
     private LinkedHashSet<Notification> notifications = new LinkedHashSet<>();
 
     // Followable states
@@ -80,17 +78,14 @@ public class FollowStateTracker {
     }
 
     public void popNotifications(Set<Notification> notifications) {
-        notifications.forEach( notification -> this.notifications.remove(notification) );
+        notifications.forEach(this.notifications::remove);
     }
 
     public void setNotificationStatus(Set<Notification> notifications, Boolean read) {
         notifications.forEach(notification -> {
-            this.notifications.forEach(notif -> {
-                if (notification.getId() == notif.getId()) {
-                    notif.setRead(read);
-                }
-            });
-
+            this.notifications.stream()
+                .filter( notificationToUpdate -> notificationToUpdate.getId() == notification.getId() )
+                .forEach( notificationToUpdate -> notificationToUpdate.setRead(read) );
         });
     }
 

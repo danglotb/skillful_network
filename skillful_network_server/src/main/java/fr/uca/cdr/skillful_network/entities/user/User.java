@@ -91,16 +91,10 @@ public class User implements UserDetails, Followable, Follower  {
 	private FollowableNotification followableNotifiable = FollowableNotification.all;
 
 	@OneToMany(mappedBy = "followed", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
-//		@JoinColumn(name = "followed")
-//  	@JsonIgnoreProperties("user")
-//  	@JsonBackReference
-	Set<FollowStateTracker> followableSet = new HashSet<>();
+	private Set<FollowStateTracker> followableSet = new HashSet<>();
 
 	@OneToMany(mappedBy = "follower", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
-//		@JoinColumn(name = "follower")
-//		@JsonIgnoreProperties("user")
-//  	@JsonBackReference
-    Set<FollowStateTracker> followerSet = new HashSet<>();
+	private Set<FollowStateTracker> followerSet = new HashSet<>();
 
 	public User() {
 		super();
@@ -409,21 +403,20 @@ public class User implements UserDetails, Followable, Follower  {
 	@Override
 	public Set<User> getFollowers() {
 		return this.followableSet.stream()
-			.map(item -> item.getFollower())
+			.map(FollowStateTracker::getFollower)
 			.collect(Collectors.toSet());
 	}
 
 	@Override
 	public void banFollower(User follower) {
-		this.followableSet.forEach(item -> {
-					if ( follower.getId() == item.getFollower().getId()) {
-						item.setFollowerStatus(FollowerStatus.banned);
-					}});
+		this.followableSet.stream()
+				.filter( item -> follower.getId() == item.getFollower().getId())
+				.forEach( item -> item.setFollowerStatus(FollowerStatus.banned));
 	}
 
 	@Override
 	public void notify(Set<Notification> notifications) {
-		this.followableSet.forEach(item -> { item.pushNotifications(notifications); });
+		this.followableSet.forEach(item -> item.pushNotifications(notifications) );
 	}
 
 	////////////////////////////////////////////////////////////////////////////////////
@@ -441,55 +434,41 @@ public class User implements UserDetails, Followable, Follower  {
 	@Override
 	public void unfollow(User followable) {
 		Optional<FollowStateTracker> fst = this.followerSet.stream()
-				.map(item -> {
-					if ( followable.getId() == item.getFollowed().getId()) { return item;}
-					return null;
-				})
+				.filter( item -> followable.getId() == item.getFollowed().getId() )
 				.findFirst();
-		if (fst.isPresent())  { this.followerSet.remove(fst.get()); }
+		fst.ifPresent( this.followerSet::remove );
 	}
 
 	@Override
 	public Set<User> getAllFollowed() {
 		return this.followerSet.stream()
-				.map(item -> item.getFollowed())
+				.map( FollowStateTracker::getFollowed )
 				.collect(Collectors.toSet());
 	}
 
 	@Override
-	public LinkedHashSet<Notification> getAllNotifications() {
+	public Set<Notification> getAllNotifications() {
 
-		LinkedHashSet<Notification> notificationSet = new LinkedHashSet<>();
+		// for Set<Notification> we can do this :
+		 return this.followerSet.stream()
+		 	.flatMap(follower -> follower.getNotifications().stream())
+		 	.collect(Collectors.toSet());
 
-		// loop on follower fst and get notifications
-		this.followerSet.forEach(fst -> {
-			notificationSet.addAll(fst.getNotifications());
-
-			// loop on fst notifications
-			// fst.getNotifications().entrySet().forEach( notif -> { notificationSet.put(notif.getKey(), notif.getValue()); });
-		});
-		return notificationSet;
+		// if we have LinkedHashSet<V>, we could use this :
+		// LinkedHashSet<Notification> notificationSet = new LinkedHashSet<>();
+		// this.followerSet.forEach( fst -> notificationSet.addAll(fst.getNotifications()) );
+		// if we have LinkedHashMap<K, V>, we could use this :
+		// fst.getNotifications().entrySet().forEach( notif -> { notificationSet.put(notif.getKey(), notif.getValue()); });
+		// return notificationSet;
 	}
 
 	@Override
 	public void setNotificationsReadStatus(Set<Notification> notifications, Boolean isRead) {
-		// loop on follower fst
-		this.followerSet.forEach(fst -> {
-
-			// loop on fst notifications
-			fst.getNotifications().forEach( item -> {
-
-				// compare notification
-				if (notifications.contains(item)) { item.setRead(isRead); }
-			});
-		});
+		this.followerSet.forEach( fst -> fst.setNotificationStatus(notifications, isRead) );
 	}
 
 	@Override
 	public void popNotifications(Set<Notification> notifications) {
-		// loop on follower fst
-		this.followerSet.forEach(fst -> {
-			fst.popNotifications(notifications);
-		});
+		this.followerSet.forEach( fst -> fst.popNotifications(notifications) );
 	}
 }
