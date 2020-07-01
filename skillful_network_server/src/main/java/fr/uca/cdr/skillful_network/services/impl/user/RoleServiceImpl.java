@@ -8,6 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+
 @Service
 public class RoleServiceImpl implements RoleService {
 
@@ -20,6 +25,22 @@ public class RoleServiceImpl implements RoleService {
                 new ResponseStatusException(HttpStatus.NOT_FOUND,
                         String.format("None role could be found with the name %s", name))
         );
+    }
+
+    @Override
+    public EnumSet<Role.Name> getRoles() {
+        System.out.println("roles: " + EnumSet.allOf(Role.Name.class));
+        return EnumSet.allOf(Role.Name.class);
+    }
+
+    @Override
+    public HashMap<Role.Name, String> getInfoRoles() {
+        return Role.getNamesAndDescriptions();
+    }
+
+    @Override
+    public HashSet<String> getRoleDescription() {
+        return Role.getRoleDescriptions();
     }
 
 }

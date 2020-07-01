@@ -11,15 +11,28 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.NaturalId;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Objects;
 
 @Entity
 public class Role {
 
 	public enum Name {
-		ROLE_USER,
-		ROLE_COMPANY,
-		ROLE_TRAINING_ORGANIZATION;
+		ROLE_USER(" Un utilisateur"),
+		ROLE_COMPANY("Une entreprise"),
+		ROLE_TRAINING_ORGANIZATION("Un organisme de formation");
+
+		private final String description;
+
+		Name(String description) {
+			this.description = description;
+		}
+
+		public String getDescription() {
+			return description;
+		}
+
 	}
 
 	@Id
@@ -32,11 +45,9 @@ public class Role {
 	private Name name;
 
 	public Role() {
-
 	}
 
 	public Role(Name name) {
-		super();
 		this.name = name;
 	}
 
@@ -52,11 +63,15 @@ public class Role {
 		this.name = name;
 	}
 
+
 	@Override
 	public String toString() {
-		return "Role [id=" + id + ", name=" + name + "]";
+		return "Role{" +
+				"id=" + id +
+				", name=" + name +
+				", meaning=" + name.getDescription()+
+				'}';
 	}
-
 
 	@Override
 	public boolean equals(Object o) {
@@ -70,5 +85,23 @@ public class Role {
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, name);
+	}
+
+	public static HashMap<Name, String> getNamesAndDescriptions() {
+		HashMap<Name, String> names = new HashMap<>();
+		for (Name n : Name.values()) {
+			names.put(n, n.getDescription());
+		}
+		System.out.println(names);
+		return names;
+	}
+
+	public static HashSet<String> getRoleDescriptions() {
+		HashSet<String> descriptions = new HashSet<>();
+		for (Name n : Name.values()) {
+			descriptions.add(n.getDescription());
+		}
+		System.out.println(descriptions);
+		return descriptions;
 	}
 }
