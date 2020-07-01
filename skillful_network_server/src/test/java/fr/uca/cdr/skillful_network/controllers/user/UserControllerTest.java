@@ -79,15 +79,17 @@ public class UserControllerTest {
 
         mvc.perform(put("/users/confirmation")
                 .content((new Gson().toJson(new ConfirmationRegisterForm(
-                "Jean",
-                "Jacques",
+                "Pierre",
+                "Afeu",
                 roleSetUpdated)
                 )))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8"))
-                .andExpect(MockMvcResultMatchers.status().isOk());
-                //.andExpect(jsonPath("$.roles.[0].name").value("ROLE_USER"));
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(jsonPath("$.roles.[0].name").value("ROLE_USER"))
+                .andExpect(jsonPath("$.firstName").value("Pierre"))
+                .andExpect(jsonPath("$.lastName").value("Afeu"));
 
 
 
