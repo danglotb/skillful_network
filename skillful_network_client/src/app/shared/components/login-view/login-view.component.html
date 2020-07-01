@@ -1,1 +1,20 @@
-<p>login-view works!</p>
+<section id="login-section" fxLayoutAlign="center center">
+    <!-- section class container -->
+    <mat-card id="login-mat-card">
+        <!-- class="connectionForm" -->
+        <div fxLayoutAlign="center center" id="logo-content">
+            <img id="logoUniversite" src="assets/pictures/Logo_complet.png"
+                alt="logo université">
+        </div>
+        <mat-card-title display=flex>
+            <div fxLayout="row" fxLayoutAlign="space-evenly center" id="login-title">
+                {{this.title}}
+                <i class="material-icons md-24 skillfull-orange">{{this.icon}}</i>
+            </div>
+        </mat-card-title>
+        <mat-card-content>
+            <ng-container [ngTemplateOutlet]="loginRef"></ng-container>
+        </mat-card-content>
+    </mat-card>
+    <div></div>
+</section>

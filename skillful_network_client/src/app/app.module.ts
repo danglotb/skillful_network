@@ -29,6 +29,7 @@ import { HomeModule } from './home/home.module';
 import { RegistrationConfirmationComponent } from './registration-confirmation/registration-confirmation.component';
 import { MatSelectModule } from '@angular/material/select';
 
+
 @NgModule({
     declarations: [ // Chaque composant que vous créez doit être déclaré ici
         AppComponent,
@@ -51,6 +52,8 @@ import { MatSelectModule } from '@angular/material/select';
         MaterialModule, // Ce module que nous avons créé contient l'ensemble des modules graphiques material à utiliser dans le projet
         FlexLayoutModule, // Permet de positionner à l'aide des fxFlex, fxLayout, fxLayoutAlign etc. 
         MatSelectModule   // Permet d'utiliser le mat-select: sélection d'option dans un formulaire 
+
+
     ],
 
     entryComponents: [

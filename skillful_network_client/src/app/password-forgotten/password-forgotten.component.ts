@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ApiHelperService } from '../shared/services/api-helper.service';
 import { UserService } from '../shared/services/user.service';
 import { User } from '../shared/models/user/user';
 import { Router } from '@angular/router';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-password-forgotten',
@@ -11,13 +12,16 @@ import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms'
   styleUrls: ['./password-forgotten.component.scss']
 })
 export class PasswordForgottenComponent implements OnInit {
-  
+  @Input() title: string = "Mot de passe oublié";
+  @Input() icon: string = "lock";
+
+
   loginForm: FormGroup;
   public username: string;
   public email: string;
   public error: boolean;
   public password: string;
- 
+
   emailControl: FormControl;
   FormGroup: FormGroup;
   passwordControlLogin: FormControl;
@@ -27,10 +31,10 @@ export class PasswordForgottenComponent implements OnInit {
   // variable qui servira à afficher le formulaire approprié en fonction du context
   public doDisplayCodeVerif = false;
 
- // Variable de type Regex pour la validation d'un email (def email)
- private _emailRegex = '^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$';
- 
- constructor(private api: ApiHelperService, private userService: UserService, private router: Router, private formBuilder: FormBuilder) { }
+  // Variable de type Regex pour la validation d'un email (def email)
+  private _emailRegex = '^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$';
+
+  constructor(private api: ApiHelperService, private userService: UserService, private router: Router, private formBuilder: FormBuilder, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     // Initialisation à vide des 2 formulaires
@@ -52,7 +56,7 @@ export class PasswordForgottenComponent implements OnInit {
         // Si on est là, ça veut dire que l'email n'existe pas en bdd, on doit donc afficher l'input du code
         this.doDisplayCodeVerif = true;
       })
-   
+
   }
   // Methode appelée lorsque l'on submit le formulaire du code temporaire
   codeValidation() {
@@ -71,9 +75,9 @@ export class PasswordForgottenComponent implements OnInit {
         this.doDisplayCodeVerif = true;
       })
   }
-   // Création du formulaire mot de passe oublié avec un seul champ email
-   buildForm() {
-    this.emailControl= new FormControl(null, Validators.compose([Validators.pattern(this._emailRegex), Validators.required]));
+  // Création du formulaire mot de passe oublié avec un seul champ email
+  buildForm() {
+    this.emailControl = new FormControl(null, Validators.compose([Validators.pattern(this._emailRegex), Validators.required]));
 
     this.FormGroup = new FormGroup({
       email: this.emailControl
@@ -85,4 +89,13 @@ export class PasswordForgottenComponent implements OnInit {
       code: ['', [Validators.required, Validators.minLength(10)]],
     });
   }
-};
+
+  snackBarNewCodeSend() {
+    this._snackBar.open("Vous avez reçu un nouveau code", "X", {
+      duration: 1500,
+      verticalPosition: 'bottom'
+    });
+  }
+
+}
+

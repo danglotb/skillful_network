@@ -1,12 +1,12 @@
 #login-section{
     background-color:rgb(229, 230, 232);
-    height:100%;
+    min-height:100%;
 }
 
 #login-section > mat-card{
     width:350px;
     min-height:600px;
-    background-color:whitesmoke;
+    background-color:white;
 }
 
 #logoUniversite{
