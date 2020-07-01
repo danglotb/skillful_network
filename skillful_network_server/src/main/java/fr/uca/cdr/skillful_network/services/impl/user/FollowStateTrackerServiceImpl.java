@@ -5,6 +5,7 @@ import fr.uca.cdr.skillful_network.entities.user.Follower;
 import fr.uca.cdr.skillful_network.entities.user.Notification;
 import fr.uca.cdr.skillful_network.entities.user.User;
 import fr.uca.cdr.skillful_network.repositories.user.FollowStateTrackerRepository;
+import fr.uca.cdr.skillful_network.repositories.user.NotificationRepository;
 import fr.uca.cdr.skillful_network.repositories.user.UserRepository;
 import fr.uca.cdr.skillful_network.services.user.FollowStateTrackerService;
 import fr.uca.cdr.skillful_network.services.user.UserService;
@@ -19,6 +20,9 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
 
     @Autowired
     private FollowStateTrackerRepository fstRepository;
+
+    @Autowired
+    private NotificationRepository notificationRepository;
 
 //    @Autowired
 //    private UserRepository userRepository;
