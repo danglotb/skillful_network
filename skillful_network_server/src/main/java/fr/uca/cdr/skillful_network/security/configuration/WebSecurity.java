@@ -3,6 +3,7 @@ package fr.uca.cdr.skillful_network.security.configuration;
 import fr.uca.cdr.skillful_network.security.filter.JWTAuthorizationFilter;
 import fr.uca.cdr.skillful_network.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -25,6 +26,18 @@ import static fr.uca.cdr.skillful_network.security.SecurityConstants.REGISTER_UR
 @EnableWebSecurity
 public class WebSecurity extends AbstractConfiguration {
 
+    // ###########################################################################
+    // WebSecurity boolean toggle for HTTP Pattern Matcher enablement.
+    // To be modified in application.properties file :
+    // - for security enabled (default or empty/null/commented):
+    // api.security.httpPatternMatcher.disabled=false
+    // - for security disabled :
+    // api.security.httpPatternMatcher.disabled=true
+    // ###########################################################################
+
+    @Value("${api.security.httpPatternMatcher.disabled:false}")
+    private boolean httpPatternMatcherDisabled;
+
     @Autowired
     private UserService userService;
 
@@ -33,7 +46,10 @@ public class WebSecurity extends AbstractConfiguration {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable().authorizeRequests()
+        http.cors().and().csrf().disable()
+                .authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/**").permitAll();
+        if ( ! httpPatternMatcherDisabled) { // http pattern matcher enabled
+            http.authorizeRequests()
                 .antMatchers(HttpMethod.POST, REGISTER_URL, LOG_IN_URL, "/h2/**", "/whoami").permitAll()
                 .antMatchers(HttpMethod.GET, "/favicon.ico",
                         "/v2/api-docs",
@@ -42,8 +58,13 @@ public class WebSecurity extends AbstractConfiguration {
                         "/configuration/security",
                         "/swagger-ui.html",
                         "/webjars/**",
-                        "/h2/**").permitAll()
-                .anyRequest().authenticated()
+                        "/h2/**").permitAll().anyRequest().authenticated();
+        } else { // http pattern matcher disabled
+            http.authorizeRequests()
+                    .anyRequest().permitAll(); // toutes les pages/requêtes sont accessibles
+        }
+
+        http.authorizeRequests()
                 .and()
                 .addFilter(new JWTAuthorizationFilter(authenticationManager()))
                 // this disables session creation on Spring Security
