@@ -5,16 +5,16 @@ import java.util.Set;
 public interface Followable {
 
     public enum FollowableStatus { on, off, banned, warned, prohibited };
-    public enum FollowableNotification { all, custom, none };
+    public enum FollowableNotifiable { all, custom, none };
 
 
 
-    public Set<User> getFollowers();
+    public Set<User> findFollowers();
     public void banFollower(User follower);
     public void notify(Set<Notification> notifications);
 
     public FollowableStatus getFollowableStatus();
     public void setFollowableStatus(FollowableStatus status);
-    public FollowableNotification getFollowableNotifiable();
-    public void setFollowableNotifiable(FollowableNotification followableNotifiable);
+    public FollowableNotifiable getFollowableNotifiable();
+    public void setFollowableNotifiable(FollowableNotifiable followableNotifiable);
 }

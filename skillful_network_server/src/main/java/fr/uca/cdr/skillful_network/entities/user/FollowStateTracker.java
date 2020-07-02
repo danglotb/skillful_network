@@ -1,15 +1,15 @@
 package fr.uca.cdr.skillful_network.entities.user;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import fr.uca.cdr.skillful_network.entities.user.Followable.*;
 import fr.uca.cdr.skillful_network.entities.user.Follower.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Past;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class FollowStateTracker {
@@ -21,54 +21,68 @@ public class FollowStateTracker {
     @Past
     private Date creationDate;
 
-    @ManyToOne(cascade = CascadeType.REFRESH)
-    @JsonIgnoreProperties( { "followableSet", "followerSet"})
+//    @ManyToOne(cascade = CascadeType.REFRESH)
+//    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.DETACH})
+    @ManyToOne
+    @JsonIgnoreProperties( { "followableSet", "followerSet",
+            "password", "birthDate", "mobileNumber", "validated", "roles", "careerGoal", "skillSet", "qualificationSet", "subscriptionSet",
+            "profilePicture", "authorities", "enabled", "accountNonExpired", "accountNonLocked", "credentialsNonExpired" } )
     private User followed;
 
-    @ManyToOne(cascade = CascadeType.REFRESH)
-    @JsonIgnoreProperties( { "followableSet", "followerSet"})
+//    @ManyToOne(cascade = CascadeType.REFRESH)
+//    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.DETACH})
+    @ManyToOne
+    @JsonIgnoreProperties( { "followableSet", "followerSet", "followableStatus", "followableNotifiable",
+            "password", "birthDate", "mobileNumber", "validated", "roles", "careerGoal", "skillSet", "qualificationSet", "subscriptionSet",
+            "profilePicture", "authorities", "enabled", "accountNonExpired", "accountNonLocked", "credentialsNonExpired" } )
     private User follower;
 
+    @ManyToMany(mappedBy = "followerSet", cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
+    @OrderBy
+    @JsonIgnoreProperties( { "followerSet"})
     // Notifications List : ordered and unique items
-    private LinkedHashSet<Notification> notifications = new LinkedHashSet<>();
+    private Set<Notification> notifications = new HashSet<>();
 
     // Followable states
     private FollowableStatus followedStatus;
-    private FollowableNotification followedNotifiable;
+    private FollowableNotifiable followedNotifiable;
 
     // Follower states
     private FollowerStatus followerStatus;
-    private FollowerNotification followerNotifiable;
+    private FollowerNotifiable followerNotifiable;
+
+    public FollowStateTracker() {}
 
     public FollowStateTracker(User followed, User follower) {
         this.followed = followed;
         this.follower = follower;
         this.creationDate = new Date();
-        this.followedStatus = FollowableStatus.on;
+        this.followedStatus = this.followed.getFollowableStatus();
+        this.followedNotifiable = this.followed.getFollowableNotifiable();
         this.followerStatus = FollowerStatus.on;
-        this.followedNotifiable = FollowableNotification.all;
-        this.followerNotifiable = FollowerNotification.all;
+        this.followerNotifiable = FollowerNotifiable.all;
     }
 
+    public long getId() { return id; }
     // User getters
-    public User getFollowed() { return this.followed; }
-    public User getFollower() { return this.follower; }
+    public User getFollowed() { return followed; }
+    public User getFollower() { return follower; }
 
     // User status Management
-    public FollowableStatus getFollowedStatus() { return this.followedStatus; }
+    public FollowableStatus getFollowedStatus() { return followedStatus; }
     public void setFollowedStatus(FollowableStatus followedStatus) { this.followedStatus = followedStatus; }
 
-    public FollowableNotification getFollowedNotifiable() { return this.followedNotifiable; }
-    public void setFollowedNotifiable(FollowableNotification followedNotifiable) { this.followedNotifiable = followedNotifiable; }
+    public FollowableNotifiable getFollowedNotifiable() { return followedNotifiable; }
+    public void setFollowedNotifiable(FollowableNotifiable followedNotifiable) { this.followedNotifiable = followedNotifiable; }
 
-    public FollowerStatus getFollowerStatus() { return this.followerStatus; }
+    public FollowerStatus getFollowerStatus() { return followerStatus; }
     public void setFollowerStatus(FollowerStatus followerStatus) { this.followerStatus = followerStatus; }
 
-    public FollowerNotification getFollowerNotifiable() { return this.followerNotifiable; }
-    public void setFollowerNotifiable(FollowerNotification followerNotifiable) { this.followerNotifiable = followerNotifiable; }
+    public FollowerNotifiable getFollowerNotifiable() { return followerNotifiable; }
+    public void setFollowerNotifiable(FollowerNotifiable followerNotifiable) { this.followerNotifiable = followerNotifiable; }
 
     // Notification Management
-    public LinkedHashSet<Notification> getNotifications() { return this.notifications; }
+    public Set<Notification> getNotifications() { return notifications; }
 
     public void pushNotifications(Set<Notification> notifications) {
         notifications.forEach(notification -> {
