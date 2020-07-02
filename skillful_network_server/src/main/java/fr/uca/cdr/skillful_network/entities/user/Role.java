@@ -7,13 +7,12 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 import org.hibernate.annotations.NaturalId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 public class Role {
@@ -34,6 +33,8 @@ public class Role {
 		}
 
 	}
+
+	private static final Logger logger = LoggerFactory.getLogger(Role.class);
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -87,21 +88,21 @@ public class Role {
 		return Objects.hash(id, name);
 	}
 
-	public static HashMap<Name, String> getNamesAndDescriptions() {
-		HashMap<Name, String> names = new HashMap<>();
+	public static Map<Name, String> getNamesAndDescriptions() {
+		Map<Name, String> names = new HashMap<>();
 		for (Name n : Name.values()) {
 			names.put(n, n.getDescription());
 		}
-		System.out.println(names);
+		logger.debug("Map names : {}", names);
 		return names;
 	}
 
-	public static HashSet<String> getRoleDescriptions() {
+	public static Set<String> getRoleDescriptions() {
 		HashSet<String> descriptions = new HashSet<>();
 		for (Name n : Name.values()) {
 			descriptions.add(n.getDescription());
 		}
-		System.out.println(descriptions);
+		logger.debug("role's descriptions : {}", descriptions);
 		return descriptions;
 	}
 }

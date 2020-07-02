@@ -3,9 +3,8 @@ package fr.uca.cdr.skillful_network.services.user;
 import fr.uca.cdr.skillful_network.entities.user.Role;
 
 import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public interface RoleService {
 
@@ -13,9 +12,9 @@ public interface RoleService {
 
     EnumSet<Role.Name> getRoles();
 
-    HashMap<Role.Name,String> getInfoRoles();
+    Map<Role.Name,String> getInfoRoles();
 
-    HashSet<String> getRoleDescription();
+    Set<String> getRoleDescription();
 
 
 }

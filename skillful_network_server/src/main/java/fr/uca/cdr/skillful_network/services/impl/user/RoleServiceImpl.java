@@ -3,18 +3,21 @@ package fr.uca.cdr.skillful_network.services.impl.user;
 import fr.uca.cdr.skillful_network.entities.user.Role;
 import fr.uca.cdr.skillful_network.repositories.user.RoleRepository;
 import fr.uca.cdr.skillful_network.services.user.RoleService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Service
 public class RoleServiceImpl implements RoleService {
+
+    private static final Logger logger = LoggerFactory.getLogger(RoleServiceImpl.class);
 
     @Autowired
     private RoleRepository roleRepository;
@@ -29,17 +32,17 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public EnumSet<Role.Name> getRoles() {
-        System.out.println("roles: " + EnumSet.allOf(Role.Name.class));
+        logger.debug("Roles : {}", EnumSet.allOf(Role.Name.class));
         return EnumSet.allOf(Role.Name.class);
     }
 
     @Override
-    public HashMap<Role.Name, String> getInfoRoles() {
+    public Map<Role.Name, String> getInfoRoles() {
         return Role.getNamesAndDescriptions();
     }
 
     @Override
-    public HashSet<String> getRoleDescription() {
+    public Set<String> getRoleDescription() {
         return Role.getRoleDescriptions();
     }
 
