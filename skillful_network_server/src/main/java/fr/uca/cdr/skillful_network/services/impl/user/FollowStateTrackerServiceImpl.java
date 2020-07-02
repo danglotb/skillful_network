@@ -64,8 +64,6 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
 
         User follower = userService.getById(followerID);
         User followable = userService.getById(followableID);
-//        FollowStateTracker fst = fstRepository.findAllByFollowerAndFollowed(follower, followable).get(0);
-//        if ( fst != null ) {
         if ( ! fstRepository.findAllByFollowerAndFollowed(follower, followable).isEmpty() ) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Le suivi est déjà activé.");
         }
@@ -74,19 +72,6 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
     }
 
     @Override
-//    public void unfollow(Long followerID, Long followedID) {
-//        System.out.println("FollowStateTrackerServiceImpl.unfollow("+followerID+","+followedID+")");
-//        if ( followedID == followerID ) {
-//            new ResponseStatusException(HttpStatus.BAD_REQUEST, "Impossible de se suivre soi même!");
-//        }
-//
-//        User follower = userService.getById(followerID);
-//        User followed = userService.getById(followedID);
-//        FollowStateTracker fst = fstRepository.findAllByFollowerAndFollowed(follower, followed).get(0);
-//        System.out.println("fst("+followerID+","+followedID+"): " + fst.getId());
-//        if ( fst == null ) { throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Le suivi n'existe pas."); }
-//        fstRepository.deleteById(fst.getId());
-//    }
     public void unfollowByFSTId(Long fstId) {
         System.out.println("FollowStateTrackerServiceImpl.unfollowById("+fstId+")");
         FollowStateTracker fst = fstRepository.findById(fstId)
@@ -96,12 +81,12 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
         User followed = fst.getFollowed();
         followed.getFollowableSet().remove(fst);
         userService.createOrUpdate(followed);
+
         //update follower
         User follower = fst.getFollower();
         follower.getFollowerSet().remove(fst);
         userService.createOrUpdate(follower);
 
-//        fstRepository.deleteById(fst.getId());
         fstRepository.delete(fst);
     }
 

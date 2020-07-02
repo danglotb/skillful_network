@@ -21,16 +21,12 @@ public class FollowStateTracker {
     @Past
     private Date creationDate;
 
-//    @ManyToOne(cascade = CascadeType.REFRESH)
-//    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.DETACH})
     @ManyToOne
     @JsonIgnoreProperties( { "followableSet", "followerSet",
             "password", "birthDate", "mobileNumber", "validated", "roles", "careerGoal", "skillSet", "qualificationSet", "subscriptionSet",
             "profilePicture", "authorities", "enabled", "accountNonExpired", "accountNonLocked", "credentialsNonExpired" } )
     private User followed;
 
-//    @ManyToOne(cascade = CascadeType.REFRESH)
-//    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.DETACH})
     @ManyToOne
     @JsonIgnoreProperties( { "followableSet", "followerSet", "followableStatus", "followableNotifiable",
             "password", "birthDate", "mobileNumber", "validated", "roles", "careerGoal", "skillSet", "qualificationSet", "subscriptionSet",
@@ -63,8 +59,9 @@ public class FollowStateTracker {
         this.followerNotifiable = FollowerNotifiable.all;
     }
 
+    // structural getters
     public long getId() { return id; }
-    // User getters
+    public Date getCreationDate() { return creationDate; }
     public User getFollowed() { return followed; }
     public User getFollower() { return follower; }
 
