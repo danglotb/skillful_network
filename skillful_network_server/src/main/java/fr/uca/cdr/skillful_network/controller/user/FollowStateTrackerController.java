@@ -37,7 +37,7 @@ public class FollowStateTrackerController {
     }
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
-    @GetMapping(value = "/all/{Id}")
+    @GetMapping(value = "/{Id}")
     public ResponseEntity<FollowStateTracker> getFSTById(@PathVariable(value = "Id") Long Id) {
         FollowStateTracker fst = fstService.getFSTById(Id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune instance trouvée avec l'id: " + Id));
@@ -48,6 +48,13 @@ public class FollowStateTrackerController {
     // Follower methods
     ////////////////////////////////////////////////////////////////////////////////////////////////
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @GetMapping(value = "/all/follower")
+    public ResponseEntity<List<FollowStateTracker>> getAllFSTByFollower() {
+        List<FollowStateTracker> fstList = fstService.getAllFSTByFollower()
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune instance n'est suivie."));
+        return new ResponseEntity<List<FollowStateTracker>>( fstList, HttpStatus.OK);
+    }
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
     @GetMapping(value = "/all/follower/{followerId}")
     public ResponseEntity<List<FollowStateTracker>> getAllFSTByFollowerID(@PathVariable(value = "followerId") Long followerId) {
         List<FollowStateTracker> fstList = fstService.getFSTByFollowerID(followerId)
@@ -56,12 +63,31 @@ public class FollowStateTrackerController {
     }
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @GetMapping(value = "/followed")
+    public ResponseEntity<List<User>> getAllFollowedByFollower() {
+        List<User> followedList = fstService.getAllFollowedByFollower()
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune instance n'est suivie."));
+        return new ResponseEntity<List<User>>( followedList, HttpStatus.OK);
+    };
+
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
     @GetMapping(value = "/followed/{followerId}")
     public ResponseEntity<List<User>> getAllFollowedByFollower(
             @PathVariable(value = "followerId") Long followerId) {
         List<User> followedList = fstService.getAllFollowedByFollowerID(followerId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune instance n'est suivie."));
         return new ResponseEntity<List<User>>( followedList, HttpStatus.OK);
+    };
+
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @PostMapping(value = "/follow/{followableId}")
+    public ResponseEntity<Boolean> follow(
+            @PathVariable(value = "followableId") Long followableId) {
+        if ( fstService.follow(followableId)) {
+            return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<Boolean>( false, HttpStatus.PRECONDITION_FAILED);
+        }
     };
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
@@ -77,9 +103,17 @@ public class FollowStateTrackerController {
     };
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
-    @DeleteMapping(value = "/unfollow/{fstId}")
+    @DeleteMapping(value = "/unfollow/{followedId}")
+    public ResponseEntity<Boolean> unfollowByFollowedID(
+            @PathVariable(value = "followedId") Long followedId) {
+        fstService.unfollowByFollowedID(followedId);
+        return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+    };
+
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @DeleteMapping(value = "/unfollow")
     public ResponseEntity<Boolean> unfollowByFSTId(
-            @PathVariable(value = "fstId") Long fstId) {
+            @RequestParam(name = "fstId") Long fstId) {
         fstService.unfollowByFSTId(fstId);
         return new ResponseEntity<Boolean>(true, HttpStatus.OK);
     };
@@ -92,6 +126,14 @@ public class FollowStateTrackerController {
     // Followable methods
     ////////////////////////////////////////////////////////////////////////////////////////////////
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @GetMapping(value = "/all/followed")
+    public ResponseEntity<List<FollowStateTracker>> getAllFSTByFollowable() {
+        List<FollowStateTracker> fstList = fstService.getAllFSTByFollowable()
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune instance n'est suivie."));
+        return new ResponseEntity<List<FollowStateTracker>>( fstList, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
     @GetMapping(value = "/all/followed/{followableId}")
     public ResponseEntity<List<FollowStateTracker>> getAllFSTByFollowableID(
             @PathVariable(value = "followableId") Long followableId) {
@@ -100,10 +142,17 @@ public class FollowStateTrackerController {
         return new ResponseEntity<List<FollowStateTracker>>( fstList, HttpStatus.OK);
     }
 
-    //public Optional<List<User>>  getAllFollowersBbyFollowable(User followable);
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @GetMapping(value = "/followers")
+    public ResponseEntity<List<User>> getAllFollowersByFollowable() {
+        List<User> followedList = fstService.getAllFollowersByFollowable()
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune instance n'est suivie."));
+        return new ResponseEntity<List<User>>( followedList, HttpStatus.OK);
+    };
+
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
     @GetMapping(value = "/followers/{followableId}")
-    public ResponseEntity<List<User>> getAllFollowersBbyFollowable(
+    public ResponseEntity<List<User>> getAllFollowersByFollowableID(
             @PathVariable(value = "followableId") Long followableId) {
         List<User> followedList = fstService.getAllFollowersByFollowableID(followableId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune instance n'est suivie."));

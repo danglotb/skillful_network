@@ -16,10 +16,13 @@ public interface FollowStateTrackerService {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // Follower methods
     ////////////////////////////////////////////////////////////////////////////////////////////////
+    Optional<List<FollowStateTracker>> getAllFSTByFollower();
     Optional<List<FollowStateTracker>> getFSTByFollowerID(Long followerID);
+    Optional<List<User>> getAllFollowedByFollower();
     Optional<List<User>> getAllFollowedByFollowerID(Long followerID);
+    boolean follow(Long followableID);
     boolean follow(Long followerID, Long followableID);
-//    void unfollow(Long followerID, Long followedID);
+    void unfollowByFollowedID(Long followedID);
     void unfollowByFSTId(Long fstId);
     void setFollowerStatusByFollowableID(Long followerID, Long followableID, Follower.FollowerStatus status);
     void setFollowerNotifiableStatusByFollowableID(Long followerID, Long followableID, Follower.FollowerNotifiable notifiable);
@@ -27,7 +30,9 @@ public interface FollowStateTrackerService {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // Followable methods
     ////////////////////////////////////////////////////////////////////////////////////////////////
+    Optional<List<FollowStateTracker>> getAllFSTByFollowable();
     Optional<List<FollowStateTracker>> getAllFSTByFollowableID(Long followableID);
+    Optional<List<User>>  getAllFollowersByFollowable();
     Optional<List<User>>  getAllFollowersByFollowableID(Long followableID);
     void banFollower(Long followableID, Long followerID);
     void setFollowableStatus(Long followableID, Followable.FollowableStatus status);

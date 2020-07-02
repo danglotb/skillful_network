@@ -12,6 +12,6 @@ import java.util.List;
 public interface FollowStateTrackerRepository extends JpaRepository<FollowStateTracker, Long> {
     List<FollowStateTracker> findAllByFollower(User follower);
 //    boolean existByFollowerAndFollowed(User follower, User followed);
-    List<FollowStateTracker> findAllByFollowerAndFollowed(User follower, User followed);
+    FollowStateTracker findAllByFollowerAndFollowed(User follower, User followed);
     List<FollowStateTracker> findAllByFollowed(User follower);
 }
