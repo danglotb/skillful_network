@@ -88,12 +88,12 @@ public class User implements UserDetails, Followable, Follower  {
 	private Collection<? extends GrantedAuthority> authorities;
 
 	private FollowableStatus followableStatus = FollowableStatus.on;
-	private FollowableNotification followableNotifiable = FollowableNotification.all;
+	private FollowableNotifiable followableNotifiable = FollowableNotifiable.all;
 
-	@OneToMany(mappedBy = "followed", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "followed", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER, orphanRemoval = true)
 	private Set<FollowStateTracker> followableSet = new HashSet<>();
 
-	@OneToMany(mappedBy = "follower", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "follower", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER, orphanRemoval = true)
 	private Set<FollowStateTracker> followerSet = new HashSet<>();
 
 	public User() {
@@ -396,12 +396,12 @@ public class User implements UserDetails, Followable, Follower  {
 	public void setFollowableStatus(FollowableStatus status) { this.followableStatus = status; }
 
 	@Override
-	public FollowableNotification getFollowableNotifiable() { return this.followableNotifiable; }
+	public FollowableNotifiable getFollowableNotifiable() { return this.followableNotifiable; }
 	@Override
-	public void setFollowableNotifiable(FollowableNotification followableNotifiable) { this.followableNotifiable = followableNotifiable; }
+	public void setFollowableNotifiable(FollowableNotifiable followableNotifiable) { this.followableNotifiable = followableNotifiable; }
 
 	@Override
-	public Set<User> getFollowers() {
+	public Set<User> findFollowers() {
 		return this.followableSet.stream()
 			.map(FollowStateTracker::getFollower)
 			.collect(Collectors.toSet());
@@ -440,14 +440,14 @@ public class User implements UserDetails, Followable, Follower  {
 	}
 
 	@Override
-	public Set<User> getAllFollowed() {
+	public Set<User> findAllFollowed() {
 		return this.followerSet.stream()
 				.map( FollowStateTracker::getFollowed )
 				.collect(Collectors.toSet());
 	}
 
 	@Override
-	public Set<Notification> getAllNotifications() {
+	public Set<Notification> findAllNotifications() {
 
 		// for Set<Notification> we can do this :
 		 return this.followerSet.stream()
