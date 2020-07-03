@@ -74,7 +74,7 @@
                     connecter</p>
                 </div>
               </div>
-              <button [disabled]="inscriptionFormGroup.invalid || inscriptionForm.submitted" type="submit"
+              <button [disabled]="inscriptionFormGroup.invalid" type="submit"
                 mat-raised-button color="skillful">Envoyer</button>
             </form>
             <form *ngIf="doDisplayCodeVerif" [formGroup]='codeForm' (ngSubmit)="login()" fxLayout="column"

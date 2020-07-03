@@ -57,6 +57,7 @@ export class LoginComponent implements OnInit {
     this.buildFormLogin();
     this.codeFormBuild();
     this.doDisplayCodeVerif = false;
+    this.checkExistingMail = false;
   }
 
   login() {
@@ -85,7 +86,7 @@ export class LoginComponent implements OnInit {
     this.authService.register(this.inscriptionFormGroup.value.emailInscription, ['ROLE_USER'])
       .then((response) => {
         this.checkExistingMail = true;
-        this.reloadPage();
+        setTimeout(()=>this.reloadPage(),2000);
       }).catch((error) => {
         if (error.status == 401) {
           this.doDisplayCodeVerif = true;
@@ -132,6 +133,6 @@ export class LoginComponent implements OnInit {
   }
 
   reloadPage() {
-    setTimeout(function () { window.location.reload(); }, 3000);
+    this.ngOnInit();
   }
 }
