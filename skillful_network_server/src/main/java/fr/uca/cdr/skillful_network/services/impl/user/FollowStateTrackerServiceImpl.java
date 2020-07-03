@@ -99,26 +99,29 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
         }
 
         // get FST
-        FollowStateTracker fst =  fstRepository.findAllByFollowerAndFollowed(this.authenticationService.getCurrentUser(), followed);
+        FollowStateTracker fst =  fstRepository.findAllByFollowerAndFollowed(
+                this.authenticationService.getCurrentUser(), followed);
         if ( fst == null)  {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Le suivi n'existe pas.");
         }
 
-        // delete FST
+        // delete process
         this.unfollow(fst);
     }
 
     @Override
     public void unfollowByFSTId(Long fstId) {
         System.out.println("FollowStateTrackerServiceImpl.unfollowByFSTId("+fstId+")");
+        // get FST
         FollowStateTracker fst = fstRepository.findById(fstId)
                 .orElseThrow( () -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Le suivi n'existe pas.") );
 
-        // delete FST
+        // delete process
         this.unfollow(fst);
     }
 
     public void unfollow(FollowStateTracker fst) {
+
         //update followed
         User followed = fst.getFollowed();
         followed.getFollowableSet().remove(fst);
@@ -129,18 +132,65 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
         follower.getFollowerSet().remove(fst);
         userService.createOrUpdate(follower);
 
-        // delete
+        // delete FST
         fstRepository.delete(fst);
     }
 
     @Override
-    public void setFollowerStatusByFollowableID(Long followerID, Long followableID, Follower.FollowerStatus status) {
+    public void setFollowerStatusByFollowerID(Long followerID, Follower.FollowerStatus status) {
+        System.out.println("FollowStateTrackerServiceImpl.setFollowerStatusByFollowerID("+followerID+"," + status + ")");
 
+        // get follower user
+        User follower = userService.getById(followerID);
+        if ( follower == null)  {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Aucun User avec l'id: " + followerID);
+        }
+
+        // get all FST and loop with modification
+        fstRepository.findAllByFollower(follower).stream()
+                .forEach( fst -> {
+                    fst.setFollowerStatus(status);
+                    fstRepository.save(fst);
+                });
     }
 
     @Override
-    public void setFollowerNotifiableStatusByFollowableID(Long followerID, Long followableID, Follower.FollowerNotifiable notifiable) {
+    public void setFollowerStatusByFSTID(Long fstId, Follower.FollowerStatus status) {
+        System.out.println("FollowStateTrackerServiceImpl.setFollowerStatusByFSTID("+fstId+"," + status + ")");
+        // get FST
+        FollowStateTracker fst = fstRepository.findById(fstId)
+                .orElseThrow( () -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Le suivi n'existe pas.") );
+        fst.setFollowerStatus(status);
+        fstRepository.save(fst);
+    }
 
+    @Override
+    public void setFollowerNotifiableStatusByFollowedID(Long followedID, Follower.FollowerNotifiable notifiable) {
+        System.out.println("FollowStateTrackerServiceImpl.setFollowerNotifiableStatusByFollowedID("+followedID+"," + notifiable + ")");
+        // get followed user
+        User followed = userService.getById(followedID);
+        if ( followed == null)  {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Aucun User avec l'id: " + followedID);
+        }
+
+        // get FST
+        FollowStateTracker fst =  fstRepository.findAllByFollowerAndFollowed(
+                this.authenticationService.getCurrentUser(), followed);
+        if ( fst == null)  {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Le suivi n'existe pas.");
+        }
+        fst.setFollowerNotifiable(notifiable);
+        fstRepository.save(fst);
+    }
+
+    @Override
+    public void setFollowerNotifiableStatusByFSTID(Long fstId, Follower.FollowerNotifiable notifiable) {
+        System.out.println("FollowStateTrackerServiceImpl.setFollowerNotifiableStatusByFSTID("+fstId+"," + notifiable + ")");
+        // get FST
+        FollowStateTracker fst = fstRepository.findById(fstId)
+                .orElseThrow( () -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Le suivi n'existe pas.") );
+        fst.setFollowerNotifiable(notifiable);
+        fstRepository.save(fst);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////

@@ -24,8 +24,10 @@ public interface FollowStateTrackerService {
     boolean follow(Long followerID, Long followableID);
     void unfollowByFollowedID(Long followedID);
     void unfollowByFSTId(Long fstId);
-    void setFollowerStatusByFollowableID(Long followerID, Long followableID, Follower.FollowerStatus status);
-    void setFollowerNotifiableStatusByFollowableID(Long followerID, Long followableID, Follower.FollowerNotifiable notifiable);
+    void setFollowerStatusByFollowerID(Long followerID, Follower.FollowerStatus status);
+    void setFollowerStatusByFSTID(Long fstId, Follower.FollowerStatus status);
+    void setFollowerNotifiableStatusByFollowedID(Long followedID, Follower.FollowerNotifiable notifiable);
+    void setFollowerNotifiableStatusByFSTID(Long fstId, Follower.FollowerNotifiable notifiable);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // Followable methods

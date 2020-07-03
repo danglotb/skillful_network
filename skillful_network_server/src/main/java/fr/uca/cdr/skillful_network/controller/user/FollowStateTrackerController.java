@@ -1,6 +1,7 @@
 package fr.uca.cdr.skillful_network.controller.user;
 
 import fr.uca.cdr.skillful_network.entities.user.FollowStateTracker;
+import fr.uca.cdr.skillful_network.entities.user.Follower;
 import fr.uca.cdr.skillful_network.entities.user.Notification;
 import fr.uca.cdr.skillful_network.entities.user.User;
 import fr.uca.cdr.skillful_network.services.user.FollowStateTrackerService;
@@ -50,13 +51,16 @@ public class FollowStateTrackerController {
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
     @GetMapping(value = "/all/follower")
     public ResponseEntity<List<FollowStateTracker>> getAllFSTByFollower() {
+
         List<FollowStateTracker> fstList = fstService.getAllFSTByFollower()
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune instance n'est suivie."));
         return new ResponseEntity<List<FollowStateTracker>>( fstList, HttpStatus.OK);
     }
+
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
     @GetMapping(value = "/all/follower/{followerId}")
     public ResponseEntity<List<FollowStateTracker>> getAllFSTByFollowerID(@PathVariable(value = "followerId") Long followerId) {
+
         List<FollowStateTracker> fstList = fstService.getFSTByFollowerID(followerId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune instance n'est suivie."));
         return new ResponseEntity<List<FollowStateTracker>>( fstList, HttpStatus.OK);
@@ -65,6 +69,7 @@ public class FollowStateTrackerController {
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
     @GetMapping(value = "/followed")
     public ResponseEntity<List<User>> getAllFollowedByFollower() {
+
         List<User> followedList = fstService.getAllFollowedByFollower()
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune instance n'est suivie."));
         return new ResponseEntity<List<User>>( followedList, HttpStatus.OK);
@@ -74,6 +79,7 @@ public class FollowStateTrackerController {
     @GetMapping(value = "/followed/{followerId}")
     public ResponseEntity<List<User>> getAllFollowedByFollower(
             @PathVariable(value = "followerId") Long followerId) {
+
         List<User> followedList = fstService.getAllFollowedByFollowerID(followerId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune instance n'est suivie."));
         return new ResponseEntity<List<User>>( followedList, HttpStatus.OK);
@@ -83,6 +89,7 @@ public class FollowStateTrackerController {
     @PostMapping(value = "/follow/{followableId}")
     public ResponseEntity<Boolean> follow(
             @PathVariable(value = "followableId") Long followableId) {
+
         if ( fstService.follow(followableId)) {
             return new ResponseEntity<Boolean>(true, HttpStatus.OK);
         } else {
@@ -95,6 +102,7 @@ public class FollowStateTrackerController {
     public ResponseEntity<Boolean> follow(
             @PathVariable(value = "followerId") Long followerId,
             @PathVariable(value = "followableId") Long followableId) {
+
         if ( fstService.follow(followerId, followableId)) {
             return new ResponseEntity<Boolean>(true, HttpStatus.OK);
         } else {
@@ -106,20 +114,59 @@ public class FollowStateTrackerController {
     @DeleteMapping(value = "/unfollow/{followedId}")
     public ResponseEntity<Boolean> unfollowByFollowedID(
             @PathVariable(value = "followedId") Long followedId) {
+
         fstService.unfollowByFollowedID(followedId);
         return new ResponseEntity<Boolean>(true, HttpStatus.OK);
     };
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
-    @DeleteMapping(value = "/unfollow")
+    @DeleteMapping(value = "/unfollow/fst/{fstId}")
     public ResponseEntity<Boolean> unfollowByFSTId(
-            @RequestParam(name = "fstId") Long fstId) {
+            @PathVariable(value = "fstId") Long fstId) {
+
         fstService.unfollowByFSTId(fstId);
         return new ResponseEntity<Boolean>(true, HttpStatus.OK);
     };
 
-    //public void setFollowerStatusByFollowable(User follower, User followable, Follower.FollowerStatus status);
-    //public void setFollowerNotifiableStatusByFollowable(User follower, User followable, Follower.FollowerNotification notifiable);
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @PostMapping(value = "/follower/status/{followerId}/{status}")
+    public ResponseEntity<Boolean>  setFollowerStatusByFollowerID(
+            @PathVariable(value = "followerId") Long followerId,
+            @Valid @PathVariable(value = "status") Follower.FollowerStatus status) {
+
+        fstService.setFollowerStatusByFollowerID(followerId, status);
+        return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @PostMapping(value = "/follower/status/fst/{fstId}/{status}")
+    public ResponseEntity<Boolean>  setFollowerStatusByFSTID(
+            @PathVariable(value = "fstId") Long fstId,
+            @Valid @PathVariable(value = "status") Follower.FollowerStatus status) {
+
+        fstService.setFollowerStatusByFSTID(fstId, status);
+        return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @PostMapping(value = "/follower/notifiable/{followedId}/{notifiable}")
+    public ResponseEntity<Boolean>  setFollowerNotifiableStatusByFollowedID(
+            @PathVariable(value = "followedId") Long followedId,
+            @Valid @PathVariable(value = "notifiable") Follower.FollowerNotifiable notifiable) {
+
+        fstService.setFollowerNotifiableStatusByFollowedID(followedId, notifiable);
+        return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @PostMapping(value = "/follower/notifiable/fst/{fstId}/{notifiable}")
+    public ResponseEntity<Boolean>  setFollowerNotifiableStatusByFSTID(
+            @PathVariable(value = "fstId") Long fstId,
+            @Valid @PathVariable(value = "notifiable") Follower.FollowerNotifiable notifiable) {
+
+        fstService.setFollowerNotifiableStatusByFSTID(fstId, notifiable);
+        return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+    }
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
