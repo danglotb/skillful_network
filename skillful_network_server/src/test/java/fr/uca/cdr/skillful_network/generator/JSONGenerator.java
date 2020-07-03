@@ -7,6 +7,7 @@ import fr.uca.cdr.skillful_network.entities.Keyword;
 import fr.uca.cdr.skillful_network.entities.application.Application;
 import fr.uca.cdr.skillful_network.entities.application.JobApplication;
 import fr.uca.cdr.skillful_network.entities.application.JobOffer;
+import fr.uca.cdr.skillful_network.entities.application.Post;
 import fr.uca.cdr.skillful_network.entities.application.Training;
 import fr.uca.cdr.skillful_network.entities.application.TrainingApplication;
 import fr.uca.cdr.skillful_network.entities.user.Perk;
@@ -18,6 +19,7 @@ import fr.uca.cdr.skillful_network.entities.user.User;
 import fr.uca.cdr.skillful_network.repositories.KeywordRepository;
 import fr.uca.cdr.skillful_network.repositories.application.JobApplicationRepository;
 import fr.uca.cdr.skillful_network.repositories.application.JobOfferRepository;
+import fr.uca.cdr.skillful_network.repositories.application.PostRepository;
 import fr.uca.cdr.skillful_network.repositories.application.TrainingApplicationRepository;
 import fr.uca.cdr.skillful_network.repositories.application.TrainingRepository;
 import fr.uca.cdr.skillful_network.repositories.user.QualificationRepository;
@@ -87,6 +89,9 @@ public class JSONGenerator {
     @Autowired
     private TrainingApplicationRepository trainingApplicationRepository;
 
+    @Autowired
+    private PostRepository postRepository;
+    
     @Autowired
     private UserRepository userRepository;
 
@@ -322,7 +327,12 @@ public class JSONGenerator {
         user.setRoles(roleSet);
         return user;
     }
-
+    
+ 
+    private void generatePosts() {
+        this.entityManager.persistAndFlush(new Post(0L, new Date(), null, (User) this.getRandomElement(userRepository)));
+        this.saveTo("posts", Post.class, this.postRepository);
+    }
     // TODO add assertions
     // TODO fix coma in the date
     // TODO try to export the value from h2 db to json
@@ -336,5 +346,13 @@ public class JSONGenerator {
         this.generateJobOffers();
         this.generateTrainings();
         this.generateUsers();
+        this.generatePosts();
     }
+
+
+    
+
+    
+    
+    
 }
