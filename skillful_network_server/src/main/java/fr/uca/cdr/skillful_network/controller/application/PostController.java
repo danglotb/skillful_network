@@ -6,11 +6,14 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,6 +39,20 @@ public class PostController {
 		return this.postService.createPost(post);
 	}
 	
+	 @PutMapping(value = "/{id}")
+	    @Transactional
+	    public ResponseEntity<Post> update(@PathVariable(value = "id") long id,
+	                                                   @Valid @RequestBody Post postToUpdate) {
+
+	        return new ResponseEntity<>(
+	                this.postService.update(
+	                        id,
+	                        postToUpdate.getPostbodyText(),
+	                        postToUpdate.getDateOfPost(),
+	                        postToUpdate.getFiles()
+	                ), HttpStatus.OK);
+	    }
+	 
 	@DeleteMapping(value = "/{id}")
     @Transactional
     public void delete(@PathVariable(value = "id") Long id) {
