@@ -30,7 +30,6 @@ public class User implements UserDetails, Followable, Follower  {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@Size(min = 2, max = 20, message = "firstName must be between 2 and 20 characters")
 	private String firstName;
 
 	@Size(min = 2, max = 20, message = "lastName must be between 2 and 20 characters")
@@ -101,7 +100,7 @@ public class User implements UserDetails, Followable, Follower  {
 	}
 
 	private User(
-			@Size(min = 2, max = 20, message = "firstName must be between 2 and 20 characters") String firstName,
+			String firstName,
 			@Size(min = 2, max = 20, message = "lastName must be between 2 and 20 characters") String lastName,
 			@Size(min = 8, message = "password must be at least 8 characters") String password,
 			@Past Date birthDate,

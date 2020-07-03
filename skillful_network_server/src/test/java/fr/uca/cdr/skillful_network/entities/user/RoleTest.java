@@ -2,8 +2,7 @@ package fr.uca.cdr.skillful_network.entities.user;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 
 public class RoleTest {
 
@@ -59,5 +58,17 @@ public class RoleTest {
         final Role roleNotEquals = new Role(Role.Name.ROLE_COMPANY);
 
         assertNotEquals(role.hashCode(), roleNotEquals.hashCode());
+    }
+
+    @Test
+    public void testGetNamesAndDescriptions() {
+
+        final Role.Name[]roles = Role.Name.values();
+        assertTrue(roles.length!=0);
+        assertNotEquals(roles, null);
+        for( Role.Name n : Role.Name.values()) {
+            assertNotEquals(n, null);
+            assertNotEquals(n.getDescription(), null);
+        }
     }
 }

@@ -7,20 +7,34 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 import org.hibernate.annotations.NaturalId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 public class Role {
 
 	public enum Name {
-		ROLE_USER,
-		ROLE_COMPANY,
-		ROLE_TRAINING_ORGANIZATION;
+		ROLE_USER(" Un utilisateur"),
+		ROLE_COMPANY("Une entreprise"),
+		ROLE_TRAINING_ORGANIZATION("Un organisme de formation");
+
+		private final String description;
+
+		Name(String description) {
+			this.description = description;
+		}
+
+		public String getDescription() {
+			return description;
+		}
+
 	}
+
+	private static final Logger logger = LoggerFactory.getLogger(Role.class);
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,11 +46,9 @@ public class Role {
 	private Name name;
 
 	public Role() {
-
 	}
 
 	public Role(Name name) {
-		super();
 		this.name = name;
 	}
 
@@ -52,11 +64,15 @@ public class Role {
 		this.name = name;
 	}
 
+
 	@Override
 	public String toString() {
-		return "Role [id=" + id + ", name=" + name + "]";
+		return "Role{" +
+				"id=" + id +
+				", name=" + name +
+				", meaning=" + name.getDescription()+
+				'}';
 	}
-
 
 	@Override
 	public boolean equals(Object o) {
@@ -70,5 +86,23 @@ public class Role {
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, name);
+	}
+
+	public static Map<Name, String> getNamesAndDescriptions() {
+		Map<Name, String> names = new HashMap<>();
+		for (Name n : Name.values()) {
+			names.put(n, n.getDescription());
+		}
+		logger.debug("Map names : {}", names);
+		return names;
+	}
+
+	public static Set<String> getRoleDescriptions() {
+		HashSet<String> descriptions = new HashSet<>();
+		for (Name n : Name.values()) {
+			descriptions.add(n.getDescription());
+		}
+		logger.debug("role's descriptions : {}", descriptions);
+		return descriptions;
 	}
 }
