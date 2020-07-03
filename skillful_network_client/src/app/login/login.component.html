@@ -6,6 +6,9 @@
       <table>
         <tr>
           <td>
+              <div class="message-guide" *ngIf="checkLogger">
+                <p>Votre email et/ou mot de passe sont incorrects</p>
+              </div>
             <form [formGroup]="loginFormGroup" (submit)="login()" fxLayout="column" fxLayoutAlign="center center"
               novalidate>
               <mat-form-field display="flex">
@@ -74,8 +77,8 @@
                     connecter</p>
                 </div>
               </div>
-              <button [disabled]="inscriptionFormGroup.invalid" type="submit"
-                mat-raised-button color="skillful">Envoyer</button>
+              <button [disabled]="inscriptionFormGroup.invalid" type="submit" mat-raised-button
+                color="skillful">Envoyer</button>
             </form>
             <form *ngIf="doDisplayCodeVerif" [formGroup]='codeForm' (ngSubmit)="login()" fxLayout="column"
               fxLayoutAlign="center center">

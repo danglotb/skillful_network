@@ -26,7 +26,8 @@ export class LoginComponent implements OnInit {
   isLoginFailed = false;
   public rememberMe: FormControl = new FormControl(false);
   isChecked: boolean;
-  checkExistingMail: boolean = false;
+  checkExistingMail: boolean;
+  checkLogger: boolean;
 
   // tslint:disable-next-line: max-line-length
   private _emailRegex = '^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$';
@@ -58,6 +59,7 @@ export class LoginComponent implements OnInit {
     this.codeFormBuild();
     this.doDisplayCodeVerif = false;
     this.checkExistingMail = false;
+    this.checkLogger = false;
   }
 
   login() {
@@ -68,6 +70,7 @@ export class LoginComponent implements OnInit {
       response = this.authService.login(this.inscriptionFormGroup.value.emailInscription, this.codeForm.value.code);
     } else {
       response = this.authService.login(this.loginFormGroup.value.emailLogin, this.loginFormGroup.value.password);
+      this.checkLogger = true;
     }
     response.then((data) => {
       this.tokenStorage.saveTokenAndCurrentUsername(data.token, data.authorities, this.isChecked ? 'local' : '');
@@ -86,7 +89,7 @@ export class LoginComponent implements OnInit {
     this.authService.register(this.inscriptionFormGroup.value.emailInscription, ['ROLE_USER'])
       .then((response) => {
         this.checkExistingMail = true;
-        setTimeout(()=>this.reloadPage(),2000);
+        setTimeout(() => this.reloadPage(), 2000);
       }).catch((error) => {
         if (error.status == 401) {
           this.doDisplayCodeVerif = true;
