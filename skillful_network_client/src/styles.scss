@@ -67,3 +67,23 @@ mat-button {
   border-radius: 50%;
   justify-self: center;
 }
+
+.mat-form-field .mat-form-field-label,
+.mat-form-field .mat-form-field-ripple,
+.mat-form-field.mat-focused .mat-form-field-label,
+.mat-form-field.mat-focused .mat-form-field-label,
+.mat-form-field.mat-form-field-invalid .mat-form-field-label {
+  color: #5b7787;
+}
+.mat-form-field .mat-input-element,
+.mat-form-field.mat-focused .mat-input-element {
+  color: grey;
+}
+.mat-form-field.mat-focused .mat-form-field-ripple,
+.mat-tab-group.mat-primary .mat-ink-bar,
+.mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  background-color: #1a7ea2;
+}
+
+
+
