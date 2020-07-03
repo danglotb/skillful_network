@@ -27,7 +27,8 @@ const routes: Routes = [
     },
     {
         path: 'registration',
-        component: RegistrationConfirmationComponent
+        component: RegistrationConfirmationComponent,
+        canActivate: [IsLoggedGuard]
     },
     {
         path:'passwordForgotten',
