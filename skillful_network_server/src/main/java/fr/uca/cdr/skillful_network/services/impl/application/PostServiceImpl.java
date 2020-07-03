@@ -47,10 +47,7 @@ public class PostServiceImpl implements PostService{
 
 	@Override
 	public Post update(long id, String postbodyText, Date dateOfPost, Set<String> files) {
-		final Post post = this.repository.findById(id).orElseThrow(() ->
-		new ResponseStatusException(HttpStatus.NOT_FOUND,
-				String.format("None Post could be found with the id %d", id))
-);
+		final Post post = this.repository.findById(id).get();
 post.setPostbodyText(postbodyText);
 post.setDateOfPost(dateOfPost);
 post.setFiles(files);
