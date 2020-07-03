@@ -4,8 +4,6 @@ import { AuthService } from '../shared/services/auth.service';
 import { TokenStorageService } from '../shared/services/token-storage.service';
 import { Router } from '@angular/router';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { ExistingAccountDialog } from './existing-account-dialog/existing-account-dialog.component';
 import { JwtResponse } from '../shared/models/jwt-response';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -51,7 +49,6 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private tokenStorage: TokenStorageService,
-    public dialog: MatDialog,
     private _snackBar: MatSnackBar) {
   }
 
