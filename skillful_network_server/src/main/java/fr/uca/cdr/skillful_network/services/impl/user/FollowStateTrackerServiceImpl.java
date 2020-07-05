@@ -3,7 +3,6 @@ package fr.uca.cdr.skillful_network.services.impl.user;
 import fr.uca.cdr.skillful_network.entities.user.*;
 import fr.uca.cdr.skillful_network.repositories.user.FollowStateTrackerRepository;
 import fr.uca.cdr.skillful_network.repositories.user.NotificationRepository;
-import fr.uca.cdr.skillful_network.repositories.user.UserRepository;
 import fr.uca.cdr.skillful_network.services.AuthenticationService;
 import fr.uca.cdr.skillful_network.services.user.FollowStateTrackerService;
 import fr.uca.cdr.skillful_network.services.user.UserService;
@@ -150,7 +149,7 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
 
     public void setFollowerStatusByFollower(User follower, Follower.FollowerStatus status) {
         // get all FST and loop with modification
-        fstRepository.findAllByFollower(follower).stream()
+        fstRepository.findAllByFollower(follower)
                 .forEach( fst -> {
                     fst.setFollowerStatus(status);
                     //  System.out.println("fstId: "+fst.getId()+" -> " + fst.getFollowerStatus());
@@ -199,7 +198,7 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
 
     public void setFollowerNotifiableStatusByFollower(User follower, Follower.FollowerNotifiable notifiable) {
         // get all FST and loop with modification
-        fstRepository.findAllByFollower(follower).stream()
+        fstRepository.findAllByFollower(follower)
                 .forEach( fst -> {
                     fst.setFollowerNotifiable(notifiable);
                     //  System.out.println("fstId: "+fst.getId()+" -> " + fst.getFollowerNotifiable());
@@ -307,7 +306,7 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
         userService.createOrUpdate(followed);
 
         // get all FST and loop with modification
-        fstRepository.findAllByFollowed(followed).stream()
+        fstRepository.findAllByFollowed(followed)
                 .forEach( fst -> {
                     fst.setFollowedStatus(status);
                     //  System.out.println("fstId: "+fst.getId()+" -> " + fst.getFollowedStatus());
@@ -368,7 +367,7 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
         userService.createOrUpdate(followed);
 
         // get all FST and loop with modification
-        fstRepository.findAllByFollowed(followed).stream()
+        fstRepository.findAllByFollowed(followed)
                 .forEach( fst -> {
                     fst.setFollowedNotifiable(notifiable);
                     //  System.out.println("fstId: "+fst.getId()+" -> " + fst.getFollowedNotifiable());
@@ -431,7 +430,7 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
     }
 
     @Override
-    public void setNotifcationsReadStatus(Long followerID, List<Notification> notifications, Boolean isRead) {
+    public void setNotificationsReadStatus(Long followerID, List<Notification> notifications, Boolean isRead) {
 
     }
 
