@@ -38,10 +38,10 @@ public class FollowStateTrackerController {
     }
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
-    @GetMapping(value = "/{Id}")
-    public ResponseEntity<FollowStateTracker> getFSTById(@PathVariable(value = "Id") Long Id) {
-        FollowStateTracker fst = fstService.getFSTById(Id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune instance trouvée avec l'id: " + Id));
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<FollowStateTracker> getFSTById(@PathVariable(value = "id") Long id) {
+        FollowStateTracker fst = fstService.getFSTById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune instance trouvée avec l'id: " + id));
         return new ResponseEntity<>( fst, HttpStatus.OK);
     }
 
