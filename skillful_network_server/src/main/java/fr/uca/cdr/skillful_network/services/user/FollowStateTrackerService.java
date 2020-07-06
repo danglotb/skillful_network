@@ -66,7 +66,17 @@ public interface FollowStateTrackerService {
     Optional<List<Notification>> getAllNotificationsByFollower(Long followerID);
     Optional<List<Notification>> getAllNotificationsByFollowable(Long followableID);
     Optional<List<Notification>> getAllNotificationsByFollowerAndByFollowable(Long followerID, Long followableID);
+
+    Boolean isNotificationsEmpty();
+    Boolean isNotificationsEmpty(Long followerID);
+
+    Long notificationsSize();
+    Long notificationsSize(Long followerID);
+
+    void setNotificationsReadStatus(List<Notification> notifications, Boolean isRead);
     void setNotificationsReadStatus(Long followerID, List<Notification> notifications, Boolean isRead);
+
+    void popNotifications(List<Notification> notifications);
     void popNotifications(Long followerID, List<Notification> notifications);
 
 }

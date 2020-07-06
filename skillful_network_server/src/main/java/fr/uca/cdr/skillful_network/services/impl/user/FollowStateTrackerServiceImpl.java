@@ -430,12 +430,26 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
     }
 
     @Override
-    public void setNotificationsReadStatus(Long followerID, List<Notification> notifications, Boolean isRead) {
-
-    }
+    public Boolean isNotificationsEmpty() { return true; }
 
     @Override
-    public void popNotifications(Long followerID, List<Notification> notifications) {
+    public Boolean isNotificationsEmpty(Long followerID) { return true; }
 
-    }
+    @Override
+    public Long notificationsSize() { return 0L; }
+
+    @Override
+    public Long notificationsSize(Long followerID) { return 0L; }
+
+    @Override
+    public void setNotificationsReadStatus(List<Notification> notifications, Boolean isRead) {}
+
+    @Override
+    public void setNotificationsReadStatus(Long followerID, List<Notification> notifications, Boolean isRead) {}
+
+    @Override
+    public void popNotifications(List<Notification> notifications) {}
+
+    @Override
+    public void popNotifications(Long followerID, List<Notification> notifications) {}
 }

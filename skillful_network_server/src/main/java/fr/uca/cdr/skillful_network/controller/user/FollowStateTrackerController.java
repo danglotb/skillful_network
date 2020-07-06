@@ -428,7 +428,39 @@ public class FollowStateTrackerController {
     //Optional<List<Notification>> getAllNotificationsByFollowable(User followable) {};
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
-    @PostMapping(value = "/read/{followerId}")
+    @GetMapping(value = "/notification/isEmpty")
+    public ResponseEntity<Boolean> isNotificationsEmpty() {
+        return new ResponseEntity<>(fstService.isNotificationsEmpty(), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @GetMapping(value = "/notification/isEmpty/{followerId}")
+    public ResponseEntity<Boolean> isNotificationsEmpty(Long followerID) {
+        return new ResponseEntity<>(fstService.isNotificationsEmpty(followerID), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @GetMapping(value = "/notification/size")
+    public ResponseEntity<Long> notificationsSize() {
+        return new ResponseEntity<>(fstService.notificationsSize(), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @GetMapping(value = "/notification/size/{followerId}")
+    public ResponseEntity<Long> notificationsSize(Long followerID) {
+        return new ResponseEntity<>(fstService.notificationsSize(followerID), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @PostMapping(value = "/notification/read")
+    public void setNotifcationsReadStatus(
+            @Valid @RequestBody List<Notification> notifications,
+            @RequestParam(name = "read", defaultValue = "true") Boolean isRead)  {
+        fstService.setNotificationsReadStatus(notifications, isRead);
+    }
+
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @PostMapping(value = "/notification/read/{followerId}")
     public void setNotifcationsReadStatus(
             @PathVariable(value = "followerId") Long followerId,
             @Valid @RequestBody List<Notification> notifications,
@@ -437,7 +469,14 @@ public class FollowStateTrackerController {
     }
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
-    @PostMapping(value = "/pop/{followerId}")
+    @DeleteMapping(value = "/notification/pop")
+    public void popNotifications(
+            @Valid @RequestBody List<Notification> notifications) {
+        fstService.popNotifications(notifications);
+    }
+
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @DeleteMapping(value = "/notification/pop/{followerId}")
     public void popNotifications(
             @PathVariable(value = "followerId") Long followerId,
             @Valid @RequestBody List<Notification> notifications) {
