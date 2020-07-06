@@ -16,22 +16,48 @@ public interface FollowStateTrackerService {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // Follower methods
     ////////////////////////////////////////////////////////////////////////////////////////////////
+    Optional<List<FollowStateTracker>> getAllFSTByFollower();
     Optional<List<FollowStateTracker>> getFSTByFollowerID(Long followerID);
-    Optional<List<User>> getAllFollowedByFollowerID(Long followerID);
+
+    Optional<List<User>>  getAllFollowersByFollowable();
+    Optional<List<User>>  getAllFollowersByFollowableID(Long followableID);
+
+    boolean follow(Long followableID);
     boolean follow(Long followerID, Long followableID);
-//    void unfollow(Long followerID, Long followedID);
+    void unfollowByFollowedID(Long followedID);
     void unfollowByFSTId(Long fstId);
-    void setFollowerStatusByFollowableID(Long followerID, Long followableID, Follower.FollowerStatus status);
-    void setFollowerNotifiableStatusByFollowableID(Long followerID, Long followableID, Follower.FollowerNotifiable notifiable);
+
+    void setFollowerStatus(Follower.FollowerStatus status);
+    void setFollowerStatusByFollowerID(Long followerID, Follower.FollowerStatus status);
+    void setFollowerStatusByFollowedID(Long followedID, Follower.FollowerStatus status);
+    void setFollowerStatusByFSTID(Long fstId, Follower.FollowerStatus status);
+
+    void setFollowerNotifiableStatus(Follower.FollowerNotifiable notifiable);
+    void setFollowerNotifiableStatusByFollowerID(Long followerID, Follower.FollowerNotifiable notifiable);
+    void setFollowerNotifiableStatusByFollowedID(Long followedID, Follower.FollowerNotifiable notifiable);
+    void setFollowerNotifiableStatusByFSTID(Long fstId, Follower.FollowerNotifiable notifiable);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // Followable methods
     ////////////////////////////////////////////////////////////////////////////////////////////////
+    Optional<List<FollowStateTracker>> getAllFSTByFollowable();
     Optional<List<FollowStateTracker>> getAllFSTByFollowableID(Long followableID);
-    Optional<List<User>>  getAllFollowersByFollowableID(Long followableID);
-    void banFollower(Long followableID, Long followerID);
-    void setFollowableStatus(Long followableID, Followable.FollowableStatus status);
-    void setFollowableNotifiableStatus(Long followableID, Followable.FollowableNotifiable notifiable);
+
+    Optional<List<User>> getAllFollowedByFollower();
+    Optional<List<User>> getAllFollowedByFollowerID(Long followerID);
+
+    void banFollower(Long followerID);
+    void banFollower(Long followedID, Long followerID);
+
+    void setFollowableStatus(Followable.FollowableStatus status);
+    void setFollowableStatusByFollowedID(Long followedID, Followable.FollowableStatus status);
+    void setFollowableStatusByFollowerID(Long followerID, Followable.FollowableStatus status);
+    void setFollowableStatusByFSTID(Long fstId, Followable.FollowableStatus status);
+
+    void setFollowableNotifiableStatus(Followable.FollowableNotifiable notifiable);
+    void setFollowableNotifiableStatusByFollowedID(Long followedID, Followable.FollowableNotifiable notifiable);
+    void setFollowableNotifiableStatusByFollowerID(Long followerID, Followable.FollowableNotifiable notifiable);
+    void setFollowableNotifiableStatusByFSTID(Long fstId, Followable.FollowableNotifiable notifiable);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // notification methods
@@ -40,7 +66,7 @@ public interface FollowStateTrackerService {
     Optional<List<Notification>> getAllNotificationsByFollower(Long followerID);
     Optional<List<Notification>> getAllNotificationsByFollowable(Long followableID);
     Optional<List<Notification>> getAllNotificationsByFollowerAndByFollowable(Long followerID, Long followableID);
-    void setNotifcationsReadStatus(Long followerID, List<Notification> notifications, Boolean isRead);
+    void setNotificationsReadStatus(Long followerID, List<Notification> notifications, Boolean isRead);
     void popNotifications(Long followerID, List<Notification> notifications);
 
 }
