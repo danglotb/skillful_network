@@ -24,7 +24,7 @@ import { AddPublicationComponent } from './news-feed/add-publication/add-publica
         ProfilePictureUploader,
         ProfileConfComponent,
         DialogueElementsComponent,
-        AddPublicationComponent,
+        AddPublicationComponent
     ],
     imports: [
         CommonModule,

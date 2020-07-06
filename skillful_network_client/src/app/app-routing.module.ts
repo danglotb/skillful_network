@@ -10,6 +10,7 @@ import { PasswordForgottenComponent } from './password-forgotten/password-forgot
 import {HomeComponent} from './home/home.component';
 import {HOME_ROUTES} from './home/home.routes';
 import {IsLoggedGuard} from './shared/guards/is-logged.guard';
+import {RegistrationConfirmationComponent} from './registration-confirmation/registration-confirmation.component';
 
 const routes: Routes = [
     {
@@ -23,6 +24,10 @@ const routes: Routes = [
     {
         path: 'password',
         component: PasswordConfirmationComponent
+    },
+    {
+        path: 'registration',
+        component: RegistrationConfirmationComponent
     },
     {
         path:'passwordForgotten',

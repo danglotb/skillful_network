@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
       this.tokenStorage.saveTokenAndCurrentUsername(data.token, data.authorities, this.isChecked ? 'local' : '');
       this.authService.user = data.user;
       if (this.doDisplayCodeVerif) {
-        this.router.navigate(['/password']);
+        this.router.navigate(['/registration']);
       } else {
         this.router.navigate(['/home']);
       }

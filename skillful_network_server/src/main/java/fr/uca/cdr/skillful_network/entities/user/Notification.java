@@ -1,9 +1,8 @@
 package fr.uca.cdr.skillful_network.entities.user;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Notification {
@@ -12,10 +11,15 @@ public class Notification {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @ManyToMany( cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
+    private Set<FollowStateTracker> followerSet = new HashSet<>();
+
     private String label;
     // notified object should be put here
     //private Post notifiedPost;
     private Boolean isRead;
+
+    public Notification() {}
 
     public Notification(String label) {
         this.label = label;

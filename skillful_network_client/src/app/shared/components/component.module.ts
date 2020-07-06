@@ -11,13 +11,15 @@ import { RouterModule } from '@angular/router';
 import { UserPageComponent } from './user/user-page.component';
 import { UserConfComponent } from './user/user-conf/user-conf.component';
 import { FormCardComponent } from './form-card/form-card.component';
+import { LoginViewComponent } from './login-view/login-view.component';
 
 const COMPONENT_MODULES = [
     CardComponent,
     ChipComponent,
     ListComponent,
     UserPageComponent,
-    UserConfComponent
+    UserConfComponent,
+    LoginViewComponent
 ]
 
 const REACTIVE_FORM_DIRECTIVES = [
@@ -28,7 +30,7 @@ const REACTIVE_FORM_DIRECTIVES = [
 @NgModule({
     declarations: [
         COMPONENT_MODULES,
-        FormCardComponent,
+        FormCardComponent
     ],
     exports: [
         COMPONENT_MODULES
