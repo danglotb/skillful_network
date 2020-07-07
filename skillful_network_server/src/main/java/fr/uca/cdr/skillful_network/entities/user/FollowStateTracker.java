@@ -1,15 +1,16 @@
 package fr.uca.cdr.skillful_network.entities.user;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import fr.uca.cdr.skillful_network.entities.user.Followable.*;
-import fr.uca.cdr.skillful_network.entities.user.Follower.*;
+import fr.uca.cdr.skillful_network.entities.user.Followable.FollowableNotifiable;
+import fr.uca.cdr.skillful_network.entities.user.Followable.FollowableStatus;
+import fr.uca.cdr.skillful_network.entities.user.Follower.FollowerNotifiable;
+import fr.uca.cdr.skillful_network.entities.user.Follower.FollowerStatus;
 
 import javax.persistence.*;
 import javax.validation.constraints.Past;
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class FollowStateTracker {
@@ -92,11 +93,11 @@ public class FollowStateTracker {
         notifications.forEach(this.notifications::remove);
     }
 
-    public void setNotificationStatus(Set<Notification> notifications, Boolean read) {
+    public void setNotificationReadStatus(Set<Notification> notifications, Boolean isRead) {
         notifications.forEach(notification -> {
             this.notifications.stream()
                 .filter( notificationToUpdate -> notificationToUpdate.getId() == notification.getId() )
-                .forEach( notificationToUpdate -> notificationToUpdate.setRead(read) );
+                .forEach( notificationToUpdate -> notificationToUpdate.setRead(isRead) );
         });
     }
 

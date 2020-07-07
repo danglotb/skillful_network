@@ -2,7 +2,6 @@ package fr.uca.cdr.skillful_network.entities.user;
 
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import javax.persistence.*;
@@ -464,7 +463,7 @@ public class User implements UserDetails, Followable, Follower  {
 
 	@Override
 	public void setNotificationsReadStatus(Set<Notification> notifications, Boolean isRead) {
-		this.followerSet.forEach( fst -> fst.setNotificationStatus(notifications, isRead) );
+		this.followerSet.forEach( fst -> fst.setNotificationReadStatus(notifications, isRead) );
 	}
 
 	@Override

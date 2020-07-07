@@ -395,37 +395,95 @@ public class FollowStateTrackerController {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    // notification methods
+    // notification methods :
+    //
+    // /notification/push                           pushNotifications(notifications)    (currentUser -> followed)
+    // /notification/push/{followedId}              pushNotifications(followedID, notifications)
+    //
+    // /notification                                getAllNotificationsByFollowerId()   (currentUser -> follower)
+    // /notification/{followerId}                   getAllNotificationsByFollowerId(followerId)
+    // /notification/{followerId}/{followableId}    getAllNotificationsByFollowerIdAndByFollowedId(followerId, followableId)
+    //
+    // /notification/labels                         getAllLabelsByFollowerId()          (currentUser -> follower)
+    // /notification/labels/{followerId}")          getAllLabelsByFollowerId(followerId)
+    //
+    // /notification/isEmpty                        isNotificationsEmpty()              (currentUser -> follower)
+    // /notification/isEmpty/{followerId}           isNotificationsEmpty(Long followerID)
+    //
+    // /notification/size                           notificationsSize()                 (currentUser -> follower)
+    // /notification/size/{followerId}              notificationsSize(Long followerID)
+    //
+    // /notification/unread/                        unreadNotificationsCount()          (currentUser -> follower)
+    // /notification/unread/{followerId}            unreadNotificationsCount(followerId)
+    //
+    // /notification/read/                          setNotificationsReadStatus(notifications, isRead)   (currentUser -> follower)
+    // /notification/read/{followerId}              setNotificationsReadStatus(followerId, notifications, isRead)
+    //
+    // /notification/pop                            popNotifications(notifications)     (currentUser -> follower)
+    // /notification/pop/{followerId}               popNotifications(followerId, notifications)
+    //
     ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @PostMapping(value = "/notification/push")
+    void pushNotifications(@Valid @RequestBody Set<Notification> notifications) {
+        fstService.pushNotifications(notifications);
+    }
+
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @PostMapping(value = "/notification/push/{followedId}")
+    void pushNotifications(
+            @PathVariable(value = "followerId") Long followedID,
+            @Valid @RequestBody Set<Notification> notifications) {
+        fstService.pushNotifications(followedID, notifications);
+    }
+
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
     @GetMapping(value = "/notification")
-    public ResponseEntity<List<Notification>> getAllNotifications()  {
-        List<Notification> notificationList = fstService.getAllNotifications()
+    public ResponseEntity<Set<Notification>> getAllNotifications()  {
+        Set<Notification> notificationList = fstService.getAllNotifications()
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune notification trouvée."));
         return new ResponseEntity<>(notificationList, HttpStatus.OK);
     }
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
     @GetMapping(value = "/notification/{followerId}")
-    public ResponseEntity<List<Notification>> getAllNotificationsByFollower(
+    public ResponseEntity<Set<Notification>> getAllNotificationsByFollowerId(
             @PathVariable(value = "followerId") Long followerId)  {
-        List<Notification> notificationList = fstService.getAllNotificationsByFollower(followerId)
+        Set<Notification> notificationList = fstService.getAllNotificationsByFollowerId(followerId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune notification trouvée."));
+        return new ResponseEntity<>(notificationList, HttpStatus.OK);
+    }
+
+    //Optional<List<Notification>> getAllNotificationsByFollowableId(Long followableID) {};
+
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @GetMapping(value = "/notification/{followerId}/{followableId}")
+    public ResponseEntity<Set<Notification>> getAllNotificationsByFollowerIdAndByFollowedId(
+            @PathVariable(value = "followerId") Long followerId,
+            @PathVariable(value = "followableId") Long followableId)  {
+
+        Set<Notification> notificationList = fstService.getAllNotificationsByFollowerIdAndByFollowedId(followerId, followableId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune notification trouvée."));
         return new ResponseEntity<>(notificationList, HttpStatus.OK);
     }
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
-    @GetMapping(value = "/notification/{followerId}/{followableId}")
-    public ResponseEntity<List<Notification>> getAllNotificationsByFollowerAndByFollowable(
-            @PathVariable(value = "followerId") Long followerId,
-            @PathVariable(value = "followableId") Long followableId)  {
-
-        List<Notification> notificationList = fstService.getAllNotificationsByFollowerAndByFollowable(followerId, followableId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune notification trouvée."));
-        return new ResponseEntity<>(notificationList, HttpStatus.OK);
+    @GetMapping(value = "/notification/labels")
+    public ResponseEntity<Map<Long, String>> getAllLabels() {
+        Map<Long, String> labelMap = fstService.getAllLabels()
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun label trouvé."));
+        return new ResponseEntity<>(labelMap, HttpStatus.OK);
     }
 
-    //Optional<List<Notification>> getAllNotificationsByFollowable(User followable) {};
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @GetMapping(value = "/notification/labels/{followerId}")
+    public ResponseEntity<Map<Long, String>> getAllLabelsByFollowerId(
+            @PathVariable(value = "followerId") Long followerId) {
+        Map<Long, String> labelMap = fstService.getAllLabelsByFollowerId(followerId)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun label trouvé."));
+        return new ResponseEntity<>(labelMap, HttpStatus.OK);
+    }
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
     @GetMapping(value = "/notification/isEmpty")
@@ -452,18 +510,30 @@ public class FollowStateTrackerController {
     }
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @GetMapping(value = "/notification/unread")
+    public ResponseEntity<Long> unreadNotificationsCount() {
+        return new ResponseEntity<>(fstService.unreadNotificationsCount(), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @GetMapping(value = "/notification/unread/{followerId}")
+    public ResponseEntity<Long> unreadNotificationsCount(Long followerID) {
+        return new ResponseEntity<>(fstService.unreadNotificationsCount(followerID), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
     @PostMapping(value = "/notification/read")
-    public void setNotifcationsReadStatus(
-            @Valid @RequestBody List<Notification> notifications,
+    public void setNotificationsReadStatus(
+            @Valid @RequestBody Set<Notification> notifications,
             @RequestParam(name = "read", defaultValue = "true") Boolean isRead)  {
         fstService.setNotificationsReadStatus(notifications, isRead);
     }
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
     @PostMapping(value = "/notification/read/{followerId}")
-    public void setNotifcationsReadStatus(
+    public void setNotificationsReadStatus(
             @PathVariable(value = "followerId") Long followerId,
-            @Valid @RequestBody List<Notification> notifications,
+            @Valid @RequestBody Set<Notification> notifications,
             @RequestParam(name = "read", defaultValue = "true") Boolean isRead)  {
         fstService.setNotificationsReadStatus(followerId, notifications, isRead);
     }
@@ -471,7 +541,7 @@ public class FollowStateTrackerController {
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
     @DeleteMapping(value = "/notification/pop")
     public void popNotifications(
-            @Valid @RequestBody List<Notification> notifications) {
+            @Valid @RequestBody Set<Notification> notifications) {
         fstService.popNotifications(notifications);
     }
 
@@ -479,7 +549,7 @@ public class FollowStateTrackerController {
     @DeleteMapping(value = "/notification/pop/{followerId}")
     public void popNotifications(
             @PathVariable(value = "followerId") Long followerId,
-            @Valid @RequestBody List<Notification> notifications) {
+            @Valid @RequestBody Set<Notification> notifications) {
         fstService.popNotifications(followerId, notifications);
     }
 }

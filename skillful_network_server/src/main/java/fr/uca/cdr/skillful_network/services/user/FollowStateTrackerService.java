@@ -3,7 +3,9 @@ package fr.uca.cdr.skillful_network.services.user;
 import fr.uca.cdr.skillful_network.entities.user.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 public interface FollowStateTrackerService {
 
@@ -62,10 +64,16 @@ public interface FollowStateTrackerService {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // notification methods
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    Optional<List<Notification>> getAllNotifications();
-    Optional<List<Notification>> getAllNotificationsByFollower(Long followerID);
-    Optional<List<Notification>> getAllNotificationsByFollowable(Long followableID);
-    Optional<List<Notification>> getAllNotificationsByFollowerAndByFollowable(Long followerID, Long followableID);
+    void pushNotifications(Set<Notification> notifications);
+    void pushNotifications(Long followedID, Set<Notification> notifications);
+
+    Optional<Set<Notification>> getAllNotifications();
+    Optional<Set<Notification>> getAllNotificationsByFollowerId(Long followerID);
+    Optional<Set<Notification>> getAllNotificationsByFollowedId(Long followedID);
+    Optional<Set<Notification>> getAllNotificationsByFollowerIdAndByFollowedId(Long followerID, Long followedID);
+
+    Optional<Map<Long, String>> getAllLabels();
+    Optional<Map<Long, String>> getAllLabelsByFollowerId(Long followerID);
 
     Boolean isNotificationsEmpty();
     Boolean isNotificationsEmpty(Long followerID);
@@ -73,10 +81,13 @@ public interface FollowStateTrackerService {
     Long notificationsSize();
     Long notificationsSize(Long followerID);
 
-    void setNotificationsReadStatus(List<Notification> notifications, Boolean isRead);
-    void setNotificationsReadStatus(Long followerID, List<Notification> notifications, Boolean isRead);
+    Long unreadNotificationsCount();
+    Long unreadNotificationsCount(Long followerID);
 
-    void popNotifications(List<Notification> notifications);
-    void popNotifications(Long followerID, List<Notification> notifications);
+    void setNotificationsReadStatus(Set<Notification> notifications, Boolean isRead);
+    void setNotificationsReadStatus(Long followerID, Set<Notification> notifications, Boolean isRead);
+
+    void popNotifications(Set<Notification> notifications);
+    void popNotifications(Long followerID, Set<Notification> notifications);
 
 }

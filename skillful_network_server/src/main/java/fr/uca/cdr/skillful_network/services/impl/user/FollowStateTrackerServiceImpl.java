@@ -11,8 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 @Service
@@ -43,7 +43,7 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public Optional<List<FollowStateTracker>> getAllFSTByFollower() {
-        return this.getFSTByFollowerID(this.authenticationService.getCurrentUser().getId());
+        return this.getFSTByFollowerID(authenticationService.getCurrentUser().getId());
     }
 
     @Override
@@ -53,7 +53,7 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
 
     @Override
     public Optional<List<User>> getAllFollowersByFollowable() {
-        return this.getAllFollowersByFollowableID(this.authenticationService.getCurrentUser().getId());
+        return this.getAllFollowersByFollowableID(authenticationService.getCurrentUser().getId());
     }
 
     @Override
@@ -67,7 +67,7 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
 
     @Override
     public boolean follow(Long followableID) {
-        return this.follow(this.authenticationService.getCurrentUser().getId(), followableID);
+        return this.follow(authenticationService.getCurrentUser().getId(), followableID);
     }
 
     @Override
@@ -99,7 +99,7 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
 
         // get FST
         FollowStateTracker fst =  fstRepository.findByFollowerAndFollowed(
-                this.authenticationService.getCurrentUser(), followed);
+                authenticationService.getCurrentUser(), followed);
         if ( fst == null)  {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Le suivi n'existe pas.");
         }
@@ -138,7 +138,7 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
     @Override
     public void setFollowerStatus(Follower.FollowerStatus status) {
         //  System.out.println("FollowStateTrackerServiceImpl.setFollowerStatus(" + status + ")");
-        this.setFollowerStatusByFollower(this.authenticationService.getCurrentUser(), status);
+        this.setFollowerStatusByFollower(authenticationService.getCurrentUser(), status);
     }
 
     @Override
@@ -289,7 +289,7 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
         // set for all FST by current user as followed
         //  System.out.println("FollowStateTrackerServiceImpl.setFollowableStatus(" + status + ")");
         // process update
-        this.setFollowableStatusByFollowable(this.authenticationService.getCurrentUser(), status);
+        this.setFollowableStatusByFollowable(authenticationService.getCurrentUser(), status);
     }
 
     @Override
@@ -350,7 +350,7 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
         // set for all FST by current user as followed
         //  System.out.println("FollowStateTrackerServiceImpl.setFollowableNotifiableStatus(" + notifiable + ")");
         // process update
-        this.setFollowableNotifiableStatusByFollowable(this.authenticationService.getCurrentUser(), notifiable);
+        this.setFollowableNotifiableStatusByFollowable(authenticationService.getCurrentUser(), notifiable);
     }
 
     @Override
@@ -409,47 +409,180 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // notification methods
     ////////////////////////////////////////////////////////////////////////////////////////////////
+
     @Override
-    public Optional<List<Notification>> getAllNotifications() {
-        return Optional.empty();
+    public void pushNotifications(Set<Notification> notifications) {
+        this.pushNotifications(authenticationService.getCurrentUser(), notifications);
     }
 
     @Override
-    public Optional<List<Notification>> getAllNotificationsByFollower(Long followerID) {
-        return Optional.empty();
+    public void pushNotifications(Long followedID, Set<Notification> notifications) {
+        this.pushNotifications(userService.getById(followedID), notifications);
+    }
+
+    public void pushNotifications(User followed, Set<Notification> notifications) {
+        fstRepository.findAllByFollower(followed)
+                .forEach( fst -> {
+                    fst.pushNotifications(notifications);
+                    fstRepository.save(fst);
+                });
     }
 
     @Override
-    public Optional<List<Notification>> getAllNotificationsByFollowable(Long followableID) {
-        return Optional.empty();
+    public Optional<Set<Notification>> getAllNotifications() {
+        return this.getAllNotificationsByFollower(authenticationService.getCurrentUser());
     }
 
     @Override
-    public Optional<List<Notification>> getAllNotificationsByFollowerAndByFollowable(Long followerID, Long followableID) {
-        return Optional.empty();
+    public Optional<Set<Notification>> getAllNotificationsByFollowerId(Long followerID) {
+        return this.getAllNotificationsByFollower(userService.getById(followerID));
+    }
+
+    public Optional<Set<Notification>> getAllNotificationsByFollower(User follower) {
+        Set<Notification> notifications = new HashSet<>();
+        // get all FST and loop with modification
+        fstRepository.findAllByFollower(follower)
+                .forEach( fst -> notifications.addAll(fst.getNotifications()) );
+        return Optional.of(notifications);
     }
 
     @Override
-    public Boolean isNotificationsEmpty() { return true; }
+    public Optional<Set<Notification>> getAllNotificationsByFollowedId(Long followedID) {
+        FollowStateTracker fst =  fstRepository.findByFollowerAndFollowed(
+                authenticationService.getCurrentUser(), userService.getById(followedID));
+        if ( fst == null)  {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Le suivi n'existe pas.");
+        }
+        return this.getAllNotificationsByFST(fst);
+    }
 
     @Override
-    public Boolean isNotificationsEmpty(Long followerID) { return true; }
+    public Optional<Set<Notification>> getAllNotificationsByFollowerIdAndByFollowedId(Long followerID, Long followedID) {
+        FollowStateTracker fst =  fstRepository.findByFollowerAndFollowed(
+                userService.getById(followerID), userService.getById(followedID));
+        if ( fst == null)  {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Le suivi n'existe pas.");
+        }
+        return this.getAllNotificationsByFST(fst);
+    }
+
+    public Optional<Set<Notification>> getAllNotificationsByFST(FollowStateTracker fst) {
+        Set<Notification> notifications = fst.getNotifications().stream().collect(Collectors.toSet());
+        return Optional.of(notifications);
+    }
 
     @Override
-    public Long notificationsSize() { return 0L; }
+    public Optional<Map<Long, String>> getAllLabels() {
+        return this.getAllLabelsByFollower(authenticationService.getCurrentUser());
+    }
 
     @Override
-    public Long notificationsSize(Long followerID) { return 0L; }
+    public Optional<Map<Long, String>> getAllLabelsByFollowerId(Long followerID) {
+        return this.getAllLabelsByFollower(userService.getById(followerID));
+    }
+
+    public Optional<Map<Long, String>> getAllLabelsByFollower(User follower) {
+        Map<Long, String> labelMap = new HashMap<>();
+        // get all FST and loop with modification
+        fstRepository.findAllByFollower(follower)
+                .forEach( fst -> fst.getNotifications()
+                        .forEach( item -> labelMap.put(item.getId(), item.getLabel()) ));
+        return Optional.of(labelMap);
+    }
 
     @Override
-    public void setNotificationsReadStatus(List<Notification> notifications, Boolean isRead) {}
+    public Boolean isNotificationsEmpty() {
+        return this.isNotificationsEmpty(authenticationService.getCurrentUser());
+    }
 
     @Override
-    public void setNotificationsReadStatus(Long followerID, List<Notification> notifications, Boolean isRead) {}
+    public Boolean isNotificationsEmpty(Long followerID) {
+        return this.isNotificationsEmpty(userService.getById(followerID));
+    }
+
+    public Boolean isNotificationsEmpty(User follower){
+//        Boolean isEmpty = true;
+        AtomicReference<Boolean> isEmpty = new AtomicReference<>(true);
+        fstRepository.findAllByFollower(follower)
+                .forEach( fst -> {
+                    isEmpty.updateAndGet( v -> v && fst.getNotifications().isEmpty() );
+                });
+        return isEmpty.get();
+    }
 
     @Override
-    public void popNotifications(List<Notification> notifications) {}
+    public Long notificationsSize() {
+        return this.notificationsSize(authenticationService.getCurrentUser());
+    }
 
     @Override
-    public void popNotifications(Long followerID, List<Notification> notifications) {}
+    public Long notificationsSize(Long followerID) {
+        return this.notificationsSize(userService.getById(followerID));
+    }
+
+    public Long notificationsSize(User follower){
+        AtomicReference<Long> notificationsSize = new AtomicReference<>(0L);
+        fstRepository.findAllByFollower(follower)
+        .forEach( fst -> {
+            notificationsSize.updateAndGet( v -> v + fst.getNotifications().size() );
+        });
+        return notificationsSize.get();
+    }
+
+    @Override
+    public Long unreadNotificationsCount() {
+        return this.unreadNotificationsCount(authenticationService.getCurrentUser());
+    }
+
+    @Override
+    public Long unreadNotificationsCount(Long followerID){
+        return this.unreadNotificationsCount(userService.getById(followerID));
+    }
+
+    public Long unreadNotificationsCount(User follower){
+        Long unreadCount =
+                fstRepository.findAllByFollower(follower).stream()
+                .map( fst -> fst.getNotifications().stream()
+                        .filter(Notification::getRead)
+                        .count()
+                ).count();
+        return unreadCount;
+    }
+
+    @Override
+    public void setNotificationsReadStatus(Set<Notification> notifications, Boolean isRead) {
+        this.setNotificationsReadStatus(authenticationService.getCurrentUser(), notifications, isRead);
+    }
+
+    @Override
+    public void setNotificationsReadStatus(Long followerID, Set<Notification> notifications, Boolean isRead) {
+        this.setNotificationsReadStatus(userService.getById(followerID), notifications, isRead);
+    }
+
+    public void setNotificationsReadStatus(User follower, Set<Notification> notifications, Boolean isRead) {
+        fstRepository.findAllByFollower(follower)
+                .forEach( fst -> {
+                    fst.setNotificationReadStatus(notifications, isRead);
+                    fstRepository.save(fst);
+                });
+    }
+
+    @Override
+    public void popNotifications(Set<Notification> notifications) {
+        this.popNotifications(authenticationService.getCurrentUser(), notifications);
+    }
+
+    @Override
+    public void popNotifications(Long followerID, Set<Notification> notifications) {
+        this.popNotifications(userService.getById(followerID), notifications);
+    }
+
+    public void popNotifications(User follower, Set<Notification> notifications) {
+        fstRepository.findAllByFollower(follower)
+                .forEach( fst -> {
+                    fst.popNotifications(notifications);
+                    fstRepository.save(fst);
+                });
+    }
+
 }
