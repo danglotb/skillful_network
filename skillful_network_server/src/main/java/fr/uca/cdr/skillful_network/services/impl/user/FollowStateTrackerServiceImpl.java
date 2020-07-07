@@ -467,8 +467,7 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
     }
 
     public Optional<Set<Notification>> getAllNotificationsByFST(FollowStateTracker fst) {
-        Set<Notification> notifications = fst.getNotifications().stream().collect(Collectors.toSet());
-        return Optional.of(notifications);
+        return Optional.of(fst.getNotifications());
     }
 
     @Override
@@ -504,9 +503,7 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
 //        Boolean isEmpty = true;
         AtomicReference<Boolean> isEmpty = new AtomicReference<>(true);
         fstRepository.findAllByFollower(follower)
-                .forEach( fst -> {
-                    isEmpty.updateAndGet( v -> v && fst.getNotifications().isEmpty() );
-                });
+                .forEach( fst -> isEmpty.updateAndGet(v -> v && fst.getNotifications().isEmpty() ));
         return isEmpty.get();
     }
 
@@ -523,9 +520,7 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
     public Long notificationsSize(User follower){
         AtomicReference<Long> notificationsSize = new AtomicReference<>(0L);
         fstRepository.findAllByFollower(follower)
-        .forEach( fst -> {
-            notificationsSize.updateAndGet( v -> v + fst.getNotifications().size() );
-        });
+        .forEach( fst -> notificationsSize.updateAndGet( v -> v + fst.getNotifications().size() ) );
         return notificationsSize.get();
     }
 
@@ -540,12 +535,13 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
     }
 
     public Long unreadNotificationsCount(User follower){
-        Long unreadCount =
-                fstRepository.findAllByFollower(follower).stream()
-                .map( fst -> fst.getNotifications().stream()
-                        .filter(Notification::getRead)
-                        .count()
-                ).count();
+        long unreadCount = 0L;
+        for (FollowStateTracker fst : fstRepository.findAllByFollower(follower)) {
+            long count = fst.getNotifications().stream()
+                    .filter( n -> ! n.getRead())
+                    .count();
+            unreadCount+=count;
+        }
         return unreadCount;
     }
 
