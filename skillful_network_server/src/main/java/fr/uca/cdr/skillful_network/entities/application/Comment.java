@@ -38,18 +38,25 @@ public class Comment {
 	@OneToMany(cascade=CascadeType.ALL)
 	private Set<Comment> comments = new HashSet<Comment>() ;
 
+	@ManyToOne(cascade = CascadeType.REFRESH)
+    @JsonManagedReference
+    private Post post;
+	
 	public Comment() {
 		super();
 	}
 
-	public Comment(String commentBodyText, Date dateOfComment, Set<String> files, User user, Set<Comment> comments) {
+	public Comment(String commentBodyText, Date dateOfComment, Set<String> files, User user, Set<Comment> comments,
+			Post post) {
 		super();
 		this.commentBodyText = commentBodyText;
 		this.dateOfComment = dateOfComment;
 		this.files = files;
 		this.user = user;
 		this.comments = comments;
+		this.post = post;
 	}
+
 
 	public Comment(String commentBodyText, Date dateOfComment, User user) {
 		super();
@@ -71,6 +78,15 @@ public class Comment {
 		this.files = files;
 		this.user = user;
 		this.comments = comments;
+	}
+
+	public Comment(String commentBodyText, Date dateOfComment, Set<String> files, User user, Post post) {
+		super();
+		this.commentBodyText = commentBodyText;
+		this.dateOfComment = dateOfComment;
+		this.files = files;
+		this.user = user;
+		this.post = post;
 	}
 
 	public long getId() {
@@ -117,14 +133,24 @@ public class Comment {
 		return comments;
 	}
 
+	public Post getPost() {
+		return post;
+	}
+
+	public void setPost(Post post) {
+		this.post = post;
+	}
+
 	public void setComments(Set<Comment> comments) {
 		this.comments = comments;
 	}
 
+	
+
 	@Override
 	public String toString() {
 		return "Comment [id=" + id + ", commentBodyText=" + commentBodyText + ", dateOfComment=" + dateOfComment
-				+ ", files=" + files + ", user=" + user + ", comments=" + comments + "]";
+				+ ", files=" + files + ", user=" + user + ", comments=" + comments + ", post=" + post + "]";
 	}
 
 	@Override
