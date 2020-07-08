@@ -19,14 +19,14 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import fr.uca.cdr.skillful_network.entities.user.User;
 
 @Entity
-public class Post {
+public class Comment {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 	
-	private String postbodyText;
+	private String commentBodyText;
 	
-	private Date dateOfPost;
+	private Date dateOfComment ;
 	
 	@ElementCollection
 	private Set<String> files = new HashSet<String>() ;
@@ -34,46 +34,43 @@ public class Post {
 	@ManyToOne(cascade = CascadeType.REFRESH)
     @JsonManagedReference
     private User user;
-
-	@OneToMany(mappedBy="post")
-    private Set<Comment> comments = new HashSet<Comment>() ;
 	
-	public Post() {
+	@OneToMany(cascade=CascadeType.ALL)
+	private Set<Comment> comments = new HashSet<Comment>() ;
+
+	public Comment() {
 		super();
 	}
 
-	public Post(String postbodyText, Date dateOfPost, Set<String> files, User user, Set<Comment> comments) {
+	public Comment(String commentBodyText, Date dateOfComment, Set<String> files, User user, Set<Comment> comments) {
 		super();
-		this.postbodyText = postbodyText;
-		this.dateOfPost = dateOfPost;
+		this.commentBodyText = commentBodyText;
+		this.dateOfComment = dateOfComment;
 		this.files = files;
 		this.user = user;
 		this.comments = comments;
 	}
 
-	public Post(String postbodyText, Date dateOfPost, Set<String> files, User user) {
+	public Comment(String commentBodyText, Date dateOfComment, User user) {
 		super();
-	
-		this.postbodyText = postbodyText;
-		this.dateOfPost = dateOfPost;
+		this.commentBodyText = commentBodyText;
+		this.dateOfComment = dateOfComment;
+		this.user = user;
+	}
+
+	public Comment(Date dateOfComment, Set<String> files, User user) {
+		super();
+		this.dateOfComment = dateOfComment;
 		this.files = files;
 		this.user = user;
 	}
 
-	public Post( String postbodyText, Date dateOfPost, User user) {
+	public Comment(Date dateOfComment, Set<String> files, User user, Set<Comment> comments) {
 		super();
-		
-		this.postbodyText = postbodyText;
-		this.dateOfPost = dateOfPost;
-		this.user = user;
-	}
-
-	public Post( Date dateOfPost, Set<String> files, User user) {
-		super();
-		
-		this.dateOfPost = dateOfPost;
+		this.dateOfComment = dateOfComment;
 		this.files = files;
 		this.user = user;
+		this.comments = comments;
 	}
 
 	public long getId() {
@@ -84,20 +81,20 @@ public class Post {
 		this.id = id;
 	}
 
-	public String getPostbodyText() {
-		return postbodyText;
+	public String getCommentBodyText() {
+		return commentBodyText;
 	}
 
-	public void setPostbodyText(String postbodyText) {
-		this.postbodyText = postbodyText;
+	public void setCommentBodyText(String commentBodyText) {
+		this.commentBodyText = commentBodyText;
 	}
 
-	public Date getDateOfPost() {
-		return dateOfPost;
+	public Date getDateOfComment() {
+		return dateOfComment;
 	}
 
-	public void setDateOfPost(Date dateOfPost) {
-		this.dateOfPost = dateOfPost;
+	public void setDateOfComment(Date dateOfComment) {
+		this.dateOfComment = dateOfComment;
 	}
 
 	public Set<String> getFiles() {
@@ -115,12 +112,19 @@ public class Post {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
+	public Set<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<Comment> comments) {
+		this.comments = comments;
+	}
 
 	@Override
 	public String toString() {
-		return "Post [id=" + id + ", postbodyText=" + postbodyText + ", dateOfPost=" + dateOfPost + ", files=" + files
-				+ ", user=" + user + ", comments=" + comments + "]";
+		return "Comment [id=" + id + ", commentBodyText=" + commentBodyText + ", dateOfComment=" + dateOfComment
+				+ ", files=" + files + ", user=" + user + ", comments=" + comments + "]";
 	}
 
 	@Override
@@ -136,13 +140,11 @@ public class Post {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Post other = (Post) obj;
+		Comment other = (Comment) obj;
 		return id == other.id;
 	}
-
 	
 	
 	
 	
-
 }
