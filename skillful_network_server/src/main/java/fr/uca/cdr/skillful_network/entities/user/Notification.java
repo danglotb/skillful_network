@@ -16,10 +16,16 @@ public class Notification {
 
     private String label;
     // notified object should be put here
-    //private Post notifiedPost;
+//    private Post post;
     private Boolean isRead;
 
     public Notification() {}
+
+//    public Notification(Post post) {
+//        this.post = post;
+//        this.label = post.getLabel();
+//        this.isRead=false;
+//    }
 
     public Notification(String label) {
         this.label = label;

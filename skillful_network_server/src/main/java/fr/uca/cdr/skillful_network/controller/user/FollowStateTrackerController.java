@@ -55,6 +55,9 @@ public class FollowStateTrackerController {
     // /followers                                       getAllFollowersByFollowable()           (currentUser -> followable)
     // /followers/{followableId}                        getAllFollowersByFollowableID(followableId)
     //
+    // /followers/count                                 getFollowerCount()                      (currentUser -> followable)
+    // /followers/count/{followableId}                  getFollowerCount(Long followableID)
+    //
     // /follow/{followableId}                           follow(followableId)                    (currentUser -> follower)
     // /follow/{followerId}/{followableId}              follow(followerId, followableId)
     // /unfollow/{followedId}                           unfollowByFollowedID(followedId)        (currentUser -> follower)
@@ -105,6 +108,19 @@ public class FollowStateTrackerController {
         List<User> followedList = fstService.getAllFollowersByFollowableID(followableId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune instance n'est suivie."));
         return new ResponseEntity<>( followedList, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @GetMapping(value = "/followers/count")
+    public ResponseEntity<Long> getFollowerCount(){
+        return new ResponseEntity<>(fstService.getFollowerCount(), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @GetMapping(value = "/followers/count/{followableId}")
+    public ResponseEntity<Long> getFollowerCount(
+            @PathVariable(value = "followableId") Long followableID) {
+        return new ResponseEntity<>(fstService.getFollowerCount(followableID), HttpStatus.OK);
     }
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
@@ -242,6 +258,9 @@ public class FollowStateTrackerController {
     // /followed                                        getAllFollowedByFollower()                  (currentUser -> follower)
     // /followed/{followerId}                           getAllFollowersByFollowableID(followerId)
     //
+    // /followed/count                                  getFollowedCount()                      (currentUser -> follower)
+    // /followed/count/{followerId}                     getFollowedCount(Long followerId)
+    //
     // /ban/{followerId}                                follow(followerId)                          (currentUser -> followed)
     // /ban/{followedId}/{followerId}                   follow(followedId, followerId)
     //
@@ -291,6 +310,19 @@ public class FollowStateTrackerController {
         List<User> followedList = fstService.getAllFollowedByFollowerID(followerId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune instance n'est suivie."));
         return new ResponseEntity<>(followedList, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @GetMapping(value = "/followed/count")
+    public ResponseEntity<Long> getFollowedCount(){
+        return new ResponseEntity<>(fstService.getFollowedCount(), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @GetMapping(value = "/followed/count/{followerId}")
+    public ResponseEntity<Long> getFollowedCount(
+            @PathVariable(value = "followerId") Long followerId) {
+        return new ResponseEntity<>(fstService.getFollowedCount(followerId), HttpStatus.OK);
     }
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
@@ -424,19 +456,34 @@ public class FollowStateTrackerController {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
+//    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+//    @PostMapping(value = "/notification/push")
+//    void pushNotifications(@Valid @RequestBody Set<Notification> notifications) {
+//        fstService.pushNotifications(notifications);
+//    }
+//
+//    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+//    @PostMapping(value = "/notification/push/{followedId}")
+//    void pushNotifications(
+//            @PathVariable(value = "followedId") Long followedID,
+//            @Valid @RequestBody Set<Notification> notifications) {
+//        System.out.println("FollowStateTrackerController.pushNotifications(Long: "+followedID + ", Set: "+ notifications + ")");
+//        fstService.pushNotifications(followedID, notifications);
+//    }
+
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
     @PostMapping(value = "/notification/push")
-    void pushNotifications(@Valid @RequestBody Set<Notification> notifications) {
-        fstService.pushNotifications(notifications);
+    void pushNotifications(@Valid @RequestBody Set<String> labels) {
+        fstService.pushNotifications(labels);
     }
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
     @PostMapping(value = "/notification/push/{followedId}")
     void pushNotifications(
             @PathVariable(value = "followedId") Long followedID,
-            @Valid @RequestBody Set<Notification> notifications) {
-        System.out.println("FollowStateTrackerController.pushNotifications(Long: "+followedID + ", Set: "+ notifications + ")");
-        fstService.pushNotifications(followedID, notifications);
+            @Valid @RequestBody Set<String> labels) {
+        System.out.println("FollowStateTrackerController.pushNotifications(Long: "+followedID + ", Set: "+ labels + ")");
+        fstService.pushNotifications(followedID, labels);
     }
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")

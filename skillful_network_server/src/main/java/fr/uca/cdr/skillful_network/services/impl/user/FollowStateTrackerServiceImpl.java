@@ -6,6 +6,7 @@ import fr.uca.cdr.skillful_network.repositories.user.NotificationRepository;
 import fr.uca.cdr.skillful_network.services.AuthenticationService;
 import fr.uca.cdr.skillful_network.services.user.FollowStateTrackerService;
 import fr.uca.cdr.skillful_network.services.user.UserService;
+import org.aspectj.weaver.ast.Not;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -63,6 +64,18 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
                         .map(FollowStateTracker::getFollower)
                         .collect(Collectors.toList())
         );
+    }
+
+    @Override
+    public Long getFollowerCount(){
+        return this.getFollowerCount(authenticationService.getCurrentUser().getId());
+    }
+
+    @Override
+    public Long getFollowerCount(Long followableID){
+        System.out.println("FollowStateTrackerServiceImpl.getFollowerCount("+followableID+")");
+        return fstRepository.findAllByFollowed(userService.getById(followableID)).stream()
+                .count();
     }
 
     @Override
@@ -124,12 +137,10 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
         //update followed
         User followed = fst.getFollowed();
         followed.getFollowableSet().remove(fst);
-        userService.createOrUpdate(followed);
 
         //update follower
         User follower = fst.getFollower();
         follower.getFollowerSet().remove(fst);
-        userService.createOrUpdate(follower);
 
         // delete FST
         fstRepository.delete(fst);
@@ -257,6 +268,18 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
                         .map(FollowStateTracker::getFollowed)
                         .collect(Collectors.toList())
         );
+    }
+
+    @Override
+    public Long getFollowedCount(){
+        return this.getFollowedCount(authenticationService.getCurrentUser().getId());
+    }
+
+    @Override
+    public Long getFollowedCount(Long followerID){
+        System.out.println("FollowStateTrackerServiceImpl.getFollowedCount("+followerID+")");
+        return fstRepository.findAllByFollower(userService.getById(followerID)).stream()
+                .count();
     }
 
     @Override
@@ -410,28 +433,66 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
     // notification methods
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
+//    @Override
+//    public void pushNotifications(Set<Notification> notifications) {
+//        this.pushNotifications(authenticationService.getCurrentUser(), notifications);
+//    }
+
+//    @Override
+//    public void pushNotifications(Long followedID, Set<Notification> notifications) {
+//        this.pushNotifications(userService.getById(followedID), notifications);
+//    }
+
+//    public void pushNotifications(User followed, Set<Notification> notifications) {
+//        System.out.println("FollowStateTrackerServiceImpl.pushNotifications(User: "+followed.getId() + ")");
+//
+//        // persist notifications
+//        notifications.stream()
+//                .filter( n -> n.followerSetSize() == 0 )
+//                .forEach( n -> notificationRepository.save(n) );
+//
+//        // process update
+//        fstRepository.findAllByFollowed(followed)
+//                .forEach( fst -> {
+//                    System.out.println("fst: " + fst.getId() );
+//                    fst.pushNotifications(notifications);
+//                    fstRepository.save(fst);
+//                });
+//    }
+
+
     @Override
-    public void pushNotifications(Set<Notification> notifications) {
-        this.pushNotifications(authenticationService.getCurrentUser(), notifications);
+    public void pushNotifications(Set<String> labels) {
+        this.pushNotifications(authenticationService.getCurrentUser(), labels);
     }
 
     @Override
-    public void pushNotifications(Long followedID, Set<Notification> notifications) {
-        this.pushNotifications(userService.getById(followedID), notifications);
+    public void pushNotifications(Long followedID, Set<String> labels) {
+        this.pushNotifications(userService.getById(followedID), labels);
     }
 
-    public void pushNotifications(User followed, Set<Notification> notifications) {
-        System.out.println("FollowStateTrackerServiceImpl.pushNotifications(User: "+followed.getId() + ")");
+    public void pushNotifications(User followed, Set<String> labels) {
+        System.out.println("FollowStateTrackerServiceImpl.pushNotifications(User: "+followed.getId() + ", Labels: "+labels + ")");
 
         // persist notifications
-        notifications.stream()
-                .filter( n -> n.followerSetSize() == 0 )
-                .forEach( n -> notificationRepository.save(n) );
+//        notifications.stream()
+//                .filter( n -> n.followerSetSize() == 0 )
+//                .forEach( n -> notificationRepository.save(n) );
 
         // process update
         fstRepository.findAllByFollowed(followed)
                 .forEach( fst -> {
                     System.out.println("fst: " + fst.getId() );
+                    // create new Notiffication Set
+                    Set<Notification> notifications = labels.stream()
+                            .map( label -> {
+                                Notification newNotification = new Notification(label);
+                                notificationRepository.save(newNotification);
+                                return newNotification;
+                            })
+                            .collect(Collectors.toSet());
+                    System.out.println("notificationSet: " + notifications );
+
                     fst.pushNotifications(notifications);
                     fstRepository.save(fst);
                 });

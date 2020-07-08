@@ -24,6 +24,9 @@ public interface FollowStateTrackerService {
     Optional<List<User>>  getAllFollowersByFollowable();
     Optional<List<User>>  getAllFollowersByFollowableID(Long followableID);
 
+    Long getFollowerCount();
+    Long getFollowerCount(Long followableID);
+
     boolean follow(Long followableID);
     boolean follow(Long followerID, Long followableID);
     void unfollowByFollowedID(Long followedID);
@@ -48,6 +51,9 @@ public interface FollowStateTrackerService {
     Optional<List<User>> getAllFollowedByFollower();
     Optional<List<User>> getAllFollowedByFollowerID(Long followerID);
 
+    Long getFollowedCount();
+    Long getFollowedCount(Long followerID);
+
     void banFollower(Long followerID);
     void banFollower(Long followedID, Long followerID);
 
@@ -64,8 +70,10 @@ public interface FollowStateTrackerService {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // notification methods
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    void pushNotifications(Set<Notification> notifications);
-    void pushNotifications(Long followedID, Set<Notification> notifications);
+//    void pushNotifications(Set<Post> posts);
+//    void pushNotifications(Long followedID, Set<Post> posts);
+    void pushNotifications(Set<String> labels);
+    void pushNotifications(Long followedID, Set<String> labels);
 
     Optional<Set<Notification>> getAllNotifications();
     Optional<Set<Notification>> getAllNotificationsByFollowerId(Long followerID);
