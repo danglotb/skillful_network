@@ -35,4 +35,18 @@ public class Notification {
 
     public Boolean getRead() { return isRead; }
     public void setRead(Boolean read) { isRead = read; }
+
+//    public Set<FollowStateTracker> getFollowerSet() { return followerSet; }
+//    public void setFollowerSet(Set<FollowStateTracker> followerSet) { followerSet = followerSet; }
+    public void addFST(FollowStateTracker fst) { followerSet.add(fst); }
+    public void removeFST(FollowStateTracker fst) { followerSet.remove(fst); }
+    public int followerSetSize() { return followerSet.size(); }
+
+    @Override
+    public String toString() {
+        return "Notification[" + id +
+                "] label='" + label + '\'' +
+                ", isRead=" + isRead +
+                ", followerSet.size= " + followerSet.size();
+    }
 }

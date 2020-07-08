@@ -83,23 +83,33 @@ public class FollowStateTracker {
     public Set<Notification> getNotifications() { return notifications; }
 
     public void pushNotifications(Set<Notification> notifications) {
+        System.out.println("FollowStateTracker.pushNotifications()");
         notifications.forEach(notification -> {
             notification.setRead(false);
+            notification.addFST(this);
+            System.out.println("notification: " + notification );
             this.notifications.add(notification);
+            System.out.println("notifications: " + this.notifications );
         });
     }
 
     public void popNotifications(Set<Notification> notifications) {
-        notifications.forEach(this.notifications::remove);
-    }
-
-    public void setNotificationReadStatus(Set<Notification> notifications, Boolean isRead) {
+        System.out.println("FollowStateTracker.popNotifications()");
         notifications.forEach(notification -> {
-            this.notifications.stream()
-                .filter( notificationToUpdate -> notificationToUpdate.getId() == notification.getId() )
-                .forEach( notificationToUpdate -> notificationToUpdate.setRead(isRead) );
+            System.out.println("notification: " + notification );
+            this.notifications.remove(notification);
+            notification.removeFST(this);
+            System.out.println("notifications: " + this.notifications );
         });
     }
 
+    public void setNotificationReadStatus(Set<Notification> notifications, Boolean isRead) {
+        notifications.forEach(notification -> this.notifications.stream()
+            .filter( notificationToUpdate -> notificationToUpdate.getId() == notification.getId() )
+            .forEach( notificationToUpdate -> notificationToUpdate.setRead(isRead) ));
+    }
+
      public void cleanNotifications() { this.notifications.clear();}
+
+
 }
