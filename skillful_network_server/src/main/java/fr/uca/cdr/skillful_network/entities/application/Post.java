@@ -2,6 +2,7 @@ package fr.uca.cdr.skillful_network.entities.application;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -32,26 +33,30 @@ public class Post {
     @JsonManagedReference
     private User user;
 
-	public Post(long id, String postbodyText, Date dateOfPost, Set<String> files, User user) {
+	public Post() {
 		super();
-		this.id = id;
+	}
+
+	public Post(String postbodyText, Date dateOfPost, Set<String> files, User user) {
+		super();
+	
 		this.postbodyText = postbodyText;
 		this.dateOfPost = dateOfPost;
 		this.files = files;
 		this.user = user;
 	}
 
-	public Post(long id, String postbodyText, Date dateOfPost, User user) {
+	public Post( String postbodyText, Date dateOfPost, User user) {
 		super();
-		this.id = id;
+		
 		this.postbodyText = postbodyText;
 		this.dateOfPost = dateOfPost;
 		this.user = user;
 	}
 
-	public Post(long id, Date dateOfPost, Set<String> files, User user) {
+	public Post( Date dateOfPost, Set<String> files, User user) {
 		super();
-		this.id = id;
+		
 		this.dateOfPost = dateOfPost;
 		this.files = files;
 		this.user = user;
@@ -101,6 +106,23 @@ public class Post {
 	public String toString() {
 		return "Post [id=" + id + ", PostbodyText=" + postbodyText + ", dateOfPost=" + dateOfPost + ", files=" + files
 				+ ", user=" + user + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Post other = (Post) obj;
+		return id == other.id;
 	}
 
 	

@@ -330,7 +330,7 @@ public class JSONGenerator {
     
  
     private void generatePosts() {
-        this.entityManager.persistAndFlush(new Post(0L, new Date(), null, (User) this.getRandomElement(userRepository)));
+        this.entityManager.persistAndFlush(new Post( new Date(), null, (User) this.getRandomElement(userRepository)));
         this.saveTo("posts", Post.class, this.postRepository);
     }
     // TODO add assertions

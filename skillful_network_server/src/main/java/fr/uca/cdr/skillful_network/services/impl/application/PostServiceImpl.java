@@ -47,11 +47,14 @@ public class PostServiceImpl implements PostService{
 
 	@Override
 	public Post update(long id, String postbodyText, Date dateOfPost, Set<String> files) {
-		final Post post = this.repository.findById(id).get();
-post.setPostbodyText(postbodyText);
-post.setDateOfPost(dateOfPost);
-post.setFiles(files);
-return post;
+		final Post post = this.repository.findById(id).orElseThrow(() ->
+		new ResponseStatusException(HttpStatus.NOT_FOUND,
+				String.format("None JobOffer could be found with the id %d", id))
+		);
+		post.setPostbodyText(postbodyText);
+		post.setDateOfPost(dateOfPost);
+		post.setFiles(files);
+		return post;
 	}
 
 	@SuppressWarnings("unchecked")
