@@ -23,11 +23,11 @@ export class LoginComponent implements OnInit {
   public error: boolean;
   public password: string;
   role: string[];
-  isLoginFailed = false;
+  isLoginFailed: boolean;
   public rememberMe: FormControl = new FormControl(false);
   isChecked: boolean;
   checkExistingMail: boolean;
-  checkLogger: boolean;
+
 
   // tslint:disable-next-line: max-line-length
   private _emailRegex = '^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$';
@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
     this.codeFormBuild();
     this.doDisplayCodeVerif = false;
     this.checkExistingMail = false;
-    this.checkLogger = false;
+    this.isLoginFailed = false;
   }
 
   login() {
@@ -70,7 +70,6 @@ export class LoginComponent implements OnInit {
       response = this.authService.login(this.inscriptionFormGroup.value.emailInscription, this.codeForm.value.code);
     } else {
       response = this.authService.login(this.loginFormGroup.value.emailLogin, this.loginFormGroup.value.password);
-      this.checkLogger = true;
     }
     response.then((data) => {
       this.tokenStorage.saveTokenAndCurrentUsername(data.token, data.authorities, this.isChecked ? 'local' : '');

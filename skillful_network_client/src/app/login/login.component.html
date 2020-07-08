@@ -6,7 +6,7 @@
       <table>
         <tr>
           <td>
-              <div class="message-guide" *ngIf="checkLogger">
+              <div class="message-guide" *ngIf="isLoginFailed">
                 <p>Votre email et/ou mot de passe sont incorrects</p>
               </div>
             <form [formGroup]="loginFormGroup" (submit)="login()" fxLayout="column" fxLayoutAlign="center center"
