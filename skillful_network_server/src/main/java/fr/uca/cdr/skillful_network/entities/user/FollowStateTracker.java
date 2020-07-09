@@ -5,6 +5,8 @@ import fr.uca.cdr.skillful_network.entities.user.Followable.FollowableNotifiable
 import fr.uca.cdr.skillful_network.entities.user.Followable.FollowableStatus;
 import fr.uca.cdr.skillful_network.entities.user.Follower.FollowerNotifiable;
 import fr.uca.cdr.skillful_network.entities.user.Follower.FollowerStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 import javax.validation.constraints.Past;
@@ -14,6 +16,8 @@ import java.util.Set;
 
 @Entity
 public class FollowStateTracker {
+
+    private static final Logger logger = LoggerFactory.getLogger(FollowStateTracker.class);
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -83,23 +87,23 @@ public class FollowStateTracker {
     public Set<Notification> getNotifications() { return notifications; }
 
     public void pushNotifications(Set<Notification> notifications) {
-        System.out.println("FollowStateTracker.pushNotifications()");
+        logger.debug("pushNotifications()");
         notifications.forEach(notification -> {
             notification.setRead(false);
             notification.addFST(this);
-            System.out.println("notification: " + notification );
+            logger.debug("notification: {})", notification);
             this.notifications.add(notification);
-            System.out.println("notifications: " + this.notifications );
+            logger.debug("notifications: {})", this.notifications);
         });
     }
 
     public void popNotifications(Set<Notification> notifications) {
-        System.out.println("FollowStateTracker.popNotifications()");
+        logger.debug("popNotifications()");
         notifications.forEach(notification -> {
-            System.out.println("notification: " + notification );
+            logger.debug("notification: {})", notification);
             this.notifications.remove(notification);
             notification.removeFST(this);
-            System.out.println("notifications: " + this.notifications );
+            logger.debug("notifications: {})", this.notifications);
         });
     }
 

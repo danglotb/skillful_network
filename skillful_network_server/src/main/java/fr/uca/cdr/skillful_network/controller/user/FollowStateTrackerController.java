@@ -2,6 +2,8 @@ package fr.uca.cdr.skillful_network.controller.user;
 
 import fr.uca.cdr.skillful_network.entities.user.*;
 import fr.uca.cdr.skillful_network.services.user.FollowStateTrackerService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,12 +12,16 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/fst")
 public class FollowStateTrackerController {
+
+    private static final Logger logger = LoggerFactory.getLogger(FollowStateTrackerController.class);
 
     @Autowired
     private FollowStateTrackerService fstService;
@@ -482,7 +488,7 @@ public class FollowStateTrackerController {
     void pushNotifications(
             @PathVariable(value = "followedId") Long followedID,
             @Valid @RequestBody Set<String> labels) {
-        System.out.println("FollowStateTrackerController.pushNotifications(Long: "+followedID + ", Set: "+ labels + ")");
+        logger.debug("pushNotifications(followedID: {}, labels: {})", followedID, labels);
         fstService.pushNotifications(followedID, labels);
     }
 
@@ -605,16 +611,17 @@ public class FollowStateTrackerController {
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
     @DeleteMapping(value = "/notification/pop/id/{id}")
-    public void popNotifications(
+    public void popNotification(
             @PathVariable(value = "id") Long notificationId) {
         fstService.popNotification(notificationId);
     }
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
     @DeleteMapping(value = "/notification/pop/{followerId}/id/{id}")
-    public void popNotifications(
+    public void popNotification(
             @PathVariable(value = "followerId") Long followerId,
             @PathVariable(value = "id") Long notificationId) {
+        logger.debug("popNotification(followerId: {}, notificationId: {})", followerId, notificationId);
         fstService.popNotification(followerId, notificationId);
     }
 
