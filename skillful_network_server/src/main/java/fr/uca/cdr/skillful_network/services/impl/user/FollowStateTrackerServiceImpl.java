@@ -1,22 +1,31 @@
 package fr.uca.cdr.skillful_network.services.impl.user;
 
-import fr.uca.cdr.skillful_network.entities.user.*;
+import fr.uca.cdr.skillful_network.entities.user.FollowStateTracker;
+import fr.uca.cdr.skillful_network.entities.user.Followable;
+import fr.uca.cdr.skillful_network.entities.user.Notification;
+import fr.uca.cdr.skillful_network.entities.user.User;
 import fr.uca.cdr.skillful_network.repositories.user.FollowStateTrackerRepository;
 import fr.uca.cdr.skillful_network.repositories.user.NotificationRepository;
 import fr.uca.cdr.skillful_network.services.AuthenticationService;
 import fr.uca.cdr.skillful_network.services.user.FollowStateTrackerService;
 import fr.uca.cdr.skillful_network.services.user.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
+
+import static fr.uca.cdr.skillful_network.entities.user.Follower.FollowerNotifiable;
+import static fr.uca.cdr.skillful_network.entities.user.Follower.FollowerStatus;
 
 @Service
 public class FollowStateTrackerServiceImpl implements FollowStateTrackerService {
+
+    private static final Logger logger = LoggerFactory.getLogger(FollowStateTrackerServiceImpl.class);
 
     @Autowired
     private FollowStateTrackerRepository fstRepository;
@@ -43,7 +52,7 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public Optional<List<FollowStateTracker>> getAllFSTByFollower() {
-        return this.getFSTByFollowerID(this.authenticationService.getCurrentUser().getId());
+        return this.getFSTByFollowerID(authenticationService.getCurrentUser().getId());
     }
 
     @Override
@@ -53,7 +62,7 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
 
     @Override
     public Optional<List<User>> getAllFollowersByFollowable() {
-        return this.getAllFollowersByFollowableID(this.authenticationService.getCurrentUser().getId());
+        return this.getAllFollowersByFollowableID(authenticationService.getCurrentUser().getId());
     }
 
     @Override
@@ -66,13 +75,24 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
     }
 
     @Override
+    public Long getFollowerCount(){
+        return this.getFollowerCount(authenticationService.getCurrentUser().getId());
+    }
+
+    @Override
+    public Long getFollowerCount(Long followableID){
+        logger.debug("getFollowerCount(followableID: {}})", followableID);
+        return (long) fstRepository.findAllByFollowed(userService.getById(followableID)).size();
+    }
+
+    @Override
     public boolean follow(Long followableID) {
-        return this.follow(this.authenticationService.getCurrentUser().getId(), followableID);
+        return this.follow(authenticationService.getCurrentUser().getId(), followableID);
     }
 
     @Override
     public boolean follow(Long followerID, Long followableID) {
-        //  System.out.println("FollowStateTrackerServiceImpl.follow("+followerID+","+followableID+")");
+        logger.debug("follow(followerID: {}, followableID: {})", followerID, followableID);
         if ( followableID == followerID ) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Impossible de se suivre soi même!");
         }
@@ -90,7 +110,7 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
 
     @Override
     public void unfollowByFollowedID(Long followedID) {
-        //  System.out.println("FollowStateTrackerServiceImpl.unfollowByFollowedID("+followedID+")");
+        logger.debug("FollowStateTrackerServiceImpl.unfollowByFollowedID(followedID: {})", followedID);
         // get followed user
         User followed = userService.getById(followedID);
         if ( followed == null)  {
@@ -99,7 +119,7 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
 
         // get FST
         FollowStateTracker fst =  fstRepository.findByFollowerAndFollowed(
-                this.authenticationService.getCurrentUser(), followed);
+                authenticationService.getCurrentUser(), followed);
         if ( fst == null)  {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Le suivi n'existe pas.");
         }
@@ -110,7 +130,7 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
 
     @Override
     public void unfollowByFSTId(Long fstId) {
-        //  System.out.println("FollowStateTrackerServiceImpl.unfollowByFSTId("+fstId+")");
+        logger.debug("unfollowByFSTId(fstId: {})", fstId);
         // get FST
         FollowStateTracker fst = fstRepository.findById(fstId)
                 .orElseThrow( () -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Le suivi n'existe pas.") );
@@ -124,42 +144,40 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
         //update followed
         User followed = fst.getFollowed();
         followed.getFollowableSet().remove(fst);
-        userService.createOrUpdate(followed);
 
         //update follower
         User follower = fst.getFollower();
         follower.getFollowerSet().remove(fst);
-        userService.createOrUpdate(follower);
 
         // delete FST
         fstRepository.delete(fst);
     }
 
     @Override
-    public void setFollowerStatus(Follower.FollowerStatus status) {
-        //  System.out.println("FollowStateTrackerServiceImpl.setFollowerStatus(" + status + ")");
-        this.setFollowerStatusByFollower(this.authenticationService.getCurrentUser(), status);
+    public void setFollowerStatus(FollowerStatus status) {
+        logger.debug("setFollowerStatus(status: {})", status);
+        this.setFollowerStatusByFollower(authenticationService.getCurrentUser(), status);
     }
 
     @Override
-    public void setFollowerStatusByFollowerID(Long followerID, Follower.FollowerStatus status) {
-        //  System.out.println("FollowStateTrackerServiceImpl.setFollowerStatusByFollowerID("+followerID+"," + status + ")");
+    public void setFollowerStatusByFollowerID(Long followerID, FollowerStatus status) {
+        logger.debug("setFollowerStatusByFollowerID(followerID: {}, status: {})", followerID, status);
         this.setFollowerStatusByFollower(userService.getById(followerID), status);
     }
 
-    public void setFollowerStatusByFollower(User follower, Follower.FollowerStatus status) {
+    public void setFollowerStatusByFollower(User follower, FollowerStatus status) {
         // get all FST and loop with modification
         fstRepository.findAllByFollower(follower)
                 .forEach( fst -> {
                     fst.setFollowerStatus(status);
-                    //  System.out.println("fstId: "+fst.getId()+" -> " + fst.getFollowerStatus());
+                    logger.debug("fstId: {} -> status: {})", fst.getId(), fst.getFollowerStatus());
                     fstRepository.save(fst);
                 });
     }
 
     @Override
-    public void setFollowerStatusByFollowedID(Long followedID, Follower.FollowerStatus status) {
-        //  System.out.println("FollowStateTrackerServiceImpl.setFollowerStatusByFollowedID("+followedID+"," + status + ")");
+    public void setFollowerStatusByFollowedID(Long followedID, FollowerStatus status) {
+        logger.debug("setFollowerStatusByFollowedID(followedID: {}, status: {})", followedID, status);
         FollowStateTracker fst =  fstRepository.findByFollowerAndFollowed(
                 authenticationService.getCurrentUser(), userService.getById(followedID));
         if ( fst == null)  {
@@ -169,8 +187,8 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
     }
 
     @Override
-    public void setFollowerStatusByFSTID(Long fstId, Follower.FollowerStatus status) {
-        //  System.out.println("FollowStateTrackerServiceImpl.setFollowerStatusByFSTID("+fstId+"," + status + ")");
+    public void setFollowerStatusByFSTID(Long fstId, FollowerStatus status) {
+        logger.debug("setFollowerStatusByFSTID(fstId: {}, status: {})", fstId, status);
         // get FST
         FollowStateTracker fst = fstRepository.findById(fstId)
                 .orElseThrow( () -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Le suivi n'existe pas.") );
@@ -178,37 +196,37 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
         this.setFollowerStatusByFST(fst, status);
     }
 
-    public void setFollowerStatusByFST(FollowStateTracker fst, Follower.FollowerStatus status) {
+    public void setFollowerStatusByFST(FollowStateTracker fst, FollowerStatus status) {
         fst.setFollowerStatus(status);
-        //  System.out.println("fstId: "+fst.getId()+" -> " + fst.getFollowerStatus());
+        logger.debug("fstId: {} -> status: {})", fst.getId(), fst.getFollowerStatus());
         fstRepository.save(fst);
     }
 
     @Override
-    public void setFollowerNotifiableStatus(Follower.FollowerNotifiable notifiable) {
-        //  System.out.println("FollowStateTrackerServiceImpl.setFollowerNotifiableStatus(" + notifiable + ")");
+    public void setFollowerNotifiableStatus(FollowerNotifiable notifiable) {
+        logger.debug("setFollowerNotifiableStatus(notifiable: {}", notifiable);
         this.setFollowerNotifiableStatusByFollower(authenticationService.getCurrentUser(), notifiable);
     }
 
     @Override
-    public void setFollowerNotifiableStatusByFollowerID(Long followerID, Follower.FollowerNotifiable notifiable) {
-        //  System.out.println("FollowStateTrackerServiceImpl.setFollowerNotifiableStatusByFollowerID("+followerID+"," + notifiable + ")");
+    public void setFollowerNotifiableStatusByFollowerID(Long followerID, FollowerNotifiable notifiable) {
+        logger.debug("setFollowerNotifiableStatusByFollowerID(followerID: {}, notifiable {})", followerID, notifiable);
         this.setFollowerNotifiableStatusByFollower(userService.getById(followerID), notifiable);
     }
 
-    public void setFollowerNotifiableStatusByFollower(User follower, Follower.FollowerNotifiable notifiable) {
+    public void setFollowerNotifiableStatusByFollower(User follower, FollowerNotifiable notifiable) {
         // get all FST and loop with modification
         fstRepository.findAllByFollower(follower)
                 .forEach( fst -> {
                     fst.setFollowerNotifiable(notifiable);
-                    //  System.out.println("fstId: "+fst.getId()+" -> " + fst.getFollowerNotifiable());
+                    logger.debug("fstId: {} -> notifiable: {})", fst.getId(), fst.getFollowerNotifiable());
                     fstRepository.save(fst);
                 });
     }
 
     @Override
-    public void setFollowerNotifiableStatusByFollowedID(Long followedID, Follower.FollowerNotifiable notifiable) {
-        //  System.out.println("FollowStateTrackerServiceImpl.setFollowerNotifiableStatusByFollowedID("+followedID+"," + notifiable + ")");
+    public void setFollowerNotifiableStatusByFollowedID(Long followedID, FollowerNotifiable notifiable) {
+        logger.debug("setFollowerNotifiableStatusByFollowedID(followedID: {}, notifiable: {})", followedID, notifiable);
         FollowStateTracker fst =  fstRepository.findByFollowerAndFollowed(
                 authenticationService.getCurrentUser(), userService.getById(followedID));
         if ( fst == null)  {
@@ -218,17 +236,17 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
     }
 
     @Override
-    public void setFollowerNotifiableStatusByFSTID(Long fstId, Follower.FollowerNotifiable notifiable) {
-        //  System.out.println("FollowStateTrackerServiceImpl.setFollowerNotifiableStatusByFSTID("+fstId+"," + notifiable + ")");
+    public void setFollowerNotifiableStatusByFSTID(Long fstId, FollowerNotifiable notifiable) {
+        logger.debug("setFollowerNotifiableStatusByFSTID(fstId: {}, notifiable: {})", fstId, notifiable);
         // get FST
         FollowStateTracker fst = fstRepository.findById(fstId)
                 .orElseThrow( () -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Le suivi n'existe pas.") );
         this.setFollowerNotifiableByFST(fst, notifiable);
     }
 
-    public void setFollowerNotifiableByFST( FollowStateTracker fst, Follower.FollowerNotifiable notifiable) {
+    public void setFollowerNotifiableByFST( FollowStateTracker fst, FollowerNotifiable notifiable) {
         fst.setFollowerNotifiable(notifiable);
-        //  System.out.println("fstId: "+fst.getId()+" -> " + fst.getFollowerNotifiable());
+        logger.debug("fstId: {} -> notifiable: {})", fst.getId(), fst.getFollowerNotifiable());
         fstRepository.save(fst);
     }
 
@@ -260,13 +278,24 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
     }
 
     @Override
+    public Long getFollowedCount(){
+        return this.getFollowedCount(authenticationService.getCurrentUser().getId());
+    }
+
+    @Override
+    public Long getFollowedCount(Long followerID){
+        logger.debug("getFollowedCount(followerID: {})", followerID);
+        return (long) fstRepository.findAllByFollower(userService.getById(followerID)).size();
+    }
+
+    @Override
     public void banFollower(Long followerID) {
         this.banFollower(authenticationService.getCurrentUser().getId(), followerID);
     }
 
     @Override
     public void banFollower(Long followedID, Long followerID) {
-        //  System.out.println("FollowStateTrackerServiceImpl.banFollower("+followedID+","+followerID+")");
+        logger.debug("banFollower(followedID: {}, followerID: {})", followedID, followerID);
         if ( followedID == followerID ) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Impossible de se suivre soi même!");
         }
@@ -280,22 +309,22 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
         if ( fst == null)  {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Le suivi n'existe pas.");
         }
-        fst.setFollowerStatus(Follower.FollowerStatus.banned);
+        fst.setFollowerStatus(FollowerStatus.banned);
         fstRepository.save(fst);
     }
 
     @Override
     public void setFollowableStatus(Followable.FollowableStatus status) {
         // set for all FST by current user as followed
-        //  System.out.println("FollowStateTrackerServiceImpl.setFollowableStatus(" + status + ")");
+        logger.debug("setFollowableStatus(status: {})", status);
         // process update
-        this.setFollowableStatusByFollowable(this.authenticationService.getCurrentUser(), status);
+        this.setFollowableStatusByFollowable(authenticationService.getCurrentUser(), status);
     }
 
     @Override
     public void setFollowableStatusByFollowedID(Long followedID, Followable.FollowableStatus status) {
         // set for all FST by provided user as followed
-        //  System.out.println("FollowStateTrackerServiceImpl.setFollowableStatusByFollowableID("+followedID+"," + status + ")");
+        logger.debug("setFollowableStatusByFollowedID(followedID: {}, status: {})", followedID, status);
         // process update
         this.setFollowableStatusByFollowable(userService.getById(followedID), status);
     }
@@ -309,7 +338,7 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
         fstRepository.findAllByFollowed(followed)
                 .forEach( fst -> {
                     fst.setFollowedStatus(status);
-                    //  System.out.println("fstId: "+fst.getId()+" -> " + fst.getFollowedStatus());
+                    logger.debug("fstId: {} -> status: {})", fst.getId(), fst.getFollowedStatus());
                     fstRepository.save(fst);
                 });
     }
@@ -317,7 +346,7 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
     @Override
     public void setFollowableStatusByFollowerID(Long followerID, Followable.FollowableStatus status) {
         // set for a specific FST by current user as followed and provided user as follower
-        //  System.out.println("FollowStateTrackerServiceImpl.setFollowableStatusByFollowerID("+followerID+"," + status + ")");
+        logger.debug("setFollowableStatusByFollowerID(followerID: {}, status: {})", followerID, status);
         FollowStateTracker fst =  fstRepository.findByFollowerAndFollowed(
                 userService.getById(followerID), authenticationService.getCurrentUser());
         if ( fst == null)  {
@@ -330,7 +359,7 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
     @Override
     public void setFollowableStatusByFSTID(Long fstId, Followable.FollowableStatus status) {
         // set for a specific FST
-        //  System.out.println("FollowStateTrackerServiceImpl.setFollowableStatusByFSTID("+fstId+"," + status + ")");
+        logger.debug("setFollowableStatusByFSTID(fstId: {}, status: {})", fstId, status);
         // get FST
         FollowStateTracker fst = fstRepository.findById(fstId)
                 .orElseThrow( () -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Le suivi n'existe pas.") );
@@ -341,22 +370,22 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
     public void setFollowableStatusByFST(FollowStateTracker fst, Followable.FollowableStatus status) {
         // set for all FST by provided user as followed
         fst.setFollowedStatus(status);
-        //  System.out.println("fstId: "+fst.getId()+" -> " + fst.getFollowedStatus());
+        logger.debug("fstId: {} -> status: {})", fst.getId(), fst.getFollowedStatus());
         fstRepository.save(fst);
     }
 
     @Override
     public void setFollowableNotifiableStatus(Followable.FollowableNotifiable notifiable) {
         // set for all FST by current user as followed
-        //  System.out.println("FollowStateTrackerServiceImpl.setFollowableNotifiableStatus(" + notifiable + ")");
+        logger.debug("setFollowableNotifiableStatus(notifiable: {})", notifiable);
         // process update
-        this.setFollowableNotifiableStatusByFollowable(this.authenticationService.getCurrentUser(), notifiable);
+        this.setFollowableNotifiableStatusByFollowable(authenticationService.getCurrentUser(), notifiable);
     }
 
     @Override
     public void setFollowableNotifiableStatusByFollowedID(Long followedID, Followable.FollowableNotifiable notifiable) {
         // set for all FST by provided user as followed
-        //  System.out.println("FollowStateTrackerServiceImpl.setFollowableNotifiableStatusByFollowableID("+followedID+"," + notifiable + ")");
+        logger.debug("setFollowableNotifiableStatusByFollowedID(followedID: {}, notifiable: {})", followedID, notifiable);
         // process update
         this.setFollowableNotifiableStatusByFollowable(userService.getById(followedID), notifiable);
     }
@@ -370,7 +399,7 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
         fstRepository.findAllByFollowed(followed)
                 .forEach( fst -> {
                     fst.setFollowedNotifiable(notifiable);
-                    //  System.out.println("fstId: "+fst.getId()+" -> " + fst.getFollowedNotifiable());
+                    logger.debug("fstId: {} -> notifiable: {})", fst.getId(), fst.getFollowedNotifiable());
                     fstRepository.save(fst);
                 });
     }
@@ -378,7 +407,7 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
     @Override
     public void setFollowableNotifiableStatusByFollowerID(Long followerID, Followable.FollowableNotifiable notifiable) {
         // set for a specific FST by current user as followed and provided user as follower
-        //  System.out.println("FollowStateTrackerServiceImpl.setFollowableStatusBsetFollowableNotifiableStatusByFollowerIDyFollowerID("+followerID+"," + notifiable + ")");
+        logger.debug("setFollowableNotifiableStatusByFollowerID(followerID: {}, notifiable: {})", followerID, notifiable);
         FollowStateTracker fst =  fstRepository.findByFollowerAndFollowed(
                 userService.getById(followerID), authenticationService.getCurrentUser());
         if ( fst == null)  {
@@ -391,7 +420,7 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
     @Override
     public void setFollowableNotifiableStatusByFSTID(Long fstId, Followable.FollowableNotifiable notifiable) {
         // set for a specific FST
-        //  System.out.println("FollowStateTrackerServiceImpl.setFollowableNotifiableStatusByFSTID("+fstId+"," + notifiable + ")");
+        logger.debug("setFollowableNotifiableStatusByFSTID(fstId: {}, notifiable: {})", fstId, notifiable);
         // get FST
         FollowStateTracker fst = fstRepository.findById(fstId)
                 .orElseThrow( () -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Le suivi n'existe pas.") );
@@ -402,40 +431,305 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
     public void setFollowableNotifiableStatusByFST(FollowStateTracker fst, Followable.FollowableNotifiable notifiable) {
         // set for all FST by provided user as followed
         fst.setFollowedNotifiable(notifiable);
-        //  System.out.println("fstId: "+fst.getId()+" -> " + fst.getFollowedNotifiable());
+        logger.debug("fstId: {} -> notifiable: {})", fst.getId(), fst.getFollowedNotifiable());
         fstRepository.save(fst);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // notification methods
     ////////////////////////////////////////////////////////////////////////////////////////////////
+
+//    @Override
+//    public void pushNotifications(Set<Notification> notifications) {
+//        this.pushNotifications(authenticationService.getCurrentUser(), notifications);
+//    }
+
+//    @Override
+//    public void pushNotifications(Long followedID, Set<Notification> notifications) {
+//        this.pushNotifications(userService.getById(followedID), notifications);
+//    }
+
+//    public void pushNotifications(User followed, Set<Notification> notifications) {
+//        System.out.println("FollowStateTrackerServiceImpl.pushNotifications(User: "+followed.getId() + ")");
+//
+//        // persist notifications
+//        notifications.stream()
+//                .filter( n -> n.followerSetSize() == 0 )
+//                .forEach( n -> notificationRepository.save(n) );
+//
+//        // process update
+//        fstRepository.findAllByFollowed(followed)
+//                .forEach( fst -> {
+//                    System.out.println("fst: " + fst.getId() );
+//                    fst.pushNotifications(notifications);
+//                    fstRepository.save(fst);
+//                });
+//    }
+
+
     @Override
-    public Optional<List<Notification>> getAllNotifications() {
-        return Optional.empty();
+    public void pushNotifications(Set<String> labels) {
+        this.pushNotifications(authenticationService.getCurrentUser(), labels);
     }
 
     @Override
-    public Optional<List<Notification>> getAllNotificationsByFollower(Long followerID) {
-        return Optional.empty();
+    public void pushNotifications(Long followedID, Set<String> labels) {
+        this.pushNotifications(userService.getById(followedID), labels);
+    }
+
+    public void pushNotifications(User followed, Set<String> labels) {
+        logger.debug("pushNotifications(followed: {}, labels: {})", followed.getId(), labels);
+
+        // persist notifications
+//        notifications.stream()
+//                .filter( n -> n.followerSetSize() == 0 )
+//                .forEach( n -> notificationRepository.save(n) );
+
+        // process update
+        fstRepository.findAllByFollowed(followed)
+                .forEach( fst -> {
+                    logger.debug("fst: {}", fst.getId());
+                    // filtering out
+                    if (fst.getFollowedStatus() != Followable.FollowableStatus.on) {
+                        logger.debug("push prohibited (FollowedStatus: {})", fst.getFollowedStatus());
+                    } else {
+                        switch (fst.getFollowedNotifiable()) {
+                            case all:
+                                // create new Notiffication Set
+                                Set<Notification> notifications = labels.stream()
+                                        .map( label -> {
+                                            Notification newNotification = new Notification(label);
+                                            notificationRepository.save(newNotification);
+                                            return newNotification;
+                                        })
+                                        .collect(Collectors.toSet());
+                                logger.debug("notificationSet: {}", notifications);
+
+                                fst.pushNotifications(notifications);
+                                fstRepository.save(fst);
+                                break;
+                            default:
+                                logger.debug("notifications filtered out (FollowableNotifiable: {})", fst.getFollowedNotifiable());
+                        }
+                    }
+                });
     }
 
     @Override
-    public Optional<List<Notification>> getAllNotificationsByFollowable(Long followableID) {
-        return Optional.empty();
+    public Optional<Set<Notification>> getAllNotifications() {
+        return this.getAllNotificationsByFollower(authenticationService.getCurrentUser());
     }
 
     @Override
-    public Optional<List<Notification>> getAllNotificationsByFollowerAndByFollowable(Long followerID, Long followableID) {
-        return Optional.empty();
+    public Optional<Set<Notification>> getAllNotificationsByFollowerId(Long followerID) {
+        return this.getAllNotificationsByFollower(userService.getById(followerID));
+    }
+
+    public Optional<Set<Notification>> getAllNotificationsByFollower(User follower) {
+        logger.debug("getAllNotificationsByFollower(follower: {})", follower.getId());
+        // get all FST and loop with modification
+        return Optional.of(fstRepository.findAllByFollower(follower).stream()
+                .flatMap(fst -> fst.getNotifications().stream())
+                .collect(Collectors.toSet()));
     }
 
     @Override
-    public void setNotificationsReadStatus(Long followerID, List<Notification> notifications, Boolean isRead) {
-
+    public Optional<Set<Notification>> getAllNotificationsByFollowedId(Long followedID) {
+        FollowStateTracker fst =  fstRepository.findByFollowerAndFollowed(
+                authenticationService.getCurrentUser(), userService.getById(followedID));
+        if ( fst == null)  {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Le suivi n'existe pas.");
+        }
+        return Optional.of(this.getAllNotificationsByFST(fst));
     }
 
     @Override
-    public void popNotifications(Long followerID, List<Notification> notifications) {
-
+    public Optional<Set<Notification>> getAllNotificationsByFollowerIdAndByFollowedId(Long followerID, Long followedID) {
+        FollowStateTracker fst =  fstRepository.findByFollowerAndFollowed(
+                userService.getById(followerID), userService.getById(followedID));
+        if ( fst == null)  {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Le suivi n'existe pas.");
+        }
+        return Optional.of(this.getAllNotificationsByFST(fst));
     }
+
+    public Set<Notification> getAllNotificationsByFST(FollowStateTracker fst) {
+        logger.debug("getAllNotificationsByFST(fst: {})", fst.getId());
+        Set<Notification> notifications = new HashSet<>();
+        // filtering out
+        if (fst.getFollowerStatus() != FollowerStatus.on) {
+            logger.debug("get() prohibited (FollowerStatus: {})", fst.getFollowerStatus());
+        } else {
+            switch (fst.getFollowerNotifiable()) {
+                case all :
+                notifications = fst.getNotifications();
+                    break;
+                default:
+                    logger.debug("notifications filtered out (FollowerNotifiable: {})", fst.getFollowerNotifiable());
+            }
+        }
+        return notifications;
+    }
+
+    @Override
+    public Optional<Map<Long, String>> getAllLabels() {
+        return this.getAllLabelsByFollower(authenticationService.getCurrentUser());
+    }
+
+    @Override
+    public Optional<Map<Long, String>> getAllLabelsByFollowerId(Long followerID) {
+        return this.getAllLabelsByFollower(userService.getById(followerID));
+    }
+
+    public Optional<Map<Long, String>> getAllLabelsByFollower(User follower) {
+        logger.debug("getAllLabelsByFollower(follower: {})", follower.getId());
+        // get all FST and loop with modification
+        return Optional.of(fstRepository.findAllByFollower(follower).stream()
+                .flatMap(fst -> fst.getNotifications().stream())
+                .collect(Collectors.toMap(Notification::getId, Notification::getLabel)));
+    }
+
+    @Override
+    public Boolean isNotificationsEmpty() {
+        return this.isNotificationsEmpty(authenticationService.getCurrentUser());
+    }
+
+    @Override
+    public Boolean isNotificationsEmpty(Long followerID) {
+        return this.isNotificationsEmpty(userService.getById(followerID));
+    }
+
+    public Boolean isNotificationsEmpty(User follower){
+        logger.debug("isNotificationsEmpty(User: {})", follower.getId());
+        return fstRepository.findAllByFollower(follower).stream()
+                .allMatch( fst -> fst. getNotifications().isEmpty() );
+    }
+
+    @Override
+    public Long notificationsSize() {
+        return this.notificationsSize(authenticationService.getCurrentUser());
+    }
+
+    @Override
+    public Long notificationsSize(Long followerID) {
+        return this.notificationsSize(userService.getById(followerID));
+    }
+
+    public Long notificationsSize(User follower){
+        logger.debug("notificationsSize(User: {})", follower.getId());
+//        AtomicReference<Long> notificationsSize = new AtomicReference<>(0L);
+//        fstRepository.findAllByFollower(follower).forEach( fst -> notificationsSize.updateAndGet( v -> v + fst.getNotifications().size() ) );
+//        return notificationsSize.get();
+        return (long) fstRepository.findAllByFollower(follower).stream()
+                .reduce(0, (subtotal, fst) -> subtotal + fst.getNotifications().size(), Integer::sum);
+    }
+
+    @Override
+    public Long unreadNotificationsCount() {
+        return this.unreadNotificationsCount(authenticationService.getCurrentUser());
+    }
+
+    @Override
+    public Long unreadNotificationsCount(Long followerID){
+        return this.unreadNotificationsCount(userService.getById(followerID));
+    }
+
+    public Long unreadNotificationsCount(User follower){
+        logger.debug("unreadNotificationsCount(User: {})", follower.getId());
+        long unreadCount = 0L;
+        for (FollowStateTracker fst : fstRepository.findAllByFollower(follower)) {
+            long count = fst.getNotifications().stream()
+                    .filter( n -> ! n.getRead())
+                    .count();
+            unreadCount+=count;
+        }
+        return unreadCount;
+    }
+
+    @Override
+    public void setNotificationReadStatus(Long notificationId, Boolean isRead) {
+        this.setNotificationReadStatus(authenticationService.getCurrentUser(), notificationId, isRead);
+    }
+
+    @Override
+    public void setNotificationReadStatus(Long followerID, Long notificationId, Boolean isRead) {
+        this.setNotificationReadStatus(userService.getById(followerID), notificationId, isRead);
+    }
+
+    public void setNotificationReadStatus(User follower, Long notificationId, Boolean isRead) {
+        logger.debug("setNotificationReadStatus(User: {}, Long: {}, Boolean: {})", follower.getId(), notificationId, isRead);
+        // get notificationSet from id
+        Set<Notification> notifications = notificationRepository.findById(notificationId).map(Collections::singleton).orElse(Collections.emptySet());
+        // process update
+        fstRepository.findAllByFollower(follower)
+                .forEach( fst -> {
+                    fst.setNotificationReadStatus(notifications, isRead);
+                    fstRepository.save(fst);
+                });
+    }
+
+    @Override
+    public void setNotificationsReadStatus(Set<Notification> notifications, Boolean isRead) {
+        this.setNotificationsReadStatus(authenticationService.getCurrentUser(), notifications, isRead);
+    }
+
+    @Override
+    public void setNotificationsReadStatus(Long followerID, Set<Notification> notifications, Boolean isRead) {
+        this.setNotificationsReadStatus(userService.getById(followerID), notifications, isRead);
+    }
+
+    public void setNotificationsReadStatus(User follower, Set<Notification> notifications, Boolean isRead) {
+        logger.debug("setNotificationsReadStatus(User: {}, Boolean: {})", follower.getId(), isRead);
+        fstRepository.findAllByFollower(follower)
+                .forEach( fst -> {
+                    fst.setNotificationReadStatus(notifications, isRead);
+                    fstRepository.save(fst);
+                });
+    }
+
+    @Override
+    public void popNotification(Long notificationId) {
+        this.popNotification(authenticationService.getCurrentUser(), notificationId);
+    }
+
+    @Override
+    public void popNotification(Long followerID, Long notificationId) {
+        this.popNotification(userService.getById(followerID), notificationId);
+    }
+
+    public void popNotification(User follower, Long notificationId) {
+        logger.debug("popNotification(User: {}, Long: {})", follower.getId(), notificationId);
+
+        // get notificationSet from id
+        Set<Notification> notifications = notificationRepository.findById(notificationId).map(Collections::singleton).orElse(Collections.emptySet());
+        logger.debug("notifications: {})", notifications);
+
+        // process update
+        this.popNotifications(follower, notifications);
+    }
+
+    @Override
+    public void popNotifications(Set<Notification> notifications) {
+        this.popNotifications(authenticationService.getCurrentUser(), notifications);
+    }
+
+    @Override
+    public void popNotifications(Long followerID, Set<Notification> notifications) {
+        this.popNotifications(userService.getById(followerID), notifications);
+    }
+
+    public void popNotifications(User follower, Set<Notification> notifications) {
+        logger.debug("popNotifications(User: {}, Set<Long>: {})", follower.getId(), notifications);
+        // process update
+        fstRepository.findAllByFollower(follower)
+                .forEach( fst -> {
+                    fst.popNotifications(notifications);
+                    fstRepository.save(fst);
+                });
+        // clean orphan notifications
+        notifications.stream()
+                .filter( n -> n.followerSetSize() == 0 )
+                .forEach( n -> notificationRepository.delete(n) );
+    }
+
 }
