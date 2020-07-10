@@ -19,4 +19,6 @@ public interface AuthenticationService {
 
     String resetPassword();
 
+    void manageRoles(Set<String> rolesAsString, User user);
+
 }

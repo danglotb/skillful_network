@@ -1,8 +1,9 @@
 html,
 body {
-  height: 100%;
   min-height: 100%;
+  height:100%;
   margin: 0;
+  padding:0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
@@ -40,8 +41,8 @@ mat-button {
   color: #5b7787;
 }
 
-.mat-button.mat-skillful,
-.mat-menu-item.mat-skillful {
+.mat-button.mat-chocolat,
+.mat-menu-item.mat-chocolat {
   color: #5b7787;
 }
 
@@ -55,6 +56,11 @@ mat-button {
   color: #5b7787;
 }
 
+.material-icons.skillfull-orange { 
+  color:#ff6550;
+}
+
+
 .photoProfile {
   margin-top: 7px;
   width: 90%;
@@ -62,3 +68,4 @@ mat-button {
   border-radius: 50%;
   justify-self: center;
 }
+
