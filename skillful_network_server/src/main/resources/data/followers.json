@@ -1,0 +1,1942 @@
+[
+  {
+    "id": 1,
+    "creationDate": "Jul 10, 2020 12:42:00 PM",
+    "followed": {
+      "id": 11,
+      "firstName": "Anaïs",
+      "lastName": "Benoit",
+      "password": "y^LbBOE6",
+      "birthDate": "Jan 4, 1998 12:28:35 AM",
+      "email": "arthur.gauthier@yahoo.fr",
+      "mobileNumber": "07 33 94 93 17",
+      "validated": true,
+      "careerGoal": "Retail Coordinator",
+      "skillSet": [
+        {
+          "id": 10,
+          "name": "Proactive",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 2,
+          "name": "Associate Degree in Business",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 2,
+          "name": "Karel",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "follower": {
+      "id": 1,
+      "firstName": "Maeva",
+      "lastName": "Dupont",
+      "password": "Qwerty123",
+      "birthDate": "Jul 19, 1984 3:59:57 AM",
+      "email": "user@uca.fr",
+      "mobileNumber": "+33 6 86 81 69 68",
+      "validated": true,
+      "careerGoal": "International Marketing Agent",
+      "skillSet": [
+        {
+          "id": 10,
+          "name": "Proactive",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 5,
+          "name": "Associate Degree in Creative Arts",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 9,
+          "name": "TADS",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "notifications": [],
+    "followedStatus": "on",
+    "followedNotifiable": "all",
+    "followerStatus": "on",
+    "followerNotifiable": "all"
+  },
+  {
+    "id": 2,
+    "creationDate": "Jul 10, 2020 12:42:00 PM",
+    "followed": {
+      "id": 1,
+      "firstName": "Maeva",
+      "lastName": "Dupont",
+      "password": "Qwerty123",
+      "birthDate": "Jul 19, 1984 3:59:57 AM",
+      "email": "user@uca.fr",
+      "mobileNumber": "+33 6 86 81 69 68",
+      "validated": true,
+      "careerGoal": "International Marketing Agent",
+      "skillSet": [
+        {
+          "id": 10,
+          "name": "Proactive",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 5,
+          "name": "Associate Degree in Creative Arts",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 9,
+          "name": "TADS",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "follower": {
+      "id": 2,
+      "firstName": "Rayan",
+      "lastName": "Gonzalez",
+      "password": "8x5\u0026Wa!*r",
+      "birthDate": "Sep 27, 1983 6:56:27 PM",
+      "email": "antoine.meunier@hotmail.fr",
+      "mobileNumber": "0786179418",
+      "validated": true,
+      "careerGoal": "Government Analyst",
+      "skillSet": [
+        {
+          "id": 6,
+          "name": "Problem solving",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 5,
+          "name": "Associate Degree in Creative Arts",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 6,
+          "name": "Strand",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "notifications": [],
+    "followedStatus": "on",
+    "followedNotifiable": "all",
+    "followerStatus": "on",
+    "followerNotifiable": "all"
+  },
+  {
+    "id": 3,
+    "creationDate": "Jul 10, 2020 12:42:00 PM",
+    "followed": {
+      "id": 11,
+      "firstName": "Anaïs",
+      "lastName": "Benoit",
+      "password": "y^LbBOE6",
+      "birthDate": "Jan 4, 1998 12:28:35 AM",
+      "email": "arthur.gauthier@yahoo.fr",
+      "mobileNumber": "07 33 94 93 17",
+      "validated": true,
+      "careerGoal": "Retail Coordinator",
+      "skillSet": [
+        {
+          "id": 10,
+          "name": "Proactive",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 2,
+          "name": "Associate Degree in Business",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 2,
+          "name": "Karel",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "follower": {
+      "id": 2,
+      "firstName": "Rayan",
+      "lastName": "Gonzalez",
+      "password": "8x5\u0026Wa!*r",
+      "birthDate": "Sep 27, 1983 6:56:27 PM",
+      "email": "antoine.meunier@hotmail.fr",
+      "mobileNumber": "0786179418",
+      "validated": true,
+      "careerGoal": "Government Analyst",
+      "skillSet": [
+        {
+          "id": 6,
+          "name": "Problem solving",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 5,
+          "name": "Associate Degree in Creative Arts",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 6,
+          "name": "Strand",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "notifications": [],
+    "followedStatus": "on",
+    "followedNotifiable": "all",
+    "followerStatus": "on",
+    "followerNotifiable": "all"
+  },
+  {
+    "id": 4,
+    "creationDate": "Jul 10, 2020 12:42:00 PM",
+    "followed": {
+      "id": 1,
+      "firstName": "Maeva",
+      "lastName": "Dupont",
+      "password": "Qwerty123",
+      "birthDate": "Jul 19, 1984 3:59:57 AM",
+      "email": "user@uca.fr",
+      "mobileNumber": "+33 6 86 81 69 68",
+      "validated": true,
+      "careerGoal": "International Marketing Agent",
+      "skillSet": [
+        {
+          "id": 10,
+          "name": "Proactive",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 5,
+          "name": "Associate Degree in Creative Arts",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 9,
+          "name": "TADS",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "follower": {
+      "id": 3,
+      "firstName": "Clara",
+      "lastName": "Lacroix",
+      "password": "tvilv@Cs",
+      "birthDate": "Sep 25, 1999 4:36:56 AM",
+      "email": "julie.nicolas@gmail.com",
+      "mobileNumber": "+33 7 73 16 11 73",
+      "validated": true,
+      "careerGoal": "Farming Liaison",
+      "skillSet": [
+        {
+          "id": 3,
+          "name": "Leadership",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 1,
+          "name": "Associate Degree in Teaching",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 1,
+          "name": "Pig (programming tool)",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "notifications": [],
+    "followedStatus": "on",
+    "followedNotifiable": "all",
+    "followerStatus": "on",
+    "followerNotifiable": "all"
+  },
+  {
+    "id": 5,
+    "creationDate": "Jul 10, 2020 12:42:00 PM",
+    "followed": {
+      "id": 11,
+      "firstName": "Anaïs",
+      "lastName": "Benoit",
+      "password": "y^LbBOE6",
+      "birthDate": "Jan 4, 1998 12:28:35 AM",
+      "email": "arthur.gauthier@yahoo.fr",
+      "mobileNumber": "07 33 94 93 17",
+      "validated": true,
+      "careerGoal": "Retail Coordinator",
+      "skillSet": [
+        {
+          "id": 10,
+          "name": "Proactive",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 2,
+          "name": "Associate Degree in Business",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 2,
+          "name": "Karel",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "follower": {
+      "id": 3,
+      "firstName": "Clara",
+      "lastName": "Lacroix",
+      "password": "tvilv@Cs",
+      "birthDate": "Sep 25, 1999 4:36:56 AM",
+      "email": "julie.nicolas@gmail.com",
+      "mobileNumber": "+33 7 73 16 11 73",
+      "validated": true,
+      "careerGoal": "Farming Liaison",
+      "skillSet": [
+        {
+          "id": 3,
+          "name": "Leadership",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 1,
+          "name": "Associate Degree in Teaching",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 1,
+          "name": "Pig (programming tool)",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "notifications": [],
+    "followedStatus": "on",
+    "followedNotifiable": "all",
+    "followerStatus": "on",
+    "followerNotifiable": "all"
+  },
+  {
+    "id": 6,
+    "creationDate": "Jul 10, 2020 12:42:00 PM",
+    "followed": {
+      "id": 1,
+      "firstName": "Maeva",
+      "lastName": "Dupont",
+      "password": "Qwerty123",
+      "birthDate": "Jul 19, 1984 3:59:57 AM",
+      "email": "user@uca.fr",
+      "mobileNumber": "+33 6 86 81 69 68",
+      "validated": true,
+      "careerGoal": "International Marketing Agent",
+      "skillSet": [
+        {
+          "id": 10,
+          "name": "Proactive",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 5,
+          "name": "Associate Degree in Creative Arts",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 9,
+          "name": "TADS",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "follower": {
+      "id": 4,
+      "firstName": "Lou",
+      "lastName": "Dumont",
+      "password": "#@dHR3aT",
+      "birthDate": "Oct 20, 1985 7:09:41 PM",
+      "email": "valentin.rodriguez@hotmail.fr",
+      "mobileNumber": "0618550224",
+      "validated": true,
+      "careerGoal": "Retail Executive",
+      "skillSet": [
+        {
+          "id": 5,
+          "name": "Fast learner",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 6,
+          "name": "Associate Degree in Design",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 2,
+          "name": "Karel",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "notifications": [],
+    "followedStatus": "on",
+    "followedNotifiable": "all",
+    "followerStatus": "on",
+    "followerNotifiable": "all"
+  },
+  {
+    "id": 7,
+    "creationDate": "Jul 10, 2020 12:42:00 PM",
+    "followed": {
+      "id": 11,
+      "firstName": "Anaïs",
+      "lastName": "Benoit",
+      "password": "y^LbBOE6",
+      "birthDate": "Jan 4, 1998 12:28:35 AM",
+      "email": "arthur.gauthier@yahoo.fr",
+      "mobileNumber": "07 33 94 93 17",
+      "validated": true,
+      "careerGoal": "Retail Coordinator",
+      "skillSet": [
+        {
+          "id": 10,
+          "name": "Proactive",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 2,
+          "name": "Associate Degree in Business",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 2,
+          "name": "Karel",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "follower": {
+      "id": 4,
+      "firstName": "Lou",
+      "lastName": "Dumont",
+      "password": "#@dHR3aT",
+      "birthDate": "Oct 20, 1985 7:09:41 PM",
+      "email": "valentin.rodriguez@hotmail.fr",
+      "mobileNumber": "0618550224",
+      "validated": true,
+      "careerGoal": "Retail Executive",
+      "skillSet": [
+        {
+          "id": 5,
+          "name": "Fast learner",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 6,
+          "name": "Associate Degree in Design",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 2,
+          "name": "Karel",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "notifications": [],
+    "followedStatus": "on",
+    "followedNotifiable": "all",
+    "followerStatus": "on",
+    "followerNotifiable": "all"
+  },
+  {
+    "id": 8,
+    "creationDate": "Jul 10, 2020 12:42:00 PM",
+    "followed": {
+      "id": 1,
+      "firstName": "Maeva",
+      "lastName": "Dupont",
+      "password": "Qwerty123",
+      "birthDate": "Jul 19, 1984 3:59:57 AM",
+      "email": "user@uca.fr",
+      "mobileNumber": "+33 6 86 81 69 68",
+      "validated": true,
+      "careerGoal": "International Marketing Agent",
+      "skillSet": [
+        {
+          "id": 10,
+          "name": "Proactive",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 5,
+          "name": "Associate Degree in Creative Arts",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 9,
+          "name": "TADS",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "follower": {
+      "id": 5,
+      "firstName": "Louis",
+      "lastName": "Simon",
+      "password": "TytrK$0is",
+      "birthDate": "Jan 11, 1976 8:48:37 PM",
+      "email": "antoine.breton@hotmail.fr",
+      "mobileNumber": "06 48 14 86 00",
+      "validated": true,
+      "careerGoal": "Manufacturing Analyst",
+      "skillSet": [
+        {
+          "id": 7,
+          "name": "Communication",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 1,
+          "name": "Associate Degree in Teaching",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 4,
+          "name": "M (alternative name for the MUMPS programming language)",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "notifications": [],
+    "followedStatus": "on",
+    "followedNotifiable": "all",
+    "followerStatus": "on",
+    "followerNotifiable": "all"
+  },
+  {
+    "id": 9,
+    "creationDate": "Jul 10, 2020 12:42:01 PM",
+    "followed": {
+      "id": 11,
+      "firstName": "Anaïs",
+      "lastName": "Benoit",
+      "password": "y^LbBOE6",
+      "birthDate": "Jan 4, 1998 12:28:35 AM",
+      "email": "arthur.gauthier@yahoo.fr",
+      "mobileNumber": "07 33 94 93 17",
+      "validated": true,
+      "careerGoal": "Retail Coordinator",
+      "skillSet": [
+        {
+          "id": 10,
+          "name": "Proactive",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 2,
+          "name": "Associate Degree in Business",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 2,
+          "name": "Karel",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "follower": {
+      "id": 5,
+      "firstName": "Louis",
+      "lastName": "Simon",
+      "password": "TytrK$0is",
+      "birthDate": "Jan 11, 1976 8:48:37 PM",
+      "email": "antoine.breton@hotmail.fr",
+      "mobileNumber": "06 48 14 86 00",
+      "validated": true,
+      "careerGoal": "Manufacturing Analyst",
+      "skillSet": [
+        {
+          "id": 7,
+          "name": "Communication",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 1,
+          "name": "Associate Degree in Teaching",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 4,
+          "name": "M (alternative name for the MUMPS programming language)",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "notifications": [],
+    "followedStatus": "on",
+    "followedNotifiable": "all",
+    "followerStatus": "on",
+    "followerNotifiable": "all"
+  },
+  {
+    "id": 10,
+    "creationDate": "Jul 10, 2020 12:42:01 PM",
+    "followed": {
+      "id": 1,
+      "firstName": "Maeva",
+      "lastName": "Dupont",
+      "password": "Qwerty123",
+      "birthDate": "Jul 19, 1984 3:59:57 AM",
+      "email": "user@uca.fr",
+      "mobileNumber": "+33 6 86 81 69 68",
+      "validated": true,
+      "careerGoal": "International Marketing Agent",
+      "skillSet": [
+        {
+          "id": 10,
+          "name": "Proactive",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 5,
+          "name": "Associate Degree in Creative Arts",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 9,
+          "name": "TADS",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "follower": {
+      "id": 6,
+      "firstName": "Victor",
+      "lastName": "Nguyen",
+      "password": "fQ\u0026aZ*b9m",
+      "birthDate": "Apr 22, 1981 10:01:33 PM",
+      "email": "sarah.bernard@yahoo.fr",
+      "mobileNumber": "0679686380",
+      "validated": true,
+      "careerGoal": "Central Supervisor",
+      "skillSet": [
+        {
+          "id": 8,
+          "name": "Work under pressure",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 2,
+          "name": "Associate Degree in Business",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 2,
+          "name": "Karel",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "notifications": [],
+    "followedStatus": "on",
+    "followedNotifiable": "all",
+    "followerStatus": "on",
+    "followerNotifiable": "all"
+  },
+  {
+    "id": 11,
+    "creationDate": "Jul 10, 2020 12:42:01 PM",
+    "followed": {
+      "id": 11,
+      "firstName": "Anaïs",
+      "lastName": "Benoit",
+      "password": "y^LbBOE6",
+      "birthDate": "Jan 4, 1998 12:28:35 AM",
+      "email": "arthur.gauthier@yahoo.fr",
+      "mobileNumber": "07 33 94 93 17",
+      "validated": true,
+      "careerGoal": "Retail Coordinator",
+      "skillSet": [
+        {
+          "id": 10,
+          "name": "Proactive",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 2,
+          "name": "Associate Degree in Business",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 2,
+          "name": "Karel",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "follower": {
+      "id": 6,
+      "firstName": "Victor",
+      "lastName": "Nguyen",
+      "password": "fQ\u0026aZ*b9m",
+      "birthDate": "Apr 22, 1981 10:01:33 PM",
+      "email": "sarah.bernard@yahoo.fr",
+      "mobileNumber": "0679686380",
+      "validated": true,
+      "careerGoal": "Central Supervisor",
+      "skillSet": [
+        {
+          "id": 8,
+          "name": "Work under pressure",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 2,
+          "name": "Associate Degree in Business",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 2,
+          "name": "Karel",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "notifications": [],
+    "followedStatus": "on",
+    "followedNotifiable": "all",
+    "followerStatus": "on",
+    "followerNotifiable": "all"
+  },
+  {
+    "id": 12,
+    "creationDate": "Jul 10, 2020 12:42:01 PM",
+    "followed": {
+      "id": 1,
+      "firstName": "Maeva",
+      "lastName": "Dupont",
+      "password": "Qwerty123",
+      "birthDate": "Jul 19, 1984 3:59:57 AM",
+      "email": "user@uca.fr",
+      "mobileNumber": "+33 6 86 81 69 68",
+      "validated": true,
+      "careerGoal": "International Marketing Agent",
+      "skillSet": [
+        {
+          "id": 10,
+          "name": "Proactive",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 5,
+          "name": "Associate Degree in Creative Arts",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 9,
+          "name": "TADS",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "follower": {
+      "id": 7,
+      "firstName": "Mohamed",
+      "lastName": "Bernard",
+      "password": "d52Y2PQ$P",
+      "birthDate": "Jun 16, 1957 10:39:07 AM",
+      "email": "raphael.muller@gmail.com",
+      "mobileNumber": "+33 7 02 36 89 05",
+      "validated": true,
+      "careerGoal": "Regional Administration Officer",
+      "skillSet": [
+        {
+          "id": 2,
+          "name": "Networking skills",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 6,
+          "name": "Associate Degree in Design",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 10,
+          "name": "Xojo",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "notifications": [],
+    "followedStatus": "on",
+    "followedNotifiable": "all",
+    "followerStatus": "on",
+    "followerNotifiable": "all"
+  },
+  {
+    "id": 13,
+    "creationDate": "Jul 10, 2020 12:42:01 PM",
+    "followed": {
+      "id": 11,
+      "firstName": "Anaïs",
+      "lastName": "Benoit",
+      "password": "y^LbBOE6",
+      "birthDate": "Jan 4, 1998 12:28:35 AM",
+      "email": "arthur.gauthier@yahoo.fr",
+      "mobileNumber": "07 33 94 93 17",
+      "validated": true,
+      "careerGoal": "Retail Coordinator",
+      "skillSet": [
+        {
+          "id": 10,
+          "name": "Proactive",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 2,
+          "name": "Associate Degree in Business",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 2,
+          "name": "Karel",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "follower": {
+      "id": 7,
+      "firstName": "Mohamed",
+      "lastName": "Bernard",
+      "password": "d52Y2PQ$P",
+      "birthDate": "Jun 16, 1957 10:39:07 AM",
+      "email": "raphael.muller@gmail.com",
+      "mobileNumber": "+33 7 02 36 89 05",
+      "validated": true,
+      "careerGoal": "Regional Administration Officer",
+      "skillSet": [
+        {
+          "id": 2,
+          "name": "Networking skills",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 6,
+          "name": "Associate Degree in Design",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 10,
+          "name": "Xojo",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "notifications": [],
+    "followedStatus": "on",
+    "followedNotifiable": "all",
+    "followerStatus": "on",
+    "followerNotifiable": "all"
+  },
+  {
+    "id": 14,
+    "creationDate": "Jul 10, 2020 12:42:01 PM",
+    "followed": {
+      "id": 1,
+      "firstName": "Maeva",
+      "lastName": "Dupont",
+      "password": "Qwerty123",
+      "birthDate": "Jul 19, 1984 3:59:57 AM",
+      "email": "user@uca.fr",
+      "mobileNumber": "+33 6 86 81 69 68",
+      "validated": true,
+      "careerGoal": "International Marketing Agent",
+      "skillSet": [
+        {
+          "id": 10,
+          "name": "Proactive",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 5,
+          "name": "Associate Degree in Creative Arts",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 9,
+          "name": "TADS",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "follower": {
+      "id": 8,
+      "firstName": "Mathilde",
+      "lastName": "Huet",
+      "password": "#8#e!CTh",
+      "birthDate": "Jan 10, 1964 2:32:21 PM",
+      "email": "carla.blanchard@hotmail.fr",
+      "mobileNumber": "+33 686747215",
+      "validated": true,
+      "careerGoal": "Farming Producer",
+      "skillSet": [
+        {
+          "id": 4,
+          "name": "Confidence",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 3,
+          "name": "Master of Architectural Technology",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 6,
+          "name": "Strand",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "notifications": [],
+    "followedStatus": "on",
+    "followedNotifiable": "all",
+    "followerStatus": "on",
+    "followerNotifiable": "all"
+  },
+  {
+    "id": 15,
+    "creationDate": "Jul 10, 2020 12:42:01 PM",
+    "followed": {
+      "id": 11,
+      "firstName": "Anaïs",
+      "lastName": "Benoit",
+      "password": "y^LbBOE6",
+      "birthDate": "Jan 4, 1998 12:28:35 AM",
+      "email": "arthur.gauthier@yahoo.fr",
+      "mobileNumber": "07 33 94 93 17",
+      "validated": true,
+      "careerGoal": "Retail Coordinator",
+      "skillSet": [
+        {
+          "id": 10,
+          "name": "Proactive",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 2,
+          "name": "Associate Degree in Business",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 2,
+          "name": "Karel",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "follower": {
+      "id": 8,
+      "firstName": "Mathilde",
+      "lastName": "Huet",
+      "password": "#8#e!CTh",
+      "birthDate": "Jan 10, 1964 2:32:21 PM",
+      "email": "carla.blanchard@hotmail.fr",
+      "mobileNumber": "+33 686747215",
+      "validated": true,
+      "careerGoal": "Farming Producer",
+      "skillSet": [
+        {
+          "id": 4,
+          "name": "Confidence",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 3,
+          "name": "Master of Architectural Technology",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 6,
+          "name": "Strand",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "notifications": [],
+    "followedStatus": "on",
+    "followedNotifiable": "all",
+    "followerStatus": "on",
+    "followerNotifiable": "all"
+  },
+  {
+    "id": 16,
+    "creationDate": "Jul 10, 2020 12:42:01 PM",
+    "followed": {
+      "id": 1,
+      "firstName": "Maeva",
+      "lastName": "Dupont",
+      "password": "Qwerty123",
+      "birthDate": "Jul 19, 1984 3:59:57 AM",
+      "email": "user@uca.fr",
+      "mobileNumber": "+33 6 86 81 69 68",
+      "validated": true,
+      "careerGoal": "International Marketing Agent",
+      "skillSet": [
+        {
+          "id": 10,
+          "name": "Proactive",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 5,
+          "name": "Associate Degree in Creative Arts",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 9,
+          "name": "TADS",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "follower": {
+      "id": 9,
+      "firstName": "Yanis",
+      "lastName": "André",
+      "password": "@36%1*y\u0026p",
+      "birthDate": "Feb 8, 1977 2:19:28 PM",
+      "email": "nicolas.david@hotmail.fr",
+      "mobileNumber": "+33 7 56 93 86 73",
+      "validated": true,
+      "careerGoal": "Human Administration Producer",
+      "skillSet": [
+        {
+          "id": 6,
+          "name": "Problem solving",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 3,
+          "name": "Master of Architectural Technology",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 10,
+          "name": "Xojo",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "notifications": [],
+    "followedStatus": "on",
+    "followedNotifiable": "all",
+    "followerStatus": "on",
+    "followerNotifiable": "all"
+  },
+  {
+    "id": 17,
+    "creationDate": "Jul 10, 2020 12:42:01 PM",
+    "followed": {
+      "id": 11,
+      "firstName": "Anaïs",
+      "lastName": "Benoit",
+      "password": "y^LbBOE6",
+      "birthDate": "Jan 4, 1998 12:28:35 AM",
+      "email": "arthur.gauthier@yahoo.fr",
+      "mobileNumber": "07 33 94 93 17",
+      "validated": true,
+      "careerGoal": "Retail Coordinator",
+      "skillSet": [
+        {
+          "id": 10,
+          "name": "Proactive",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 2,
+          "name": "Associate Degree in Business",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 2,
+          "name": "Karel",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "follower": {
+      "id": 9,
+      "firstName": "Yanis",
+      "lastName": "André",
+      "password": "@36%1*y\u0026p",
+      "birthDate": "Feb 8, 1977 2:19:28 PM",
+      "email": "nicolas.david@hotmail.fr",
+      "mobileNumber": "+33 7 56 93 86 73",
+      "validated": true,
+      "careerGoal": "Human Administration Producer",
+      "skillSet": [
+        {
+          "id": 6,
+          "name": "Problem solving",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 3,
+          "name": "Master of Architectural Technology",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 10,
+          "name": "Xojo",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "notifications": [],
+    "followedStatus": "on",
+    "followedNotifiable": "all",
+    "followerStatus": "on",
+    "followerNotifiable": "all"
+  },
+  {
+    "id": 18,
+    "creationDate": "Jul 10, 2020 12:42:01 PM",
+    "followed": {
+      "id": 1,
+      "firstName": "Maeva",
+      "lastName": "Dupont",
+      "password": "Qwerty123",
+      "birthDate": "Jul 19, 1984 3:59:57 AM",
+      "email": "user@uca.fr",
+      "mobileNumber": "+33 6 86 81 69 68",
+      "validated": true,
+      "careerGoal": "International Marketing Agent",
+      "skillSet": [
+        {
+          "id": 10,
+          "name": "Proactive",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 5,
+          "name": "Associate Degree in Creative Arts",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 9,
+          "name": "TADS",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "follower": {
+      "id": 10,
+      "firstName": "Jade",
+      "lastName": "Prévost",
+      "password": "^p7@D5*JF",
+      "birthDate": "Jan 1, 1981 11:49:47 PM",
+      "email": "oceane.dupuy@gmail.com",
+      "mobileNumber": "0660711247",
+      "validated": true,
+      "careerGoal": "Dynamic Farming Consultant",
+      "skillSet": [
+        {
+          "id": 2,
+          "name": "Networking skills",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 3,
+          "name": "Master of Architectural Technology",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 7,
+          "name": "Pipelines",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "notifications": [],
+    "followedStatus": "on",
+    "followedNotifiable": "all",
+    "followerStatus": "on",
+    "followerNotifiable": "all"
+  },
+  {
+    "id": 19,
+    "creationDate": "Jul 10, 2020 12:42:02 PM",
+    "followed": {
+      "id": 11,
+      "firstName": "Anaïs",
+      "lastName": "Benoit",
+      "password": "y^LbBOE6",
+      "birthDate": "Jan 4, 1998 12:28:35 AM",
+      "email": "arthur.gauthier@yahoo.fr",
+      "mobileNumber": "07 33 94 93 17",
+      "validated": true,
+      "careerGoal": "Retail Coordinator",
+      "skillSet": [
+        {
+          "id": 10,
+          "name": "Proactive",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 2,
+          "name": "Associate Degree in Business",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 2,
+          "name": "Karel",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "follower": {
+      "id": 10,
+      "firstName": "Jade",
+      "lastName": "Prévost",
+      "password": "^p7@D5*JF",
+      "birthDate": "Jan 1, 1981 11:49:47 PM",
+      "email": "oceane.dupuy@gmail.com",
+      "mobileNumber": "0660711247",
+      "validated": true,
+      "careerGoal": "Dynamic Farming Consultant",
+      "skillSet": [
+        {
+          "id": 2,
+          "name": "Networking skills",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 3,
+          "name": "Master of Architectural Technology",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 7,
+          "name": "Pipelines",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "notifications": [],
+    "followedStatus": "on",
+    "followedNotifiable": "all",
+    "followerStatus": "on",
+    "followerNotifiable": "all"
+  },
+  {
+    "id": 20,
+    "creationDate": "Jul 10, 2020 12:42:02 PM",
+    "followed": {
+      "id": 1,
+      "firstName": "Maeva",
+      "lastName": "Dupont",
+      "password": "Qwerty123",
+      "birthDate": "Jul 19, 1984 3:59:57 AM",
+      "email": "user@uca.fr",
+      "mobileNumber": "+33 6 86 81 69 68",
+      "validated": true,
+      "careerGoal": "International Marketing Agent",
+      "skillSet": [
+        {
+          "id": 10,
+          "name": "Proactive",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 5,
+          "name": "Associate Degree in Creative Arts",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 9,
+          "name": "TADS",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "follower": {
+      "id": 11,
+      "firstName": "Anaïs",
+      "lastName": "Benoit",
+      "password": "y^LbBOE6",
+      "birthDate": "Jan 4, 1998 12:28:35 AM",
+      "email": "arthur.gauthier@yahoo.fr",
+      "mobileNumber": "07 33 94 93 17",
+      "validated": true,
+      "careerGoal": "Retail Coordinator",
+      "skillSet": [
+        {
+          "id": 10,
+          "name": "Proactive",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 2,
+          "name": "Associate Degree in Business",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 2,
+          "name": "Karel",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "notifications": [],
+    "followedStatus": "on",
+    "followedNotifiable": "all",
+    "followerStatus": "on",
+    "followerNotifiable": "all"
+  }
+]
