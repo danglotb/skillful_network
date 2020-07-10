@@ -1,0 +1,43 @@
+<div class='card mat-elevation-z4' id="post-card">
+    <mat-card>
+        <div class="utilisateur">
+            <img class="photoProfile" [src]="getImage()" alt="Avatar" style="width: 32px; height: 32px;"> <h1 id="user">{{user}}</h1>
+            <span  (click)="handleDelete()" class="material-icons clickable" id="corbeille">delete_outline</span>
+        </div>
+        <div class="Date-pub">
+            <p>{{dateOfPost | date}}</p>
+        </div>
+        <div class="description">
+            <p>{{texte}}</p>
+        </div>
+        <div class="file">
+            <img [src]="fichier" alt="" id="photo-publication">
+        </div>
+        <div class="votes">
+            <p> {{votes}}<span  *ngIf="votes >= 1" class="material-icons clickable" id="icon-down">thumb_up_alt</span></p>
+        </div>
+        <hr>
+        <div class="div-icons">
+            <p *ngIf="isViewable"  (click)="show()" class="clickable"><span (click)="handleUpVote()" class="material-icons">thumb_up_alt</span> J'aime</p>
+            <p *ngIf="!isViewable" (click)="show()"> <span (click)="handleDownVote()" class="material-icons clickable" id="icon-down">thumb_down</span>J'aime plus</p>
+            <p class="clickable" (click) = toggleDisplay()><span class="material-icons">insert_comment</span> Commenter</p>
+            <p class="clickable"><span class="material-icons">reply</span> Partager</p>
+        </div>
+        <div class="div-commentaires" *ngIf = "isShow">
+            <form [formGroup]="formCommentaire" (ngSubmit)="onSubmit()">
+                <mat-form-field class="example-form-field">
+                    <mat-label id="label">Votre commentaire</mat-label>
+                    <input formControlName="commentaire" matInput type="text" [(ngModel)]="value" id="input-commentaire">
+                    <mat-error class="form-control-feedback" *ngIf="formCommentaire.get('commentaire').hasError('required') || formCommentaire.get('commentaire').touched">
+                        <span>Min.3 caractères.</span>
+                    </mat-error>
+                    <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                        <mat-icon id="close-icon">close</mat-icon>
+                    </button>
+                </mat-form-field>
+                <button  mat-dialog-close mat-button color="skillful" mat-dialog-close type="submit"  [disabled]="!formCommentaire.valid" mat-dialog-close>Publier</button>
+        </form>
+        </div>
+    </mat-card>
+</div>
+

@@ -13,8 +13,6 @@ export class AddPublicationComponent implements OnInit {
   openDialog() {
     this.dialog.open(DialogueElementsComponent);
   }
-
   ngOnInit(): void {
   }
-
 }
