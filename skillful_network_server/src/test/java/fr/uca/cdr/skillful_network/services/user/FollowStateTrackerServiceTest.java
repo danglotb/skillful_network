@@ -25,10 +25,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @ActiveProfiles("test")
 @RunWith(SpringRunner.class)
@@ -72,7 +72,7 @@ public class FollowStateTrackerServiceTest {
     }*/
 
     @Test
-    public void testGetALLFSTByFollower(){
+    public void testGetFSTByFollowerID(){
         final Boolean[] passingMethods = {false, false};
         final int PASSING_FIND_ALL= 0;
         final int  GET_BY_ID = 1;
@@ -88,9 +88,9 @@ public class FollowStateTrackerServiceTest {
         userFollower.setFollowerSet(fstSet);
         userFollowed.setFollowableSet(fstSet);
 
-        Mockito.when(followStateTrackerRepository.findAllByFollower(userFollower))
+        /*Mockito.when(followStateTrackerRepository.findAllByFollower(userFollower))
                 .thenReturn(fstList);
-        Mockito.when(userService.getById(userFollower.getId())).thenReturn(userFollower);
+        Mockito.when(userService.getById(userFollower.getId())).thenReturn(userFollower);*/
 
         // Check if the followStateTrackerRepository.findAllByFollower(User user) method is used in followStateTrackerService.getFSTByFollowerID(Long followerID) method
 
@@ -126,12 +126,90 @@ public class FollowStateTrackerServiceTest {
         assertThat(fstResponse.get(0).getFollowed()).isEqualTo(userFollowed);
     }
 
-    /*public Optional<List<User>> getAllFollowersByFollowable() {
-        return this.getAllFollowersByFollowableID(this.authenticationService.getCurrentUser().getId());
+    /* public Optional<List<User>> getAllFollowersByFollowableID(Long followableID) {
+        return Optional.of(
+                fstRepository.findAllByFollowed(userService.getById(followableID)).stream()
+                        .map(FollowStateTracker::getFollower)
+                        .collect(Collectors.toList())
+        );
     }*/
+    @Test
+    public void testGetAllFollowersByFollowableID() {
 
-   /* public boolean follow(Long followableID) {
-        return this.follow(this.authenticationService.getCurrentUser().getId(), followableID);
+         final Boolean[] passingMethods = {false, false};
+         final int PASSING_FIND_ALL = 0;
+         final int  GET_BY_ID = 1;
+
+         final User userFollowable = new User();
+         userFollowable.setLastName("Pierre");
+         final User userWhoFollowUserFollowable = new User();
+         userWhoFollowUserFollowable.setLastName("Afeu");
+
+         final List<FollowStateTracker> fstList = new ArrayList<>();
+         final Set<FollowStateTracker> fstSet = new HashSet<>();
+
+        final FollowStateTracker fst = new FollowStateTracker(userFollowable, userWhoFollowUserFollowable);
+         fstList.add(fst);
+         fstSet.add(fst);
+
+         userFollowable.setFollowableSet(fstSet);
+         userWhoFollowUserFollowable.setFollowerSet(fstSet);
+
+
+         // Check if the followStateTrackerRepository.findAllByFollowed(User user) method is used in followStateTrackerService.getAllFollowersByFollowableID(Long followableID) method
+
+         Mockito.doAnswer(new Answer<List<FollowStateTracker>>() {
+             @Override
+             public List<FollowStateTracker> answer(InvocationOnMock invocationOnMock) throws Throwable {
+                 passingMethods[PASSING_FIND_ALL] = true;
+                 return fstList;
+             }
+         }).when(followStateTrackerRepository).findAllByFollowed(userFollowable);
+         //Should be false
+         assertFalse(passingMethods[PASSING_FIND_ALL]);
+
+         // Check if the userService.getById(User user) method is used in followStateTrackerService.getAllFollowersByFollowableID(Long followableID) method
+         Mockito.doAnswer(new Answer<User>() {
+             @Override
+             public User answer(InvocationOnMock invocationOnMock) throws Throwable {
+                 passingMethods[GET_BY_ID] = true;
+                 return userFollowable;
+             }
+         }).when(userService).getById(userFollowable.getId());
+         //Should be false
+         assertFalse(passingMethods[GET_BY_ID]);
+
+         Long id = 0L;
+         final List<User> userListWhoFollowFollowable = followStateTrackerService.getAllFollowersByFollowableID(id).get();
+         final FollowStateTracker fstResponse = (FollowStateTracker)(userListWhoFollowFollowable.get(0).getFollowerSet().toArray()[0]);
+
+         // Should be true, normally we go through into followStateRepository.findAllByFollowed() & userService.getById() methods
+         assertTrue(passingMethods[PASSING_FIND_ALL]);
+         assertTrue(passingMethods[GET_BY_ID]);
+
+         assertThat(userListWhoFollowFollowable.get(0).getLastName()).isEqualTo("Afeu");
+         assertThat(userListWhoFollowFollowable.size()).isEqualTo(1);
+         assertThat(userListWhoFollowFollowable.get(0).getFollowerSet().toArray().length).isEqualTo(1);
+         assertThat(fstResponse.getFollowed().getLastName()).isEqualTo("Pierre");
+     }
+
+   /* @Override
+    public boolean follow(Long followerID, Long followableID) {
+        //  System.out.println("FollowStateTrackerServiceImpl.follow("+followerID+","+followableID+")");
+        if ( followableID == followerID ) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Impossible de se suivre soi même!");
+        }
+
+        // check if FST link already exists
+        User follower = userService.getById(followerID);
+        User followable = userService.getById(followableID);
+        if ( fstRepository.findByFollowerAndFollowed(follower, followable) != null ) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Le suivi est déjà activé.");
+        }
+
+        // persist
+        return ( fstRepository.save(new FollowStateTracker(followable, follower)) != null) ;
+    }
     }*/
 
     /*public void unfollowByFollowedID(Long followedID) {
