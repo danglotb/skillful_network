@@ -1,24 +1,29 @@
 package fr.uca.cdr.skillful_network.entities.user;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import fr.uca.cdr.skillful_network.entities.user.Followable.*;
-import fr.uca.cdr.skillful_network.entities.user.Follower.*;
+import fr.uca.cdr.skillful_network.entities.user.Followable.FollowableNotifiable;
+import fr.uca.cdr.skillful_network.entities.user.Followable.FollowableStatus;
+import fr.uca.cdr.skillful_network.entities.user.Follower.FollowerNotifiable;
+import fr.uca.cdr.skillful_network.entities.user.Follower.FollowerStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
-import javax.validation.constraints.Past;
-import java.util.*;
+import javax.validation.constraints.PastOrPresent;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class FollowStateTracker {
+
+    private static final Logger logger = LoggerFactory.getLogger(FollowStateTracker.class);
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Past
+    @PastOrPresent
     private Date creationDate;
 
     @ManyToOne
@@ -82,23 +87,33 @@ public class FollowStateTracker {
     public Set<Notification> getNotifications() { return notifications; }
 
     public void pushNotifications(Set<Notification> notifications) {
+        logger.debug("pushNotifications()");
         notifications.forEach(notification -> {
             notification.setRead(false);
+            notification.addFST(this);
+            logger.debug("notification: {})", notification);
             this.notifications.add(notification);
+            logger.debug("notifications: {})", this.notifications);
         });
     }
 
     public void popNotifications(Set<Notification> notifications) {
-        notifications.forEach(this.notifications::remove);
-    }
-
-    public void setNotificationStatus(Set<Notification> notifications, Boolean read) {
+        logger.debug("popNotifications()");
         notifications.forEach(notification -> {
-            this.notifications.stream()
-                .filter( notificationToUpdate -> notificationToUpdate.getId() == notification.getId() )
-                .forEach( notificationToUpdate -> notificationToUpdate.setRead(read) );
+            logger.debug("notification: {})", notification);
+            this.notifications.remove(notification);
+            notification.removeFST(this);
+            logger.debug("notifications: {})", this.notifications);
         });
     }
 
+    public void setNotificationReadStatus(Set<Notification> notifications, Boolean isRead) {
+        notifications.forEach(notification -> this.notifications.stream()
+            .filter( notificationToUpdate -> notificationToUpdate.getId() == notification.getId() )
+            .forEach( notificationToUpdate -> notificationToUpdate.setRead(isRead) ));
+    }
+
      public void cleanNotifications() { this.notifications.clear();}
+
+
 }

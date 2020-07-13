@@ -16,10 +16,16 @@ public class Notification {
 
     private String label;
     // notified object should be put here
-    //private Post notifiedPost;
+//    private Post post;
     private Boolean isRead;
 
     public Notification() {}
+
+//    public Notification(Post post) {
+//        this.post = post;
+//        this.label = post.getLabel();
+//        this.isRead=false;
+//    }
 
     public Notification(String label) {
         this.label = label;
@@ -35,4 +41,18 @@ public class Notification {
 
     public Boolean getRead() { return isRead; }
     public void setRead(Boolean read) { isRead = read; }
+
+//    public Set<FollowStateTracker> getFollowerSet() { return followerSet; }
+//    public void setFollowerSet(Set<FollowStateTracker> followerSet) { followerSet = followerSet; }
+    public void addFST(FollowStateTracker fst) { followerSet.add(fst); }
+    public void removeFST(FollowStateTracker fst) { followerSet.remove(fst); }
+    public int followerSetSize() { return followerSet.size(); }
+
+    @Override
+    public String toString() {
+        return "Notification[" + id +
+                "] label='" + label + '\'' +
+                ", isRead=" + isRead +
+                ", followerSet.size= " + followerSet.size();
+    }
 }

@@ -3,7 +3,9 @@ package fr.uca.cdr.skillful_network.services.user;
 import fr.uca.cdr.skillful_network.entities.user.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 public interface FollowStateTrackerService {
 
@@ -21,6 +23,9 @@ public interface FollowStateTrackerService {
 
     Optional<List<User>>  getAllFollowersByFollowable();
     Optional<List<User>>  getAllFollowersByFollowableID(Long followableID);
+
+    Long getFollowerCount();
+    Long getFollowerCount(Long followableID);
 
     boolean follow(Long followableID);
     boolean follow(Long followerID, Long followableID);
@@ -46,6 +51,9 @@ public interface FollowStateTrackerService {
     Optional<List<User>> getAllFollowedByFollower();
     Optional<List<User>> getAllFollowedByFollowerID(Long followerID);
 
+    Long getFollowedCount();
+    Long getFollowedCount(Long followerID);
+
     void banFollower(Long followerID);
     void banFollower(Long followedID, Long followerID);
 
@@ -62,11 +70,36 @@ public interface FollowStateTrackerService {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // notification methods
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    Optional<List<Notification>> getAllNotifications();
-    Optional<List<Notification>> getAllNotificationsByFollower(Long followerID);
-    Optional<List<Notification>> getAllNotificationsByFollowable(Long followableID);
-    Optional<List<Notification>> getAllNotificationsByFollowerAndByFollowable(Long followerID, Long followableID);
-    void setNotificationsReadStatus(Long followerID, List<Notification> notifications, Boolean isRead);
-    void popNotifications(Long followerID, List<Notification> notifications);
+//    void pushNotifications(Set<Post> posts);
+//    void pushNotifications(Long followedID, Set<Post> posts);
+    void pushNotifications(Set<String> labels);
+    void pushNotifications(Long followedID, Set<String> labels);
+
+    Optional<Set<Notification>> getAllNotifications();
+    Optional<Set<Notification>> getAllNotificationsByFollowerId(Long followerID);
+    Optional<Set<Notification>> getAllNotificationsByFollowedId(Long followedID);
+    Optional<Set<Notification>> getAllNotificationsByFollowerIdAndByFollowedId(Long followerID, Long followedID);
+
+    Optional<Map<Long, String>> getAllLabels();
+    Optional<Map<Long, String>> getAllLabelsByFollowerId(Long followerID);
+
+    Boolean isNotificationsEmpty();
+    Boolean isNotificationsEmpty(Long followerID);
+
+    Long notificationsSize();
+    Long notificationsSize(Long followerID);
+
+    Long unreadNotificationsCount();
+    Long unreadNotificationsCount(Long followerID);
+
+    void setNotificationReadStatus(Long notificationId, Boolean isRead);
+    void setNotificationReadStatus(Long followerID, Long notificationId, Boolean isRead);
+    void setNotificationsReadStatus(Set<Notification> notifications, Boolean isRead);
+    void setNotificationsReadStatus(Long followerID, Set<Notification> notifications, Boolean isRead);
+
+    void popNotification(Long notificationId);
+    void popNotification(Long followerID, Long notificationId);
+    void popNotifications(Set<Notification> notifications);
+    void popNotifications(Long followerID, Set<Notification> notifications);
 
 }

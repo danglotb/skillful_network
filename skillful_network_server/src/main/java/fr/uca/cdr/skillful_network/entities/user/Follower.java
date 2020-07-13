@@ -1,7 +1,5 @@
 package fr.uca.cdr.skillful_network.entities.user;
 
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 public interface Follower {
