@@ -13,7 +13,7 @@ export class IsLoggedGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      if (this.tokenStorageService.isLogged() !== true) {
+      if (!this.tokenStorageService.isLogged()) {
         window.alert('Accès refusé, Vous devez être connecté pour avoir accès à cette page !');
         this.router.navigate(['/login']);
         return false;
