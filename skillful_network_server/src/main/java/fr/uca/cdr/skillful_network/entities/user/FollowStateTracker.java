@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
-import javax.validation.constraints.Past;
+import javax.validation.constraints.PastOrPresent;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,7 +23,7 @@ public class FollowStateTracker {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Past
+    @PastOrPresent
     private Date creationDate;
 
     @ManyToOne

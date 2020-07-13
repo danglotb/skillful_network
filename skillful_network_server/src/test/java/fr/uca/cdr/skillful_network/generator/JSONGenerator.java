@@ -9,22 +9,13 @@ import fr.uca.cdr.skillful_network.entities.application.JobApplication;
 import fr.uca.cdr.skillful_network.entities.application.JobOffer;
 import fr.uca.cdr.skillful_network.entities.application.Training;
 import fr.uca.cdr.skillful_network.entities.application.TrainingApplication;
-import fr.uca.cdr.skillful_network.entities.user.Perk;
-import fr.uca.cdr.skillful_network.entities.user.Qualification;
-import fr.uca.cdr.skillful_network.entities.user.Role;
-import fr.uca.cdr.skillful_network.entities.user.Skill;
-import fr.uca.cdr.skillful_network.entities.user.Subscription;
-import fr.uca.cdr.skillful_network.entities.user.User;
+import fr.uca.cdr.skillful_network.entities.user.*;
 import fr.uca.cdr.skillful_network.repositories.KeywordRepository;
 import fr.uca.cdr.skillful_network.repositories.application.JobApplicationRepository;
 import fr.uca.cdr.skillful_network.repositories.application.JobOfferRepository;
 import fr.uca.cdr.skillful_network.repositories.application.TrainingApplicationRepository;
 import fr.uca.cdr.skillful_network.repositories.application.TrainingRepository;
-import fr.uca.cdr.skillful_network.repositories.user.QualificationRepository;
-import fr.uca.cdr.skillful_network.repositories.user.RoleRepository;
-import fr.uca.cdr.skillful_network.repositories.user.SkillRepository;
-import fr.uca.cdr.skillful_network.repositories.user.SubscriptionRepository;
-import fr.uca.cdr.skillful_network.repositories.user.UserRepository;
+import fr.uca.cdr.skillful_network.repositories.user.*;
 import fr.uca.cdr.skillful_network.tools.json.JSONLoader;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -89,6 +80,12 @@ public class JSONGenerator {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private FollowStateTrackerRepository fstRepository;
+
+    @Autowired
+    private NotificationRepository notificationRepository;
 
     private static final long SEED_RANDOM = 23L;
 
@@ -323,6 +320,37 @@ public class JSONGenerator {
         return user;
     }
 
+    private void generateFollowers() {
+        List<User> users = userRepository.findAll();
+        if (users.size() == 0) return;
+        User first = users.get(0);
+        User last = users.get(users.size() - 1);
+        users.forEach( user -> {
+            if ( user.getId() != first.getId()) {
+                FollowStateTracker fst = new FollowStateTracker(first, user);
+//                try {
+//                    Thread.sleep(100);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+                entityManager.persistAndFlush(fst);
+            }
+            if ( user.getId() != last.getId()) {
+                FollowStateTracker fst = new FollowStateTracker(last, user);
+//                try {
+//                    Thread.sleep(100);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+                entityManager.persistAndFlush(fst);
+            }
+        });
+//        }
+//        FollowStateTracker fst = new FollowStateTracker( userRepository.getOne((long) NB_USERS_TO_GENERATE), userRepository.getOne((long) 1));
+//        entityManager.persistAndFlush(fst);
+        this.saveTo("followers", FollowStateTracker[].class, this.fstRepository);
+    }
+
     // TODO add assertions
     // TODO fix coma in the date
     // TODO try to export the value from h2 db to json
@@ -336,5 +364,6 @@ public class JSONGenerator {
         this.generateJobOffers();
         this.generateTrainings();
         this.generateUsers();
+        this.generateFollowers();
     }
 }
