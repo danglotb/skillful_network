@@ -5,9 +5,9 @@
       "name": "Master of Applied Science (Psychology)",
       "organization": "Ironbarrow College",
       "description": "Ironbarrow Campus",
-      "dateBeg": "Jul 10, 2020 12:41:59 PM",
-      "dateEnd": "Jul 10, 2020 12:41:59 PM",
-      "dateUpload": "Jul 10, 2020 12:41:59 PM",
+      "dateBeg": "Jul 13, 2020 11:43:49 AM",
+      "dateEnd": "Jul 13, 2020 11:43:49 AM",
+      "dateUpload": "Jul 13, 2020 11:43:49 AM",
       "durationHours": 10,
       "keywords": [
         {
@@ -25,7 +25,7 @@
       "firstName": "Maeva",
       "lastName": "Dupont",
       "password": "Qwerty123",
-      "birthDate": "Jul 19, 1984 3:59:57 AM",
+      "birthDate": "Jul 22, 1984 3:59:57 AM",
       "email": "user@uca.fr",
       "mobileNumber": "+33 6 86 81 69 68",
       "validated": true,
@@ -65,6 +65,6 @@
       "followerSet": []
     },
     "status": "ACCEPTED",
-    "submitDate": "Jul 10, 2020 12:42:00 PM"
+    "submitDate": "Jul 13, 2020 11:43:49 AM"
   }
 ]

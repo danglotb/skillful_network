@@ -328,20 +328,20 @@ public class JSONGenerator {
         users.forEach( user -> {
             if ( user.getId() != first.getId()) {
                 FollowStateTracker fst = new FollowStateTracker(first, user);
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    Thread.sleep(100);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
                 entityManager.persistAndFlush(fst);
             }
             if ( user.getId() != last.getId()) {
                 FollowStateTracker fst = new FollowStateTracker(last, user);
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    Thread.sleep(100);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
                 entityManager.persistAndFlush(fst);
             }
         });
