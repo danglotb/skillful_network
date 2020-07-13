@@ -1,138 +1,59 @@
-.bloc-login {
-  margin: auto;
-  width: 50%;
-  border: 3px solid blue;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  padding: 20px;
-}
-.connectionForm{
-  max-width: 20%;
-  min-height: 20em;
-  padding: 5rem;
-  background-color: #fff;
-  margin: 5em auto;
-}
-.mat-form-field{
+mat-form-field {
   width: 300px;
-  margin-bottom: 1.5em;
-  margin-top: 1em;
+  margin: 0.7rem;
 }
-.mat-card-title{
-  margin-bottom: 1em;
-  color: grey;
-  padding: 2rem;
+#rememberMe {
+  margin: 2rem;
 }
-.container{
-  top: 0px;
-  position: absolute;
-  width: 100%;
-  min-height: 100%;
-  background-color:rgb(229, 230, 232);
-}
-div.mat-tab-body-wrapper{
-  overflow: none;
-}
-button{
-  margin-top: 1.5em;
-  background-color: #FF6550;
-  color: #fff;
-}
-.logo{
-  width: 100%;
-}
-img.logoUniversite{
-  max-width: 99%;
-  margin: 1.5rem auto;
-}
-i.material-icons{
-  color:#ff6550;
-}
-/* Boutons et tooltip renvoi newcode*/
+/* Boutons renvoi newcode*/
 .button-code-return {
   margin-top: 1.2em;
-  text-decoration: underline dotted;
   background-color: rgba(168, 168, 168, 0);
-  color: #0000ff;
+  color: #1a7ea2;
+  font-size: 10px;
+  margin-bottom: 1rem;
 }
 .button-code-return:hover {
-  margin-top: 1.2em;
-  background-color: rgba(158, 158, 158, 0.2);
-  color: #0000ff;
+  text-decoration: underline;
+  background: transparent !important;
 }
-::ng-deep .custom-tooltip-blue {
-  font-size: 15px;
-  max-width: unset !important;
-  text-align: center;
-  display: block;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
-  background: #1a7ea2;
-  padding: 20px;
-  transform: translateX(-20%) scale(0.5);
-  transition: transform 4s ease-in-out;
-  transform-origin: top;
-  border: 1px solid rgba(0, 0, 0, .1);
-  border-radius: 2px;
-  color: white;
- }
-/* fin boutons tooltips*/
-
-@media only screen and (max-width: 1230px) {
- 
-  .connectionForm{
-    max-width: 40%;
-  }
-  .mat-card-title{
-    font-size: 20px;
-    //min-width: 200px; // j'avais un problème pour avoir le texte centré sur ecran mobileNumber (iphone5)
-    margin:auto;
-    padding: 2rem;
-  }
-  .mat-card{
-    width: 300px;
-  }
+#message {
+  min-height: 90px;
+  width: 100%;
 }
-
-@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
-
-  .mat-form-field {
-    max-width: 250px; // Afin d'avoir le input qui reste dans le cartouche blanc, sur ecran mobileNumber (iphone5)
-  }
-  ::ng-deep .custom-tooltip-blue {
-    font-size: 11px;
-    max-width: unset !important;
-    text-align: center;
-    display: block;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
-    background: #1a7ea2;
-    padding: 10px;
-    transform: translateX(-20%) scale(0.5);
-    transition: transform 4s ease-in-out;
-    transform-origin: top;
-    border: 1px solid rgba(0, 0, 0, .1);
-    border-radius: 2px;
-    color: white;
-  }
-}
-#message-guide{
-  background-color: #0480a2;
-  border-radius: 5px 5px 5px 5px;
+.message-guide {
+  border-radius: 0 5px 5px 0;
+  border-left: 3px solid #1a7ea2;
+  background-color: rgba(38, 142, 184, 0.3);
   padding-top: 10px;
-  margin-top: 5px;
+  margin: 0.5rem;
+  padding: 10px;
+  color: rgb(102, 101, 101);
 }
-#message-guide p{
-  color: white;
-  text-align: center;
-}
-.motDePasseOublieLink{
-  font-size: 12px;
-  color: rgb(0, 119, 255);
+.link-back-connection {
+  font-size: 13px;
+  color: #5b7787;
   position: absolute;
-  top:14.3em;
-  right:1em;
+  font-style: normal;
+  bottom: 1rem;
+  left: 2.4em;
 }
- .motDePasseOublieLink:hover{
+::ng-deep .mat-snack-bar-container {
+  color: white;
+  background-color: #1a7ea2;
+}
+::ng-deep .mat-simple-snackbar-action {
+  color: white;
+}
+#link-forgot-password {
+  margin-top: 1.2em;
+  background-color: rgba(168, 168, 168, 0);
+  color: #1a7ea2;
+  font-size: 10px;
+  margin-bottom: 1rem;
+  margin-left: 13rem;
+}
+#link-forgot-password:hover {
   cursor: pointer;
-  text-decoration: none;
+  text-decoration: underline;
 }

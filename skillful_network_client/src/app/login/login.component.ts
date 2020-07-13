@@ -1,12 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ApiHelperService } from '../shared/services/api-helper.service';
 import { AuthService } from '../shared/services/auth.service';
 import { TokenStorageService } from '../shared/services/token-storage.service';
 import { Router } from '@angular/router';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { ExistingAccountDialog } from './existing-account-dialog/existing-account-dialog.component';
 import { JwtResponse } from '../shared/models/jwt-response';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -14,15 +13,21 @@ import { JwtResponse } from '../shared/models/jwt-response';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  @Input() title: string = "Connexion";
+  @Input() icon: string = "perm_identity";
+
+
   loginForm: FormGroup;
   public username: string;
   public email: string;
   public error: boolean;
   public password: string;
   role: string[];
-  isLoginFailed = false;
+  isLoginFailed: boolean;
   public rememberMe: FormControl = new FormControl(false);
   isChecked: boolean;
+  checkExistingMail: boolean;
+
 
   // tslint:disable-next-line: max-line-length
   private _emailRegex = '^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$';
@@ -45,7 +50,7 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private tokenStorage: TokenStorageService,
-    public dialog: MatDialog) {
+    private _snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -53,6 +58,8 @@ export class LoginComponent implements OnInit {
     this.buildFormLogin();
     this.codeFormBuild();
     this.doDisplayCodeVerif = false;
+    this.checkExistingMail = false;
+    this.isLoginFailed = false;
   }
 
   login() {
@@ -80,8 +87,8 @@ export class LoginComponent implements OnInit {
   register() {
     this.authService.register(this.inscriptionFormGroup.value.emailInscription, ['ROLE_USER'])
       .then((response) => {
-        this.openDialog('L\'adresse email  ' + this.inscriptionFormGroup.value.emailInscription + ' que vous avez insérée existe déjà. Veuillez vous connecter.');
-        this.router.navigate(['/login']);
+        this.checkExistingMail = true;
+        setTimeout(() => this.reloadPage(), 2000);
       }).catch((error) => {
         if (error.status == 401) {
           this.doDisplayCodeVerif = true;
@@ -91,21 +98,9 @@ export class LoginComponent implements OnInit {
       });
   }
 
-  openDialog(message: string) {
-    let dialogRef = this.dialog.open(ExistingAccountDialog, {
-      width: '700px',
-      data: message
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('Fermeture fenêtre dialogue ');
-      this.dialogResult = result;
-    })
-  }
-
   // Création du formulaire inscription avec un seul champ email
   buildFormInscription() {
     this.emailControlInscription = new FormControl(null, Validators.compose([Validators.pattern(this._emailRegex), Validators.required]));
-
     this.inscriptionFormGroup = new FormGroup({
       emailInscription: this.emailControlInscription
     });
@@ -115,7 +110,6 @@ export class LoginComponent implements OnInit {
   buildFormLogin() {
     this.emailControlLogin = new FormControl(null, Validators.compose([Validators.pattern(this._emailRegex), Validators.required]));
     this.passwordControlLogin = new FormControl(null, Validators.compose([Validators.required, Validators.minLength(8)]));
-
     this.loginFormGroup = new FormGroup({
       emailLogin: this.emailControlLogin,
       password: this.passwordControlLogin
@@ -131,5 +125,16 @@ export class LoginComponent implements OnInit {
     this.isChecked = event;
     // can't event.preventDefault();
     console.log('onChange event.checked ' + event.checked);
+  }
+
+  snackBarNewCodeSend() {
+    this._snackBar.open("Vous avez reçu un nouveau code", "X", {
+      duration: 1500,
+      verticalPosition: 'bottom'
+    });
+  }
+
+  reloadPage() {
+    this.ngOnInit();
   }
 }
