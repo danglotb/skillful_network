@@ -1,0 +1,89 @@
+#post-card{
+    margin: 20px;
+}
+.div-icons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    color:#5b7787;
+    
+}
+.material-icons{
+    margin-top: 20px;
+    font-size: 20px;
+}
+.user{
+    color: #5b7787;
+    display: flex;
+    flex-direction: row; 
+}
+#title-user{
+    margin-right: 580px;
+    font-size: 18px;
+}
+.photoProfile{
+    margin-top: 2px;
+    margin-right: 10px;
+}
+.description{
+    margin-top: 15px;
+    font-size: 18px;
+    margin-left: 8%;
+    margin-right: 8%;
+}
+.Date-pub{
+    margin-top:-15px;
+    margin-left: 60px;
+    font-size: 13px;
+}
+#post-card{
+    margin-top: 5%;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+#photo-publication{
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 25px;
+    margin-bottom: 20px;
+    width:650px;
+    height: 450px;
+}
+#trash{
+    padding-top: 5px;
+    font-size: 25px;
+    color: #5b7787;
+}
+.votes{
+    margin-left: 30px;
+    color:#5b7787;
+    font-size: 18px;
+}
+#icon-thumb{
+    color:#5b7787;
+    padding-top: -25px !important;
+    padding-right: 10px;
+}
+#icon-down{
+    padding-left: 15px;
+    padding-top: 10px !important;
+    font-size: 18px;
+}
+.clickable:hover{
+    cursor: pointer;
+    cursor: hand;
+}
+.example-form-field {
+    width: 600px;
+    margin-top: 30px;
+    margin-left: 20px;
+    font-size: 15px;
+}
+#close-icon{
+    font-size: 25px;
+    color: #5b7787;
+    margin-top: 10px;
+}
+
+
+
