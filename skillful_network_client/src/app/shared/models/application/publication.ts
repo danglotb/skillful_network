@@ -4,9 +4,10 @@ export class Publication {
 
     private _id: number;
     private _user: User;
-    private _texte: String;
-    private _fichier: String;
+    private _text: String;
+    private _file: String;
     private _votes: number;
+    private _comments: String [];
     private _dateOfPost: Date;
 
  
@@ -14,10 +15,11 @@ export class Publication {
 
     constructor(data: any) {
         this.id = data.id;
-        this.texte = data.texte;
+        this.text = data.text;
         this.user = data.user;
-        this.fichier = data.fichier;
+        this.file = data.file;
         this._votes = data.votes;
+        this._comments = [];
         this.dateOfPost = data.dateOfPost;
       
     }
@@ -45,19 +47,26 @@ export class Publication {
     public set votes(value: number) {
         this._votes = value;
     }
-    public get texte(): String {
-        return this._texte;
+    public get text(): String {
+        return this._text;
     }
     
-    public set texte(value: String) {
-        this._texte = value;
+    public set text(value: String) {
+        this._text = value;
     }
-    public get fichier(): String {
-        return this._fichier;
+    public get file(): String {
+        return this._file;
     }
     
-    public set fichier(value: String) {
-        this._fichier = value;
+    public set file(value: String) {
+        this._file = value;
+    }
+    public get comments(): String[] {
+        return this._comments;
+    }
+    
+    public set comments(value: String []) {
+        this._comments = value;
     }
 
     public get dateOfPost(): Date {

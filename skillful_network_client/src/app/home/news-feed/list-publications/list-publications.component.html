@@ -1,4 +1,4 @@
 <ng-container *ngFor = "let publication of pub.getPublications(); let i = index">
-    <app-publication [user] = "publication.user" [texte] = "publication.texte" [votes] = "publication.votes" (upvote)="pub.onUpVote(i, $event)" (downvote)="pub.onDownVote(i, $event)"  (delete)="pub.onDelete(i)" [fichier] = "publication.fichier" [dateOfPost] ="publication.dateOfPost">
+    <app-publication [user] = "publication.user" [text] = "publication.text" [votes] = "publication.votes" (upvote)="pub.onUpVote(i, $event)" (downvote)="pub.onDownVote(i, $event)"  (delete)="pub.onDelete(i)" [file] = "publication.file" [dateOfPost] ="publication.dateOfPost">
     </app-publication>
 </ng-container>

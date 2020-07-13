@@ -18,7 +18,7 @@ export class DialogueElementsComponent implements OnInit {
   onSubmit() {
     console.log(this.formPost.value);
     let publication = new Publication(this.formPost.value);
-    this.pub.ajoutpublication(this.formPost.value["publication"], null,null, null, new Date()); 
+    this.pub.addpublication(this.formPost.value["publication"], null,null, null, new Date()); 
   }
 
   private _buildForm() {

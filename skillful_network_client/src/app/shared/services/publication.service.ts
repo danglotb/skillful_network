@@ -1,5 +1,5 @@
 import { User } from './../models/user/user';
-import { MOCK_PUBLICATIONS } from './../mocks/publications.mock';
+import { MOCK_PUBLICATIONS } from '../mocks/publications.mock';
 import { Injectable } from '@angular/core';
 import { Publication } from '../models/application/publication';
 
@@ -27,10 +27,10 @@ listPublication : Publication[];
   public onDelete(index: number) {
     this.listPublication.splice(index, 1);
   }
-  public ajoutpublication(texte: String, fichier:String,  votes: number, user: User, dateOfPost: Date) {
+  public addpublication(text: String, file:String,  votes: number, user: User, dateOfPost: Date) {
     let data = {
-      texte : texte,
-      fichier : fichier,
+      text : text,
+      file : file,
       user: user,
       votes: votes,
       dateOfPost : dateOfPost

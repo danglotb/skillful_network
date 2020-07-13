@@ -1,17 +1,17 @@
 <div class='card mat-elevation-z4' id="post-card">
     <mat-card>
-        <div class="utilisateur">
-            <img class="photoProfile" [src]="getImage()" alt="Avatar" style="width: 32px; height: 32px;"> <h1 id="user">{{user}}</h1>
-            <span  (click)="handleDelete()" class="material-icons clickable" id="corbeille">delete_outline</span>
+        <div class="user">
+            <img class="photoProfile" [src]="getImage()" alt="Avatar" style="width: 32px; height: 32px;"> <h1 id="title-user">{{user}}</h1>
+            <span  (click)="handleDelete()" class="material-icons clickable" id="trash">delete_outline</span>
         </div>
         <div class="Date-pub">
             <p>{{dateOfPost | date}}</p>
         </div>
         <div class="description">
-            <p>{{texte}}</p>
+            <p>{{text}}</p>
         </div>
         <div class="file">
-            <img [src]="fichier" alt="" id="photo-publication">
+            <img [src]="file" alt="" id="photo-publication">
         </div>
         <div class="votes">
             <p> {{votes}}<span  *ngIf="votes >= 1" class="material-icons clickable" id="icon-down">thumb_up_alt</span></p>
@@ -23,20 +23,20 @@
             <p class="clickable" (click) = toggleDisplay()><span class="material-icons">insert_comment</span> Commenter</p>
             <p class="clickable"><span class="material-icons">reply</span> Partager</p>
         </div>
-        <div class="div-commentaires" *ngIf = "isShow">
-            <form [formGroup]="formCommentaire" (ngSubmit)="onSubmit()">
+        <div class="div-comments" *ngIf = "isShow">
+            <form [formGroup]="formComment" (ngSubmit)="onSubmit()">
                 <mat-form-field class="example-form-field">
                     <mat-label id="label">Votre commentaire</mat-label>
-                    <input formControlName="commentaire" matInput type="text" [(ngModel)]="value" id="input-commentaire">
-                    <mat-error class="form-control-feedback" *ngIf="formCommentaire.get('commentaire').hasError('required') || formCommentaire.get('commentaire').touched">
+                    <input formControlName="comment" matInput type="text" [(ngModel)]="value" id="input-comment">
+                    <mat-error class="form-control-feedback" *ngIf="formComment.get('comment').hasError('required') || formComment.get('comment').touched">
                         <span>Min.3 caractères.</span>
                     </mat-error>
                     <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
                         <mat-icon id="close-icon">close</mat-icon>
                     </button>
                 </mat-form-field>
-                <button  mat-dialog-close mat-button color="skillful" mat-dialog-close type="submit"  [disabled]="!formCommentaire.valid" mat-dialog-close>Publier</button>
-        </form>
+                <button mat-button color="skillful" type="submit" [disabled]="!formComment.valid">Publier</button>
+            </form>
         </div>
     </mat-card>
 </div>

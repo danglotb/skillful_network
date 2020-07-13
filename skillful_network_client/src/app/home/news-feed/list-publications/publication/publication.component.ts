@@ -1,3 +1,4 @@
+import { Publication } from './../../../../shared/models/application/publication';
 import { User } from './../../../../shared/models/user/user';
 import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder } from "@angular/forms";
@@ -8,10 +9,11 @@ import { FormControl, FormGroup, Validators, FormBuilder } from "@angular/forms"
   styleUrls: ['./publication.component.scss']
 })
 export class PublicationComponent implements OnInit {
+  @Input() public publication : Publication;
   @Input() public user: User;
-  @Input() public texte: string;
+  @Input() public text: string;
   @Input() public votes: number;
-  @Input() public fichier: string;
+  @Input() public file: string;
   @Input() public dateOfPost: Date;
   @Output() private upvote = new EventEmitter<number>();
   @Output() private downvote = new EventEmitter<number>();
@@ -20,19 +22,19 @@ export class PublicationComponent implements OnInit {
   public isViewable: boolean;
   isShow = false;
   value = '';
-  commentaireControl: FormControl;
-  public formCommentaire: FormGroup;
+  commentControl: FormControl;
+  public formComment: FormGroup;
 
   constructor( private fb: FormBuilder) { 
     this._buildForm();
   }
   onSubmit() {
-   
+ 
   }
 
   private _buildForm() {
-    this.formCommentaire = this.fb.group({
-      commentaire: ["", [Validators.required, Validators.minLength(3)]],
+    this.formComment = this.fb.group({
+      comment: ["", [Validators.required, Validators.minLength(3)]],
     });
   }
   ngOnInit(): void {
