@@ -67,6 +67,7 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
 
     @Override
     public Optional<List<User>> getAllFollowersByFollowableID(Long followableID) {
+        logger.debug("getAllFollowersByFollowableID(followableID: {}})", followableID);
         return Optional.of(
                 fstRepository.findAllByFollowed(userService.getById(followableID)).stream()
                         .map(FollowStateTracker::getFollower)
