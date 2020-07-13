@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "dateOfPost": "Jul 8, 2020 1:09:49 PM",
+    "user": {
+      "id": 8,
+      "firstName": "Mathilde",
+      "lastName": "Huet",
+      "password": "#8#e!CTh",
+      "birthDate": "Jan 8, 1964 2:32:21 PM",
+      "email": "carla.blanchard@hotmail.fr",
+      "mobileNumber": "+33 686747215",
+      "validated": true,
+      "careerGoal": "Farming Producer",
+      "skillSet": [
+        {
+          "id": 4,
+          "name": "Confidence",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 3,
+          "name": "Master of Architectural Technology",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 6,
+          "name": "Strand",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    }
+  }
+]
