@@ -111,7 +111,7 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
 
     @Override
     public void unfollowByFollowedID(Long followedID) {
-        logger.debug("FollowStateTrackerServiceImpl.unfollowByFollowedID(followedID: {})", followedID);
+        logger.debug("unfollowByFollowedID(followedID: {})", followedID);
         // get followed user
         User followed = userService.getById(followedID);
         if ( followed == null)  {

@@ -32,7 +32,9 @@
                         <div *ngIf="isFollowedColumn(listElement.matColumnDef); then thenFollowedColumn"></div>
                         <ng-template #thenFollowedColumn>
                             <mat-cell *matCellDef="let element">
-                                <div *ngIf="isFollowed(element); then thenUnFollowRequest else thenFollowRequest"></div>
+                                <div *ngIf="!isMyself(element)">
+                                    <div *ngIf="isFollowed(element); then thenUnFollowRequest else thenFollowRequest"></div>
+                                </div>
                                 <ng-template #thenUnFollowRequest>
                                     <button (click)="unfollow(element)" mat-icon-button title="Ne plus Suivre">
                                         <mat-icon class="material-icons skillfull-orange">notifications</mat-icon>

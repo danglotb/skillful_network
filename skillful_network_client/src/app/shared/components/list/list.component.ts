@@ -13,6 +13,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { User } from '../../models/user/user';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../services/auth.service';
+import { FollowStateTrackerService } from '../../services/FollowStateTracker.service';
 
 @Component({
   selector: 'app-list',
@@ -55,20 +56,14 @@ export class ListComponent implements OnInit {
   }
 
   constructor(
-    private userService: UserService,
     private authService: AuthService,
+    private fstService: FollowStateTrackerService,
     private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit(): void {
     this.isLoading = true;
     this.doSearch(this.keyword);
-    // this.service.getBySearch(this.keyword, this.pageIndex, this.pageSize, this.checkOrder(), this.checkField())
-    //   .then(res => {
-    //     console.log('res.content:');console.log(res.content);
-    //     this.length = res.totalElements;
-    //     this.dataSource = new MatTableDataSource<any>(res.content);
-    //   }).finally(() => this.isLoading = false);
   }
 
   onSearch() {
@@ -76,20 +71,13 @@ export class ListComponent implements OnInit {
       this.pageSize = this.paginator.pageSize;
       this.pageIndex = this.paginator.pageIndex + 1;
     }
-    const keyword = this.search.value.keyword;
-    this.doSearch(keyword)
-    // this.service.getBySearch(keyword, this.pageIndex, this.pageSize, this.checkOrder(), this.checkField())
-    //   .then((res: { totalElements: number; content: any[]; }) => {
-    //     console.log('res.content:');console.log(res.content);
-    //     this.length = res.totalElements;
-    //     this.dataSource = new MatTableDataSource<any>(res.content);
-    //   }).finally(() => this.isLoading = false);
+    this.keyword = this.search.value.keyword;
+    this.doSearch(this.keyword)
   }
 
   doSearch(keyword: string) {
     this.service.getBySearch(keyword, this.pageIndex, this.pageSize, this.checkOrder(), this.checkField())
     .then((res: { totalElements: number; content: any[]; }) => {
-      console.log('res.content:');console.log(res.content);
       this.length = res.totalElements;
       this.dataSource = new MatTableDataSource<any>(res.content);
     }).finally(() => this.isLoading = false);
@@ -104,7 +92,7 @@ export class ListComponent implements OnInit {
   }
 
   checkOrder() {
-    if (this.order == null || this.order === 'asc') {
+    if (this.order == null || this.order === 'asc' || this.order === 'ASCENDING') {
       this.order = 'ASCENDING';
     } else {
       this.order = 'DESCENDING';
@@ -136,41 +124,39 @@ export class ListComponent implements OnInit {
   }
 
   isFollowed(element: any) : boolean {
-    // console.log('isFollowed() - element:');console.log(element);
     let currentUser: User  = this.authService.user;
     let result: boolean = false;
     element.followableSet.map( (item) => {
-      if (item.id == currentUser.id) {
-        // console.log("FOUND !!!! item.id: "+ item.id); 
-        // console.log('--> currentUser.id: ' + currentUser.id);
-        // console.log('--> element.id: ' + element.id);
-        // console.log('--> element: ');console.log(element);
+      if (item.follower.id == currentUser.id) {
         result = true;
       }
     } )
     return result;
   }
 
+  isMyself(element: any)  : boolean {
+    return (element.id == this.authService.user.id)
+  }
+
   async follow(element: any) {
-    console.log('follow() - element: ');console.log(element);
-    console.log('element.id: ');console.log(element.id);
-    let currentUser: User  = this.authService.user; 
-    console.log('currentUser.id: ');console.log(currentUser.id);
-    
+    if ( ! (await this.fstService.followByFollowableId(element.id)).valueOf ) {
+      console.log("API error");
+    } else {
+      this.doSearch(this.keyword);
+    }
   }
   
   async unfollow(element: any) {
-    console.log('unfollow() - element:');console.log(element);
-    console.log('element.id: ');console.log(element.id);
-    let currentUser: User  = this.authService.user;
-    console.log('currentUser.id: ');console.log(currentUser.id);
+    if ( ! (await this.fstService.unfollowByFollowedId(element.id)).valueOf ) {
+      console.log("API error");
+    } else {
+      this.doSearch(this.keyword);
+    }
   }
-
 
   getImage(element: any) {
     if (this.type == 'user') { // working but not respecting the open/close principle, need to be refactored.
       return new User(element).profilePicture;
     }
   }
-
 }
