@@ -7,12 +7,14 @@ import fr.uca.cdr.skillful_network.entities.Keyword;
 import fr.uca.cdr.skillful_network.entities.application.Application;
 import fr.uca.cdr.skillful_network.entities.application.JobApplication;
 import fr.uca.cdr.skillful_network.entities.application.JobOffer;
+import fr.uca.cdr.skillful_network.entities.application.Post;
 import fr.uca.cdr.skillful_network.entities.application.Training;
 import fr.uca.cdr.skillful_network.entities.application.TrainingApplication;
 import fr.uca.cdr.skillful_network.entities.user.*;
 import fr.uca.cdr.skillful_network.repositories.KeywordRepository;
 import fr.uca.cdr.skillful_network.repositories.application.JobApplicationRepository;
 import fr.uca.cdr.skillful_network.repositories.application.JobOfferRepository;
+import fr.uca.cdr.skillful_network.repositories.application.PostRepository;
 import fr.uca.cdr.skillful_network.repositories.application.TrainingApplicationRepository;
 import fr.uca.cdr.skillful_network.repositories.application.TrainingRepository;
 import fr.uca.cdr.skillful_network.repositories.user.*;
@@ -78,6 +80,9 @@ public class JSONGenerator {
     @Autowired
     private TrainingApplicationRepository trainingApplicationRepository;
 
+    @Autowired
+    private PostRepository postRepository;
+    
     @Autowired
     private UserRepository userRepository;
 
@@ -319,6 +324,11 @@ public class JSONGenerator {
         user.setRoles(roleSet);
         return user;
     }
+  
+    private void generatePosts() {
+        this.entityManager.persistAndFlush(new Post( new Date(), null, (User) this.getRandomElement(userRepository)));
+        this.saveTo("posts", Post.class, this.postRepository);
+    }
 
     private void generateFollowers() {
         List<User> users = userRepository.findAll();
@@ -364,6 +374,7 @@ public class JSONGenerator {
         this.generateJobOffers();
         this.generateTrainings();
         this.generateUsers();
+        this.generatePosts();
         this.generateFollowers();
-    }
+    }    
 }

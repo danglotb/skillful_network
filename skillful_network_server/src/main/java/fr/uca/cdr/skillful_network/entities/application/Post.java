@@ -2,6 +2,7 @@ package fr.uca.cdr.skillful_network.entities.application;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -11,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -24,7 +26,8 @@ public class Post {
 	
 	private String postbodyText;
 	
-	private Date dateOfPost ;
+	private Date dateOfPost;
+	
 	@ElementCollection
 	private Set<String> files = new HashSet<String>() ;
 	
@@ -32,26 +35,42 @@ public class Post {
     @JsonManagedReference
     private User user;
 
-	public Post(long id, String postbodyText, Date dateOfPost, Set<String> files, User user) {
+	@OneToMany(mappedBy="post")
+    private Set<Comment> comments = new HashSet<Comment>() ;
+	
+	public Post() {
 		super();
-		this.id = id;
+	}
+
+	public Post(String postbodyText, Date dateOfPost, Set<String> files, User user, Set<Comment> comments) {
+		super();
+		this.postbodyText = postbodyText;
+		this.dateOfPost = dateOfPost;
+		this.files = files;
+		this.user = user;
+		this.comments = comments;
+	}
+
+	public Post(String postbodyText, Date dateOfPost, Set<String> files, User user) {
+		super();
+	
 		this.postbodyText = postbodyText;
 		this.dateOfPost = dateOfPost;
 		this.files = files;
 		this.user = user;
 	}
 
-	public Post(long id, String postbodyText, Date dateOfPost, User user) {
+	public Post( String postbodyText, Date dateOfPost, User user) {
 		super();
-		this.id = id;
+		
 		this.postbodyText = postbodyText;
 		this.dateOfPost = dateOfPost;
 		this.user = user;
 	}
 
-	public Post(long id, Date dateOfPost, Set<String> files, User user) {
+	public Post( Date dateOfPost, Set<String> files, User user) {
 		super();
-		this.id = id;
+		
 		this.dateOfPost = dateOfPost;
 		this.files = files;
 		this.user = user;
@@ -96,11 +115,29 @@ public class Post {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
 
 	@Override
 	public String toString() {
-		return "Post [id=" + id + ", PostbodyText=" + postbodyText + ", dateOfPost=" + dateOfPost + ", files=" + files
-				+ ", user=" + user + "]";
+		return "Post [id=" + id + ", postbodyText=" + postbodyText + ", dateOfPost=" + dateOfPost + ", files=" + files
+				+ ", user=" + user + ", comments=" + comments + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Post other = (Post) obj;
+		return id == other.id;
 	}
 
 	
