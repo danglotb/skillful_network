@@ -1,5 +1,7 @@
 package fr.uca.cdr.skillful_network.entities.user;
 
+import fr.uca.cdr.skillful_network.entities.application.Post;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -7,6 +9,7 @@ import java.util.Set;
 @Entity
 public class Notification {
 
+    private static final int LABEL_MAXED_BODYTEXT = 20 ;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -16,22 +19,34 @@ public class Notification {
 
     private String label;
     // notified object should be put here
-//    private Post post;
+    private Long postId;
     private Boolean isRead;
 
     public Notification() {}
-
-//    public Notification(Post post) {
-//        this.post = post;
-//        this.label = post.getLabel();
-//        this.isRead=false;
-//    }
 
     public Notification(String label) {
         this.label = label;
         this.isRead=false;
     }
 
+    public Notification(Post post) {
+        this.postId = post.getId();
+        this.label = makeLabel(post);
+        this.isRead=false;
+    }
+
+    public void updateNotification(Post post) {
+        if ( this.postId != post.getId()) { return; }
+        this.label = makeLabel(post);
+        this.isRead=false;
+    }
+
+    public String makeLabel(Post post) {
+        String result = post.getPostbodyText().substring(0, LABEL_MAXED_BODYTEXT);
+        if ( post.getPostbodyText().length() > LABEL_MAXED_BODYTEXT) { result += "..."; }
+        if ( ! post.getFiles().isEmpty() ) { result += " ##MEDIA##"; }
+        return result;
+    }
 
     public long getId() { return id;  }
     public void setId(long id) { this.id = id; }
