@@ -5,9 +5,10 @@ import java.util.List;
 import java.util.Set;
 
 import fr.uca.cdr.skillful_network.entities.application.Post;
+import fr.uca.cdr.skillful_network.entities.user.User;
 
 public interface PostService {
-   Post createPost(Post post);
+   Post createPost(String body);
    List<Post> getAll();
    List<Post> getByUserId(long id);
    List<Post> getPostsforCurrentUser();

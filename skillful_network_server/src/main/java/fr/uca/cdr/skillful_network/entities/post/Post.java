@@ -115,7 +115,14 @@ public class Post {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
+	public Set<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<Comment> comments) {
+		this.comments = comments;
+	}
 
 	@Override
 	public String toString() {

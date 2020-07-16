@@ -1,10 +1,11 @@
-package fr.uca.cdr.skillful_network.controller.application;
+package fr.uca.cdr.skillful_network.controller.post;
 
 import java.util.List;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
+import fr.uca.cdr.skillful_network.services.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,8 +36,8 @@ public class PostController {
 	}
 	
 	@PostMapping(value="")
-	public Post create(@Valid @RequestBody Post post) {
-		return this.postService.createPost(post);
+	public Post create(@Valid @RequestBody String body) {
+		return this.postService.createPost(body);
 	}
 	
 	 @PutMapping(value = "/{id}")

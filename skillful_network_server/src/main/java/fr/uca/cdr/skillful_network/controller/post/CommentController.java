@@ -1,4 +1,4 @@
-package fr.uca.cdr.skillful_network.controller.application;
+package fr.uca.cdr.skillful_network.controller.post;
 
 import java.util.List;
 
