@@ -33,7 +33,8 @@ public class PostServiceImpl implements PostService {
                 this.authenticationService.getCurrentUser(),
                 Collections.emptySet()
         );
-        return this.repository.save(post);
+        this.repository.save(post);
+        return post;
     }
 
     @Override
