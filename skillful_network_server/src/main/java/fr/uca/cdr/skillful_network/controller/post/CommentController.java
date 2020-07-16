@@ -1,4 +1,4 @@
-package fr.uca.cdr.skillful_network.controller.application;
+package fr.uca.cdr.skillful_network.controller.post;
 
 import java.util.List;
 
@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.uca.cdr.skillful_network.entities.application.Comment;
-import fr.uca.cdr.skillful_network.services.application.CommentService;
+import fr.uca.cdr.skillful_network.entities.post.Comment;
+import fr.uca.cdr.skillful_network.services.post.CommentService;
 
 
 @CrossOrigin("*")

@@ -1,10 +1,7 @@
 package fr.uca.cdr.skillful_network.controller.application;
 
 import fr.uca.cdr.skillful_network.entities.application.Application;
-import fr.uca.cdr.skillful_network.entities.application.JobApplication;
-import fr.uca.cdr.skillful_network.entities.application.Training;
 import fr.uca.cdr.skillful_network.entities.application.TrainingApplication;
-import fr.uca.cdr.skillful_network.entities.user.User;
 import fr.uca.cdr.skillful_network.services.application.TrainingApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
