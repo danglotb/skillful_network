@@ -152,4 +152,44 @@ public class UserController {
         return ResponseEntity.ok().body(this.userService.getById(id));
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // Follower methods :
+    //
+    // /followers                                       getAllFollowersByFollowable()           (currentUser -> followable)
+    // /followers/{followableId}                        getAllFollowersByFollowableID(followableId)
+    //
+    // /followers/count                                 getFollowerCount()                      (currentUser -> followable)
+    // /followers/count/{followableId}                  getFollowerCount(Long followableID)
+    //
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @GetMapping(value = "/followers")
+    public ResponseEntity<List<User>> getAllFollowersByFollowable() {
+        List<User> followedList = userService.getAllFollowersByFollowable()
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune instance n'est suivie."));
+        return new ResponseEntity<>( followedList, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @GetMapping(value = "/followers/{followableId}")
+    public ResponseEntity<List<User>> getAllFollowersByFollowableID(
+            @PathVariable(value = "followableId") Long followableId) {
+        List<User> followedList = userService.getAllFollowersByFollowableID(followableId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune instance n'est suivie."));
+        return new ResponseEntity<>( followedList, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @GetMapping(value = "/followers/count")
+    public ResponseEntity<Long> getFollowerCount(){
+        return new ResponseEntity<>(userService.getFollowerCount(), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @GetMapping(value = "/followers/count/{followableId}")
+    public ResponseEntity<Long> getFollowerCount(
+            @PathVariable(value = "followableId") Long followableID) {
+        return new ResponseEntity<>(userService.getFollowerCount(followableID), HttpStatus.OK);
+    }
 }
