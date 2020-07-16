@@ -127,9 +127,7 @@ export class ListComponent implements OnInit {
     let currentUser: User  = this.authService.user;
     let result: boolean = false;
     element.followableSet.map( (item) => {
-      if (item.follower.id == currentUser.id) {
-        result = true;
-      }
+      if (item.follower.id == currentUser.id) { result = true; }
     } )
     return result;
   }
@@ -139,17 +137,13 @@ export class ListComponent implements OnInit {
   }
 
   async follow(element: any) {
-    if ( ! (await this.fstService.followByFollowableId(element.id)).valueOf ) {
-      console.log("API error");
-    } else {
+    if ( (await this.fstService.followByFollowableId(element.id)).valueOf ) {
       this.doSearch(this.keyword);
     }
   }
   
   async unfollow(element: any) {
-    if ( ! (await this.fstService.unfollowByFollowedId(element.id)).valueOf ) {
-      console.log("API error");
-    } else {
+    if ( (await this.fstService.unfollowByFollowedId(element.id)).valueOf ) {
       this.doSearch(this.keyword);
     }
   }
