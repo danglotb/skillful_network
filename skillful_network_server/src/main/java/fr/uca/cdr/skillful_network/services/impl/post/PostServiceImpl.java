@@ -1,21 +1,19 @@
-package fr.uca.cdr.skillful_network.services.impl.application;
+package fr.uca.cdr.skillful_network.services.impl.post;
 
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import fr.uca.cdr.skillful_network.entities.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import fr.uca.cdr.skillful_network.entities.application.JobOffer;
-import fr.uca.cdr.skillful_network.entities.application.Post;
-import fr.uca.cdr.skillful_network.repositories.application.PostRepository;
+import fr.uca.cdr.skillful_network.entities.post.Post;
+import fr.uca.cdr.skillful_network.repositories.post.PostRepository;
 import fr.uca.cdr.skillful_network.services.AuthenticationService;
-import fr.uca.cdr.skillful_network.services.application.PostService;
+import fr.uca.cdr.skillful_network.services.post.PostService;
 
 @Service(value = "postService")
 public class PostServiceImpl implements PostService {
