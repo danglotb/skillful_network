@@ -1,4 +1,4 @@
-package fr.uca.cdr.skillful_network.entities.application;
+package fr.uca.cdr.skillful_network.entities.post;
 
 import java.util.Date;
 import java.util.HashSet;

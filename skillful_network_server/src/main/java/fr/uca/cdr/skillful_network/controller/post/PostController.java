@@ -5,7 +5,6 @@ import java.util.List;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
-import fr.uca.cdr.skillful_network.services.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.uca.cdr.skillful_network.entities.application.Post;
-import fr.uca.cdr.skillful_network.services.application.PostService;
+import fr.uca.cdr.skillful_network.entities.post.Post;
+import fr.uca.cdr.skillful_network.services.post.PostService;
 
 @CrossOrigin("*")
 @RestController

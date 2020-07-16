@@ -1,10 +1,10 @@
-package fr.uca.cdr.skillful_network.services.application;
+package fr.uca.cdr.skillful_network.services.post;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import fr.uca.cdr.skillful_network.entities.application.Comment;
+import fr.uca.cdr.skillful_network.entities.post.Comment;
 
 public interface CommentService {
       Comment createComment(Comment comment);

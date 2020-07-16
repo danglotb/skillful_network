@@ -1,11 +1,10 @@
-package fr.uca.cdr.skillful_network.services.application;
+package fr.uca.cdr.skillful_network.services.post;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import fr.uca.cdr.skillful_network.entities.application.Post;
-import fr.uca.cdr.skillful_network.entities.user.User;
+import fr.uca.cdr.skillful_network.entities.post.Post;
 
 public interface PostService {
    Post createPost(String body);
