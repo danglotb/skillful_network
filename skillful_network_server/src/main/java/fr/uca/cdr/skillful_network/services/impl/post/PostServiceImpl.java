@@ -29,9 +29,7 @@ public class PostServiceImpl implements PostService {
         Post post = new Post(
                 body,
                 new Date(),
-                Collections.emptySet(), //TODO for now we do not support attached files to the post.
-                this.authenticationService.getCurrentUser(),
-                Collections.emptySet()
+                this.authenticationService.getCurrentUser()
         );
         this.repository.save(post);
         return post;
@@ -43,7 +41,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> getPostsforCurrentUser() {
+    public List<Post> getAllPostForCurrentUser() {
         return this.getByUserId(authenticationService.getCurrentUser().getId());
     }
 
@@ -53,14 +51,13 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post update(long id, String postbodyText, Date dateOfPost, Set<String> files) {
+    public Post update(long id, String body, Date dateOfPost) {
         final Post post = this.repository.findById(id).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND,
                         String.format("None JobOffer could be found with the id %d", id))
         );
-        post.setPostbodyText(postbodyText);
+        post.setPostbodyText(body);
         post.setDateOfPost(dateOfPost);
-        post.setFiles(files);
         return post;
     }
 

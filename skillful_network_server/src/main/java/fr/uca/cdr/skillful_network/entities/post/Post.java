@@ -53,7 +53,6 @@ public class Post {
 
 	public Post(String postbodyText, Date dateOfPost, Set<String> files, User user) {
 		super();
-	
 		this.postbodyText = postbodyText;
 		this.dateOfPost = dateOfPost;
 		this.files = files;
@@ -62,7 +61,6 @@ public class Post {
 
 	public Post( String postbodyText, Date dateOfPost, User user) {
 		super();
-		
 		this.postbodyText = postbodyText;
 		this.dateOfPost = dateOfPost;
 		this.user = user;
@@ -70,7 +68,6 @@ public class Post {
 
 	public Post( Date dateOfPost, Set<String> files, User user) {
 		super();
-		
 		this.dateOfPost = dateOfPost;
 		this.files = files;
 		this.user = user;
