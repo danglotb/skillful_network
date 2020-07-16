@@ -1,4 +1,4 @@
-package fr.uca.cdr.skillful_network.entities.application;
+package fr.uca.cdr.skillful_network.entities.post;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -53,7 +53,6 @@ public class Post {
 
 	public Post(String postbodyText, Date dateOfPost, Set<String> files, User user) {
 		super();
-	
 		this.postbodyText = postbodyText;
 		this.dateOfPost = dateOfPost;
 		this.files = files;
@@ -62,7 +61,6 @@ public class Post {
 
 	public Post( String postbodyText, Date dateOfPost, User user) {
 		super();
-		
 		this.postbodyText = postbodyText;
 		this.dateOfPost = dateOfPost;
 		this.user = user;
@@ -70,7 +68,6 @@ public class Post {
 
 	public Post( Date dateOfPost, Set<String> files, User user) {
 		super();
-		
 		this.dateOfPost = dateOfPost;
 		this.files = files;
 		this.user = user;
@@ -115,7 +112,14 @@ public class Post {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
+	public Set<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<Comment> comments) {
+		this.comments = comments;
+	}
 
 	@Override
 	public String toString() {

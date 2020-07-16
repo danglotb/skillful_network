@@ -1,4 +1,4 @@
-package fr.uca.cdr.skillful_network.entities.application;
+package fr.uca.cdr.skillful_network.entities.post;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -12,7 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 

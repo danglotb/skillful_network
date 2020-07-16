@@ -2,7 +2,6 @@ package fr.uca.cdr.skillful_network.services.application;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import fr.uca.cdr.skillful_network.entities.Keyword;
