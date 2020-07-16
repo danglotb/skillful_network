@@ -1,5 +1,6 @@
 package fr.uca.cdr.skillful_network.services.impl.user;
 
+import fr.uca.cdr.skillful_network.entities.application.Post;
 import fr.uca.cdr.skillful_network.entities.user.FollowStateTracker;
 import fr.uca.cdr.skillful_network.entities.user.Followable;
 import fr.uca.cdr.skillful_network.entities.user.Notification;
@@ -469,16 +470,64 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
 
 
     @Override
-    public void pushNotifications(Set<String> labels) {
-        this.pushNotifications(authenticationService.getCurrentUser(), labels);
+    public void pushNotifications(Set<Post>  posts) {
+        this.pushNotifications(authenticationService.getCurrentUser(), posts);
     }
 
     @Override
-    public void pushNotifications(Long followedID, Set<String> labels) {
-        this.pushNotifications(userService.getById(followedID), labels);
+    public void pushNotifications(Long followedID, Set<Post>  posts) {
+        this.pushNotifications(userService.getById(followedID), posts);
     }
 
-    public void pushNotifications(User followed, Set<String> labels) {
+    public void pushNotifications(User followed, Set<Post>  posts) {
+        logger.debug("pushNotifications(followed: {}, posts: {})", followed.getId(), posts);
+
+        // persist notifications
+//        notifications.stream()
+//                .filter( n -> n.followerSetSize() == 0 )
+//                .forEach( n -> notificationRepository.save(n) );
+
+        // process update
+        fstRepository.findAllByFollowed(followed)
+                .forEach( fst -> {
+                    logger.debug("fst: {}", fst.getId());
+                    // filtering out
+                    if (fst.getFollowedStatus() != Followable.FollowableStatus.on) {
+                        logger.debug("push prohibited (FollowedStatus: {})", fst.getFollowedStatus());
+                    } else {
+                        switch (fst.getFollowedNotifiable()) {
+                            case all:
+                                // create new Notiffication Set
+                                Set<Notification> notifications = posts.stream()
+                                        .map( post -> {
+                                            Notification newNotification = new Notification(post);
+                                            notificationRepository.save(newNotification);
+                                            return newNotification;
+                                        })
+                                        .collect(Collectors.toSet());
+                                logger.debug("notificationSet: {}", notifications);
+
+                                fst.pushNotifications(notifications);
+                                fstRepository.save(fst);
+                                break;
+                            default:
+                                logger.debug("notifications filtered out (FollowableNotifiable: {})", fst.getFollowedNotifiable());
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void pushNotificationLabels(Set<String> labels) {
+        this.pushNotificationLabels(authenticationService.getCurrentUser(), labels);
+    }
+
+    @Override
+    public void pushNotificationLabels(Long followedID, Set<String> labels) {
+        this.pushNotificationLabels(userService.getById(followedID), labels);
+    }
+
+    public void pushNotificationLabels(User followed, Set<String> labels) {
         logger.debug("pushNotifications(followed: {}, labels: {})", followed.getId(), labels);
 
         // persist notifications
