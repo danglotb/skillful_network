@@ -1,22 +1,15 @@
 package fr.uca.cdr.skillful_network.services.impl.user;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
-
 import com.google.common.io.Files;
-import fr.uca.cdr.skillful_network.entities.user.*;
+import fr.uca.cdr.skillful_network.entities.user.Qualification;
+import fr.uca.cdr.skillful_network.entities.user.Skill;
+import fr.uca.cdr.skillful_network.entities.user.Subscription;
+import fr.uca.cdr.skillful_network.entities.user.User;
+import fr.uca.cdr.skillful_network.repositories.user.UserRepository;
 import fr.uca.cdr.skillful_network.services.AuthenticationService;
-import fr.uca.cdr.skillful_network.services.user.QualificationService;
-import fr.uca.cdr.skillful_network.services.user.SkillService;
-import fr.uca.cdr.skillful_network.services.user.SubscriptionService;
-import fr.uca.cdr.skillful_network.services.user.UserService;
+import fr.uca.cdr.skillful_network.services.user.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,17 +18,23 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import fr.uca.cdr.skillful_network.repositories.user.UserRepository;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 	public static final int MAX_SIZE = 1000 * 500;
+
 	@Autowired
     private UserRepository userRepository;
 
@@ -50,6 +49,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private SubscriptionService subscriptionService;
+
+    @Autowired
+    private FollowStateTrackerService fstService;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -207,4 +209,30 @@ public class UserServiceImpl implements UserService {
 			return false;
 		}
 	}
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // Follower methods
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Override
+    public Optional<List<User>> getAllFollowersByFollowable() {
+	    return this.getAllFollowersByFollowableID(authenticationService.getCurrentUser().getId());
+    }
+
+    @Override
+    public Optional<List<User>> getAllFollowersByFollowableID(Long followableID) {
+        logger.debug("getAllFollowersByFollowableID(followableID: {}})", followableID);
+        return fstService.getAllFollowersByFollowableID(followableID);
+    }
+
+    @Override
+    public Long getFollowerCount(){
+        return this.getFollowerCount(authenticationService.getCurrentUser().getId());
+    }
+
+    @Override
+    public Long getFollowerCount(Long followableID){
+        logger.debug("getFollowerCount(followableID: {}})", followableID);
+        return fstService.getFollowerCount(followableID);
+    }
 }

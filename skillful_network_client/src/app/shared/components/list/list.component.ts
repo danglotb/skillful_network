@@ -11,6 +11,9 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { DomSanitizer } from '@angular/platform-browser';
 import { User } from '../../models/user/user';
+import { UserService } from '../../services/user.service';
+import { AuthService } from '../../services/auth.service';
+import { FollowStateTrackerService } from '../../services/FollowStateTracker.service';
 
 @Component({
   selector: 'app-list',
@@ -53,16 +56,14 @@ export class ListComponent implements OnInit {
   }
 
   constructor(
+    private authService: AuthService,
+    private fstService: FollowStateTrackerService,
     private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.service.getBySearch(this.keyword, this.pageIndex, this.pageSize, this.checkOrder(), this.checkField())
-      .then(res => {
-        this.length = res.totalElements;
-        this.dataSource = new MatTableDataSource<any>(res.content);
-      }).finally(() => this.isLoading = false);
+    this.doSearch(this.keyword);
   }
 
   onSearch() {
@@ -70,14 +71,18 @@ export class ListComponent implements OnInit {
       this.pageSize = this.paginator.pageSize;
       this.pageIndex = this.paginator.pageIndex + 1;
     }
-    const keyword = this.search.value.keyword;
-    this.service.getBySearch(keyword, this.pageIndex, this.pageSize, this.checkOrder(), this.checkField())
-      .then((res: { totalElements: number; content: any[]; }) => {
-        this.length = res.totalElements;
-        this.dataSource = new MatTableDataSource<any>(res.content);
-      }).finally(() => this.isLoading = false);
+    this.keyword = this.search.value.keyword;
+    this.doSearch(this.keyword)
   }
 
+  doSearch(keyword: string) {
+    this.service.getBySearch(keyword, this.pageIndex, this.pageSize, this.checkOrder(), this.checkField())
+    .then((res: { totalElements: number; content: any[]; }) => {
+      this.length = res.totalElements;
+      this.dataSource = new MatTableDataSource<any>(res.content);
+    }).finally(() => this.isLoading = false);
+  }
+  
   checkField() {
     if (this.field == null) {
       return this.field = this.displayedColumns[1];
@@ -87,12 +92,23 @@ export class ListComponent implements OnInit {
   }
 
   checkOrder() {
-    if (this.order == null || this.order === 'asc') {
+    if (this.order == null || this.order === 'asc' || this.order === 'ASCENDING') {
       this.order = 'ASCENDING';
     } else {
       this.order = 'DESCENDING';
     }
     return this.order;
+  }
+
+  isStandard(matColumnDef: string) {
+    switch (matColumnDef) {
+      case 'details':
+      case 'picture':
+      case 'followed':
+        return false;
+      default:
+        return true;
+    }
   }
 
   isDetails(matColumnDef: string) {
@@ -103,10 +119,38 @@ export class ListComponent implements OnInit {
     return matColumnDef === 'picture';
   }
 
+  isFollowedColumn(matColumnDef: string) {
+    return matColumnDef === 'followed';
+  }
+
+  isFollowed(element: any) : boolean {
+    let currentUser: User  = this.authService.user;
+    let result: boolean = false;
+    element.followableSet.map( (item) => {
+      if (item.follower.id == currentUser.id) { result = true; }
+    } )
+    return result;
+  }
+
+  isMyself(element: any)  : boolean {
+    return (element.id == this.authService.user.id)
+  }
+
+  async follow(element: any) {
+    if ( (await this.fstService.followByFollowableId(element.id)).valueOf ) {
+      this.doSearch(this.keyword);
+    }
+  }
+  
+  async unfollow(element: any) {
+    if ( (await this.fstService.unfollowByFollowedId(element.id)).valueOf ) {
+      this.doSearch(this.keyword);
+    }
+  }
+
   getImage(element: any) {
     if (this.type == 'user') { // working but not respecting the open/close principle, need to be refactored.
       return new User(element).profilePicture;
     }
   }
-
 }

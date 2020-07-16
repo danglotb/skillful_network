@@ -1,5 +1,6 @@
-package fr.uca.cdr.skillful_network.controller.application;
+package fr.uca.cdr.skillful_network.controller.post;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -18,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.uca.cdr.skillful_network.entities.application.Post;
-import fr.uca.cdr.skillful_network.services.application.PostService;
+import fr.uca.cdr.skillful_network.entities.post.Post;
+import fr.uca.cdr.skillful_network.services.post.PostService;
 
 @CrossOrigin("*")
 @RestController
@@ -35,21 +36,19 @@ public class PostController {
 	}
 	
 	@PostMapping(value="")
-	public Post create(@Valid @RequestBody Post post) {
-		return this.postService.createPost(post);
+	public Post create(@Valid @RequestBody String body) {
+		return this.postService.createPost(body);
 	}
 	
 	 @PutMapping(value = "/{id}")
 	    @Transactional
-	    public ResponseEntity<Post> update(@PathVariable(value = "id") long id,
-	                                                   @Valid @RequestBody Post postToUpdate) {
-
+	    public ResponseEntity<Post> update(@PathVariable(value = "id") Long id,
+	                                                   @Valid @RequestBody String body) {
 	        return new ResponseEntity<>(
 	                this.postService.update(
 	                        id,
-	                        postToUpdate.getPostbodyText(),
-	                        postToUpdate.getDateOfPost(),
-	                        postToUpdate.getFiles()
+	                        body,
+	                        new Date() // TODO for now we replace the creation date to mark the update but we could keep track of the edition and versions
 	                ), HttpStatus.OK);
 	    }
 	 

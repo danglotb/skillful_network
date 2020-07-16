@@ -41,6 +41,8 @@ public class UserServiceTest {
         @MockBean
         private SubscriptionService subscriptionService;
         @MockBean
+        private FollowStateTrackerService fstService;
+        @MockBean
         private BCryptPasswordEncoder passwordEncoder;
 
         @Bean

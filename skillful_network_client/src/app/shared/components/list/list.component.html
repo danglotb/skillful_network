@@ -7,26 +7,47 @@
                 <table mat-table [dataSource]="dataSource" (matSortChange)="change($event)" matSort>
                     <ng-container *ngFor="let listElement of listElements" matColumnDef={{listElement.matColumnDef}}>
                         <mat-header-cell *matHeaderCellDef mat-sort-header>{{listElement.header}}</mat-header-cell>
-                        <div *ngIf="!isDetails(listElement.matColumnDef); then thenBlock else elseBlock"></div>
-                        <ng-template #thenBlock>
-                            <div *ngIf="!isPicture(listElement.matColumnDef); then thenThenBlock else thenElseBlock">
-                            </div>
-                            <ng-template #thenThenBlock>
-                                <mat-cell *matCellDef="let element"> {{element[listElement.matColumnDef]}}</mat-cell>
-                            </ng-template>
-                            <ng-template #thenElseBlock>
-                                <mat-cell *matCellDef="let element">
-                                    <img class="photoProfile" [src]="getImage(element)" alt="Avatar" style="width: 32px; height: 32px;">
-                                </mat-cell>
-                            </ng-template>
+
+                        <div *ngIf="isStandard(listElement.matColumnDef); then thenStandard"></div>
+                        <ng-template #thenStandard>
+                            <mat-cell *matCellDef="let element"> {{element[listElement.matColumnDef]}}</mat-cell>
                         </ng-template>
-                        <ng-template #elseBlock>
+
+                        <div *ngIf="isPicture(listElement.matColumnDef); then thenPicture"></div>
+                        <ng-template #thenPicture>
+                            <mat-cell *matCellDef="let element">
+                                <img class="photoProfile" [src]="getImage(element)" alt="Avatar" style="width: 32px; height: 32px;">
+                            </mat-cell>
+                        </ng-template>
+
+                        <div *ngIf="isDetails(listElement.matColumnDef); then thenDetails"></div>
+                        <ng-template #thenDetails>
                             <mat-cell *matCellDef="let element">
                                 <a routerLink="/home/{{type}}/{{element.id}}"><button mat-icon-button title="Détails">
                                         <mat-icon>visibility</mat-icon>
                                     </button></a>
                             </mat-cell>
                         </ng-template>
+
+                        <div *ngIf="isFollowedColumn(listElement.matColumnDef); then thenFollowedColumn"></div>
+                        <ng-template #thenFollowedColumn>
+                            <mat-cell *matCellDef="let element">
+                                <div *ngIf="!isMyself(element)">
+                                    <div *ngIf="isFollowed(element); then thenUnFollowRequest else thenFollowRequest"></div>
+                                </div>
+                                <ng-template #thenUnFollowRequest>
+                                    <button (click)="unfollow(element)" mat-icon-button title="Ne plus Suivre">
+                                        <mat-icon class="material-icons skillfull-orange">notifications</mat-icon>
+                                    </button>
+                                </ng-template>
+                                <ng-template #thenFollowRequest>
+                                    <button (click)="follow(element)" mat-icon-button title="suivre">
+                                        <mat-icon class="material-icons skillfull">add_alert</mat-icon>
+                                    </button>
+                                </ng-template>
+                            </mat-cell>
+                        </ng-template>
+
                     </ng-container>
                     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
