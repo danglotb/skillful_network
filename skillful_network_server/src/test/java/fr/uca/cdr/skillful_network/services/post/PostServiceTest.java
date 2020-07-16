@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.mockito.internal.configuration.injection.MockInjection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -49,6 +50,8 @@ public class PostServiceTest {
     public void setUp() throws Exception {
         final User user = new User();
         Mockito.when(authenticationService.getCurrentUser()).thenReturn(user);
+        final Post post = new Post(THIS_A_BODY, new Date(), user);
+        Mockito.when(postRepository.findById(0L)).thenReturn(java.util.Optional.of(post));
     }
 
     @Test
@@ -64,12 +67,34 @@ public class PostServiceTest {
                     - at the creation, the comments should be empty
          */
 
-        final Post post = postService.createPost(THIS_A_BODY);
+        final Post post = this.postService.createPost(THIS_A_BODY);
 
         assertThat(post.getPostbodyText()).isEqualTo(THIS_A_BODY);
         assertThat(post.getId()).isEqualTo(0L);
         assertThat(post.getDateOfPost().getDate()).isEqualTo(new Date().getDate());
         assertThat(post.getComments()).isEmpty();
         assertThat(post.getUser()).isEqualTo(this.authenticationService.getCurrentUser());
+    }
+
+    @Test
+    public void testUpdatePost() {
+
+        /*
+            Test the update of a post.
+                The only modification are:
+                    - the body change
+                    - the date change
+                Otherwise, the user, the id, the list of comments remain the same.
+         */
+
+        final Post post = this.postRepository.findById(0L).get();
+        final Post update = this.postService.update(0L, "", new Date());
+
+        assertThat(update.getPostbodyText()).isEqualTo("");
+        assertThat(update.getDateOfPost().getTime()).isGreaterThanOrEqualTo(post.getDateOfPost().getTime());
+
+        assertThat(update.getUser()).isEqualTo(post.getUser());
+        assertThat(update.getId()).isEqualTo(post.getId());
+        assertThat(update.getComments()).isEqualTo(post.getComments());
     }
 }
