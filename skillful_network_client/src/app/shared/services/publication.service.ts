@@ -27,6 +27,9 @@ listPublication : Publication[];
   public onDelete(index: number) {
     this.listPublication.splice(index, 1);
   }
+  public upNumberComment(index: number, value: number){
+    this.listPublication[index].numberOfComment  += value;
+  }
   public addpublication(text: String, file:String,  votes: number, user: User, dateOfPost: Date) {
     let data = {
       text : text,
