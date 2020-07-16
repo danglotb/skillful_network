@@ -1,6 +1,6 @@
 package fr.uca.cdr.skillful_network.entities.user;
 
-import fr.uca.cdr.skillful_network.entities.application.Post;
+import fr.uca.cdr.skillful_network.entities.post.Post;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -42,8 +42,10 @@ public class Notification {
     }
 
     public String makeLabel(Post post) {
-        String result = post.getPostbodyText().substring(0, LABEL_MAXED_BODYTEXT);
-        if ( post.getPostbodyText().length() > LABEL_MAXED_BODYTEXT) { result += "..."; }
+        String result = post.getPostbodyText();
+        if ( post.getPostbodyText().length() > LABEL_MAXED_BODYTEXT) {
+            result = result.substring(0, LABEL_MAXED_BODYTEXT) + "...";
+        }
         if ( ! post.getFiles().isEmpty() ) { result += " ##MEDIA##"; }
         return result;
     }

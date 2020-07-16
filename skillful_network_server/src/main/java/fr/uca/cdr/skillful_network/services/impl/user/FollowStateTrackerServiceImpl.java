@@ -1,6 +1,6 @@
 package fr.uca.cdr.skillful_network.services.impl.user;
 
-import fr.uca.cdr.skillful_network.entities.application.Post;
+import fr.uca.cdr.skillful_network.entities.post.Post;
 import fr.uca.cdr.skillful_network.entities.user.FollowStateTracker;
 import fr.uca.cdr.skillful_network.entities.user.Followable;
 import fr.uca.cdr.skillful_network.entities.user.Notification;

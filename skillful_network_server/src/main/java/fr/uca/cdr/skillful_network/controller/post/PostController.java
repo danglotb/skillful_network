@@ -39,7 +39,14 @@ public class PostController {
 	public Post create(@Valid @RequestBody String body) {
 		return this.postService.createPost(body);
 	}
-	
+
+	@PostMapping(value="/{userId}")
+	public Post create(
+			@PathVariable(value = "userId") Long userId,
+			@Valid @RequestBody String body) {
+		return this.postService.createPost(userId, body);
+	}
+
 	 @PutMapping(value = "/{id}")
 	    @Transactional
 	    public ResponseEntity<Post> update(@PathVariable(value = "id") Long id,

@@ -1,6 +1,6 @@
 package fr.uca.cdr.skillful_network.services.user;
 
-import fr.uca.cdr.skillful_network.entities.application.Post;
+import fr.uca.cdr.skillful_network.entities.post.Post;
 import fr.uca.cdr.skillful_network.entities.user.*;
 
 import java.util.List;

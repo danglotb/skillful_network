@@ -5,6 +5,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import fr.uca.cdr.skillful_network.entities.user.User;
+import fr.uca.cdr.skillful_network.services.user.FollowStateTrackerService;
+import fr.uca.cdr.skillful_network.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -22,16 +25,28 @@ public class PostServiceImpl implements PostService {
     private PostRepository repository;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
+    private FollowStateTrackerService fstService;
+
+    @Autowired
     private AuthenticationService authenticationService;
 
     @Override
     public Post createPost(String body) {
-        Post post = new Post(
-                body,
-                new Date(),
-                this.authenticationService.getCurrentUser()
-        );
+        return createPost(authenticationService.getCurrentUser(), body);
+    }
+
+    @Override
+    public Post createPost(Long userId, String body) {
+        return createPost(userService.getById(userId), body);
+    }
+
+    public Post createPost(User user, String body) {
+        Post post = new Post(body, new Date(), user);
         this.repository.save(post);
+        this.fstService.pushNotifications(user.getId(), Collections.singleton(post));
         return post;
     }
 
