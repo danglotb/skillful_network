@@ -5,7 +5,7 @@ export class FollowStateTracker{
     public creationDate: Date;
     public follower: User;
     public followed: User;
-    public notifications: string[];
+    public notifications: Notification[];
     public followerStatus:string[];
     public followerNotifiable:string[];
     public followableStatus: string[];
@@ -40,11 +40,11 @@ export class FollowStateTracker{
         this.followed = followed;
     }
 
-    public getNotifications(): string[] {
+    public getNotifications(): Notification[] {
         return this.notifications;
     }
 
-    public setNotifications(notifications: string[]): void {
+    public setNotifications(notifications: Notification[]): void {
         this.notifications = notifications;
     }
 
@@ -79,10 +79,5 @@ export class FollowStateTracker{
     public setFollowerNotifiable(followerNotifiable: string[]): void {
         this.followerNotifiable = followerNotifiable;
     }
-
-
-
-
-
 
 }
