@@ -3,6 +3,7 @@ import { User } from 'src/app/shared/models/user/user';
 import { ChipComponent } from 'src/app/shared/components/chip/chip.component';
 import { UserConfComponent } from './user-conf/user-conf.component';
 import { UserService } from '../../services/user.service';
+import { ProfileUserDetailsComponent } from './profile-user-details/profile-user-details.component';
 
 @Component({
   selector: 'app-user-page',
@@ -13,10 +14,10 @@ export class UserPageComponent {
 
   @Input() readOnly: boolean;
 
-  private userLogged: User;
+  public userLogged: User;
   private lastUserLogged: User;
   private isLoading: boolean;
-
+  @ViewChild('profileUserDetails') profileUserDetails: ProfileUserDetailsComponent;
   @ViewChild('userConfiguration') userConfiguration: UserConfComponent;
   @ViewChild('chipQualifications') chipQualifications: ChipComponent;
   @ViewChild('chipSkills') chipSkills: ChipComponent;
@@ -28,15 +29,20 @@ export class UserPageComponent {
 
   public async init(gettingUser: Promise<User>) {
     this.isLoading = true;
-    const result = await gettingUser
+    const result = await gettingUser;
+    console.log(result);
     this.userLogged = result;
-    this.userConfiguration.init(this.userLogged);
+    if(!this.readOnly){
+      this.userConfiguration.init(this.userLogged);
+    }
+    this.lastUserLogged = JSON.parse(JSON.stringify(this.userLogged));
     this.chipQualifications.init(this.userLogged.qualificationSet);
     this.chipSkills.init(this.userLogged.skillSet);
     this.chipSubscriptions.init(this.userLogged.subscriptionSet);
-    this.lastUserLogged = JSON.parse(JSON.stringify(this.userLogged));
+   
     this.isLoading = false;
   }
+
 
   onUpdateForm() {
     if (this.changed()) {
@@ -47,7 +53,9 @@ export class UserPageComponent {
 
   onResetForm() {
     this.userLogged = new User(this.lastUserLogged);
-    this.userConfiguration.init(this.userLogged);
+    if(!this.readOnly){
+      this.userConfiguration.init(this.userLogged);
+    }
   }
 
   changed(): boolean {
@@ -63,5 +71,7 @@ export class UserPageComponent {
       JSON.stringify(this.userLogged.skillSet) !== JSON.stringify(this.lastUserLogged.skillSet)
     );
   }
+
+
 
 }

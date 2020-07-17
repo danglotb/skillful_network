@@ -1,6 +1,32 @@
-<form (submit)="onUpdateForm()" (reset)="onResetForm()">
-    <div class="parent">
-        <app-user-conf #userConfiguration [readonly]=this.readOnly></app-user-conf>
+<div *ngIf="!readOnly; else elseTemplate">
+    <form (submit)="onUpdateForm()" (reset)="onResetForm()">
+        <div class="parent">
+            <app-user-conf #userConfiguration [readonly]=this.readOnly></app-user-conf>
+            <div class="chip-container">
+                <app-chip #chipQualifications title="Qualifications" typePerk="qualifications" [chipValues]='[]'
+                    addingLabel="Nouvelle qualification" detail="qualification" [readOnly]=this.readOnly>
+                </app-chip>
+                <app-chip #chipSkills title="Compétences" typePerk="skills" [chipValues]='[]'
+                    addingLabel="Nouvelle compétence" detail="compétence" [readOnly]=this.readOnly></app-chip>
+                <app-chip #chipSubscriptions title="Abonnements" typePerk="subcriptions" [chipValues]='[]'
+                    addingLabel="Nouvel abonnement" detail="abonnement" [readOnly]=this.readOnly>
+                </app-chip>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center" novalidate>
+                <div class="btn-profil">
+                    <button type="submit" class="btn-profil" mat-raised-button color="skillful" [disabled]=!changed()>
+                        Sauvegarder</button>
+                </div>
+                <div class="btn-profil">
+                    <button type="reset" class="btn-profil" mat-raised-button color="warn">Annuler</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<ng-template #elseTemplate>
+    <app-profile-user-details [readOnly]=true [userLogged]=this.userLogged [chips]="chips"></app-profile-user-details>
+    <ng-template #chips>
         <div class="chip-container">
             <app-chip #chipQualifications title="Qualifications" typePerk="qualifications" [chipValues]='[]'
                 addingLabel="Nouvelle qualification" detail="qualification" [readOnly]=this.readOnly>
@@ -11,17 +37,5 @@
                 addingLabel="Nouvel abonnement" detail="abonnement" [readOnly]=this.readOnly>
             </app-chip>
         </div>
-        <div *ngIf=!this.readOnly>
-            <div fxLayout="row" fxLayoutAlign="center center" novalidate>
-                <div class="btn-profil">
-                    <button type="submit" class="btn-profil" mat-raised-button color="skillful" [disabled]=!changed()>
-                        Sauvegarder</button>
-                    <!-- mat-raised-button color="primary"  -->
-                </div>
-                <div class="btn-profil">
-                    <button type="reset" class="btn-profil" mat-raised-button color="warn">Annuler</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
+    </ng-template>
+</ng-template>
