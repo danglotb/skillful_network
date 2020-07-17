@@ -12,6 +12,7 @@ import { UserPageComponent } from './user/user-page.component';
 import { UserConfComponent } from './user/user-conf/user-conf.component';
 import { FormCardComponent } from './form-card/form-card.component';
 import { LoginViewComponent } from './login-view/login-view.component';
+import { ProfileUserDetailsComponent } from './user/profile-user-details/profile-user-details.component';
 
 const COMPONENT_MODULES = [
     CardComponent,
@@ -19,7 +20,8 @@ const COMPONENT_MODULES = [
     ListComponent,
     UserPageComponent,
     UserConfComponent,
-    LoginViewComponent
+    LoginViewComponent,
+    ProfileUserDetailsComponent
 ]
 
 const REACTIVE_FORM_DIRECTIVES = [
@@ -31,6 +33,7 @@ const REACTIVE_FORM_DIRECTIVES = [
     declarations: [
         COMPONENT_MODULES,
         FormCardComponent
+        
     ],
     exports: [
         COMPONENT_MODULES
