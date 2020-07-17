@@ -6,6 +6,8 @@ import fr.uca.cdr.skillful_network.repositories.post.PostRepository;
 import fr.uca.cdr.skillful_network.repositories.user.UserRepository;
 import fr.uca.cdr.skillful_network.services.AuthenticationService;
 import fr.uca.cdr.skillful_network.services.impl.post.PostServiceImpl;
+import fr.uca.cdr.skillful_network.services.user.FollowStateTrackerService;
+import fr.uca.cdr.skillful_network.services.user.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,6 +44,12 @@ public class PostServiceTest {
 
     @MockBean
     public AuthenticationService authenticationService;
+
+    @MockBean
+    private FollowStateTrackerService fstService;
+
+    @MockBean
+    private UserService userService;
 
     @MockBean
     private PostRepository postRepository;

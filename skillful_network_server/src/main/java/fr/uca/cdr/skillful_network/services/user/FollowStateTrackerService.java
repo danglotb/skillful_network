@@ -1,5 +1,6 @@
 package fr.uca.cdr.skillful_network.services.user;
 
+import fr.uca.cdr.skillful_network.entities.post.Post;
 import fr.uca.cdr.skillful_network.entities.user.*;
 
 import java.util.List;
@@ -70,10 +71,10 @@ public interface FollowStateTrackerService {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // notification methods
     ////////////////////////////////////////////////////////////////////////////////////////////////
-//    void pushNotifications(Set<Post> posts);
-//    void pushNotifications(Long followedID, Set<Post> posts);
-    void pushNotifications(Set<String> labels);
-    void pushNotifications(Long followedID, Set<String> labels);
+    void pushNotifications(Set<Post> posts);
+    void pushNotifications(Long followedID, Set<Post> posts);
+    void pushNotificationLabels(Set<String> labels);
+    void pushNotificationLabels(Long followedID, Set<String> labels);
 
     Optional<Set<Notification>> getAllNotifications();
     Optional<Set<Notification>> getAllNotificationsByFollowerId(Long followerID);
@@ -97,9 +98,12 @@ public interface FollowStateTrackerService {
     void setNotificationsReadStatus(Set<Notification> notifications, Boolean isRead);
     void setNotificationsReadStatus(Long followerID, Set<Notification> notifications, Boolean isRead);
 
+    void updateNotifications(Long followedID, Set<Post>  posts);
+
     void popNotification(Long notificationId);
     void popNotification(Long followerID, Long notificationId);
     void popNotifications(Set<Notification> notifications);
     void popNotifications(Long followerID, Set<Notification> notifications);
+    void popNotificationsByPostIds(Long followedID, Set<Long>  postIds);
 
 }

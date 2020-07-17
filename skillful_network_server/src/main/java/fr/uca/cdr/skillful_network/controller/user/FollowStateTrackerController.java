@@ -1,5 +1,6 @@
 package fr.uca.cdr.skillful_network.controller.user;
 
+import fr.uca.cdr.skillful_network.entities.post.Post;
 import fr.uca.cdr.skillful_network.entities.user.*;
 import fr.uca.cdr.skillful_network.services.user.FollowStateTrackerService;
 import org.slf4j.Logger;
@@ -438,6 +439,9 @@ public class FollowStateTrackerController {
     // /notification/push                           pushNotifications(notifications)    (currentUser -> followed)
     // /notification/push/{followedId}              pushNotifications(followedID, notifications)
     //
+    // /notification/push/labels                    pushNotificationLabels(notifications)    (currentUser -> followed)
+    // /notification/push/labels/{followedId}       pushNotificationLabels(followedID, notifications)
+    //
     // /notification                                getAllNotificationsByFollowerId()   (currentUser -> follower)
     // /notification/{followerId}                   getAllNotificationsByFollowerId(followerId)
     // /notification/{followerId}/{followableId}    getAllNotificationsByFollowerIdAndByFollowedId(followerId, followableId)
@@ -479,17 +483,32 @@ public class FollowStateTrackerController {
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
     @PostMapping(value = "/notification/push")
-    void pushNotifications(@Valid @RequestBody Set<String> labels) {
-        fstService.pushNotifications(labels);
+    void pushNotifications(@Valid @RequestBody Set<Post>  posts) {
+        fstService.pushNotifications(posts);
     }
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
     @PostMapping(value = "/notification/push/{followedId}")
     void pushNotifications(
             @PathVariable(value = "followedId") Long followedID,
+            @Valid @RequestBody Set<Post>  posts) {
+        logger.debug("pushNotifications(followedID: {}, labels: {})", followedID, posts);
+        fstService.pushNotifications(followedID, posts);
+    }
+
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @PostMapping(value = "/notification/push/labels")
+    void pushNotificationLabels(@Valid @RequestBody Set<String> labels) {
+        fstService.pushNotificationLabels(labels);
+    }
+
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @PostMapping(value = "/notification/push/labels/{followedId}")
+    void pushNotificationLabels(
+            @PathVariable(value = "followedId") Long followedID,
             @Valid @RequestBody Set<String> labels) {
         logger.debug("pushNotifications(followedID: {}, labels: {})", followedID, labels);
-        fstService.pushNotifications(followedID, labels);
+        fstService.pushNotificationLabels(followedID, labels);
     }
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
