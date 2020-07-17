@@ -60,7 +60,7 @@ export class PublicationComponent implements OnInit {
     this.downvote.emit(1);
   }
   public handleDelete() {
-    this.delete.emit();
+    this.pub.deletePublication(this.publication.id);
   } 
   public IncreaseComments(){
     this.increase.emit(1);
