@@ -1,15 +1,14 @@
-import { User } from '../user/user';
+import { User } from 'src/app/shared/models/user/user';
 
-export class Publication {
+
+export class PublicationComment {
 
     private _id: number;
     private _user: User;
     private _text: String;
-    private _file: String;
     private _votes: number;
-    private _numberOfComment: number;
     private _comments: String [];
-    private _dateOfPost: Date;
+    private _dateOfComment: Date;
 
  
 
@@ -18,11 +17,9 @@ export class Publication {
         this.id = data.id;
         this.text = data.text;
         this.user = data.user;
-        this.file = data.file;
         this._votes = data.votes;
-        this._numberOfComment = data.numberOfComment;
-        this._comments = data.comments;
-        this.dateOfPost = data.dateOfPost;
+        this._comments = [];
+        this.dateOfComment = data.dateOfComment;
       
     }
 
@@ -56,21 +53,7 @@ export class Publication {
     public set text(value: String) {
         this._text = value;
     }
-    public get file(): String {
-        return this._file;
-    }
-    
-    public set file(value: String) {
-        this._file = value;
-    }
-
-    public get numberOfComment (): number {
-        return this._numberOfComment;
-    }
-
-    public set numberOfComment(value: number) {
-        this._numberOfComment = value;
-    }
+ 
     public get comments(): String[] {
         return this._comments;
     }
@@ -79,11 +62,11 @@ export class Publication {
         this._comments = value;
     }
 
-    public get dateOfPost(): Date {
-        return this._dateOfPost;
+    public get dateOfComment(): Date {
+        return this._dateOfComment;
     }
     
-    public set dateOfPost(value: Date) {
-        this._dateOfPost = value;
+    public set dateOfComment(value: Date) {
+        this._dateOfComment = value;
     }
 }

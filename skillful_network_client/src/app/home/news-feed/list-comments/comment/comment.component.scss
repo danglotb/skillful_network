@@ -1,0 +1,46 @@
+.user{
+    color: #5b7787;
+    display: flex;
+    flex-direction: row; 
+}
+#title-user{
+    font-size: 15px;
+}
+.photoProfile{
+    margin-top: 2px;
+    margin-right: 10px;
+}
+.description{
+    margin-top: 10px;
+    margin-left: 8%;
+    margin-right: 8%;
+    margin-bottom: 30px;
+}
+.div-icons{
+margin-top: 20px;
+display: flex;
+flex-direction: row;
+justify-content: space-around;
+color:#5b7787;
+} 
+.list-comments{
+border: 1px solid #DCDCDC;
+background-color:  #f3f6f8;
+margin: 20px;
+}
+.Date-pub{
+margin-top:-15px;
+margin-left: 60px;
+font-size: 13px;
+}
+.clickable:hover{
+    cursor: pointer;
+    cursor: hand;
+}
+#like-comment{
+    margin-top: -25px;
+}
+#like-votes{
+    margin-left:40 !important ;
+    font-size: 18px;
+}
