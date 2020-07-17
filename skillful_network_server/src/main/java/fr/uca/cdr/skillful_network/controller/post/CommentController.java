@@ -26,47 +26,41 @@ import fr.uca.cdr.skillful_network.services.post.CommentService;
 @RestController
 @RequestMapping("/comments")
 public class CommentController {
-     @Autowired
-     private CommentService commentService ;
-     
-     @GetMapping(value="")
-     public List<Comment> getAll(){
- 		return this.commentService.getAllComments();
- 	}
-     
-    @PostMapping(value="")
-    public Comment createComment(@Valid @RequestBody Comment comment) {
-    	return this.commentService.createComment(comment);
+
+    @Autowired
+    private CommentService commentService;
+
+    @GetMapping(value = "")
+    public List<Comment> getAll() {
+        return this.commentService.getAllComments();
     }
-    
-    @DeleteMapping(value="/{id}")
+
+    @PostMapping(value = "")
+    public Comment createComment(@Valid @RequestBody String body) {
+        return this.commentService.createComment(body);
+    }
+
+    // TODO must verify that the initiator is either the owner of the comment or an admin
+    @DeleteMapping(value = "/{id}")
     @Transactional
     public void delete(@PathVariable(value = "id") Long id) {
-         commentService.deleteCommentById(id);      
+        this.commentService.deleteCommentById(id);
     }
-    
+
     @PutMapping(value = "/{id}")
     @Transactional
-    public ResponseEntity<Comment> update(@PathVariable(value = "id") long id,
-                                                   @Valid @RequestBody Comment commentToUpdate) {
+    public ResponseEntity<Comment> update(@PathVariable(value = "id") long id, String newBody) {
+        return new ResponseEntity<>(this.commentService.updateComment(id, newBody), HttpStatus.OK);
+    }
 
-        return new ResponseEntity<>(
-                this.commentService.updateComment(
-                        id,
-                        commentToUpdate.getCommentBodyText(),
-                        commentToUpdate.getDateOfComment(),
-                        commentToUpdate.getFiles()
-                ), HttpStatus.OK);
+    @GetMapping(value = "/post/{id}")
+    public List<Comment> getCommentsByPostId(@PathVariable(value = "id") Long id) {
+        return this.commentService.getAllCommentsByPostId(id);
     }
-    
-    @GetMapping(value="/post/{id}")
-    public List<Comment> getCommentsByPostId(@PathVariable(value = "id") Long id){
-		return this.commentService.getAllCommentsByPostId(id);
-	}
-    
-    @GetMapping(value="/comment/{id}")
-    public List<Comment> getCommentsByCommentId(@PathVariable(value="id") Long id){
-    	return this.commentService.getAllCommentsByCommentId(id);
+
+    @GetMapping(value = "/comment/{id}")
+    public List<Comment> getCommentsByCommentId(@PathVariable(value = "id") Long id) {
+        return this.commentService.getAllCommentsByCommentId(id);
     }
-    
+
 }
