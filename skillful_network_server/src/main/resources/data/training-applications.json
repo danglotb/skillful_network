@@ -2,12 +2,12 @@
   {
     "offer": {
       "id": 1,
-      "name": "Master of Applied Science (Psychology)",
-      "organization": "Ironbarrow College",
-      "description": "Ironbarrow Campus",
-      "dateBeg": "Jul 17, 2020 12:40:07 PM",
-      "dateEnd": "Jul 17, 2020 12:40:07 PM",
-      "dateUpload": "Jul 17, 2020 12:40:07 PM",
+      "name": "Bachelor of Medicine",
+      "organization": "Mallowtown TAFE",
+      "description": "Brighthurst Campus",
+      "dateBeg": "Apr 15, 2020 5:05:58 PM",
+      "dateEnd": "Aug 23, 2019 2:18:23 AM",
+      "dateUpload": "May 29, 2020 6:57:36 PM",
       "durationHours": 10,
       "keywords": [
         {
@@ -22,32 +22,32 @@
     "id": 1,
     "user": {
       "id": 1,
-      "firstName": "Maeva",
-      "lastName": "Dupont",
+      "firstName": "Quentin",
+      "lastName": "Leclercq",
       "password": "Qwerty123",
-      "birthDate": "Jul 26, 1984 3:59:57 AM",
+      "birthDate": "May 31, 1986 2:46:50 PM",
       "email": "user@uca.fr",
-      "mobileNumber": "+33 6 86 81 69 68",
+      "mobileNumber": "+33 798463660",
       "validated": true,
-      "careerGoal": "International Marketing Agent",
+      "careerGoal": "Hospitality Architect",
       "skillSet": [
         {
-          "id": 10,
-          "name": "Proactive",
+          "id": 2,
+          "name": "Networking skills",
           "userList": []
         }
       ],
       "qualificationSet": [
         {
-          "id": 5,
-          "name": "Associate Degree in Creative Arts",
+          "id": 2,
+          "name": "Associate Degree in Business",
           "userList": []
         }
       ],
       "subscriptionSet": [
         {
-          "id": 9,
-          "name": "TADS",
+          "id": 3,
+          "name": "TTCN",
           "userList": []
         }
       ],
@@ -65,6 +65,6 @@
       "followerSet": []
     },
     "status": "ACCEPTED",
-    "submitDate": "Jul 17, 2020 12:40:08 PM"
+    "submitDate": "Dec 11, 2019 5:57:20 AM"
   }
 ]

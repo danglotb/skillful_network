@@ -208,9 +208,9 @@ public class JSONGenerator {
                 this.FAKER.company().name(),
                 this.FAKER.company().catchPhrase(),
                 "type1",
-                new Date(),
-                new Date(),
-                new Date(),
+                this.FAKER.date().birthday(0, 1),
+                this.FAKER.date().birthday(0, 1),
+                this.FAKER.date().birthday(0, 1),
                 Collections.singleton((Keyword) this.getRandomElement(this.keywordRepository)),
                 JobOffer.Risk.MODERATE,
                 JobOffer.Complexity.MODERATE,
@@ -225,9 +225,9 @@ public class JSONGenerator {
                 this.FAKER.educator().course(),
                 this.FAKER.educator().university(),
                 this.FAKER.educator().campus(),
-                new Date(),
-                new Date(),
-                new Date(),
+                this.FAKER.date().birthday(0, 1),
+                this.FAKER.date().birthday(0, 1),
+                this.FAKER.date().birthday(0, 1),
                 10L,
                 Collections.singleton((Keyword) this.getRandomElement(this.keywordRepository)),
                 Collections.emptySet()
@@ -240,7 +240,7 @@ public class JSONGenerator {
         final JobApplication application = new JobApplication(
                 user,
                 Application.ApplicationStatus.ACCEPTED,
-                new Date(),
+                this.FAKER.date().birthday(0, 1),
                 this.jobOfferRepository.getOne(idJob)
         );
         this.entityManager.persistAndFlush(application);
@@ -251,7 +251,7 @@ public class JSONGenerator {
         final TrainingApplication application = new TrainingApplication(
                 user,
                 Application.ApplicationStatus.ACCEPTED,
-                new Date(),
+                this.FAKER.date().birthday(0, 1),
                 this.trainingRepository.getOne(idTraining)
         );
         this.entityManager.persistAndFlush(application);
