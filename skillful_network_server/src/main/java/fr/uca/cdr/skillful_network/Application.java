@@ -136,20 +136,20 @@ public class Application {
 
 	@Bean
 	@Profile({"dev"})
-	ApplicationRunner initPostRepository(PostRepository postRepository) {
+	ApplicationRunner initCommentRepository(CommentRepository commentRepository) {
 		return args -> {
-			if (postRepository.findAll().isEmpty()) {
-				new JSONLoader<>("src/main/resources/data/posts.json", Post[].class, postRepository).load();
+			if (commentRepository.findAll().isEmpty()) {
+				new JSONLoader<>("src/main/resources/data/comments.json", Comment[].class, commentRepository).load();
 			}
 		};
 	}
 
 	@Bean
 	@Profile({"dev"})
-	ApplicationRunner initCommentRepository(CommentRepository commentRepository) {
+	ApplicationRunner initPostRepository(PostRepository postRepository) {
 		return args -> {
-			if (commentRepository.findAll().isEmpty()) {
-				new JSONLoader<>("src/main/resources/data/comments.json", Comment[].class, commentRepository).load();
+			if (postRepository.findAll().isEmpty()) {
+				new JSONLoader<>("src/main/resources/data/posts.json", Post[].class, postRepository).load();
 			}
 		};
 	}
