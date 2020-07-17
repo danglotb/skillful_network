@@ -13,9 +13,16 @@ import { PublicationService } from 'src/app/shared/services/publication.service'
 export class ListPublicationsComponent implements OnInit {
   listPublication : Publication[];
 
-  constructor(public pub: PublicationService) { }
+  constructor(public pub: PublicationService) { 
+
+  }
 
   ngOnInit(): void {
+    let that = this;
+    this.pub.getPublications().then(function(response){
+      console.log(response);
+      that.listPublication= response;
+    })
   }
 
 }
