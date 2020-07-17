@@ -1,13 +1,117 @@
 [
   {
     "id": 1,
-    "dateOfPost": "Jul 8, 2020 1:09:49 PM",
+    "postbodyText": "Chuck Norris has root access to your system.",
+    "dateOfPost": "Oct 20, 2019 1:31:57 AM",
+    "files": [],
+    "user": {
+      "id": 11,
+      "firstName": "Anaïs",
+      "lastName": "Benoit",
+      "password": "y^LbBOE6",
+      "birthDate": "Jan 11, 1998 12:28:35 AM",
+      "email": "arthur.gauthier@yahoo.fr",
+      "mobileNumber": "07 33 94 93 17",
+      "validated": true,
+      "careerGoal": "Retail Coordinator",
+      "skillSet": [
+        {
+          "id": 10,
+          "name": "Proactive",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 2,
+          "name": "Associate Degree in Business",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 2,
+          "name": "Karel",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "comments": []
+  },
+  {
+    "id": 2,
+    "postbodyText": "Chuck Norris can write infinite recursion functions... and have them return.",
+    "dateOfPost": "Nov 9, 2019 1:13:32 PM",
+    "files": [],
+    "user": {
+      "id": 1,
+      "firstName": "Maeva",
+      "lastName": "Dupont",
+      "password": "Qwerty123",
+      "birthDate": "Jul 26, 1984 3:59:57 AM",
+      "email": "user@uca.fr",
+      "mobileNumber": "+33 6 86 81 69 68",
+      "validated": true,
+      "careerGoal": "International Marketing Agent",
+      "skillSet": [
+        {
+          "id": 10,
+          "name": "Proactive",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 5,
+          "name": "Associate Degree in Creative Arts",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 9,
+          "name": "TADS",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "comments": []
+  },
+  {
+    "id": 3,
+    "postbodyText": "Chuck Norris can compile syntax errors.",
+    "dateOfPost": "Nov 4, 2019 12:40:00 PM",
+    "files": [],
     "user": {
       "id": 8,
       "firstName": "Mathilde",
       "lastName": "Huet",
       "password": "#8#e!CTh",
-      "birthDate": "Jan 8, 1964 2:32:21 PM",
+      "birthDate": "Jan 17, 1964 2:32:21 PM",
       "email": "carla.blanchard@hotmail.fr",
       "mobileNumber": "+33 686747215",
       "validated": true,
@@ -45,6 +149,7 @@
       "followableNotifiable": "all",
       "followableSet": [],
       "followerSet": []
-    }
+    },
+    "comments": []
   }
 ]

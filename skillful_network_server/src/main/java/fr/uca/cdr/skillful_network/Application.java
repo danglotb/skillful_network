@@ -3,9 +3,13 @@ package fr.uca.cdr.skillful_network;
 
 import fr.uca.cdr.skillful_network.entities.application.JobApplication;
 import fr.uca.cdr.skillful_network.entities.application.TrainingApplication;
+import fr.uca.cdr.skillful_network.entities.post.Comment;
+import fr.uca.cdr.skillful_network.entities.post.Post;
 import fr.uca.cdr.skillful_network.entities.user.FollowStateTracker;
 import fr.uca.cdr.skillful_network.repositories.application.JobApplicationRepository;
 import fr.uca.cdr.skillful_network.repositories.application.TrainingApplicationRepository;
+import fr.uca.cdr.skillful_network.repositories.post.CommentRepository;
+import fr.uca.cdr.skillful_network.repositories.post.PostRepository;
 import fr.uca.cdr.skillful_network.repositories.user.FollowStateTrackerRepository;
 import fr.uca.cdr.skillful_network.tools.json.JSONLoader;
 import fr.uca.cdr.skillful_network.tools.json.UserAdapter;
@@ -130,6 +134,25 @@ public class Application {
 		};
 	}
 
+	@Bean
+	@Profile({"dev"})
+	ApplicationRunner initPostRepository(PostRepository postRepository) {
+		return args -> {
+			if (postRepository.findAll().isEmpty()) {
+				new JSONLoader<>("src/main/resources/data/posts.json", Post[].class, postRepository).load();
+			}
+		};
+	}
+
+	@Bean
+	@Profile({"dev"})
+	ApplicationRunner initCommentRepository(CommentRepository commentRepository) {
+		return args -> {
+			if (commentRepository.findAll().isEmpty()) {
+				new JSONLoader<>("src/main/resources/data/comments.json", Comment[].class, commentRepository).load();
+			}
+		};
+	}
 
 }
 

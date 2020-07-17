@@ -7,6 +7,7 @@ import fr.uca.cdr.skillful_network.entities.Keyword;
 import fr.uca.cdr.skillful_network.entities.application.Application;
 import fr.uca.cdr.skillful_network.entities.application.JobApplication;
 import fr.uca.cdr.skillful_network.entities.application.JobOffer;
+import fr.uca.cdr.skillful_network.entities.post.Comment;
 import fr.uca.cdr.skillful_network.entities.post.Post;
 import fr.uca.cdr.skillful_network.entities.application.Training;
 import fr.uca.cdr.skillful_network.entities.application.TrainingApplication;
@@ -14,6 +15,7 @@ import fr.uca.cdr.skillful_network.entities.user.*;
 import fr.uca.cdr.skillful_network.repositories.KeywordRepository;
 import fr.uca.cdr.skillful_network.repositories.application.JobApplicationRepository;
 import fr.uca.cdr.skillful_network.repositories.application.JobOfferRepository;
+import fr.uca.cdr.skillful_network.repositories.post.CommentRepository;
 import fr.uca.cdr.skillful_network.repositories.post.PostRepository;
 import fr.uca.cdr.skillful_network.repositories.application.TrainingApplicationRepository;
 import fr.uca.cdr.skillful_network.repositories.application.TrainingRepository;
@@ -82,6 +84,9 @@ public class JSONGenerator {
 
     @Autowired
     private PostRepository postRepository;
+
+    @Autowired
+    private CommentRepository commentRepository;
     
     @Autowired
     private UserRepository userRepository;
@@ -116,7 +121,7 @@ public class JSONGenerator {
                 List elements =  Arrays.asList(gson.fromJson(reader, clazz));
                 jsonFilesHasBeenUpdated = repository.findAll().stream().allMatch(elements::contains);
             } catch (Exception e) {
-                throw new RuntimeException(e);
+//                throw new RuntimeException(e);
             }
         }
         jsonLoader.save(repository.findAll());
@@ -203,9 +208,9 @@ public class JSONGenerator {
                 this.FAKER.company().name(),
                 this.FAKER.company().catchPhrase(),
                 "type1",
-                new Date(),
-                new Date(),
-                new Date(),
+                this.FAKER.date().birthday(0, 1),
+                this.FAKER.date().birthday(0, 1),
+                this.FAKER.date().birthday(0, 1),
                 Collections.singleton((Keyword) this.getRandomElement(this.keywordRepository)),
                 JobOffer.Risk.MODERATE,
                 JobOffer.Complexity.MODERATE,
@@ -220,9 +225,9 @@ public class JSONGenerator {
                 this.FAKER.educator().course(),
                 this.FAKER.educator().university(),
                 this.FAKER.educator().campus(),
-                new Date(),
-                new Date(),
-                new Date(),
+                this.FAKER.date().birthday(0, 1),
+                this.FAKER.date().birthday(0, 1),
+                this.FAKER.date().birthday(0, 1),
                 10L,
                 Collections.singleton((Keyword) this.getRandomElement(this.keywordRepository)),
                 Collections.emptySet()
@@ -235,7 +240,7 @@ public class JSONGenerator {
         final JobApplication application = new JobApplication(
                 user,
                 Application.ApplicationStatus.ACCEPTED,
-                new Date(),
+                this.FAKER.date().birthday(0, 1),
                 this.jobOfferRepository.getOne(idJob)
         );
         this.entityManager.persistAndFlush(application);
@@ -246,7 +251,7 @@ public class JSONGenerator {
         final TrainingApplication application = new TrainingApplication(
                 user,
                 Application.ApplicationStatus.ACCEPTED,
-                new Date(),
+                this.FAKER.date().birthday(0, 1),
                 this.trainingRepository.getOne(idTraining)
         );
         this.entityManager.persistAndFlush(application);
@@ -326,8 +331,27 @@ public class JSONGenerator {
     }
   
     private void generatePosts() {
-        this.entityManager.persistAndFlush(new Post( new Date(), null, (User) this.getRandomElement(userRepository)));
+        this.entityManager.persistAndFlush(new Post(this.FAKER.chuckNorris().fact(), this.FAKER.date().birthday(0, 1), (User) this.getRandomElement(userRepository)));
+        this.entityManager.persistAndFlush(new Post(this.FAKER.chuckNorris().fact(), this.FAKER.date().birthday(0, 1), (User) this.getRandomElement(userRepository)));
+        this.entityManager.persistAndFlush(new Post(this.FAKER.chuckNorris().fact(), this.FAKER.date().birthday(0, 1), (User) this.getRandomElement(userRepository)));
         this.saveTo("posts", Post.class, this.postRepository);
+    }
+
+    private void generateComments() {
+        final Date today = new Date();
+        for (Post post : this.postRepository.findAll()) {
+            final int nbCommentForPost = 1 + this.RANDOM.nextInt(5);
+            for (int i = 0; i < nbCommentForPost; i++) {
+                final Comment comment = new Comment(
+                        this.FAKER.gameOfThrones().quote(),
+                        this.FAKER.date().between(post.getDateOfPost(), today),
+                        (User) this.getRandomElement(userRepository)
+                );
+                comment.setPost(post);
+                this.entityManager.persistAndFlush(comment);
+            }
+        }
+        this.saveTo("comments", Comment.class, this.commentRepository);
     }
 
     private void generateFollowers() {
@@ -375,6 +399,7 @@ public class JSONGenerator {
         this.generateTrainings();
         this.generateUsers();
         this.generatePosts();
+        this.generateComments();
         this.generateFollowers();
-    }    
+    }
 }
