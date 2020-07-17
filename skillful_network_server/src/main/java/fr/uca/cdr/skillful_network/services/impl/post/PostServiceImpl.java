@@ -3,6 +3,7 @@ package fr.uca.cdr.skillful_network.services.impl.post;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import fr.uca.cdr.skillful_network.entities.user.User;
@@ -56,8 +57,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> getAllPostForCurrentUser() {
-        return this.getByUserId(authenticationService.getCurrentUser().getId());
+    public Optional<List<Post>> getAllPostForCurrentUser() {
+        return this.repository.getPostsByUserId(authenticationService.getCurrentUser().getId());
     }
 
     @Override
@@ -98,8 +99,8 @@ public class PostServiceImpl implements PostService {
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<Post> getByUserId(long id) {
-        return (List<Post>) this.repository.findById(id).orElse((Post) Collections.emptyList());
+    public Optional<List<Post>> getByUserId(long userId) {
+        return this.repository.getPostsByUserId(userId);
     }
 
 }
