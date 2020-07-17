@@ -56,6 +56,9 @@ public class Notification {
     public String getLabel() { return label; }
     public void setLabel(String label) { this.label = label; }
 
+    public Long getPostId() { return postId; }
+    public void setPostId(Long postId) { this.postId = postId; }
+
     public Boolean getRead() { return isRead; }
     public void setRead(Boolean read) { isRead = read; }
 
