@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import fr.uca.cdr.skillful_network.entities.user.User;
@@ -36,6 +37,7 @@ public class Post {
     private User user;
 
 	@OneToMany(mappedBy="post")
+	@JsonIgnore
     private Set<Comment> comments = new HashSet<Comment>() ;
 	
 	public Post() {
