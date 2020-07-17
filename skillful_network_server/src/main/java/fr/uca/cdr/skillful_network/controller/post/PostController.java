@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import fr.uca.cdr.skillful_network.entities.post.Post;
 import fr.uca.cdr.skillful_network.services.post.PostService;
@@ -88,4 +89,11 @@ public class PostController {
 			@PathVariable(value = "id") Long id) {
         postService.deletePostById(userId, id);
     }
+	
+	@GetMapping(value="/{userId}")
+	public ResponseEntity<List<Post>> getPostsByUserId(@PathVariable(value= "userId") long userId){
+		List<Post> posts = this.postService.getByUserId(userId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune publication n'est publiée."));
+		return new ResponseEntity<>( posts, HttpStatus.OK);
+	}
+	
 }
