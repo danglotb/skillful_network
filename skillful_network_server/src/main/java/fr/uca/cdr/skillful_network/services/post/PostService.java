@@ -14,7 +14,7 @@ public interface PostService {
     List<Post> getAll();
     Optional<List<Post>> getByUserId(long id);
     Optional<List<Post>> getAllPostForCurrentUser();
-
+    Optional<Post> getPostById(long id);
     Post update(long id, String body, Date dateOfPost);
     Post update(Long userId, long id, String body, Date dateOfPost);
 

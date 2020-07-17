@@ -103,4 +103,12 @@ public class PostServiceImpl implements PostService {
         return this.repository.getPostsByUserId(userId);
     }
 
+	@Override
+	public Optional<Post> getPostById(long id) {
+		
+		return this.repository.findById(id);
+	}
+    
+    
+
 }
