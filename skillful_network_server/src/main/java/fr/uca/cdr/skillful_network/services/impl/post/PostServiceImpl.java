@@ -76,7 +76,7 @@ public class PostServiceImpl implements PostService {
                 new ResponseStatusException(HttpStatus.NOT_FOUND,
                         String.format("None Post could be found with the id %d", id))
         );
-        post.setPostbodyText(body);
+        post.setPostBodyText(body);
         post.setDateOfPost(dateOfPost);
         this.fstService.updateNotifications(user.getId(), Collections.singleton(post));
         return post;

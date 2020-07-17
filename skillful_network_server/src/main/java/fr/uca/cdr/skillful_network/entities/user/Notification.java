@@ -42,11 +42,11 @@ public class Notification {
     }
 
     public String makeLabel(Post post) {
-        String result = post.getPostbodyText();
-        if ( post.getPostbodyText().length() > LABEL_MAXED_BODYTEXT) {
+        String result = post.getPostBodyText();
+        if ( result.length() > LABEL_MAXED_BODYTEXT) {
             result = result.substring(0, LABEL_MAXED_BODYTEXT) + "...";
         }
-        if ( ! post.getFiles().isEmpty() ) { result += " ##MEDIA##"; }
+//        if ( ! post.getFiles().isEmpty() ) { result += " ##MEDIA##"; }
         return result;
     }
 

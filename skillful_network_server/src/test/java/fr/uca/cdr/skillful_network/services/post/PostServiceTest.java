@@ -77,7 +77,7 @@ public class PostServiceTest {
 
         final Post post = this.postService.createPost(THIS_A_BODY);
 
-        assertThat(post.getPostbodyText()).isEqualTo(THIS_A_BODY);
+        assertThat(post.getPostBodyText()).isEqualTo(THIS_A_BODY);
         assertThat(post.getId()).isEqualTo(0L);
         assertThat(post.getDateOfPost().getDate()).isEqualTo(new Date().getDate());
         assertThat(post.getComments()).isEmpty();
@@ -98,7 +98,7 @@ public class PostServiceTest {
         final Post post = this.postRepository.findById(0L).get();
         final Post update = this.postService.update(0L, "", new Date());
 
-        assertThat(update.getPostbodyText()).isEqualTo("");
+        assertThat(update.getPostBodyText()).isEqualTo("");
         assertThat(update.getDateOfPost().getTime()).isGreaterThanOrEqualTo(post.getDateOfPost().getTime());
 
         assertThat(update.getUser()).isEqualTo(post.getUser());
