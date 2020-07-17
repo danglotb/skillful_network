@@ -93,7 +93,7 @@ public class FollowStateTracker {
             notification.addFST(this);
             logger.debug("notification: {})", notification);
             this.notifications.add(notification);
-            logger.debug("notifications: {})", this.notifications);
+            // logger.debug("notifications: {})", this.notifications);
         });
     }
 
@@ -103,7 +103,7 @@ public class FollowStateTracker {
             logger.debug("notification: {})", notification);
             this.notifications.remove(notification);
             notification.removeFST(this);
-            logger.debug("notifications: {})", this.notifications);
+            // logger.debug("notifications: {})", this.notifications);
         });
     }
 

@@ -67,12 +67,22 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post update(long id, String body, Date dateOfPost) {
+        return update(authenticationService.getCurrentUser(), id, body, dateOfPost);
+    }
+
+    @Override
+    public Post update(Long userId, long id, String body, Date dateOfPost) {
+        return update(userService.getById(userId), id, body, dateOfPost);
+    }
+
+    public Post update(User user, long id, String body, Date dateOfPost) {
         final Post post = this.repository.findById(id).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND,
                         String.format("None JobOffer could be found with the id %d", id))
         );
         post.setPostbodyText(body);
         post.setDateOfPost(dateOfPost);
+        this.fstService.updateNotifications(user.getId(), Collections.singleton(post));
         return post;
     }
 

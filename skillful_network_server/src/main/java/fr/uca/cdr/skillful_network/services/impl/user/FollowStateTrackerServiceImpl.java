@@ -441,32 +441,6 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
     // notification methods
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-//    @Override
-//    public void pushNotifications(Set<Notification> notifications) {
-//        this.pushNotifications(authenticationService.getCurrentUser(), notifications);
-//    }
-
-//    @Override
-//    public void pushNotifications(Long followedID, Set<Notification> notifications) {
-//        this.pushNotifications(userService.getById(followedID), notifications);
-//    }
-
-//    public void pushNotifications(User followed, Set<Notification> notifications) {
-//        System.out.println("FollowStateTrackerServiceImpl.pushNotifications(User: "+followed.getId() + ")");
-//
-//        // persist notifications
-//        notifications.stream()
-//                .filter( n -> n.followerSetSize() == 0 )
-//                .forEach( n -> notificationRepository.save(n) );
-//
-//        // process update
-//        fstRepository.findAllByFollowed(followed)
-//                .forEach( fst -> {
-//                    System.out.println("fst: " + fst.getId() );
-//                    fst.pushNotifications(notifications);
-//                    fstRepository.save(fst);
-//                });
-//    }
 
 
     @Override
@@ -481,11 +455,6 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
 
     public void pushNotifications(User followed, Set<Post>  posts) {
         logger.debug("pushNotifications(followed: {}, posts: {})", followed.getId(), posts);
-
-        // persist notifications
-//        notifications.stream()
-//                .filter( n -> n.followerSetSize() == 0 )
-//                .forEach( n -> notificationRepository.save(n) );
 
         // process update
         fstRepository.findAllByFollowed(followed)
@@ -734,6 +703,39 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
                 .forEach( fst -> {
                     fst.setNotificationReadStatus(notifications, isRead);
                     fstRepository.save(fst);
+                });
+    }
+
+    @Override
+    public void updateNotifications(Long followedID, Set<Post>  posts) {
+        logger.debug("updateNotifications(followedID: {}, posts: {})", followedID, posts);
+
+        // process update
+        fstRepository.findAllByFollowed(userService.getById(followedID)).stream()
+                .forEach( fst -> {
+                    logger.debug("fst: {}", fst.getId());
+                    // filtering out
+                    if (fst.getFollowedStatus() != Followable.FollowableStatus.on) {
+                        logger.debug("update prohibited (FollowedStatus: {})", fst.getFollowedStatus());
+                    } else {
+                        switch (fst.getFollowedNotifiable()) {
+                            case all:
+                                // update Notiffication Set
+                                fst.getNotifications().forEach( notification -> {
+                                    posts.stream()
+                                            .filter( post -> ( post.getId() == notification.getPostId()))
+                                            .forEach( post -> {
+                                                notification.updateNotification(post);
+                                                logger.debug("notification: {}", notification);
+                                            });
+                                });
+
+                                fstRepository.save(fst);
+                                break;
+                            default:
+                                logger.debug("notifications filtered out (FollowableNotifiable: {})", fst.getFollowedNotifiable());
+                        }
+                    }
                 });
     }
 

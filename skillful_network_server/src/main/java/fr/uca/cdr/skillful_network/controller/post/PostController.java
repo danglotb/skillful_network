@@ -47,18 +47,34 @@ public class PostController {
 		return this.postService.createPost(userId, body);
 	}
 
-	 @PutMapping(value = "/{id}")
-	    @Transactional
-	    public ResponseEntity<Post> update(@PathVariable(value = "id") Long id,
-	                                                   @Valid @RequestBody String body) {
-	        return new ResponseEntity<>(
-	                this.postService.update(
-	                        id,
-	                        body,
-	                        new Date() // TODO for now we replace the creation date to mark the update but we could keep track of the edition and versions
-	                ), HttpStatus.OK);
-	    }
-	 
+ 	@PutMapping(value = "/{id}")
+	@Transactional
+	public ResponseEntity<Post> update(
+			@PathVariable(value = "id") Long id,
+			@Valid @RequestBody String body) {
+		return new ResponseEntity<>(
+				this.postService.update(
+						id,
+						body,
+						new Date() // TODO for now we replace the creation date to mark the update but we could keep track of the edition and versions
+				), HttpStatus.OK);
+	}
+
+	@PutMapping(value = "/{userId}/{id}")
+	@Transactional
+	public ResponseEntity<Post> update(
+			@PathVariable(value = "userId") Long userId,
+			@PathVariable(value = "id") Long id,
+			@Valid @RequestBody String body) {
+		return new ResponseEntity<>(
+				this.postService.update(
+						userId,
+						id,
+						body,
+						new Date() // TODO for now we replace the creation date to mark the update but we could keep track of the edition and versions
+				), HttpStatus.OK);
+	}
+
 	@DeleteMapping(value = "/{id}")
     @Transactional
     public void delete(@PathVariable(value = "id") Long id) {

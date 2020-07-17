@@ -13,6 +13,9 @@ public interface PostService {
     List<Post> getAll();
     List<Post> getByUserId(long id);
     List<Post> getAllPostForCurrentUser();
-    void deletePostById(long id);
+
     Post update(long id, String body, Date dateOfPost);
+    Post update(Long userId, long id, String body, Date dateOfPost);
+
+    void deletePostById(long id);
 }
