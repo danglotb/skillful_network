@@ -61,11 +61,6 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void deletePostById(long id) {
-        this.repository.deleteById(id);
-    }
-
-    @Override
     public Post update(long id, String body, Date dateOfPost) {
         return update(authenticationService.getCurrentUser(), id, body, dateOfPost);
     }
@@ -84,6 +79,21 @@ public class PostServiceImpl implements PostService {
         post.setDateOfPost(dateOfPost);
         this.fstService.updateNotifications(user.getId(), Collections.singleton(post));
         return post;
+    }
+
+    @Override
+    public void deletePostById(long id) {
+        deletePostById(authenticationService.getCurrentUser(), id);
+    }
+
+    @Override
+    public void deletePostById(Long userId, long id) {
+        deletePostById(userService.getById(userId), id);
+    }
+
+    public void deletePostById(User user, long id) {
+        this.fstService.popNotificationsByPostIds(user.getId(), Collections.singleton(id));
+        this.repository.deleteById(id);
     }
 
     @SuppressWarnings("unchecked")

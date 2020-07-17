@@ -18,4 +18,5 @@ public interface PostService {
     Post update(Long userId, long id, String body, Date dateOfPost);
 
     void deletePostById(long id);
+    void deletePostById(Long userId, long id);
 }

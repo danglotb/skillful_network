@@ -104,5 +104,6 @@ public interface FollowStateTrackerService {
     void popNotification(Long followerID, Long notificationId);
     void popNotifications(Set<Notification> notifications);
     void popNotifications(Long followerID, Set<Notification> notifications);
+    void popNotificationsByPostIds(Long followedID, Set<Long>  postIds);
 
 }

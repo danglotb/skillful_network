@@ -340,7 +340,7 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
         fstRepository.findAllByFollowed(followed)
                 .forEach( fst -> {
                     fst.setFollowedStatus(status);
-                    logger.debug("fstId: {} -> status: {})", fst.getId(), fst.getFollowedStatus());
+                    logger.debug("-> fstId: {} -> status: {})", fst.getId(), fst.getFollowedStatus());
                     fstRepository.save(fst);
                 });
     }
@@ -401,7 +401,7 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
         fstRepository.findAllByFollowed(followed)
                 .forEach( fst -> {
                     fst.setFollowedNotifiable(notifiable);
-                    logger.debug("fstId: {} -> notifiable: {})", fst.getId(), fst.getFollowedNotifiable());
+                    logger.debug("-> fstId: {} -> notifiable: {})", fst.getId(), fst.getFollowedNotifiable());
                     fstRepository.save(fst);
                 });
     }
@@ -459,10 +459,10 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
         // process update
         fstRepository.findAllByFollowed(followed)
                 .forEach( fst -> {
-                    logger.debug("fst: {}", fst.getId());
+                    logger.debug("-> fst: {}", fst.getId());
                     // filtering out
                     if (fst.getFollowedStatus() != Followable.FollowableStatus.on) {
-                        logger.debug("push prohibited (FollowedStatus: {})", fst.getFollowedStatus());
+                        logger.debug("-> push prohibited (FollowedStatus: {})", fst.getFollowedStatus());
                     } else {
                         switch (fst.getFollowedNotifiable()) {
                             case all:
@@ -480,7 +480,7 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
                                 fstRepository.save(fst);
                                 break;
                             default:
-                                logger.debug("notifications filtered out (FollowableNotifiable: {})", fst.getFollowedNotifiable());
+                                logger.debug("-> notifications filtered out (FollowableNotifiable: {})", fst.getFollowedNotifiable());
                         }
                     }
                 });
@@ -507,10 +507,10 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
         // process update
         fstRepository.findAllByFollowed(followed)
                 .forEach( fst -> {
-                    logger.debug("fst: {}", fst.getId());
+                    logger.debug("-> fst: {}", fst.getId());
                     // filtering out
                     if (fst.getFollowedStatus() != Followable.FollowableStatus.on) {
-                        logger.debug("push prohibited (FollowedStatus: {})", fst.getFollowedStatus());
+                        logger.debug("-> push prohibited (FollowedStatus: {})", fst.getFollowedStatus());
                     } else {
                         switch (fst.getFollowedNotifiable()) {
                             case all:
@@ -528,7 +528,7 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
                                 fstRepository.save(fst);
                                 break;
                             default:
-                                logger.debug("notifications filtered out (FollowableNotifiable: {})", fst.getFollowedNotifiable());
+                                logger.debug("-> notifications filtered out (FollowableNotifiable: {})", fst.getFollowedNotifiable());
                         }
                     }
                 });
@@ -577,14 +577,14 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
         Set<Notification> notifications = new HashSet<>();
         // filtering out
         if (fst.getFollowerStatus() != FollowerStatus.on) {
-            logger.debug("get() prohibited (FollowerStatus: {})", fst.getFollowerStatus());
+            logger.debug("-> get() prohibited (FollowerStatus: {})", fst.getFollowerStatus());
         } else {
             switch (fst.getFollowerNotifiable()) {
                 case all :
                 notifications = fst.getNotifications();
                     break;
                 default:
-                    logger.debug("notifications filtered out (FollowerNotifiable: {})", fst.getFollowerNotifiable());
+                    logger.debug("-> notifications filtered out (FollowerNotifiable: {})", fst.getFollowerNotifiable());
             }
         }
         return notifications;
@@ -710,32 +710,36 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
     public void updateNotifications(Long followedID, Set<Post>  posts) {
         logger.debug("updateNotifications(followedID: {}, posts: {})", followedID, posts);
 
-        // process update
-        fstRepository.findAllByFollowed(userService.getById(followedID)).stream()
-                .forEach( fst -> {
-                    logger.debug("fst: {}", fst.getId());
-                    // filtering out
-                    if (fst.getFollowedStatus() != Followable.FollowableStatus.on) {
-                        logger.debug("update prohibited (FollowedStatus: {})", fst.getFollowedStatus());
-                    } else {
-                        switch (fst.getFollowedNotifiable()) {
-                            case all:
-                                // update Notiffication Set
-                                fst.getNotifications().forEach( notification -> {
-                                    posts.stream()
-                                            .filter( post -> ( post.getId() == notification.getPostId()))
-                                            .forEach( post -> {
-                                                notification.updateNotification(post);
-                                                logger.debug("notification: {}", notification);
-                                            });
-                                });
-
-                                fstRepository.save(fst);
-                                break;
-                            default:
-                                logger.debug("notifications filtered out (FollowableNotifiable: {})", fst.getFollowedNotifiable());
-                        }
-                    }
+        // get and update notifications from post id
+        posts.stream()
+                .flatMap(post -> notificationRepository.findByPostId(post.getId()).stream())
+                .map(notification -> {
+                    posts.stream()
+                            .filter( post -> ( post.getId() == notification.getPostId()))
+                            .forEach( post -> {
+                                notification.updateNotification(post);
+                                logger.debug("-> notification: {}", notification);
+                            });
+                    return notification;
+                })
+                .forEach(notification -> {
+                    // update FST
+                    notification.followerSet().stream()
+                        .filter( fst -> fst.getFollowed().getId() == followedID)
+                        .forEach( fst -> {
+                            logger.debug("-> fst: {}", fst.getId());
+                            // filtering out
+                            if (fst.getFollowedStatus() != Followable.FollowableStatus.on) {
+                                logger.debug("-> update prohibited (FollowedStatus: {})", fst.getFollowedStatus());
+                            } else {
+                                switch (fst.getFollowedNotifiable()) {
+                                    case all:
+                                        fstRepository.save(fst);
+                                        break;
+                                    default:
+                                        logger.debug("-> notifications filtered out (FollowableNotifiable: {})", fst.getFollowedNotifiable());
+                                }
+                            }});
                 });
     }
 
@@ -754,7 +758,7 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
 
         // get notificationSet from id
         Set<Notification> notifications = notificationRepository.findById(notificationId).map(Collections::singleton).orElse(Collections.emptySet());
-        logger.debug("notifications: {})", notifications);
+        logger.debug("-> notifications: {})", notifications);
 
         // process update
         this.popNotifications(follower, notifications);
@@ -772,16 +776,45 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
 
     public void popNotifications(User follower, Set<Notification> notifications) {
         logger.debug("popNotifications(User: {}, Set<Long>: {})", follower.getId(), notifications);
+
         // process update
         fstRepository.findAllByFollower(follower)
                 .forEach( fst -> {
                     fst.popNotifications(notifications);
                     fstRepository.save(fst);
                 });
+
         // clean orphan notifications
-        notifications.stream()
-                .filter( n -> n.followerSetSize() == 0 )
-                .forEach( n -> notificationRepository.delete(n) );
+        cleanOrphanNotifications(notifications);
     }
 
+
+    @Override
+    public void popNotificationsByPostIds(Long followedID, Set<Long>  postIds) {
+        logger.debug("popNotificationsByPosts(followedID: {}, postIdsd: {})", followedID, postIds);
+
+        // get notificationSet from post id
+        Set<Notification> notifications = postIds.stream()
+                .flatMap(postId -> notificationRepository.findByPostId(postId).stream())
+                .collect(Collectors.toSet());
+        logger.debug("-> notifications: {})", notifications);
+
+        // process update
+        fstRepository.findAllByFollowed(userService.getById(followedID))
+                .forEach( fst -> {
+                    logger.debug("-> fst: {}", fst.getId());
+                    fst.popNotifications(notifications);
+                    fstRepository.save(fst);
+                });
+
+        // clean orphan notifications
+        cleanOrphanNotifications(notifications);
+    }
+
+    // clean orphan notifications
+    public void cleanOrphanNotifications(Set<Notification> notifications) {
+        notifications.stream()
+                .filter( n -> n.followerSetSize() == 0 )
+            .forEach( n -> notificationRepository.delete(n) );
+}
 }

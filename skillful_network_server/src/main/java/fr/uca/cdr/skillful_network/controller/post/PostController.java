@@ -80,4 +80,12 @@ public class PostController {
     public void delete(@PathVariable(value = "id") Long id) {
         postService.deletePostById(id);
     }
+
+	@DeleteMapping(value = "/{userId}/{id}")
+    @Transactional
+    public void delete(
+			@PathVariable(value = "userId") Long userId,
+			@PathVariable(value = "id") Long id) {
+        postService.deletePostById(userId, id);
+    }
 }
