@@ -45,7 +45,10 @@ mat-button {
 .mat-menu-item.mat-skillful {
   color: #5b7787;
 }
-
+.mat-stroked-button.mat-grey-light{
+  border-color:#979797;
+  color:#f5f5f5;
+}
 .mat-raised-button.mat-skillful {
   background-color: #5b7787;
   color: #f5f5f5;
@@ -59,6 +62,7 @@ mat-button {
 .material-icons.skillfull-orange {
   color: #ff6550;
 }
+
 
 .photoProfile {
   margin-top: 7px;
