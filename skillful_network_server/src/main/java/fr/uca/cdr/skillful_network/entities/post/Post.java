@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import fr.uca.cdr.skillful_network.entities.user.User;
@@ -36,10 +37,24 @@ public class Post {
     private User user;
 
 	@OneToMany(mappedBy="post")
+	@JsonIgnore
     private Set<Comment> comments = new HashSet<Comment>() ;
+	
+	private int commentsNumber;
 	
 	public Post() {
 		super();
+	}
+
+	public Post(String postbodyText, Date dateOfPost, Set<String> files, User user, Set<Comment> comments,
+			int commentsNumber) {
+		super();
+		this.postbodyText = postbodyText;
+		this.dateOfPost = dateOfPost;
+		this.files = files;
+		this.user = user;
+		this.comments = comments;
+		this.commentsNumber = comments.size();
 	}
 
 	public Post(String postbodyText, Date dateOfPost, Set<String> files, User user, Set<Comment> comments) {
@@ -121,10 +136,18 @@ public class Post {
 		this.comments = comments;
 	}
 
+	public int getCommentsNumber() {
+		return this.getComments().size();
+	}
+
+	public void setCommentsNumber(int commentsNumber) {
+		this.commentsNumber = commentsNumber;
+	}
+
 	@Override
 	public String toString() {
 		return "Post [id=" + id + ", postbodyText=" + postbodyText + ", dateOfPost=" + dateOfPost
-				+ ", user=" + user;
+				+ ", user=" + user + ", commentsNumber=" + commentsNumber;
 	}
 
 	@Override

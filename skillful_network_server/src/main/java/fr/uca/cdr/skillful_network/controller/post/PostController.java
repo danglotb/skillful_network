@@ -96,4 +96,9 @@ public class PostController {
 		return new ResponseEntity<>( posts, HttpStatus.OK);
 	}
 	
+	@GetMapping(value="/{id}/commentNumber")
+	public int commentNumberByPostId(@PathVariable(value="id") long id) {
+		return this.postService.getPostById(id).get().getCommentsNumber();
+	}
+	
 }

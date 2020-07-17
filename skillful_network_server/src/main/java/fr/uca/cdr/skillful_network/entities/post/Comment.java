@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import fr.uca.cdr.skillful_network.entities.user.User;
@@ -42,6 +43,7 @@ public class Comment {
 	
 	
 	@OneToMany(mappedBy="comment")
+	@JsonIgnore
 	private Set<Comment> comments = new HashSet<Comment>() ;
 
 	@ManyToOne(cascade = CascadeType.REFRESH)
