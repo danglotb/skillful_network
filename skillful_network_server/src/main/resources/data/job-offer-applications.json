@@ -23,9 +23,9 @@
       "company": "Lopéz EI",
       "description": "Organic grid-enabled knowledge user",
       "type": "type1",
-      "dateBeg": "Jul 13, 2020 11:43:48 AM",
-      "dateEnd": "Jul 13, 2020 11:43:48 AM",
-      "dateUpload": "Jul 13, 2020 11:43:48 AM",
+      "dateBeg": "Jul 17, 2020 12:40:07 PM",
+      "dateEnd": "Jul 17, 2020 12:40:07 PM",
+      "dateUpload": "Jul 17, 2020 12:40:07 PM",
       "keywords": [
         {
           "id": 13,
@@ -44,7 +44,7 @@
       "firstName": "Maeva",
       "lastName": "Dupont",
       "password": "Qwerty123",
-      "birthDate": "Jul 22, 1984 3:59:57 AM",
+      "birthDate": "Jul 26, 1984 3:59:57 AM",
       "email": "user@uca.fr",
       "mobileNumber": "+33 6 86 81 69 68",
       "validated": true,
@@ -84,6 +84,6 @@
       "followerSet": []
     },
     "status": "ACCEPTED",
-    "submitDate": "Jul 13, 2020 11:43:49 AM"
+    "submitDate": "Jul 17, 2020 12:40:08 PM"
   }
 ]

@@ -123,8 +123,8 @@ public class Post {
 
 	@Override
 	public String toString() {
-		return "Post [id=" + id + ", postbodyText=" + postbodyText + ", dateOfPost=" + dateOfPost + ", files=" + files
-				+ ", user=" + user + ", comments=" + comments + "]";
+		return "Post [id=" + id + ", postbodyText=" + postbodyText + ", dateOfPost=" + dateOfPost
+				+ ", user=" + user;
 	}
 
 	@Override

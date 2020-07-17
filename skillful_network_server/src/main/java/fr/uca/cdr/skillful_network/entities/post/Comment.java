@@ -156,7 +156,7 @@ public class Comment {
 	@Override
 	public String toString() {
 		return "Comment [id=" + id + ", commentBodyText=" + commentBodyText + ", dateOfComment=" + dateOfComment
-				+ ", files=" + files + ", user=" + user + ", comments=" + comments + ", post=" + post + "]";
+				+ ", user=" + user;
 	}
 
 	@Override
