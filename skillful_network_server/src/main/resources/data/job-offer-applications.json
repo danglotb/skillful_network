@@ -23,13 +23,13 @@
       "company": "Lopéz EI",
       "description": "Organic grid-enabled knowledge user",
       "type": "type1",
-      "dateBeg": "Jul 13, 2020 11:43:48 AM",
-      "dateEnd": "Jul 13, 2020 11:43:48 AM",
-      "dateUpload": "Jul 13, 2020 11:43:48 AM",
+      "dateBeg": "Aug 14, 2019 5:11:13 PM",
+      "dateEnd": "Jul 30, 2019 3:54:07 AM",
+      "dateUpload": "Jun 23, 2020 9:19:05 AM",
       "keywords": [
         {
-          "id": 13,
-          "name": "Claire",
+          "id": 17,
+          "name": "REXX",
           "jobOffers": [],
           "trainings": []
         }
@@ -41,32 +41,32 @@
     "id": 1,
     "user": {
       "id": 1,
-      "firstName": "Maeva",
-      "lastName": "Dupont",
+      "firstName": "Quentin",
+      "lastName": "Leclercq",
       "password": "Qwerty123",
-      "birthDate": "Jul 22, 1984 3:59:57 AM",
+      "birthDate": "May 31, 1986 2:46:50 PM",
       "email": "user@uca.fr",
-      "mobileNumber": "+33 6 86 81 69 68",
+      "mobileNumber": "+33 798463660",
       "validated": true,
-      "careerGoal": "International Marketing Agent",
+      "careerGoal": "Hospitality Architect",
       "skillSet": [
         {
-          "id": 10,
-          "name": "Proactive",
+          "id": 2,
+          "name": "Networking skills",
           "userList": []
         }
       ],
       "qualificationSet": [
         {
-          "id": 5,
-          "name": "Associate Degree in Creative Arts",
+          "id": 2,
+          "name": "Associate Degree in Business",
           "userList": []
         }
       ],
       "subscriptionSet": [
         {
-          "id": 9,
-          "name": "TADS",
+          "id": 3,
+          "name": "TTCN",
           "userList": []
         }
       ],
@@ -84,6 +84,6 @@
       "followerSet": []
     },
     "status": "ACCEPTED",
-    "submitDate": "Jul 13, 2020 11:43:49 AM"
+    "submitDate": "Mar 9, 2020 7:16:57 AM"
   }
 ]

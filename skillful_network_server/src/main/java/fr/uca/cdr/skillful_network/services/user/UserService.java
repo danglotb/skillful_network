@@ -3,6 +3,7 @@ package fr.uca.cdr.skillful_network.services.user;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import fr.uca.cdr.skillful_network.entities.user.*;
@@ -46,4 +47,13 @@ public interface UserService {
 	boolean supportProvidedPicture(MultipartFile image);
 
 	boolean uploadProfilePicture(MultipartFile image);
+
+	////////////////////////////////////////////////////////////////////////////////////////////////
+	// Follower methods
+	////////////////////////////////////////////////////////////////////////////////////////////////
+	Optional<List<User>>  getAllFollowersByFollowable();
+	Optional<List<User>>  getAllFollowersByFollowableID(Long followableID);
+
+	Long getFollowerCount();
+	Long getFollowerCount(Long followableID);
 }

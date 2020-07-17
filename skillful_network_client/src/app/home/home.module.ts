@@ -16,6 +16,8 @@ import { DialogueElementsComponent } from './news-feed/dialogue-elements/dialogu
 import { AddPublicationComponent } from './news-feed/add-publication/add-publication.component';
 import { ListPublicationsComponent } from './news-feed/list-publications/list-publications.component';
 import { PublicationComponent } from './news-feed/list-publications/publication/publication.component';
+import { ListCommentsComponent } from './news-feed/list-comments/list-comments.component';
+import { CommentComponent } from './news-feed/list-comments/comment/comment.component';
 
 @NgModule({
     declarations: [
@@ -28,7 +30,9 @@ import { PublicationComponent } from './news-feed/list-publications/publication/
         DialogueElementsComponent,
         AddPublicationComponent,
         ListPublicationsComponent,
-        PublicationComponent
+        PublicationComponent,
+        ListCommentsComponent,
+        CommentComponent
     ],
     imports: [
         CommonModule,

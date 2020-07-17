@@ -11,17 +11,18 @@
             </form>
         </div>
     </div>
-    <a mat-button color="skillful" [matMenuTriggerFor]="menu" class="buttonMenu" >Menu</a>
+    <a mat-button color="skillful" [matMenuTriggerFor]="menu" class="buttonMenu"><mat-icon>menu</mat-icon></a>
     <mat-menu #menu="matMenu">
-        <a class="mat-menu-item" [routerLink]="['/home']">Accueil</a>
-        <a mat-menu-item [routerLink]="['/home/profile']">Profil</a>
-        <a mat-menu-item [routerLink]="['/home']">Notifications</a>
-        <a mat-menu-item [routerLink]="['/']">Déconnexion</a>
+        <a class="mat-menu-item" [routerLink]="['/home']"><mat-icon class="material-icons md-24">home</mat-icon>Accueil</a>
+        <a mat-menu-item [routerLink]="['/home/profile']"><mat-icon class="material-icons md-24">person</mat-icon>Profil</a>
+        <a mat-menu-item [routerLink]="['/home']"><mat-icon class="material-icons md-24" matBadge="{{countNotifications}}" matBadgeColor="warn" matBadgePosition="after" matBadgeSize="small" matBadgeHidden="{{hiddenBadgeNotifications}}">notifications</mat-icon>Notifications</a>
+        <a mat-menu-item [routerLink]="['/']"><mat-icon class="material-icons md-24">logout</mat-icon>Déconnexion</a>
     </mat-menu>
     <mat-toolbar fxLayout="row" fxLayoutAlign="center center">
-        <a color="skillful" [routerLink]="['/home']" mat-button>Accueil</a>
-        <a color="skillful" [routerLink]="['/home/profile']" mat-button>Profil</a>
-        <a color="skillful" [routerLink]="['/home']" mat-button>Notifications</a>
-        <a color="skillful" [routerLink]="['/']" (click)="logout()" mat-button>Déconnexion</a>
+        <a style="cursor: pointer" color="skillful" [routerLink]="['/home']" title="Accueil" mat-button><mat-icon fxLayout="column" class="material-icons md-32">home</mat-icon>Accueil</a>
+        <a color="skillful" [routerLink]="['/home/profile']" title="Mon profil" mat-button><mat-icon fxLayout="column" class="material-icons md-32">person</mat-icon>Mon profil</a>
+        <a color="skillful" [routerLink]="['/home']" title="Notifications" mat-button><mat-icon fxLayout="column" class="material-icons md-32" matBadge="{{countNotifications}}" matBadgeColor="warn" matBadgePosition="after" matBadgeSize="small" matBadgeHidden="{{hiddenBadgeNotifications}}">notifications</mat-icon>Notifications</a>
+        <a color="skillful" [routerLink]="['/']" (click)="logout()" title="Déconnexion" mat-button><mat-icon fxLayout="column" class="material-icons md-32">logout</mat-icon>Déconnexion</a>
     </mat-toolbar>
+   
 </header>

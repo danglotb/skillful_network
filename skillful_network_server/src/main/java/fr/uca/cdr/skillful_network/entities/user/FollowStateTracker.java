@@ -91,19 +91,21 @@ public class FollowStateTracker {
         notifications.forEach(notification -> {
             notification.setRead(false);
             notification.addFST(this);
-            logger.debug("notification: {})", notification);
+            logger.debug("-> notification: {})", notification);
             this.notifications.add(notification);
-            logger.debug("notifications: {})", this.notifications);
+            // logger.debug("notifications: {})", this.notifications);
         });
     }
 
     public void popNotifications(Set<Notification> notifications) {
         logger.debug("popNotifications()");
         notifications.forEach(notification -> {
-            logger.debug("notification: {})", notification);
-            this.notifications.remove(notification);
-            notification.removeFST(this);
-            logger.debug("notifications: {})", this.notifications);
+            if (this.notifications.contains(notification)) {
+                logger.debug("-> notification: {})", notification);
+                this.notifications.remove(notification);
+                notification.removeFST(this);
+            }
+            // logger.debug("notifications: {})", this.notifications);
         });
     }
 

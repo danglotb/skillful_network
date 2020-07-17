@@ -7,6 +7,7 @@ export class Publication {
     private _text: String;
     private _file: String;
     private _votes: number;
+    private _numberOfComment: number;
     private _comments: String [];
     private _dateOfPost: Date;
 
@@ -19,7 +20,8 @@ export class Publication {
         this.user = data.user;
         this.file = data.file;
         this._votes = data.votes;
-        this._comments = [];
+        this._numberOfComment = data.numberOfComment;
+        this._comments = data.comments;
         this.dateOfPost = data.dateOfPost;
       
     }
@@ -60,6 +62,14 @@ export class Publication {
     
     public set file(value: String) {
         this._file = value;
+    }
+
+    public get numberOfComment (): number {
+        return this._numberOfComment;
+    }
+
+    public set numberOfComment(value: number) {
+        this._numberOfComment = value;
     }
     public get comments(): String[] {
         return this._comments;
