@@ -1,7 +1,9 @@
+import { FollowStateTracker } from '../user/FollowStateTracker';
+
 export class Notification {
 
     public id: number;
-    public followerSet: string[];
+    public followerSet: FollowStateTracker[];
     public label: string;
     public isRead: boolean;
 
@@ -20,7 +22,7 @@ export class Notification {
         return this.followerSet;
     }
 
-    public set setFollowerSet(followerSet: string[]) {
+    public set setFollowerSet(followerSet: FollowStateTracker[]) {
         this.followerSet = followerSet;
     }
 
