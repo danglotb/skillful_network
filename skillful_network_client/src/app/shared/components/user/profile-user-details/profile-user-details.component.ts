@@ -1,9 +1,11 @@
-import { Component, OnInit, Input, ViewChild, Output, TemplateRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, TemplateRef, SimpleChanges } from '@angular/core';
 import { User } from 'src/app/shared/models/user/user';
 import { UserPageComponent } from '../user-page.component';
 import { ChipComponent } from '../../chip/chip.component';
 import { FollowStateTrackerService } from 'src/app/shared/services/FollowStateTracker.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-profile-user-details',
@@ -14,70 +16,91 @@ export class ProfileUserDetailsComponent implements OnInit {
   @Input() type: string;
   @Input() readOnly: boolean;
   @Input() userLogged: User;
+
   @Input() public chips: TemplateRef<any>;
   public cardRef: TemplateRef<any>;
   public title: string = "Informations";
 
-  @ViewChild('chipQualifications') chipQualifications: ChipComponent;
-  @ViewChild('chipSkills') chipSkills: ChipComponent;
-  @ViewChild('chipSubscriptions') chipSubscriptions: ChipComponent;
-  @ViewChild('userPage') userPage: UserPageComponent;
-
   totalFollowed: number = 0;
   totalFollowers: number = 0;
   toggleFollow: boolean;
-  constructor(private followService: FollowStateTrackerService, private authService: AuthService) {
+  idUserPick: number;
+  userPick: User;
+
+  constructor(private followService: FollowStateTrackerService, private authService: AuthService, private route: ActivatedRoute, private userService: UserService) {
   }
 
-  ngOnInit(): void {
+  async ngOnInit(){
+    console.log("ngOninit");
     this.userLogged = new User({});
-    console.log(this.userLogged);
-    this.countFollowed();
-    this.countFollowers();
-   
+    this.userPick = new User({});
+    this.idUserPick = this.route.snapshot.params.id;
+
+    await this.getUser(this.idUserPick);
+
+    this.toggleFollow = this.isFollowed(); 
   }
 
   ngAfterViewInit(){
-    this.toggleFollow = this.isFollowed(this.toggleFollow);
-    console.log("toggleFollow: " + this.toggleFollow);
+    console.log("afterInit");
+
+    this.countFollowers(this.idUserPick);
+    this.countFollowed(this.idUserPick);
   }
 
-  async countFollowed() {
-    this.followService.getFollowedCount().then((data) => {
-      this.totalFollowed = data;
-    }).catch((error) => {
-      console.log(error);
-    });
-  }
-
-  async countFollowers() {
-    this.followService.getFollowerCount().then((data) => {
+  async countFollowers(FollowableId: number) {
+    await this.followService.getFollowersCountByFollowableId(FollowableId).then((data) => {
       this.totalFollowers = data;
     }).catch((error) => {
       console.log(error);
     });
   }
 
-  async toggleFollowUnfollow() {
-    let response;
-    if (this.isFollowed(this.toggleFollow)) {
-      response = this.followService.unfollowByFollowedId(this.userLogged.id);
-    } else {
-      response = this.followService.followByFollowableId(this.userLogged.id)
-    }
-    await response.catch((error) => {
+  async countFollowed(idFollower: number) {
+    await this.followService.getFollowedCountByFollowerId(idFollower).then((data) => {
+      this.totalFollowed = data;
+    }).catch((error) => {
       console.log(error);
     });
   }
 
-  isFollowed(toggle: boolean) {
-    let currentUser: User = this.authService.user;
-    toggle = true;
-    this.userLogged.followableSet.map((item) => {
-      if (item.follower.id == currentUser.id) { toggle = false; }
-    })
-    return toggle;
+  async toggleFollowUnfollow(event: Event) {
+    let response;
+    if (!this.toggleFollow) {
+      response = this.followService.followByFollowableId(this.userPick.id);
+    } else {
+      response = this.followService.unfollowByFollowedId(this.userPick.id);
+    }
+    await response.catch((error) => {
+      console.log(error);
+    });
+    this.ngAfterViewInit();
+    this.toggleFollow = !this.toggleFollow;
   }
+
+    isFollowed() : boolean{
+    let currentUser: User = this.authService.user;
+    let response = false;
+    this.userPick.followableSet.map((item) => {
+      if (item.follower.id === currentUser.id) {
+        response = true; 
+      }
+    });
+    return response;
+  }
+
+  async getUser(id: number) {
+    await this.userService.getById(id).then((data) => {
+      this.userPick = data;
+      return this.userPick;
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+
+
+
+
 }
 
 

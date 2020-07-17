@@ -1,5 +1,7 @@
 #headerProfile {
     background-color: #5b7787;
+    display:flex;
+    flex-direction: row;
     padding: 0;
     margin: 0;
 }
@@ -56,12 +58,11 @@ section {
 .details i {
     margin: 1rem;
 }
-@media all and (max-width: 959px) {
+@media only screen and (max-width: 959px) {
     #prezProfile {
         margin: auto;
     }
-    // #headerProfile{
-    //     display:flex;
-    //     flex-wrap: column;
-    // }
+    #headerProfile{
+        flex-direction: column;
+    }
 }
