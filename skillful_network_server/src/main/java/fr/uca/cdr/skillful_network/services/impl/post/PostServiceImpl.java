@@ -74,7 +74,7 @@ public class PostServiceImpl implements PostService {
     public Post update(User user, long id, String body, Date dateOfPost) {
         final Post post = this.repository.findById(id).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        String.format("None JobOffer could be found with the id %d", id))
+                        String.format("None Post could be found with the id %d", id))
         );
         post.setPostbodyText(body);
         post.setDateOfPost(dateOfPost);
