@@ -21,70 +21,31 @@ import fr.uca.cdr.skillful_network.entities.user.User;
 
 @Entity
 public class Post {
+
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 	
-	private String postbodyText;
+	private String postBodyText;
 	
 	private Date dateOfPost;
-	
-	@ElementCollection
-	private Set<String> files = new HashSet<String>() ;
 	
 	@ManyToOne(cascade = CascadeType.REFRESH)
     @JsonManagedReference
     private User user;
 
-	@OneToMany(mappedBy="post")
-	@JsonIgnore
-    private Set<Comment> comments = new HashSet<Comment>() ;
-	
-	private int commentsNumber;
+	@OneToMany
+	@JsonManagedReference
+    private Set<Comment> comments = new HashSet<>() ;
 	
 	public Post() {
 		super();
 	}
 
-	public Post(String postbodyText, Date dateOfPost, Set<String> files, User user, Set<Comment> comments,
-			int commentsNumber) {
+	public Post( String postBodyText, Date dateOfPost, User user) {
 		super();
-		this.postbodyText = postbodyText;
+		this.postBodyText = postBodyText;
 		this.dateOfPost = dateOfPost;
-		this.files = files;
-		this.user = user;
-		this.comments = comments;
-		this.commentsNumber = comments.size();
-	}
-
-	public Post(String postbodyText, Date dateOfPost, Set<String> files, User user, Set<Comment> comments) {
-		super();
-		this.postbodyText = postbodyText;
-		this.dateOfPost = dateOfPost;
-		this.files = files;
-		this.user = user;
-		this.comments = comments;
-	}
-
-	public Post(String postbodyText, Date dateOfPost, Set<String> files, User user) {
-		super();
-		this.postbodyText = postbodyText;
-		this.dateOfPost = dateOfPost;
-		this.files = files;
-		this.user = user;
-	}
-
-	public Post( String postbodyText, Date dateOfPost, User user) {
-		super();
-		this.postbodyText = postbodyText;
-		this.dateOfPost = dateOfPost;
-		this.user = user;
-	}
-
-	public Post( Date dateOfPost, Set<String> files, User user) {
-		super();
-		this.dateOfPost = dateOfPost;
-		this.files = files;
 		this.user = user;
 	}
 
@@ -96,12 +57,12 @@ public class Post {
 		this.id = id;
 	}
 
-	public String getPostbodyText() {
-		return postbodyText;
+	public String getPostBodyText() {
+		return postBodyText;
 	}
 
-	public void setPostbodyText(String postbodyText) {
-		this.postbodyText = postbodyText;
+	public void setPostBodyText(String postBodyText) {
+		this.postBodyText = postBodyText;
 	}
 
 	public Date getDateOfPost() {
@@ -110,14 +71,6 @@ public class Post {
 
 	public void setDateOfPost(Date dateOfPost) {
 		this.dateOfPost = dateOfPost;
-	}
-
-	public Set<String> getFiles() {
-		return files;
-	}
-
-	public void setFiles(Set<String> files) {
-		this.files = files;
 	}
 
 	public User getUser() {
@@ -140,14 +93,10 @@ public class Post {
 		return this.getComments().size();
 	}
 
-	public void setCommentsNumber(int commentsNumber) {
-		this.commentsNumber = commentsNumber;
-	}
-
 	@Override
 	public String toString() {
-		return "Post [id=" + id + ", postbodyText=" + postbodyText + ", dateOfPost=" + dateOfPost
-				+ ", user=" + user + ", commentsNumber=" + commentsNumber;
+		return "Post [id=" + id + ", postBodyText=" + postBodyText + ", dateOfPost=" + dateOfPost
+				+ ", user=" + user;
 	}
 
 	@Override
@@ -166,10 +115,5 @@ public class Post {
 		Post other = (Post) obj;
 		return id == other.id;
 	}
-
-	
-	
-	
-	
 
 }

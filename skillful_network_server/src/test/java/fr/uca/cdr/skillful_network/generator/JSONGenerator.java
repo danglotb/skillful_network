@@ -107,7 +107,7 @@ public class JSONGenerator {
 
     private static final String EXTENSION_JSON = ".json";
 
-    private static final String NEW_LINE = System.getProperty("line.properties");
+    private static final String NEW_LINE = System.getProperty("line.separator");
 
     @SuppressWarnings("all")
     private void saveTo(String name, Class<?> clazz, JpaRepository<?, Long> repository) {
@@ -334,7 +334,6 @@ public class JSONGenerator {
         this.entityManager.persistAndFlush(new Post(this.FAKER.chuckNorris().fact(), this.FAKER.date().birthday(0, 1), (User) this.getRandomElement(userRepository)));
         this.entityManager.persistAndFlush(new Post(this.FAKER.chuckNorris().fact(), this.FAKER.date().birthday(0, 1), (User) this.getRandomElement(userRepository)));
         this.entityManager.persistAndFlush(new Post(this.FAKER.chuckNorris().fact(), this.FAKER.date().birthday(0, 1), (User) this.getRandomElement(userRepository)));
-        this.saveTo("posts", Post.class, this.postRepository);
     }
 
     private void generateComments() {
@@ -347,11 +346,26 @@ public class JSONGenerator {
                         this.FAKER.date().between(post.getDateOfPost(), today),
                         (User) this.getRandomElement(userRepository)
                 );
-                comment.setPost(post);
+                this.generateCommentOfComment(comment, today);
+                post.getComments().add(comment);
                 this.entityManager.persistAndFlush(comment);
+                this.postRepository.saveAndFlush(post);
             }
         }
         this.saveTo("comments", Comment.class, this.commentRepository);
+        this.saveTo("posts", Post.class, this.postRepository);
+    }
+
+    private void generateCommentOfComment(Comment parent, Date today) {
+        if (this.RANDOM.nextBoolean()) {
+            final Comment child = new Comment(
+                    this.FAKER.gameOfThrones().quote(),
+                    this.FAKER.date().between(parent.getDateOfComment(), today),
+                    (User) this.getRandomElement(userRepository)
+            );
+            parent.getComments().add(child);
+            this.entityManager.persistAndFlush(child);
+        }
     }
 
     private void generateFollowers() {
@@ -362,26 +376,14 @@ public class JSONGenerator {
         users.forEach( user -> {
             if ( user.getId() != first.getId()) {
                 FollowStateTracker fst = new FollowStateTracker(first, user);
-//                try {
-//                    Thread.sleep(100);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
                 entityManager.persistAndFlush(fst);
             }
             if ( user.getId() != last.getId()) {
                 FollowStateTracker fst = new FollowStateTracker(last, user);
-//                try {
-//                    Thread.sleep(100);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
                 entityManager.persistAndFlush(fst);
             }
         });
 //        }
-//        FollowStateTracker fst = new FollowStateTracker( userRepository.getOne((long) NB_USERS_TO_GENERATE), userRepository.getOne((long) 1));
-//        entityManager.persistAndFlush(fst);
         this.saveTo("followers", FollowStateTracker[].class, this.fstRepository);
     }
 
