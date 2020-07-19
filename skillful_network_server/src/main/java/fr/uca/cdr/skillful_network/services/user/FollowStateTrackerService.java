@@ -92,6 +92,8 @@ public interface FollowStateTrackerService {
 
     Long unreadNotificationsCount();
     Long unreadNotificationsCount(Long followerID);
+    Set<Notification> unreadNotifications();
+    Set<Notification> unreadNotifications(Long followerID);
 
     void setNotificationReadStatus(Long notificationId, Boolean isRead);
     void setNotificationReadStatus(Long followerID, Long notificationId, Boolean isRead);
