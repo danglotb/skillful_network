@@ -12,7 +12,8 @@
                 <i class="material-icons mdc-icon-button__icon">people_outline</i> {{totalFollowed}}</button>
             <button mat-stroked-button color="grey-light">
                 <i class="material-icons mdc-icon-button__icon">flag</i> {{totalFollowers}}</button>
-            <button mat-stroked-button color="grey-light" (click)="toggleFollowUnfollow($event)">
+            <button mat-stroked-button color="grey-light" (click)="toggleFollowUnfollow($event)"
+                *ngIf="!cantBeFollow()">
                 <i class="material-icons mdc-icon-button__icon skillfull-orange"
                     *ngIf="this.toggleFollow; else elseTemplate">notifications</i>
                 <ng-template #elseTemplate>
