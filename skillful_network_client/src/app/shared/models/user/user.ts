@@ -2,6 +2,7 @@ import { JobApplication } from '../application/job-application';
 import { TrainingApplication } from '../application/training-application';
 import { Perk } from './perk';
 import { DomSanitizer } from '@angular/platform-browser';
+import { FollowStateTracker } from './FollowStateTracker';
 
 export class User {
 
@@ -21,6 +22,10 @@ export class User {
   public trainingApplicationSet: TrainingApplication[];
   public roles: string[];
   public profilePicture: any;
+  public followerSet: FollowStateTracker[];
+  public followableSet: FollowStateTracker[];
+  public followableStatus: string;
+  public followableNotifiable: string;
 
   constructor(
     data: any,
@@ -47,6 +52,10 @@ export class User {
     this.roles = ['user'];
     this.trainingApplicationSet = data.trainingApplicationSet;
     this.jobApplicationSet = data.jobApplicationSet;
+    this.followerSet = data.followerSet;
+    this.followableSet = data.followableSet;
+    this.followableStatus = data.followableStatus;
+    this.followableNotifiable = data.followableNotifiable;
   }
 
 }

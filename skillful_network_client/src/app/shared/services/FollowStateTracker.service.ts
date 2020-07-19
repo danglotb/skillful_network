@@ -28,10 +28,7 @@ export class FollowStateTrackerService {
   public getAllFollowersByFollowable(): Promise<User[]> {
     return this.api.get({ endpoint: ROOT_ENDPOINT_FOLLOWERS })
   }
-  // /followed/count                                  getFollowedCount()                      (currentUser -> follower)
-  public getFollowedCount(): Promise<number> {
-    return this.api.get({ endpoint: ROOT_ENDPOINT_FOLLOWED + 'count' });
-  }
+
   // /follow/{followableId}                           *follow(followableId)                    (currentUser -> follower)
   public followByFollowableId(followableId: number): Promise<Boolean> {
     return this.api.post({ endpoint: ROOT_ENDPOINT_FOLLOW + followableId });
@@ -55,6 +52,14 @@ export class FollowStateTrackerService {
   // /follower/notifiable/{notifiable}?followerId=    setFollowerNotifiableStatusByFollowedID (followedId, notifiable) (currentUser -> follower)
   public setFollowerNotifiableStatusByFollowedID(followedId: number, notifiable: string): Promise<Boolean> {
     return this.api.post({ endpoint: ROOT_ENDPOINT_FOLLOWER + 'notifiable/' + notifiable, queryParams: followedId });
+  }
+  // /followers/count                                 getFollowerCount()                      (currentUser -> followable)
+  public getFollowersCount(): Promise<number> {
+    return this.api.get({ endpoint: ROOT_ENDPOINT_FOLLOWERS + 'count' });
+  }
+  ///followers/count/{followableId}
+  public getFollowersCountByFollowableId(FollowableId: number): Promise<number> {
+    return this.api.get({ endpoint: ROOT_ENDPOINT_FOLLOWERS + 'count/' + FollowableId });
   }
   /*==================== FOLLOWABLE method ==============================================================*/
 
@@ -82,15 +87,19 @@ export class FollowStateTrackerService {
   public setFollowableNotifiableStatus(notifiable: string): Promise<boolean> {
     return this.api.post({ endpoint: ROOT_ENDPOINT_FOLLOWED + 'notifiable/' + notifiable });
   }
-  // /followers/count                                 getFollowerCount()                      (currentUser -> followable)
-  public getFollowerCount(): Promise<number> {
-    return this.api.get({ endpoint: ROOT_ENDPOINT_FOLLOWERS + 'count' });
-  }
 
+  // /followed/count                                  getFollowedCount()                      (currentUser -> follower)
+  public getFollowedCount(): Promise<number> {
+    return this.api.get({ endpoint: ROOT_ENDPOINT_FOLLOWED + 'count' });
+  }
+  // /followed/count/{followerId}   
+  public getFollowedCountByFollowerId(FollowerId: number): Promise<number> {
+    return this.api.get({ endpoint: ROOT_ENDPOINT_FOLLOWED + 'count/' + FollowerId });
+  }
   /*==================== NOTIFICATIONS method==============================================================*/
 
   //push
-  public pushNotification(notifications: string[]): Promise<any>{
+  public pushNotification(notifications: string[]): Promise<any> {
     return this.api.post({ endpoint: ROOT_ENDPOINT_NOTIFICATION + 'push' });
   }
   // /notification                                getAllNotificationsByFollowerId()   (currentUser -> follower)
@@ -106,8 +115,8 @@ export class FollowStateTrackerService {
     return this.api.get({ endpoint: ROOT_ENDPOINT_NOTIFICATION + 'unread' });
   }
   // //notification/read/{followerId}/id/{id}                         setNotificationsReadStatus(notifications, isRead)   (currentUser -> follower)
-  public setNotificationsReadStatus(followerId: number,notificationId: number,isRead : boolean): Promise<void> {
-    return this.api.post({ endpoint: ROOT_ENDPOINT_NOTIFICATION + 'read/' + followerId + '/id/' + notificationId});
+  public setNotificationsReadStatus(followerId: number, notificationId: number, isRead: boolean): Promise<void> {
+    return this.api.post({ endpoint: ROOT_ENDPOINT_NOTIFICATION + 'read/' + followerId + '/id/' + notificationId });
   }
   // /notification/pop                            popNotifications(notifications)     (currentUser -> follower)
   public popNotifications(notifications: Set<Notification>): Promise<any> {

@@ -1,0 +1,41 @@
+<section>
+    <div id="headerProfile">
+        <div id="avatarProfile" fxFlex="30">
+            <img src="https://www.gravatar.com/avatar/{{userLogged.id}}?s=128&d=identicon&r=PG" alt="profile picture">
+        </div>
+        <div id="prezProfile" fxFlex="50">
+            <h1>{{userPick.firstName}} {{userPick.lastName}}</h1>
+            <h2>{{userPick.careerGoal}}</h2>
+        </div>
+        <div id="followProfile" fxFlex="20" fxLayout="row" fxLayoutAlign="end end">
+            <button mat-stroked-button color="grey-light">
+                <i class="material-icons mdc-icon-button__icon">people_outline</i> {{totalFollowed}}</button>
+            <button mat-stroked-button color="grey-light">
+                <i class="material-icons mdc-icon-button__icon">flag</i> {{totalFollowers}}</button>
+                <button mat-stroked-button color="grey-light" (click)="toggleFollowUnfollow($event)">
+                    <i class="material-icons mdc-icon-button__icon skillfull-orange" *ngIf="this.toggleFollow; else elseTemplate">notifications</i>
+                    <ng-template #elseTemplate>
+                        <i class="material-icons mdc-icon-button__icon">add_alert</i>
+                    </ng-template>
+                </button>
+        </div>
+    </div>
+    <div id="information">
+        <app-card-component [title]="title" [cardRef]='informationDetails'></app-card-component>
+        <ng-template #informationDetails fxLayout="row">
+            <div class="details" fxLayoutAlign="start center">
+                <h3><i class="material-icons md-24"
+                        color="skillful">cake</i>{{userPick.birthDate  | date: 'dd-MM-yyyy'}}</h3>
+            </div>
+            <div class="details" fxLayoutAlign="start center">
+                <h3><i class="material-icons md-24" color="skillful">email</i>{{userPick.email}}</h3>
+            </div>
+            <div class="details" fxLayoutAlign="start center">
+                <h3><i class="material-icons md-24" color="skillful">phone</i>{{userPick.mobileNumber}}</h3>
+            </div>
+        </ng-template>
+    </div>
+    <div>
+        <ng-container [ngTemplateOutlet]="chips"></ng-container>
+    </div>
+</section>
