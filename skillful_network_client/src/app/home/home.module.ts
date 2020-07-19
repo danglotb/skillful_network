@@ -18,6 +18,7 @@ import { ListPublicationsComponent } from './news-feed/list-publications/list-pu
 import { PublicationComponent } from './news-feed/list-publications/publication/publication.component';
 import { ListCommentsComponent } from './news-feed/list-comments/list-comments.component';
 import { CommentComponent } from './news-feed/list-comments/comment/comment.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 @NgModule({
     declarations: [
@@ -32,7 +33,8 @@ import { CommentComponent } from './news-feed/list-comments/comment/comment.comp
         ListPublicationsComponent,
         PublicationComponent,
         ListCommentsComponent,
-        CommentComponent
+        CommentComponent,
+        NotificationsComponent
     ],
     imports: [
         CommonModule,

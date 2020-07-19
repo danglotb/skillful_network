@@ -1,3 +1,4 @@
+import { NotificationsComponent } from './notifications/notifications.component';
 import { UsersListComponent } from './lists/users-list/users-list.component';
 import { UserComponent } from './lists/elements/user/user.component';
 import { ProfileConfComponent } from './profile-conf/profile-conf.component';
@@ -14,5 +15,6 @@ export const HOME_ROUTES = [
   { path: 'formation-list', component: FormationListComponent },
   { path: 'user/:id', component: UserComponent },
   { path: 'job/:id', component: JobComponent },
+  { path: 'notifications', component: NotificationsComponent}
   // { path: 'training/:id', component: OffreComponent, data: { type: 'formation' } },
 ];
