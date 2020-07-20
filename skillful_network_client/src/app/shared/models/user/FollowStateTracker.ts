@@ -6,10 +6,10 @@ export class FollowStateTracker{
     public follower: User;
     public followed: User;
     public notifications: Notification[];
-    public followerStatus:string[];
-    public followerNotifiable:string[];
-    public followableStatus: string[];
-    public followableNotifiable: string[];
+    public followerStatus:string;
+    public followerNotifiable:string;
+    public followableStatus: string;
+    public followableNotifiable: string;
 
 
     constructor(
@@ -48,35 +48,35 @@ export class FollowStateTracker{
         this.notifications = notifications;
     }
 
-    public getFollowableStatus(): string[] {
+    public getFollowableStatus(): string {
         return this.followableStatus;
     }
 
-    public setFollowableStatus(followableStatus: string[]): void {
+    public setFollowableStatus(followableStatus: string): void {
         this.followableStatus = followableStatus;
     }
 
-    public getFollowableNotifiable(): string[] {
+    public getFollowableNotifiable(): string{
         return this.followableNotifiable;
     }
 
-    public setFollowableNotifiable(followableNotifiable: string[]): void {
+    public setFollowableNotifiable(followableNotifiable: string): void {
         this.followableNotifiable = followableNotifiable;
     }
 
-    public getFollowerStatus(): string[] {
+    public getFollowerStatus(): string {
         return this.followerStatus;
     }
 
-    public setFollowerStatus(followerStatus: string[]): void {
+    public setFollowerStatus(followerStatus: string): void {
         this.followerStatus = followerStatus;
     }
 
-    public getFollowerNotifiable(): string[] {
+    public getFollowerNotifiable(): string {
         return this.followerNotifiable;
     }
 
-    public setFollowerNotifiable(followerNotifiable: string[]): void {
+    public setFollowerNotifiable(followerNotifiable: string): void {
         this.followerNotifiable = followerNotifiable;
     }
 

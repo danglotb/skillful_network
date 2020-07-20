@@ -39,11 +39,11 @@ export class FollowStateTrackerService {
   }
   // /follower/status/{status}                        setFollowerStatus(status)               (currentUser -> follower)
   public setFollowerStatus(status: string): Promise<Boolean> {
-    return this.api.post({ endpoint: ROOT_ENDPOINT_FOLLOWER + 'statut/' + status });
+    return this.api.post({ endpoint: ROOT_ENDPOINT_FOLLOWER + 'status/' + status });
   }
   // /follower/status/{status}?followedId=            setFollowerStatusByFollowedID(followedId, status) (currentUser -> follower)
   public setFollowerStatusByFollowedID(followedId: number, status: string): Promise<Boolean> {
-    return this.api.post({ endpoint: ROOT_ENDPOINT_FOLLOWER + 'statut/' + status, queryParams: followedId });
+    return this.api.post({ endpoint: ROOT_ENDPOINT_FOLLOWER + 'status/' + status, queryParams: followedId });
   }
   // /follower/notifiable/{notifiable}                setFollowerNotifiableStatus(notifiable) (currentUser -> follower)
   public setFollowerNotifiableStatus(notifiable: string): Promise<Boolean> {
