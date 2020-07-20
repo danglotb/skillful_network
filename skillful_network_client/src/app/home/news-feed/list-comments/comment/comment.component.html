@@ -13,12 +13,7 @@
         <p *ngIf="isViewable" (click)="show()" class="clickable" ><span class="material-icons" (click)="addVotes()" id="hand-Up">thumb_up_alt</span></p>
         <p *ngIf="!isViewable"  (click)="show()"> <span class="material-icons clickable" id="icon-down" (click)="removeVotes()">thumb_down</span>J'aime plus</p>
         <p id="like-votes" *ngIf="comment.votes >= 1"><span id="like-comment">{{comment.votes}} </span> j'aime</p>
-        
         <p class="clickable"><span class="material-icons">insert_comment</span></p>
+        <p class="clickable"><span  (click)="handleDelete()" class="material-icons clickable" id="trash">delete_outline</span></p>
     </div>
-    
-
-
-
-
 </mat-card>

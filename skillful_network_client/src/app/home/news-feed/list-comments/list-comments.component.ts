@@ -16,5 +16,4 @@ export class ListCommentsComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }
