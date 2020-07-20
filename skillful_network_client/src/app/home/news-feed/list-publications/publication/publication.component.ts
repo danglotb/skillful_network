@@ -31,7 +31,7 @@ export class PublicationComponent implements OnInit {
   }
 
   onSubmit() {
-    this.commentService.addComment(this.formComment.value["comment"]);   
+    this.commentService.addComment(this.formComment.value["comment"], this.publication.id);   
   }
 
   private _buildForm() {

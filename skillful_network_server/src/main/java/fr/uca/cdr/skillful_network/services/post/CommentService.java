@@ -6,7 +6,7 @@ import fr.uca.cdr.skillful_network.entities.post.Comment;
 
 public interface CommentService {
 
-      Comment createComment(String body);
+      Comment createComment(String body, Long idPost);
       List<Comment> getAllComments();
       List<Comment> getAllCommentsByCommentId(Long id);
       List<Comment> getAllCommentsByPostId(Long id);

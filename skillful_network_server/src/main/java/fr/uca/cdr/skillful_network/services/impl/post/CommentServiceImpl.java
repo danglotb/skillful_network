@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import fr.uca.cdr.skillful_network.services.AuthenticationService;
+import fr.uca.cdr.skillful_network.services.post.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -23,11 +24,14 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     private AuthenticationService authenticationService;
 
+    @Autowired
+    private PostService postService;
+
     @Override
-    public Comment createComment(String body) {
-        return this.repository.save(
-                new Comment(body, new Date(), authenticationService.getCurrentUser())
-        );
+    public Comment createComment(String body, Long idPost) {
+        final Comment comment = new Comment(body, new Date(), authenticationService.getCurrentUser());
+        this.postService.addComment(idPost, comment);
+        return this.repository.save(comment);
     }
 
     @Override

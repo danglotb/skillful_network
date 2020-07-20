@@ -5,6 +5,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
+import fr.uca.cdr.skillful_network.request.CreateCommentForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,8 +37,8 @@ public class CommentController {
     }
 
     @PostMapping(value = "")
-    public Comment createComment(@Valid @RequestBody String body) {
-        return this.commentService.createComment(body);
+    public Comment createComment(@RequestBody CreateCommentForm createCommentForm) {
+        return this.commentService.createComment(createCommentForm.getBody(), createCommentForm.getId());
     }
 
     // TODO must verify that the initiator is either the owner of the comment or an admin

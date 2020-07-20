@@ -13,8 +13,11 @@ export class CommentService {
 
   constructor( private api: ApiHelperService) { }
 
-  public addComment(commentBodyText: String){
-    return this.api.post({endpoint: '/comments', data : commentBodyText});
+  public addComment(commentBodyText: String, idPost: number){
+    return this.api.post({
+      endpoint: '/comments', 
+      data : { body: commentBodyText, id: idPost } 
+    });
   }
 
   public onUpVote(comment,value: number) {
