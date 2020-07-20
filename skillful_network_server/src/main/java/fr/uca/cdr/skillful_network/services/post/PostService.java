@@ -7,6 +7,7 @@ import java.util.Set;
 
 import fr.uca.cdr.skillful_network.entities.post.Comment;
 import fr.uca.cdr.skillful_network.entities.post.Post;
+import fr.uca.cdr.skillful_network.entities.user.User;
 
 public interface PostService {
 
@@ -16,9 +17,11 @@ public interface PostService {
     List<Post> getAll();
     Optional<List<Post>> getByUserId(Long id);
     Optional<List<Post>> getAllPostForCurrentUser();
-    Optional<Post> getPostById(Long id);
-    Post update(Long id, String body, Date dateOfPost);
-    Post update(Long userId, Long id, String body, Date dateOfPost);
+
+    Optional<Post> getPostById(long id);
+    Optional<User> getUserByPostId(long postId);
+    Post update(long id, String body, Date dateOfPost);
+    Post update(Long userId, long id, String body, Date dateOfPost);
     Post addComment(Long id, Comment comment);
     Post removeComment(Long id, Comment comment);
 

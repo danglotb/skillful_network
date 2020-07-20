@@ -6,9 +6,11 @@ import java.util.List;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
+import fr.uca.cdr.skillful_network.entities.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -99,6 +101,13 @@ public class PostController {
 	@GetMapping(value="/{id}/commentNumber")
 	public int commentNumberByPostId(@PathVariable(value="id") long id) {
 		return this.postService.getPostById(id).get().getCommentsNumber();
+	}
+	@PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+	@GetMapping(value="/{id}/user")
+	public ResponseEntity<User> getUserByPostId(@PathVariable(value="id") long postId) {
+		User ownerPost = this.postService.getUserByPostId(postId)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, " Post not found with id : " + postId));
+		return new ResponseEntity<User>(ownerPost, HttpStatus.OK);
 	}
 	
 }

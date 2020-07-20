@@ -1,11 +1,32 @@
-<app-form-card 
-  [title]=title
-  [readonly]=false
-  [formGroup]=this.formGroup
-  [keys]=keys
-  [labels]=labels
-  [placeholders]='this.placeholders'
-  [hints]='this.hints'
-  [icons]='this.icons'
-  [types]='this.types'
-></app-form-card>
+<section id="infoFollow">
+  <mat-card fxLayout="row" fxLayoutAlign="end end">
+  <button mat-stroked-button color="grey-light">
+    <i class="material-icons mdc-icon-button__icon">people_outline</i> {{totalFollowed}}</button>
+  <button mat-stroked-button color="grey-light">
+    <i class="material-icons mdc-icon-button__icon">flag</i>{{totalFollowers}}</button>
+      <!-- ::en cours -->
+    <button mat-stroked-button color="grey-light" [matMenuTriggerFor]="menu" aria-label="button status notification choice">
+      <i class="material-icons mdc-icon-button__icon">more_vert</i>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="trigger('all')">
+        <i class="material-icons mdc-icon-button__icon" color="grey-light">
+          notifications_active
+        </i>all
+      </button>
+      <button mat-menu-item (click)="trigger('custom')">
+        <i class="material-icons mdc-icon-button__icon">
+          miscellaneous_services
+        </i>custom
+      </button>
+      <button mat-menu-item (click)="trigger('none')">
+        <i class="material-icons mdc-icon-button__icon">
+          notifications_off
+        </i>none
+      </button>
+    </mat-menu>
+    <!-- :: -->
+  </mat-card>
+</section>
+<app-form-card [title]=title [readonly]=false [formGroup]=this.formGroup [keys]=keys [labels]=labels
+  [placeholders]='this.placeholders' [hints]='this.hints' [icons]='this.icons' [types]='this.types'></app-form-card>

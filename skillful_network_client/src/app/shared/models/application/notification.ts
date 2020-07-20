@@ -3,15 +3,17 @@ import { FollowStateTracker } from '../user/FollowStateTracker';
 export class Notification {
 
     public id: number;
-    public followerSet: FollowStateTracker[];
+    public followerSet: Set<FollowStateTracker> = new Set();
     public label: string;
     public isRead: boolean;
+    public postId: number;
 
     constructor(data: any) {
         this.id = data.id;
         this.followerSet = data.followerSet;
         this.label = data.label;
-        this.isRead = data.isRead;
+        this.isRead = data.read;
+        this.postId = data.postId;
     }
 
     public get getId() {
@@ -22,7 +24,7 @@ export class Notification {
         return this.followerSet;
     }
 
-    public set setFollowerSet(followerSet: FollowStateTracker[]) {
+    public set setFollowerSet(followerSet: Set<FollowStateTracker>) {
         this.followerSet = followerSet;
     }
 
@@ -40,5 +42,13 @@ export class Notification {
 
     public set setIsRead(isRead: boolean) {
         this.isRead = isRead;
+    }
+
+    public get getPostId() {
+        return this.postId;
+    }
+
+    public set setPostId(postId: number) {
+        this.postId = postId;
     }
 }

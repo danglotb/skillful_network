@@ -595,6 +595,18 @@ public class FollowStateTrackerController {
     }
 
     @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @GetMapping(value = "/notification/unreadlist")
+    public ResponseEntity<Set<Notification>> unreadNotifications() {
+        return new ResponseEntity<>(fstService.unreadNotifications(), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
+    @GetMapping(value = "/notification/unreadlist/{followerId}")
+    public ResponseEntity<Set<Notification>> unreadNotifications(@PathVariable(value = "followerId") Long followerID) {
+        return new ResponseEntity<>(fstService.unreadNotifications(followerID), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ENTREPRISE','ORGANISME','USER')")
     @PostMapping(value = "/notification/read/id/{id}")
     public void setNotificationReadStatus(
             @PathVariable(value = "id") Long notificationId,
