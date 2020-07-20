@@ -2,17 +2,17 @@
   {
     "offer": {
       "id": 1,
-      "name": "Bachelor of Medicine",
-      "organization": "Mallowtown TAFE",
-      "description": "Brighthurst Campus",
-      "dateBeg": "Apr 15, 2020 5:05:58 PM",
-      "dateEnd": "Aug 23, 2019 2:18:23 AM",
-      "dateUpload": "May 29, 2020 6:57:36 PM",
+      "name": "Master of Communications",
+      "organization": "Flowerlake TAFE",
+      "description": "Brookville Campus",
+      "dateBeg": "Apr 19, 2020 12:22:52 PM",
+      "dateEnd": "Jan 29, 2020 5:52:35 AM",
+      "dateUpload": "Jun 1, 2020 1:00:14 PM",
       "durationHours": 10,
       "keywords": [
         {
-          "id": 17,
-          "name": "REXX",
+          "id": 2,
+          "name": "Networking skills",
           "jobOffers": [],
           "trainings": []
         }
@@ -22,25 +22,25 @@
     "id": 1,
     "user": {
       "id": 1,
-      "firstName": "Quentin",
-      "lastName": "Leclercq",
+      "firstName": "Elisa",
+      "lastName": "Huet",
       "password": "Qwerty123",
-      "birthDate": "May 31, 1986 2:46:50 PM",
+      "birthDate": "May 19, 1992 6:27:45 AM",
       "email": "user@uca.fr",
-      "mobileNumber": "+33 798463660",
+      "mobileNumber": "+33 698882054",
       "validated": true,
-      "careerGoal": "Hospitality Architect",
+      "careerGoal": "Manufacturing Administrator",
       "skillSet": [
         {
-          "id": 2,
-          "name": "Networking skills",
+          "id": 6,
+          "name": "Problem solving",
           "userList": []
         }
       ],
       "qualificationSet": [
         {
-          "id": 2,
-          "name": "Associate Degree in Business",
+          "id": 9,
+          "name": "Master of Health Science",
           "userList": []
         }
       ],
@@ -65,6 +65,74 @@
       "followerSet": []
     },
     "status": "ACCEPTED",
-    "submitDate": "Dec 11, 2019 5:57:20 AM"
+    "submitDate": "Jun 24, 2020 9:46:19 PM"
+  },
+  {
+    "offer": {
+      "id": 2,
+      "name": "Associate Degree in Medicine",
+      "organization": "Falconholt Technical College",
+      "description": "Ironbarrow Campus",
+      "dateBeg": "Oct 29, 2019 10:28:17 PM",
+      "dateEnd": "Nov 3, 2019 2:28:34 PM",
+      "dateUpload": "Jun 19, 2020 10:19:53 PM",
+      "durationHours": 10,
+      "keywords": [
+        {
+          "id": 3,
+          "name": "LotusScript",
+          "jobOffers": [],
+          "trainings": []
+        }
+      ],
+      "trainingApplicationSet": []
+    },
+    "id": 2,
+    "user": {
+      "id": 2,
+      "firstName": "Noémie",
+      "lastName": "Roussel",
+      "password": "Qwerty123",
+      "birthDate": "Jul 6, 1995 10:48:58 AM",
+      "email": "user2@uca.fr",
+      "mobileNumber": "+33 628617941",
+      "validated": true,
+      "careerGoal": "Banking Executive",
+      "skillSet": [
+        {
+          "id": 8,
+          "name": "Work under pressure",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 6,
+          "name": "Associate Degree in Design",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 6,
+          "name": "Strand",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "status": "ACCEPTED",
+    "submitDate": "Feb 28, 2020 11:53:33 PM"
   }
 ]
