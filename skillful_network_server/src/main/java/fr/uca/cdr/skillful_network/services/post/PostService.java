@@ -19,7 +19,8 @@ public interface PostService {
     Optional<Post> getPostById(Long id);
     Post update(Long id, String body, Date dateOfPost);
     Post update(Long userId, Long id, String body, Date dateOfPost);
-    void addComment(Long id, Comment comment);
+    Post addComment(Long id, Comment comment);
+    Post removeComment(Long id, Comment comment);
 
     void deletePostById(Long id);
     void deletePostById(Long userId, Long id);

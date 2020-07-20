@@ -84,11 +84,23 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void addComment(Long id, Comment comment) {
-        this.getPostById(id).orElseThrow(() ->
+    public Post addComment(Long id, Comment comment) {
+        final Post post = this.getPostById(id).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND,
                         String.format("None Post could be found with the id %d", id))
-        ).getComments().add(comment);
+        );
+        post.getComments().add(comment);
+        return post;
+    }
+
+    @Override
+    public Post removeComment(Long id, Comment comment) {
+        final Post post = this.getPostById(id).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        String.format("None Post could be found with the id %d", id))
+        );
+        post.getComments().remove(comment);
+        return post;
     }
 
     @Override
