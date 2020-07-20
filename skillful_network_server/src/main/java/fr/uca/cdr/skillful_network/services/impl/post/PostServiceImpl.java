@@ -126,12 +126,11 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	public Optional<Post> getPostById(Long id) {
-		
 		return this.repository.findById(id);
 	}
 
     @Override
-    public Optional<User> getUserByPostId(long postId) {
+    public Optional<User> getUserByPostId(Long postId) {
         return this.repository.findById(postId).map(Post::getUser);
     }
 
