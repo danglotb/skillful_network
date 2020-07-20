@@ -114,6 +114,11 @@ export class FollowStateTrackerService {
   public unreadNotificationsCount(): Promise<number> {
     return this.api.get({ endpoint: ROOT_ENDPOINT_NOTIFICATION + 'unread' });
   }
+
+  // /notification/unreadlist/                        unreadNotificationsCount()          (currentUser -> follower)
+  public unreadNotifications(): Promise<Set<Notification>> {
+    return this.api.get({ endpoint: ROOT_ENDPOINT_NOTIFICATION + 'unreadlist' });
+  }
   // //notification/read/{followerId}/id/{id}                         setNotificationsReadStatus(notifications, isRead)   (currentUser -> follower)
   public setNotificationsReadStatus(followerId: number, notificationId: number, isRead: boolean): Promise<void> {
     return this.api.post({ endpoint: ROOT_ENDPOINT_NOTIFICATION + 'read/' + followerId + '/id/' + notificationId });
