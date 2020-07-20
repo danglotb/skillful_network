@@ -89,6 +89,15 @@ export class ProfileUserDetailsComponent implements OnInit {
     return response;
   }
 
+  cantBeFollow() : boolean{
+    let currentUser: User = this.authService.user;
+    let response = false;
+    if(currentUser.id == this.userPick.id){
+      response =  true;
+    }
+    return response;
+  }
+
   async getUser(id: number) {
     await this.userService.getById(id).then((data) => {
       this.userPick = data;
