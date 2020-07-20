@@ -66,7 +66,11 @@ export class PublicationComponent implements OnInit {
     this.hide = !this.hide;
   }
   getImage() {
-    return "https://www.blog-nouvelles-technologies.fr/wp-content/uploads/2017/12/detective-avatar-icon-01--840x500.jpg";
+    if (this.publication.user.profilePicture == null) {
+      return 'https://www.gravatar.com/avatar/' + this.publication.user.id + '?s=128&d=identicon&r=PG'
+    } else {
+      return this.publication.user.profilePicture;
+    }
   }
 
 }

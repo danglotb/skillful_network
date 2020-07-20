@@ -35,7 +35,11 @@ export class CommentComponent implements OnInit {
  }
 
   getImage() {
-    return "https://www.blog-nouvelles-technologies.fr/wp-content/uploads/2017/12/detective-avatar-icon-01--840x500.jpg";
+    if (this.comment.user.profilePicture == null) {
+      return 'https://www.gravatar.com/avatar/' + this.comment.user.id + '?s=128&d=identicon&r=PG'
+    } else {
+      return this.comment.user.profilePicture;
+    }
   }
 
 }
