@@ -679,9 +679,11 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
         logger.debug("unreadNotificationsCount(User: {})", follower.getId());
         Set<Notification> unread = new HashSet<>();
         for (FollowStateTracker fst : fstRepository.findAllByFollower(follower)) {
-            unread = fst.getNotifications().stream()
+            unread.addAll(
+                    fst.getNotifications().stream()
                     .filter( n -> ! n.getRead())
-                    .collect(Collectors.toSet());
+                    .collect(Collectors.toSet())
+            );
         }
         logger.debug("notifications unread found : {}", unread.toString());
         logger.debug("notifications List is empty : {}", unread.isEmpty());
