@@ -1,3 +1,4 @@
+import { FollowStateTrackerService } from './../../../shared/services/FollowStateTracker.service';
 import { AuthService } from './../../../shared/services/auth.service';
 import { Notification } from './../../../shared/models/application/notification';
 import { Component, OnInit, Input } from '@angular/core';
@@ -14,7 +15,7 @@ export class NotificationComponent implements OnInit {
   public owner: User = new User({});
   public label: string;
 
-  constructor(private postService: PostService) { }
+  constructor(private postService: PostService, private fst: FollowStateTrackerService, private authService: AuthService) { }
 
   async ngOnInit() {
     await this.getOwner();
@@ -28,6 +29,10 @@ export class NotificationComponent implements OnInit {
       this.owner = new User(data);
       console.log(this.owner);
     });
+  }
+
+  public async setIsRead() {
+    await this.fst.setNotificationsReadStatus(this.authService.user.id, this.notification.getId, true);
   }
 
 }
