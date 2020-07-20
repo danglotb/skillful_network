@@ -1,5 +1,5 @@
 import { CommentService } from './../../../../shared/services/comment.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IComment } from './../../../../shared/mocks/comments.mock';;
 
 @Component({
@@ -9,6 +9,7 @@ import { IComment } from './../../../../shared/mocks/comments.mock';;
 })
 export class CommentComponent implements OnInit {
   @Input() comment: IComment;
+  @Output() private commentDeleted = new EventEmitter<number>();
   public isViewable: boolean;
 
 
@@ -25,12 +26,20 @@ export class CommentComponent implements OnInit {
   public removeVotes(){
      this.cmService.onDownVote(this.comment, 1);
   }
+  public async handleDelete() {
+    let response = await this.cmService.deleteComment(this.comment.id);
+    this.commentDeleted.emit();
+ }
   public show() {
     this.isViewable = !this.isViewable;
  }
 
   getImage() {
-    return "https://www.blog-nouvelles-technologies.fr/wp-content/uploads/2017/12/detective-avatar-icon-01--840x500.jpg";
+    if (this.comment.user.profilePicture == null) {
+      return 'https://www.gravatar.com/avatar/' + this.comment.user.id + '?s=128&d=identicon&r=PG'
+    } else {
+      return this.comment.user.profilePicture;
+    }
   }
 
 }

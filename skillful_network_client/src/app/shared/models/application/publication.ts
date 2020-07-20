@@ -4,19 +4,17 @@ export class Publication {
 
     private _id: number;
     private _user: User;
-    private _text: String;
+    private _postBodyText: String;
     private _file: String;
     private _votes: number;
     private _numberOfComment: number;
     private _comments: String [];
     private _dateOfPost: Date;
 
- 
-
 
     constructor(data: any) {
         this.id = data.id;
-        this.text = data.text;
+        this._postBodyText = data.postBodyText;
         this.user = data.user;
         this.file = data.file;
         this._votes = data.votes;
@@ -49,12 +47,12 @@ export class Publication {
     public set votes(value: number) {
         this._votes = value;
     }
-    public get text(): String {
-        return this._text;
+    public get postBodyText(): String {
+        return this.postBodyText;
     }
     
-    public set text(value: String) {
-        this._text = value;
+    public set postBodyText(value: String) {
+        this.postBodyText = value;
     }
     public get file(): String {
         return this._file;

@@ -4,7 +4,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import fr.uca.cdr.skillful_network.entities.post.Post;
 import fr.uca.cdr.skillful_network.services.AuthenticationService;
+import fr.uca.cdr.skillful_network.services.post.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -23,11 +25,15 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     private AuthenticationService authenticationService;
 
+    @Autowired
+    private PostService postService;
+
     @Override
-    public Comment createComment(String body) {
-        return this.repository.save(
-                new Comment(body, new Date(), authenticationService.getCurrentUser())
-        );
+    public Comment createComment(String body, Long idPost) {
+        final Comment comment = new Comment(body, new Date(), authenticationService.getCurrentUser());
+        final Post post = this.postService.addComment(idPost, comment);
+        comment.setPost(post);
+        return this.repository.save(comment);
     }
 
     @Override
@@ -59,6 +65,11 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public void deleteCommentById(Long id) {
+        final Comment comment = this.repository.findById(id).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        String.format("None Comment could be found with the id %d", id))
+        );
+        this.postService.removeComment(comment.getPost().getId(), comment);
         this.repository.deleteById(id);
     }
 

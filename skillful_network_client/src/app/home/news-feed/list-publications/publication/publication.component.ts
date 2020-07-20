@@ -14,9 +14,7 @@ export class PublicationComponent implements OnInit {
   @Input() public publication : Publication;
   @Output() private upvote = new EventEmitter<number>();
   @Output() private downvote = new EventEmitter<number>();
-  @Output() private delete = new EventEmitter<number>();
-  @Output() private increase = new EventEmitter<number>();
-
+  @Output() private publicationDeleted = new EventEmitter<number>();
 
   public type: string;
   public isViewable: boolean;
@@ -31,16 +29,9 @@ export class PublicationComponent implements OnInit {
     this._buildForm();
   }
 
-  onSubmit() {
-    console.log("ok");
-    let comment =  {
-      text : this.formComment.value["comment"],
-      comments : [],
-      user: null,
-      votes: 0,
-      dateOfComment : Date.now()
-    }
-    this.commentService.addComment(this.publication, comment);   
+  async onSubmit() {
+    let response = await this.commentService.addComment(this.formComment.value["comment"], this.publication.id);
+    this.publication.comments.push(response);
   }
 
   private _buildForm() {
@@ -59,13 +50,10 @@ export class PublicationComponent implements OnInit {
   public handleDownVote() {
     this.downvote.emit(1);
   }
-  public handleDelete() {
-    this.delete.emit();
+  public async handleDelete() {
+     let response = await this.pub.deletePublication(this.publication.id);
+     this.publicationDeleted.emit();
   } 
-  public IncreaseComments(){
-    this.increase.emit(1);
-    
- }
   toggleDisplay() {
     this.isShow = !this.isShow;
     this.hide = true;
@@ -78,7 +66,11 @@ export class PublicationComponent implements OnInit {
     this.hide = !this.hide;
   }
   getImage() {
-    return "https://www.blog-nouvelles-technologies.fr/wp-content/uploads/2017/12/detective-avatar-icon-01--840x500.jpg";
+    if (this.publication.user.profilePicture == null) {
+      return 'https://www.gravatar.com/avatar/' + this.publication.user.id + '?s=128&d=identicon&r=PG'
+    } else {
+      return this.publication.user.profilePicture;
+    }
   }
 
 }

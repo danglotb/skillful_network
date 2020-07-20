@@ -1,6 +1,6 @@
+import { ApiHelperService } from './api-helper.service';
 import { User } from './../models/user/user';
-import { MOCK_PUBLICATIONS } from '../mocks/publications.mock';
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Publication } from '../models/application/publication';
 
 @Injectable({
@@ -8,12 +8,10 @@ import { Publication } from '../models/application/publication';
 })
 export class PublicationService {
 listPublication : Publication[];
+publicationAdded = new EventEmitter();
 
-  constructor() { 
-      this.listPublication = [];
-      MOCK_PUBLICATIONS.forEach(publication => {
-        this.listPublication.push(new Publication(publication));
-      });
+  constructor( private api: ApiHelperService) { 
+    
   }
   public onUpVote(index: number, value: number) {
     this.listPublication[index].votes += value;
@@ -21,24 +19,18 @@ listPublication : Publication[];
   public onDownVote(index: number, value: number) {
     this.listPublication[index].votes -= value;
   }
-  public getPublications(): Publication[] {
-    return this.listPublication;
+  public getPublications(): Promise<any> {
+    return this.api.get({endpoint: '/posts'});
   }
-  public onDelete(index: number) {
-    this.listPublication.splice(index, 1);
+  public deletePublication(id) {
+    return this.api.delete({endpoint: '/posts/'+ id});
   }
-  public upNumberComment(index: number, value: number){
-    this.listPublication[index].numberOfComment  += value;
-  }
-  public addpublication(text: String, file:String,  votes: number, user: User, dateOfPost: Date) {
-    let data = {
-      text : text,
-      file : file,
-      user: user,
-      votes: votes,
-      dateOfPost : dateOfPost
-    }
-     let publication = new Publication(data);
-    this.listPublication.unshift(publication);
+  public addpublication(postBodyText: String) {
+
+    let endPoint = "/posts";
+    let that = this;
+    this.api.post({endpoint : endPoint, data : postBodyText}).then(function(response){
+      that.publicationAdded.emit(response);
+    }) 
   }
 }

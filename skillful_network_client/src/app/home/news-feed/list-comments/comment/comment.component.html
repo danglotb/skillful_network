@@ -1,24 +1,19 @@
 <mat-card class="list-comments">
     <div class="user">
-        <img class="photoProfile" [src]="getImage()" alt="Avatar" style="width: 32px; height: 32px;"> <h1 id="title-user">{{comment.user}}</h1>
+        <img class="photoProfile" [src]="getImage()" alt="Avatar" style="width: 32px; height: 32px;"> <h1 id="title-user">{{comment.user.firstName}} {{comment.user.lastName}}</h1>
     </div>
     <div class="Date-pub">
         <p>{{comment.dateOfComment | date}}</p>
     </div>
     <div class="description">
-        <p>{{comment.text}}</p>
+        <p>{{comment.commentBodyText}}</p>
     </div>
     <hr>
     <div class="div-icons">
         <p *ngIf="isViewable" (click)="show()" class="clickable" ><span class="material-icons" (click)="addVotes()" id="hand-Up">thumb_up_alt</span></p>
         <p *ngIf="!isViewable"  (click)="show()"> <span class="material-icons clickable" id="icon-down" (click)="removeVotes()">thumb_down</span>J'aime plus</p>
         <p id="like-votes" *ngIf="comment.votes >= 1"><span id="like-comment">{{comment.votes}} </span> j'aime</p>
-        
         <p class="clickable"><span class="material-icons">insert_comment</span></p>
+        <p class="clickable"><span  (click)="handleDelete()" class="material-icons clickable" id="trash">delete_outline</span></p>
     </div>
-    
-
-
-
-
 </mat-card>

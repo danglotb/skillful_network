@@ -17,7 +17,7 @@
     flex-direction: row; 
 }
 #title-user{
-    margin-right: 580px;
+    margin-right: 540px;
     font-size: 18px;
 }
 .photoProfile{
@@ -57,8 +57,6 @@
     margin-left: 30px;
     color:#5b7787;
     font-size: 18px;
-    display: flex;
-    flex-direction: row;
 }
 #icon-thumb{
     color:#5b7787;
@@ -89,9 +87,22 @@
     margin: 15px;
 }
 #pub-comment{
-    margin-left: 550px;
+    margin-left: 20px;
     font-size: 15px;
 }
-
+@media screen and (max-width:1100px ){
+    #title-user{
+        margin-right: 130px
+    }
+    .example-form-field{
+        width: 280px;
+    }
+    #input-comment{
+        width: 200px;
+    }
+    #label{
+        font-size:12px;
+    }
+}
 
 

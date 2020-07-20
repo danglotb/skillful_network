@@ -5,17 +5,15 @@ export class PublicationComment {
 
     private _id: number;
     private _user: User;
-    private _text: String;
+    private _commentBodyText: String;
     private _votes: number;
     private _comments: String [];
     private _dateOfComment: Date;
 
- 
-
 
     constructor(data: any) {
         this.id = data.id;
-        this.text = data.text;
+        this.commentBodyText = data.commentBodyText;
         this.user = data.user;
         this._votes = data.votes;
         this._comments = [];
@@ -46,12 +44,12 @@ export class PublicationComment {
     public set votes(value: number) {
         this._votes = value;
     }
-    public get text(): String {
-        return this._text;
+    public get commentBodyText(): String {
+        return this._commentBodyText;
     }
     
-    public set text(value: String) {
-        this._text = value;
+    public set commentBodyText(value: String) {
+        this._commentBodyText = value;
     }
  
     public get comments(): String[] {
