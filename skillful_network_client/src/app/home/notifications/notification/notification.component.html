@@ -1,11 +1,10 @@
 
-<a id="notification" color="skillful">
-    <div>
-        <div id="avatarProfile">
+<a routerLink="/home" (click)="setIsRead()" id="notification" color="skillful" fxLayout="row">
+    <div fxLayoutAlign="center center">   
+        <div id="avatarProfile" fxFlex="20">
             <img src="https://www.gravatar.com/avatar/{{owner.id}}?s=128&d=identicon&r=PG" alt="profile picture">
         </div>
-        <div>{{owner.firstName}} {{owner.lastName}}</div>
-        <div>A publié/commenté : {{notification.label}}</div>
+        <p fxFlex="80">{{owner.firstName}} {{owner.lastName}} <span class="details">a publié un post</span> : "{{notification.label}}"</p>
     </div>
 </a>
   
