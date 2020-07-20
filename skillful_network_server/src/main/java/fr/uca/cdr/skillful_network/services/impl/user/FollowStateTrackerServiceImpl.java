@@ -666,6 +666,31 @@ public class FollowStateTrackerServiceImpl implements FollowStateTrackerService 
     }
 
     @Override
+    public Set<Notification> unreadNotifications() {
+        return this.unreadNotifications(authenticationService.getCurrentUser());
+    }
+
+    @Override
+    public Set<Notification> unreadNotifications(Long followerID) {
+         return this.unreadNotifications(userService.getById(followerID));
+    }
+
+    public Set<Notification> unreadNotifications(User follower) {
+        logger.debug("unreadNotificationsCount(User: {})", follower.getId());
+        Set<Notification> unread = new HashSet<>();
+        for (FollowStateTracker fst : fstRepository.findAllByFollower(follower)) {
+            unread.addAll(
+                    fst.getNotifications().stream()
+                    .filter( n -> ! n.getRead())
+                    .collect(Collectors.toSet())
+            );
+        }
+        logger.debug("notifications unread found : {}", unread.toString());
+        logger.debug("notifications List is empty : {}", unread.isEmpty());
+        return unread;
+    }
+
+    @Override
     public void setNotificationReadStatus(Long notificationId, Boolean isRead) {
         this.setNotificationReadStatus(authenticationService.getCurrentUser(), notificationId, isRead);
     }

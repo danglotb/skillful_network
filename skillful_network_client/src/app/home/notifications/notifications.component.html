@@ -1,0 +1,26 @@
+<section>
+<div>
+    <app-card-component [title]="titleNew" [cardRef]='listNotifications'></app-card-component>
+        <ng-template #listNotifications>
+           <div *ngIf="newsIsEmpty===false; else emptyList">
+                <ng-container *ngFor = "let notification of notifications; let i = index" >
+                    <app-notification [notification] = "notification" ></app-notification>
+                </ng-container>
+            </div>
+            <ng-template #emptyList>
+                <div>Nothing new</div>
+            </ng-template>
+        </ng-template>
+</div>
+</section>
+
+<section>
+    <div>
+        <app-card-component [title]="titleOld" [cardRef]='listOldNotifications'></app-card-component>
+            <ng-template #listOldNotifications>
+                <ng-container *ngFor = "let notification of oldNotifications; let i = index" >
+                    <app-notification [notification] = "notification"></app-notification>
+                </ng-container>
+            </ng-template>    
+    </div>
+</section>
