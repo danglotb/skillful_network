@@ -6,6 +6,7 @@ import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/mat
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
 import * as _moment from 'moment';
+import { FollowStateTrackerService } from 'src/app/shared/services/FollowStateTracker.service';
 const moment = _moment;
 
 export const MY_FORMATS = {
@@ -38,7 +39,8 @@ export class UserConfComponent {
 
   public title: string = 'Informations'
   private userLogged: User;
-
+  totalFollowers: number;
+  totalFollowed: number;
   @Input() readonly: boolean;
   formGroup: FormGroup;
   keys = [
@@ -91,7 +93,8 @@ export class UserConfComponent {
   }
 
   constructor(
-    private _adapter: DateAdapter<any>
+    private _adapter: DateAdapter<any>,
+    private followService: FollowStateTrackerService
   ) {
     this._adapter.setLocale('fr');
   }
@@ -140,6 +143,9 @@ export class UserConfComponent {
     if (this.readonly) {
       this.formGroup.disable();
     }
+
+    this.countFollowers();
+    this.countFollowed();
   }
 
   public init(user: User): void {
@@ -154,5 +160,37 @@ export class UserConfComponent {
     });
     this.userLogged = user;
   }
+
+  //::en cours
+  async setFollowerNotifiableStatus(status: string) {
+    await this.followService.setFollowerNotifiableStatus(status).then((data) => {
+      console.log("data: " + data);
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+  async trigger(value: string) {
+    console.log("value: " + value);
+    console.log("before: " + this.userLogged.followableNotifiable);
+    await this.setFollowerNotifiableStatus(value);
+    console.log("after: " + this.userLogged.followableNotifiable);
+  }
+  //::
+  async countFollowers() {
+    await this.followService.getFollowersCount().then((data) => {
+      this.totalFollowers = data;
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+
+  async countFollowed() {
+    await this.followService.getFollowedCount().then((data) => {
+      this.totalFollowed = data;
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+
 
 }
