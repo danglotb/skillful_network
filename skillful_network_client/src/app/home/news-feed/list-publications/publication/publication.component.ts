@@ -15,7 +15,6 @@ export class PublicationComponent implements OnInit {
   @Output() private upvote = new EventEmitter<number>();
   @Output() private downvote = new EventEmitter<number>();
   @Output() private publicationDeleted = new EventEmitter<number>();
- 
 
   public type: string;
   public isViewable: boolean;
@@ -30,8 +29,9 @@ export class PublicationComponent implements OnInit {
     this._buildForm();
   }
 
-  onSubmit() {
-    this.commentService.addComment(this.formComment.value["comment"], this.publication.id);   
+  async onSubmit() {
+    let response = await this.commentService.addComment(this.formComment.value["comment"], this.publication.id);
+    this.publication.comments.push(response);
   }
 
   private _buildForm() {

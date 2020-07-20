@@ -1,4 +1,4 @@
-import { PublicationComment } from '../../../shared/models/publication-comment';
+import { PublicationService } from 'src/app/shared/services/publication.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { IComment } from './../../../shared/mocks/comments.mock';
 
@@ -11,9 +11,10 @@ import { IComment } from './../../../shared/mocks/comments.mock';
 export class ListCommentsComponent implements OnInit {
   @Input() comments: IComment[];
   
-  constructor() {
+  constructor(private publicationService : PublicationService) {
   }
 
   ngOnInit(): void {
   }
+
 }
