@@ -108,7 +108,11 @@ public class PostServiceImpl implements PostService {
 		
 		return this.repository.findById(id);
 	}
-    
-    
+
+    @Override
+    public Optional<User> getUserByPostId(long postId) {
+        return this.repository.findById(postId).map(Post::getUser);
+    }
+
 
 }
