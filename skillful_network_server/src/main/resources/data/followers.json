@@ -1,35 +1,35 @@
 [
   {
     "id": 1,
-    "creationDate": "Jul 17, 2020 10:10:07 PM",
+    "creationDate": "Jul 20, 2020 7:58:06 AM",
     "followed": {
-      "id": 11,
-      "firstName": "Louna",
-      "lastName": "Rémy",
-      "password": "\u0026742BVub",
-      "birthDate": "Jan 18, 1981 6:07:50 PM",
-      "email": "enzo.morin@gmail.com",
-      "mobileNumber": "0789537173",
+      "id": 12,
+      "firstName": "Louise",
+      "lastName": "Bernard",
+      "password": "6srUdMa$E",
+      "birthDate": "Oct 16, 1971 7:30:42 AM",
+      "email": "lisa.prevost@hotmail.fr",
+      "mobileNumber": "0641738156",
       "validated": true,
-      "careerGoal": "Accounting Executive",
+      "careerGoal": "Regional Strategist",
       "skillSet": [
         {
-          "id": 6,
-          "name": "Problem solving",
+          "id": 10,
+          "name": "Proactive",
           "userList": []
         }
       ],
       "qualificationSet": [
         {
-          "id": 3,
-          "name": "Master of Architectural Technology",
+          "id": 10,
+          "name": "Bachelor of Criminology",
           "userList": []
         }
       ],
       "subscriptionSet": [
         {
-          "id": 9,
-          "name": "TADS",
+          "id": 2,
+          "name": "Karel",
           "userList": []
         }
       ],
@@ -48,25 +48,25 @@
     },
     "follower": {
       "id": 1,
-      "firstName": "Quentin",
-      "lastName": "Leclercq",
+      "firstName": "Elisa",
+      "lastName": "Huet",
       "password": "Qwerty123",
-      "birthDate": "May 31, 1986 2:46:50 PM",
+      "birthDate": "May 19, 1992 6:27:45 AM",
       "email": "user@uca.fr",
-      "mobileNumber": "+33 798463660",
+      "mobileNumber": "+33 698882054",
       "validated": true,
-      "careerGoal": "Hospitality Architect",
+      "careerGoal": "Manufacturing Administrator",
       "skillSet": [
         {
-          "id": 2,
-          "name": "Networking skills",
+          "id": 6,
+          "name": "Problem solving",
           "userList": []
         }
       ],
       "qualificationSet": [
         {
-          "id": 2,
-          "name": "Associate Degree in Business",
+          "id": 9,
+          "name": "Master of Health Science",
           "userList": []
         }
       ],
@@ -98,28 +98,28 @@
   },
   {
     "id": 2,
-    "creationDate": "Jul 17, 2020 10:10:07 PM",
+    "creationDate": "Jul 20, 2020 7:58:06 AM",
     "followed": {
       "id": 1,
-      "firstName": "Quentin",
-      "lastName": "Leclercq",
+      "firstName": "Elisa",
+      "lastName": "Huet",
       "password": "Qwerty123",
-      "birthDate": "May 31, 1986 2:46:50 PM",
+      "birthDate": "May 19, 1992 6:27:45 AM",
       "email": "user@uca.fr",
-      "mobileNumber": "+33 798463660",
+      "mobileNumber": "+33 698882054",
       "validated": true,
-      "careerGoal": "Hospitality Architect",
+      "careerGoal": "Manufacturing Administrator",
       "skillSet": [
         {
-          "id": 2,
-          "name": "Networking skills",
+          "id": 6,
+          "name": "Problem solving",
           "userList": []
         }
       ],
       "qualificationSet": [
         {
-          "id": 2,
-          "name": "Associate Degree in Business",
+          "id": 9,
+          "name": "Master of Health Science",
           "userList": []
         }
       ],
@@ -145,32 +145,32 @@
     },
     "follower": {
       "id": 2,
-      "firstName": "Sarah",
-      "lastName": "Richard",
-      "password": "j48cDxLQi",
-      "birthDate": "Jun 10, 1982 8:41:56 AM",
-      "email": "noa.adam@gmail.com",
-      "mobileNumber": "+33 6 84 89 68 28",
+      "firstName": "Noémie",
+      "lastName": "Roussel",
+      "password": "Qwerty123",
+      "birthDate": "Jul 6, 1995 10:48:58 AM",
+      "email": "user2@uca.fr",
+      "mobileNumber": "+33 628617941",
       "validated": true,
-      "careerGoal": "Senior Community-Services Strategist",
+      "careerGoal": "Banking Executive",
       "skillSet": [
         {
-          "id": 5,
-          "name": "Fast learner",
+          "id": 8,
+          "name": "Work under pressure",
           "userList": []
         }
       ],
       "qualificationSet": [
         {
-          "id": 9,
-          "name": "Master of Health Science",
+          "id": 6,
+          "name": "Associate Degree in Design",
           "userList": []
         }
       ],
       "subscriptionSet": [
         {
-          "id": 2,
-          "name": "Karel",
+          "id": 6,
+          "name": "Strand",
           "userList": []
         }
       ],
@@ -195,35 +195,35 @@
   },
   {
     "id": 3,
-    "creationDate": "Jul 17, 2020 10:10:07 PM",
+    "creationDate": "Jul 20, 2020 7:58:06 AM",
     "followed": {
-      "id": 11,
-      "firstName": "Louna",
-      "lastName": "Rémy",
-      "password": "\u0026742BVub",
-      "birthDate": "Jan 18, 1981 6:07:50 PM",
-      "email": "enzo.morin@gmail.com",
-      "mobileNumber": "0789537173",
+      "id": 12,
+      "firstName": "Louise",
+      "lastName": "Bernard",
+      "password": "6srUdMa$E",
+      "birthDate": "Oct 16, 1971 7:30:42 AM",
+      "email": "lisa.prevost@hotmail.fr",
+      "mobileNumber": "0641738156",
       "validated": true,
-      "careerGoal": "Accounting Executive",
+      "careerGoal": "Regional Strategist",
       "skillSet": [
         {
-          "id": 6,
-          "name": "Problem solving",
+          "id": 10,
+          "name": "Proactive",
           "userList": []
         }
       ],
       "qualificationSet": [
         {
-          "id": 3,
-          "name": "Master of Architectural Technology",
+          "id": 10,
+          "name": "Bachelor of Criminology",
           "userList": []
         }
       ],
       "subscriptionSet": [
         {
-          "id": 9,
-          "name": "TADS",
+          "id": 2,
+          "name": "Karel",
           "userList": []
         }
       ],
@@ -242,32 +242,32 @@
     },
     "follower": {
       "id": 2,
-      "firstName": "Sarah",
-      "lastName": "Richard",
-      "password": "j48cDxLQi",
-      "birthDate": "Jun 10, 1982 8:41:56 AM",
-      "email": "noa.adam@gmail.com",
-      "mobileNumber": "+33 6 84 89 68 28",
+      "firstName": "Noémie",
+      "lastName": "Roussel",
+      "password": "Qwerty123",
+      "birthDate": "Jul 6, 1995 10:48:58 AM",
+      "email": "user2@uca.fr",
+      "mobileNumber": "+33 628617941",
       "validated": true,
-      "careerGoal": "Senior Community-Services Strategist",
+      "careerGoal": "Banking Executive",
       "skillSet": [
         {
-          "id": 5,
-          "name": "Fast learner",
+          "id": 8,
+          "name": "Work under pressure",
           "userList": []
         }
       ],
       "qualificationSet": [
         {
-          "id": 9,
-          "name": "Master of Health Science",
+          "id": 6,
+          "name": "Associate Degree in Design",
           "userList": []
         }
       ],
       "subscriptionSet": [
         {
-          "id": 2,
-          "name": "Karel",
+          "id": 6,
+          "name": "Strand",
           "userList": []
         }
       ],
@@ -292,28 +292,28 @@
   },
   {
     "id": 4,
-    "creationDate": "Jul 17, 2020 10:10:07 PM",
+    "creationDate": "Jul 20, 2020 7:58:06 AM",
     "followed": {
       "id": 1,
-      "firstName": "Quentin",
-      "lastName": "Leclercq",
+      "firstName": "Elisa",
+      "lastName": "Huet",
       "password": "Qwerty123",
-      "birthDate": "May 31, 1986 2:46:50 PM",
+      "birthDate": "May 19, 1992 6:27:45 AM",
       "email": "user@uca.fr",
-      "mobileNumber": "+33 798463660",
+      "mobileNumber": "+33 698882054",
       "validated": true,
-      "careerGoal": "Hospitality Architect",
+      "careerGoal": "Manufacturing Administrator",
       "skillSet": [
         {
-          "id": 2,
-          "name": "Networking skills",
+          "id": 6,
+          "name": "Problem solving",
           "userList": []
         }
       ],
       "qualificationSet": [
         {
-          "id": 2,
-          "name": "Associate Degree in Business",
+          "id": 9,
+          "name": "Master of Health Science",
           "userList": []
         }
       ],
@@ -339,32 +339,32 @@
     },
     "follower": {
       "id": 3,
-      "firstName": "Sacha",
-      "lastName": "Gérard",
-      "password": "X65tvilv",
-      "birthDate": "Oct 5, 1969 4:45:37 AM",
-      "email": "adam.chevalier@gmail.com",
-      "mobileNumber": "06 20 20 38 99",
+      "firstName": "Lucas",
+      "lastName": "Rousseau",
+      "password": "tvilv@Cs",
+      "birthDate": "Dec 30, 1968 4:28:13 AM",
+      "email": "ethan.robert@yahoo.fr",
+      "mobileNumber": "+33 7 27 31 61 17",
       "validated": true,
-      "careerGoal": "Accounting Director",
+      "careerGoal": "Design Producer",
       "skillSet": [
         {
-          "id": 2,
-          "name": "Networking skills",
+          "id": 9,
+          "name": "Organisation",
           "userList": []
         }
       ],
       "qualificationSet": [
         {
-          "id": 2,
-          "name": "Associate Degree in Business",
+          "id": 1,
+          "name": "Associate Degree in Teaching",
           "userList": []
         }
       ],
       "subscriptionSet": [
         {
-          "id": 7,
-          "name": "Pipelines",
+          "id": 3,
+          "name": "TTCN",
           "userList": []
         }
       ],
@@ -389,35 +389,35 @@
   },
   {
     "id": 5,
-    "creationDate": "Jul 17, 2020 10:10:07 PM",
+    "creationDate": "Jul 20, 2020 7:58:06 AM",
     "followed": {
-      "id": 11,
-      "firstName": "Louna",
-      "lastName": "Rémy",
-      "password": "\u0026742BVub",
-      "birthDate": "Jan 18, 1981 6:07:50 PM",
-      "email": "enzo.morin@gmail.com",
-      "mobileNumber": "0789537173",
+      "id": 12,
+      "firstName": "Louise",
+      "lastName": "Bernard",
+      "password": "6srUdMa$E",
+      "birthDate": "Oct 16, 1971 7:30:42 AM",
+      "email": "lisa.prevost@hotmail.fr",
+      "mobileNumber": "0641738156",
       "validated": true,
-      "careerGoal": "Accounting Executive",
+      "careerGoal": "Regional Strategist",
       "skillSet": [
         {
-          "id": 6,
-          "name": "Problem solving",
+          "id": 10,
+          "name": "Proactive",
           "userList": []
         }
       ],
       "qualificationSet": [
         {
-          "id": 3,
-          "name": "Master of Architectural Technology",
+          "id": 10,
+          "name": "Bachelor of Criminology",
           "userList": []
         }
       ],
       "subscriptionSet": [
         {
-          "id": 9,
-          "name": "TADS",
+          "id": 2,
+          "name": "Karel",
           "userList": []
         }
       ],
@@ -436,32 +436,32 @@
     },
     "follower": {
       "id": 3,
-      "firstName": "Sacha",
-      "lastName": "Gérard",
-      "password": "X65tvilv",
-      "birthDate": "Oct 5, 1969 4:45:37 AM",
-      "email": "adam.chevalier@gmail.com",
-      "mobileNumber": "06 20 20 38 99",
+      "firstName": "Lucas",
+      "lastName": "Rousseau",
+      "password": "tvilv@Cs",
+      "birthDate": "Dec 30, 1968 4:28:13 AM",
+      "email": "ethan.robert@yahoo.fr",
+      "mobileNumber": "+33 7 27 31 61 17",
       "validated": true,
-      "careerGoal": "Accounting Director",
+      "careerGoal": "Design Producer",
       "skillSet": [
         {
-          "id": 2,
-          "name": "Networking skills",
+          "id": 9,
+          "name": "Organisation",
           "userList": []
         }
       ],
       "qualificationSet": [
         {
-          "id": 2,
-          "name": "Associate Degree in Business",
+          "id": 1,
+          "name": "Associate Degree in Teaching",
           "userList": []
         }
       ],
       "subscriptionSet": [
         {
-          "id": 7,
-          "name": "Pipelines",
+          "id": 3,
+          "name": "TTCN",
           "userList": []
         }
       ],
@@ -486,28 +486,28 @@
   },
   {
     "id": 6,
-    "creationDate": "Jul 17, 2020 10:10:07 PM",
+    "creationDate": "Jul 20, 2020 7:58:06 AM",
     "followed": {
       "id": 1,
-      "firstName": "Quentin",
-      "lastName": "Leclercq",
+      "firstName": "Elisa",
+      "lastName": "Huet",
       "password": "Qwerty123",
-      "birthDate": "May 31, 1986 2:46:50 PM",
+      "birthDate": "May 19, 1992 6:27:45 AM",
       "email": "user@uca.fr",
-      "mobileNumber": "+33 798463660",
+      "mobileNumber": "+33 698882054",
       "validated": true,
-      "careerGoal": "Hospitality Architect",
+      "careerGoal": "Manufacturing Administrator",
       "skillSet": [
         {
-          "id": 2,
-          "name": "Networking skills",
+          "id": 6,
+          "name": "Problem solving",
           "userList": []
         }
       ],
       "qualificationSet": [
         {
-          "id": 2,
-          "name": "Associate Degree in Business",
+          "id": 9,
+          "name": "Master of Health Science",
           "userList": []
         }
       ],
@@ -533,32 +533,32 @@
     },
     "follower": {
       "id": 4,
-      "firstName": "Manon",
-      "lastName": "Fontaine",
-      "password": "eS!\u0026u6bLj",
-      "birthDate": "Oct 13, 1982 7:10:02 PM",
-      "email": "louise.andre@hotmail.fr",
-      "mobileNumber": "+33 7 71 39 18 55",
+      "firstName": "Mael",
+      "lastName": "Pierre",
+      "password": "#@dHR3aT",
+      "birthDate": "Jul 6, 2000 3:05:38 AM",
+      "email": "louise.lopez@gmail.com",
+      "mobileNumber": "0791855022",
       "validated": true,
-      "careerGoal": "Chief Mining Planner",
+      "careerGoal": "Future Technician",
       "skillSet": [
         {
-          "id": 3,
-          "name": "Leadership",
+          "id": 8,
+          "name": "Work under pressure",
           "userList": []
         }
       ],
       "qualificationSet": [
         {
-          "id": 8,
-          "name": "Bachelor of Engineering",
+          "id": 2,
+          "name": "Associate Degree in Business",
           "userList": []
         }
       ],
       "subscriptionSet": [
         {
-          "id": 2,
-          "name": "Karel",
+          "id": 5,
+          "name": "Arc",
           "userList": []
         }
       ],
@@ -583,35 +583,35 @@
   },
   {
     "id": 7,
-    "creationDate": "Jul 17, 2020 10:10:07 PM",
+    "creationDate": "Jul 20, 2020 7:58:06 AM",
     "followed": {
-      "id": 11,
-      "firstName": "Louna",
-      "lastName": "Rémy",
-      "password": "\u0026742BVub",
-      "birthDate": "Jan 18, 1981 6:07:50 PM",
-      "email": "enzo.morin@gmail.com",
-      "mobileNumber": "0789537173",
+      "id": 12,
+      "firstName": "Louise",
+      "lastName": "Bernard",
+      "password": "6srUdMa$E",
+      "birthDate": "Oct 16, 1971 7:30:42 AM",
+      "email": "lisa.prevost@hotmail.fr",
+      "mobileNumber": "0641738156",
       "validated": true,
-      "careerGoal": "Accounting Executive",
+      "careerGoal": "Regional Strategist",
       "skillSet": [
         {
-          "id": 6,
-          "name": "Problem solving",
+          "id": 10,
+          "name": "Proactive",
           "userList": []
         }
       ],
       "qualificationSet": [
         {
-          "id": 3,
-          "name": "Master of Architectural Technology",
+          "id": 10,
+          "name": "Bachelor of Criminology",
           "userList": []
         }
       ],
       "subscriptionSet": [
         {
-          "id": 9,
-          "name": "TADS",
+          "id": 2,
+          "name": "Karel",
           "userList": []
         }
       ],
@@ -630,25 +630,316 @@
     },
     "follower": {
       "id": 4,
-      "firstName": "Manon",
-      "lastName": "Fontaine",
-      "password": "eS!\u0026u6bLj",
-      "birthDate": "Oct 13, 1982 7:10:02 PM",
-      "email": "louise.andre@hotmail.fr",
-      "mobileNumber": "+33 7 71 39 18 55",
+      "firstName": "Mael",
+      "lastName": "Pierre",
+      "password": "#@dHR3aT",
+      "birthDate": "Jul 6, 2000 3:05:38 AM",
+      "email": "louise.lopez@gmail.com",
+      "mobileNumber": "0791855022",
       "validated": true,
-      "careerGoal": "Chief Mining Planner",
+      "careerGoal": "Future Technician",
       "skillSet": [
         {
-          "id": 3,
-          "name": "Leadership",
+          "id": 8,
+          "name": "Work under pressure",
           "userList": []
         }
       ],
       "qualificationSet": [
         {
-          "id": 8,
-          "name": "Bachelor of Engineering",
+          "id": 2,
+          "name": "Associate Degree in Business",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 5,
+          "name": "Arc",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "notifications": [],
+    "followedStatus": "on",
+    "followedNotifiable": "all",
+    "followerStatus": "on",
+    "followerNotifiable": "all"
+  },
+  {
+    "id": 8,
+    "creationDate": "Jul 20, 2020 7:58:06 AM",
+    "followed": {
+      "id": 1,
+      "firstName": "Elisa",
+      "lastName": "Huet",
+      "password": "Qwerty123",
+      "birthDate": "May 19, 1992 6:27:45 AM",
+      "email": "user@uca.fr",
+      "mobileNumber": "+33 698882054",
+      "validated": true,
+      "careerGoal": "Manufacturing Administrator",
+      "skillSet": [
+        {
+          "id": 6,
+          "name": "Problem solving",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 9,
+          "name": "Master of Health Science",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 3,
+          "name": "TTCN",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "follower": {
+      "id": 5,
+      "firstName": "Camille",
+      "lastName": "Julien",
+      "password": "TytrK$0is",
+      "birthDate": "Jan 28, 1996 1:17:41 AM",
+      "email": "alice.nguyen@yahoo.fr",
+      "mobileNumber": "+33 784814860",
+      "validated": true,
+      "careerGoal": "Lead Manufacturing Analyst",
+      "skillSet": [
+        {
+          "id": 7,
+          "name": "Communication",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 1,
+          "name": "Associate Degree in Teaching",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 4,
+          "name": "M (alternative name for the MUMPS programming language)",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "notifications": [],
+    "followedStatus": "on",
+    "followedNotifiable": "all",
+    "followerStatus": "on",
+    "followerNotifiable": "all"
+  },
+  {
+    "id": 9,
+    "creationDate": "Jul 20, 2020 7:58:06 AM",
+    "followed": {
+      "id": 12,
+      "firstName": "Louise",
+      "lastName": "Bernard",
+      "password": "6srUdMa$E",
+      "birthDate": "Oct 16, 1971 7:30:42 AM",
+      "email": "lisa.prevost@hotmail.fr",
+      "mobileNumber": "0641738156",
+      "validated": true,
+      "careerGoal": "Regional Strategist",
+      "skillSet": [
+        {
+          "id": 10,
+          "name": "Proactive",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 10,
+          "name": "Bachelor of Criminology",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 2,
+          "name": "Karel",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "follower": {
+      "id": 5,
+      "firstName": "Camille",
+      "lastName": "Julien",
+      "password": "TytrK$0is",
+      "birthDate": "Jan 28, 1996 1:17:41 AM",
+      "email": "alice.nguyen@yahoo.fr",
+      "mobileNumber": "+33 784814860",
+      "validated": true,
+      "careerGoal": "Lead Manufacturing Analyst",
+      "skillSet": [
+        {
+          "id": 7,
+          "name": "Communication",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 1,
+          "name": "Associate Degree in Teaching",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 4,
+          "name": "M (alternative name for the MUMPS programming language)",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "notifications": [],
+    "followedStatus": "on",
+    "followedNotifiable": "all",
+    "followerStatus": "on",
+    "followerNotifiable": "all"
+  },
+  {
+    "id": 10,
+    "creationDate": "Jul 20, 2020 7:58:06 AM",
+    "followed": {
+      "id": 1,
+      "firstName": "Elisa",
+      "lastName": "Huet",
+      "password": "Qwerty123",
+      "birthDate": "May 19, 1992 6:27:45 AM",
+      "email": "user@uca.fr",
+      "mobileNumber": "+33 698882054",
+      "validated": true,
+      "careerGoal": "Manufacturing Administrator",
+      "skillSet": [
+        {
+          "id": 6,
+          "name": "Problem solving",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 9,
+          "name": "Master of Health Science",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 3,
+          "name": "TTCN",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "follower": {
+      "id": 6,
+      "firstName": "Sarah",
+      "lastName": "Bernard",
+      "password": "f0!K6c*%",
+      "birthDate": "May 6, 1976 9:24:42 AM",
+      "email": "victor.nguyen@gmail.com",
+      "mobileNumber": "+33 7 96 86 38 09",
+      "validated": true,
+      "careerGoal": "Internal Agent",
+      "skillSet": [
+        {
+          "id": 2,
+          "name": "Networking skills",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 1,
+          "name": "Associate Degree in Teaching",
           "userList": []
         }
       ],
@@ -679,327 +970,36 @@
     "followerNotifiable": "all"
   },
   {
-    "id": 8,
-    "creationDate": "Jul 17, 2020 10:10:07 PM",
-    "followed": {
-      "id": 1,
-      "firstName": "Quentin",
-      "lastName": "Leclercq",
-      "password": "Qwerty123",
-      "birthDate": "May 31, 1986 2:46:50 PM",
-      "email": "user@uca.fr",
-      "mobileNumber": "+33 798463660",
-      "validated": true,
-      "careerGoal": "Hospitality Architect",
-      "skillSet": [
-        {
-          "id": 2,
-          "name": "Networking skills",
-          "userList": []
-        }
-      ],
-      "qualificationSet": [
-        {
-          "id": 2,
-          "name": "Associate Degree in Business",
-          "userList": []
-        }
-      ],
-      "subscriptionSet": [
-        {
-          "id": 3,
-          "name": "TTCN",
-          "userList": []
-        }
-      ],
-      "jobApplicationSet": [],
-      "trainingApplicationSet": [],
-      "roles": [
-        {
-          "id": 1,
-          "name": "ROLE_USER"
-        }
-      ],
-      "followableStatus": "on",
-      "followableNotifiable": "all",
-      "followableSet": [],
-      "followerSet": []
-    },
-    "follower": {
-      "id": 5,
-      "firstName": "Zoe",
-      "lastName": "Garnier",
-      "password": "xK\u0026@3kDX",
-      "birthDate": "Mar 12, 1994 9:10:43 AM",
-      "email": "camille.julien@gmail.com",
-      "mobileNumber": "06 08 48 14 86",
-      "validated": true,
-      "careerGoal": "Legacy Farming Specialist",
-      "skillSet": [
-        {
-          "id": 3,
-          "name": "Leadership",
-          "userList": []
-        }
-      ],
-      "qualificationSet": [
-        {
-          "id": 4,
-          "name": "Master of Computer Science",
-          "userList": []
-        }
-      ],
-      "subscriptionSet": [
-        {
-          "id": 7,
-          "name": "Pipelines",
-          "userList": []
-        }
-      ],
-      "jobApplicationSet": [],
-      "trainingApplicationSet": [],
-      "roles": [
-        {
-          "id": 1,
-          "name": "ROLE_USER"
-        }
-      ],
-      "followableStatus": "on",
-      "followableNotifiable": "all",
-      "followableSet": [],
-      "followerSet": []
-    },
-    "notifications": [],
-    "followedStatus": "on",
-    "followedNotifiable": "all",
-    "followerStatus": "on",
-    "followerNotifiable": "all"
-  },
-  {
-    "id": 9,
-    "creationDate": "Jul 17, 2020 10:10:07 PM",
-    "followed": {
-      "id": 11,
-      "firstName": "Louna",
-      "lastName": "Rémy",
-      "password": "\u0026742BVub",
-      "birthDate": "Jan 18, 1981 6:07:50 PM",
-      "email": "enzo.morin@gmail.com",
-      "mobileNumber": "0789537173",
-      "validated": true,
-      "careerGoal": "Accounting Executive",
-      "skillSet": [
-        {
-          "id": 6,
-          "name": "Problem solving",
-          "userList": []
-        }
-      ],
-      "qualificationSet": [
-        {
-          "id": 3,
-          "name": "Master of Architectural Technology",
-          "userList": []
-        }
-      ],
-      "subscriptionSet": [
-        {
-          "id": 9,
-          "name": "TADS",
-          "userList": []
-        }
-      ],
-      "jobApplicationSet": [],
-      "trainingApplicationSet": [],
-      "roles": [
-        {
-          "id": 1,
-          "name": "ROLE_USER"
-        }
-      ],
-      "followableStatus": "on",
-      "followableNotifiable": "all",
-      "followableSet": [],
-      "followerSet": []
-    },
-    "follower": {
-      "id": 5,
-      "firstName": "Zoe",
-      "lastName": "Garnier",
-      "password": "xK\u0026@3kDX",
-      "birthDate": "Mar 12, 1994 9:10:43 AM",
-      "email": "camille.julien@gmail.com",
-      "mobileNumber": "06 08 48 14 86",
-      "validated": true,
-      "careerGoal": "Legacy Farming Specialist",
-      "skillSet": [
-        {
-          "id": 3,
-          "name": "Leadership",
-          "userList": []
-        }
-      ],
-      "qualificationSet": [
-        {
-          "id": 4,
-          "name": "Master of Computer Science",
-          "userList": []
-        }
-      ],
-      "subscriptionSet": [
-        {
-          "id": 7,
-          "name": "Pipelines",
-          "userList": []
-        }
-      ],
-      "jobApplicationSet": [],
-      "trainingApplicationSet": [],
-      "roles": [
-        {
-          "id": 1,
-          "name": "ROLE_USER"
-        }
-      ],
-      "followableStatus": "on",
-      "followableNotifiable": "all",
-      "followableSet": [],
-      "followerSet": []
-    },
-    "notifications": [],
-    "followedStatus": "on",
-    "followedNotifiable": "all",
-    "followerStatus": "on",
-    "followerNotifiable": "all"
-  },
-  {
-    "id": 10,
-    "creationDate": "Jul 17, 2020 10:10:07 PM",
-    "followed": {
-      "id": 1,
-      "firstName": "Quentin",
-      "lastName": "Leclercq",
-      "password": "Qwerty123",
-      "birthDate": "May 31, 1986 2:46:50 PM",
-      "email": "user@uca.fr",
-      "mobileNumber": "+33 798463660",
-      "validated": true,
-      "careerGoal": "Hospitality Architect",
-      "skillSet": [
-        {
-          "id": 2,
-          "name": "Networking skills",
-          "userList": []
-        }
-      ],
-      "qualificationSet": [
-        {
-          "id": 2,
-          "name": "Associate Degree in Business",
-          "userList": []
-        }
-      ],
-      "subscriptionSet": [
-        {
-          "id": 3,
-          "name": "TTCN",
-          "userList": []
-        }
-      ],
-      "jobApplicationSet": [],
-      "trainingApplicationSet": [],
-      "roles": [
-        {
-          "id": 1,
-          "name": "ROLE_USER"
-        }
-      ],
-      "followableStatus": "on",
-      "followableNotifiable": "all",
-      "followableSet": [],
-      "followerSet": []
-    },
-    "follower": {
-      "id": 6,
-      "firstName": "Alicia",
-      "lastName": "Charpentier",
-      "password": "vf09K6cb",
-      "birthDate": "Mar 29, 1964 1:10:28 AM",
-      "email": "hugo.faure@hotmail.fr",
-      "mobileNumber": "+33 7 90 01 91 19",
-      "validated": true,
-      "careerGoal": "Community-Services Strategist",
-      "skillSet": [
-        {
-          "id": 7,
-          "name": "Communication",
-          "userList": []
-        }
-      ],
-      "qualificationSet": [
-        {
-          "id": 7,
-          "name": "Master of Psychology",
-          "userList": []
-        }
-      ],
-      "subscriptionSet": [
-        {
-          "id": 9,
-          "name": "TADS",
-          "userList": []
-        }
-      ],
-      "jobApplicationSet": [],
-      "trainingApplicationSet": [],
-      "roles": [
-        {
-          "id": 1,
-          "name": "ROLE_USER"
-        }
-      ],
-      "followableStatus": "on",
-      "followableNotifiable": "all",
-      "followableSet": [],
-      "followerSet": []
-    },
-    "notifications": [],
-    "followedStatus": "on",
-    "followedNotifiable": "all",
-    "followerStatus": "on",
-    "followerNotifiable": "all"
-  },
-  {
     "id": 11,
-    "creationDate": "Jul 17, 2020 10:10:07 PM",
+    "creationDate": "Jul 20, 2020 7:58:06 AM",
     "followed": {
-      "id": 11,
-      "firstName": "Louna",
-      "lastName": "Rémy",
-      "password": "\u0026742BVub",
-      "birthDate": "Jan 18, 1981 6:07:50 PM",
-      "email": "enzo.morin@gmail.com",
-      "mobileNumber": "0789537173",
+      "id": 12,
+      "firstName": "Louise",
+      "lastName": "Bernard",
+      "password": "6srUdMa$E",
+      "birthDate": "Oct 16, 1971 7:30:42 AM",
+      "email": "lisa.prevost@hotmail.fr",
+      "mobileNumber": "0641738156",
       "validated": true,
-      "careerGoal": "Accounting Executive",
+      "careerGoal": "Regional Strategist",
       "skillSet": [
         {
-          "id": 6,
-          "name": "Problem solving",
+          "id": 10,
+          "name": "Proactive",
           "userList": []
         }
       ],
       "qualificationSet": [
         {
-          "id": 3,
-          "name": "Master of Architectural Technology",
+          "id": 10,
+          "name": "Bachelor of Criminology",
           "userList": []
         }
       ],
       "subscriptionSet": [
         {
-          "id": 9,
-          "name": "TADS",
+          "id": 2,
+          "name": "Karel",
           "userList": []
         }
       ],
@@ -1018,32 +1018,32 @@
     },
     "follower": {
       "id": 6,
-      "firstName": "Alicia",
-      "lastName": "Charpentier",
-      "password": "vf09K6cb",
-      "birthDate": "Mar 29, 1964 1:10:28 AM",
-      "email": "hugo.faure@hotmail.fr",
-      "mobileNumber": "+33 7 90 01 91 19",
+      "firstName": "Sarah",
+      "lastName": "Bernard",
+      "password": "f0!K6c*%",
+      "birthDate": "May 6, 1976 9:24:42 AM",
+      "email": "victor.nguyen@gmail.com",
+      "mobileNumber": "+33 7 96 86 38 09",
       "validated": true,
-      "careerGoal": "Community-Services Strategist",
+      "careerGoal": "Internal Agent",
       "skillSet": [
         {
-          "id": 7,
-          "name": "Communication",
+          "id": 2,
+          "name": "Networking skills",
           "userList": []
         }
       ],
       "qualificationSet": [
         {
-          "id": 7,
-          "name": "Master of Psychology",
+          "id": 1,
+          "name": "Associate Degree in Teaching",
           "userList": []
         }
       ],
       "subscriptionSet": [
         {
-          "id": 9,
-          "name": "TADS",
+          "id": 2,
+          "name": "Karel",
           "userList": []
         }
       ],
@@ -1068,28 +1068,28 @@
   },
   {
     "id": 12,
-    "creationDate": "Jul 17, 2020 10:10:07 PM",
+    "creationDate": "Jul 20, 2020 7:58:06 AM",
     "followed": {
       "id": 1,
-      "firstName": "Quentin",
-      "lastName": "Leclercq",
+      "firstName": "Elisa",
+      "lastName": "Huet",
       "password": "Qwerty123",
-      "birthDate": "May 31, 1986 2:46:50 PM",
+      "birthDate": "May 19, 1992 6:27:45 AM",
       "email": "user@uca.fr",
-      "mobileNumber": "+33 798463660",
+      "mobileNumber": "+33 698882054",
       "validated": true,
-      "careerGoal": "Hospitality Architect",
+      "careerGoal": "Manufacturing Administrator",
       "skillSet": [
         {
-          "id": 2,
-          "name": "Networking skills",
+          "id": 6,
+          "name": "Problem solving",
           "userList": []
         }
       ],
       "qualificationSet": [
         {
-          "id": 2,
-          "name": "Associate Degree in Business",
+          "id": 9,
+          "name": "Master of Health Science",
           "userList": []
         }
       ],
@@ -1115,25 +1115,25 @@
     },
     "follower": {
       "id": 7,
-      "firstName": "Noémie",
+      "firstName": "Valentin",
       "lastName": "Pons",
-      "password": "!^bUv%3W",
-      "birthDate": "Jun 5, 1978 7:47:51 PM",
-      "email": "carla.perrin@hotmail.fr",
-      "mobileNumber": "+33 7 83 63 00 23",
+      "password": "52Y2PQ2$",
+      "birthDate": "May 20, 1997 3:13:10 AM",
+      "email": "lucie.bonnet@gmail.com",
+      "mobileNumber": "0600236890",
       "validated": true,
-      "careerGoal": "Human Design Manager",
+      "careerGoal": "Principal Community-Services Supervisor",
       "skillSet": [
         {
-          "id": 6,
-          "name": "Problem solving",
+          "id": 5,
+          "name": "Fast learner",
           "userList": []
         }
       ],
       "qualificationSet": [
         {
-          "id": 3,
-          "name": "Master of Architectural Technology",
+          "id": 10,
+          "name": "Bachelor of Criminology",
           "userList": []
         }
       ],
@@ -1165,35 +1165,35 @@
   },
   {
     "id": 13,
-    "creationDate": "Jul 17, 2020 10:10:07 PM",
+    "creationDate": "Jul 20, 2020 7:58:06 AM",
     "followed": {
-      "id": 11,
-      "firstName": "Louna",
-      "lastName": "Rémy",
-      "password": "\u0026742BVub",
-      "birthDate": "Jan 18, 1981 6:07:50 PM",
-      "email": "enzo.morin@gmail.com",
-      "mobileNumber": "0789537173",
+      "id": 12,
+      "firstName": "Louise",
+      "lastName": "Bernard",
+      "password": "6srUdMa$E",
+      "birthDate": "Oct 16, 1971 7:30:42 AM",
+      "email": "lisa.prevost@hotmail.fr",
+      "mobileNumber": "0641738156",
       "validated": true,
-      "careerGoal": "Accounting Executive",
+      "careerGoal": "Regional Strategist",
       "skillSet": [
         {
-          "id": 6,
-          "name": "Problem solving",
+          "id": 10,
+          "name": "Proactive",
           "userList": []
         }
       ],
       "qualificationSet": [
         {
-          "id": 3,
-          "name": "Master of Architectural Technology",
+          "id": 10,
+          "name": "Bachelor of Criminology",
           "userList": []
         }
       ],
       "subscriptionSet": [
         {
-          "id": 9,
-          "name": "TADS",
+          "id": 2,
+          "name": "Karel",
           "userList": []
         }
       ],
@@ -1212,25 +1212,25 @@
     },
     "follower": {
       "id": 7,
-      "firstName": "Noémie",
+      "firstName": "Valentin",
       "lastName": "Pons",
-      "password": "!^bUv%3W",
-      "birthDate": "Jun 5, 1978 7:47:51 PM",
-      "email": "carla.perrin@hotmail.fr",
-      "mobileNumber": "+33 7 83 63 00 23",
+      "password": "52Y2PQ2$",
+      "birthDate": "May 20, 1997 3:13:10 AM",
+      "email": "lucie.bonnet@gmail.com",
+      "mobileNumber": "0600236890",
       "validated": true,
-      "careerGoal": "Human Design Manager",
+      "careerGoal": "Principal Community-Services Supervisor",
       "skillSet": [
         {
-          "id": 6,
-          "name": "Problem solving",
+          "id": 5,
+          "name": "Fast learner",
           "userList": []
         }
       ],
       "qualificationSet": [
         {
-          "id": 3,
-          "name": "Master of Architectural Technology",
+          "id": 10,
+          "name": "Bachelor of Criminology",
           "userList": []
         }
       ],
@@ -1262,28 +1262,28 @@
   },
   {
     "id": 14,
-    "creationDate": "Jul 17, 2020 10:10:07 PM",
+    "creationDate": "Jul 20, 2020 7:58:06 AM",
     "followed": {
       "id": 1,
-      "firstName": "Quentin",
-      "lastName": "Leclercq",
+      "firstName": "Elisa",
+      "lastName": "Huet",
       "password": "Qwerty123",
-      "birthDate": "May 31, 1986 2:46:50 PM",
+      "birthDate": "May 19, 1992 6:27:45 AM",
       "email": "user@uca.fr",
-      "mobileNumber": "+33 798463660",
+      "mobileNumber": "+33 698882054",
       "validated": true,
-      "careerGoal": "Hospitality Architect",
+      "careerGoal": "Manufacturing Administrator",
       "skillSet": [
         {
-          "id": 2,
-          "name": "Networking skills",
+          "id": 6,
+          "name": "Problem solving",
           "userList": []
         }
       ],
       "qualificationSet": [
         {
-          "id": 2,
-          "name": "Associate Degree in Business",
+          "id": 9,
+          "name": "Master of Health Science",
           "userList": []
         }
       ],
@@ -1309,32 +1309,32 @@
     },
     "follower": {
       "id": 8,
-      "firstName": "Clémence",
-      "lastName": "Louis",
-      "password": "Rz#Dx1q$p",
-      "birthDate": "Mar 1, 1997 6:44:36 AM",
-      "email": "eva.huet@yahoo.fr",
-      "mobileNumber": "+33 729419686",
+      "firstName": "Alice",
+      "lastName": "Nicolas",
+      "password": "#8#e!CTh",
+      "birthDate": "May 12, 1976 3:35:25 AM",
+      "email": "ines.robin@gmail.com",
+      "mobileNumber": "+33 768674721",
       "validated": true,
-      "careerGoal": "Hospitality Analyst",
+      "careerGoal": "Customer Farming Producer",
       "skillSet": [
         {
-          "id": 3,
-          "name": "Leadership",
+          "id": 4,
+          "name": "Confidence",
           "userList": []
         }
       ],
       "qualificationSet": [
         {
-          "id": 6,
-          "name": "Associate Degree in Design",
+          "id": 3,
+          "name": "Master of Architectural Technology",
           "userList": []
         }
       ],
       "subscriptionSet": [
         {
-          "id": 2,
-          "name": "Karel",
+          "id": 6,
+          "name": "Strand",
           "userList": []
         }
       ],
@@ -1359,35 +1359,35 @@
   },
   {
     "id": 15,
-    "creationDate": "Jul 17, 2020 10:10:07 PM",
+    "creationDate": "Jul 20, 2020 7:58:06 AM",
     "followed": {
-      "id": 11,
-      "firstName": "Louna",
-      "lastName": "Rémy",
-      "password": "\u0026742BVub",
-      "birthDate": "Jan 18, 1981 6:07:50 PM",
-      "email": "enzo.morin@gmail.com",
-      "mobileNumber": "0789537173",
+      "id": 12,
+      "firstName": "Louise",
+      "lastName": "Bernard",
+      "password": "6srUdMa$E",
+      "birthDate": "Oct 16, 1971 7:30:42 AM",
+      "email": "lisa.prevost@hotmail.fr",
+      "mobileNumber": "0641738156",
       "validated": true,
-      "careerGoal": "Accounting Executive",
+      "careerGoal": "Regional Strategist",
       "skillSet": [
         {
-          "id": 6,
-          "name": "Problem solving",
+          "id": 10,
+          "name": "Proactive",
           "userList": []
         }
       ],
       "qualificationSet": [
         {
-          "id": 3,
-          "name": "Master of Architectural Technology",
+          "id": 10,
+          "name": "Bachelor of Criminology",
           "userList": []
         }
       ],
       "subscriptionSet": [
         {
-          "id": 9,
-          "name": "TADS",
+          "id": 2,
+          "name": "Karel",
           "userList": []
         }
       ],
@@ -1406,25 +1406,316 @@
     },
     "follower": {
       "id": 8,
-      "firstName": "Clémence",
-      "lastName": "Louis",
-      "password": "Rz#Dx1q$p",
-      "birthDate": "Mar 1, 1997 6:44:36 AM",
-      "email": "eva.huet@yahoo.fr",
-      "mobileNumber": "+33 729419686",
+      "firstName": "Alice",
+      "lastName": "Nicolas",
+      "password": "#8#e!CTh",
+      "birthDate": "May 12, 1976 3:35:25 AM",
+      "email": "ines.robin@gmail.com",
+      "mobileNumber": "+33 768674721",
       "validated": true,
-      "careerGoal": "Hospitality Analyst",
+      "careerGoal": "Customer Farming Producer",
       "skillSet": [
         {
-          "id": 3,
-          "name": "Leadership",
+          "id": 4,
+          "name": "Confidence",
           "userList": []
         }
       ],
       "qualificationSet": [
         {
+          "id": 3,
+          "name": "Master of Architectural Technology",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
           "id": 6,
-          "name": "Associate Degree in Design",
+          "name": "Strand",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "notifications": [],
+    "followedStatus": "on",
+    "followedNotifiable": "all",
+    "followerStatus": "on",
+    "followerNotifiable": "all"
+  },
+  {
+    "id": 16,
+    "creationDate": "Jul 20, 2020 7:58:06 AM",
+    "followed": {
+      "id": 1,
+      "firstName": "Elisa",
+      "lastName": "Huet",
+      "password": "Qwerty123",
+      "birthDate": "May 19, 1992 6:27:45 AM",
+      "email": "user@uca.fr",
+      "mobileNumber": "+33 698882054",
+      "validated": true,
+      "careerGoal": "Manufacturing Administrator",
+      "skillSet": [
+        {
+          "id": 6,
+          "name": "Problem solving",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 9,
+          "name": "Master of Health Science",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 3,
+          "name": "TTCN",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "follower": {
+      "id": 9,
+      "firstName": "Noémie",
+      "lastName": "Vasseur",
+      "password": "7^UR^u8$Q",
+      "birthDate": "Jun 16, 1998 3:23:08 AM",
+      "email": "yanis.andre@yahoo.fr",
+      "mobileNumber": "+33 7 21 48 09 56",
+      "validated": true,
+      "careerGoal": "Marketing Associate",
+      "skillSet": [
+        {
+          "id": 10,
+          "name": "Proactive",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 9,
+          "name": "Master of Health Science",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 4,
+          "name": "M (alternative name for the MUMPS programming language)",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "notifications": [],
+    "followedStatus": "on",
+    "followedNotifiable": "all",
+    "followerStatus": "on",
+    "followerNotifiable": "all"
+  },
+  {
+    "id": 17,
+    "creationDate": "Jul 20, 2020 7:58:06 AM",
+    "followed": {
+      "id": 12,
+      "firstName": "Louise",
+      "lastName": "Bernard",
+      "password": "6srUdMa$E",
+      "birthDate": "Oct 16, 1971 7:30:42 AM",
+      "email": "lisa.prevost@hotmail.fr",
+      "mobileNumber": "0641738156",
+      "validated": true,
+      "careerGoal": "Regional Strategist",
+      "skillSet": [
+        {
+          "id": 10,
+          "name": "Proactive",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 10,
+          "name": "Bachelor of Criminology",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 2,
+          "name": "Karel",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "follower": {
+      "id": 9,
+      "firstName": "Noémie",
+      "lastName": "Vasseur",
+      "password": "7^UR^u8$Q",
+      "birthDate": "Jun 16, 1998 3:23:08 AM",
+      "email": "yanis.andre@yahoo.fr",
+      "mobileNumber": "+33 7 21 48 09 56",
+      "validated": true,
+      "careerGoal": "Marketing Associate",
+      "skillSet": [
+        {
+          "id": 10,
+          "name": "Proactive",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 9,
+          "name": "Master of Health Science",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 4,
+          "name": "M (alternative name for the MUMPS programming language)",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "notifications": [],
+    "followedStatus": "on",
+    "followedNotifiable": "all",
+    "followerStatus": "on",
+    "followerNotifiable": "all"
+  },
+  {
+    "id": 18,
+    "creationDate": "Jul 20, 2020 7:58:06 AM",
+    "followed": {
+      "id": 1,
+      "firstName": "Elisa",
+      "lastName": "Huet",
+      "password": "Qwerty123",
+      "birthDate": "May 19, 1992 6:27:45 AM",
+      "email": "user@uca.fr",
+      "mobileNumber": "+33 698882054",
+      "validated": true,
+      "careerGoal": "Manufacturing Administrator",
+      "skillSet": [
+        {
+          "id": 6,
+          "name": "Problem solving",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 9,
+          "name": "Master of Health Science",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 3,
+          "name": "TTCN",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "follower": {
+      "id": 10,
+      "firstName": "Alicia",
+      "lastName": "Lucas",
+      "password": "8%t@%*590",
+      "birthDate": "Oct 25, 1977 3:41:15 PM",
+      "email": "maelle.schmitt@hotmail.fr",
+      "mobileNumber": "07 89 36 10 17",
+      "validated": true,
+      "careerGoal": "Direct Consulting Supervisor",
+      "skillSet": [
+        {
+          "id": 8,
+          "name": "Work under pressure",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 2,
+          "name": "Associate Degree in Business",
           "userList": []
         }
       ],
@@ -1455,327 +1746,36 @@
     "followerNotifiable": "all"
   },
   {
-    "id": 16,
-    "creationDate": "Jul 17, 2020 10:10:07 PM",
-    "followed": {
-      "id": 1,
-      "firstName": "Quentin",
-      "lastName": "Leclercq",
-      "password": "Qwerty123",
-      "birthDate": "May 31, 1986 2:46:50 PM",
-      "email": "user@uca.fr",
-      "mobileNumber": "+33 798463660",
-      "validated": true,
-      "careerGoal": "Hospitality Architect",
-      "skillSet": [
-        {
-          "id": 2,
-          "name": "Networking skills",
-          "userList": []
-        }
-      ],
-      "qualificationSet": [
-        {
-          "id": 2,
-          "name": "Associate Degree in Business",
-          "userList": []
-        }
-      ],
-      "subscriptionSet": [
-        {
-          "id": 3,
-          "name": "TTCN",
-          "userList": []
-        }
-      ],
-      "jobApplicationSet": [],
-      "trainingApplicationSet": [],
-      "roles": [
-        {
-          "id": 1,
-          "name": "ROLE_USER"
-        }
-      ],
-      "followableStatus": "on",
-      "followableNotifiable": "all",
-      "followableSet": [],
-      "followerSet": []
-    },
-    "follower": {
-      "id": 9,
-      "firstName": "Elisa",
-      "lastName": "Jean",
-      "password": "50Qb3$b1",
-      "birthDate": "Sep 15, 1961 1:47:24 AM",
-      "email": "enzo.lopez@yahoo.fr",
-      "mobileNumber": "+33 7 75 36 73 46",
-      "validated": true,
-      "careerGoal": "Human Associate",
-      "skillSet": [
-        {
-          "id": 7,
-          "name": "Communication",
-          "userList": []
-        }
-      ],
-      "qualificationSet": [
-        {
-          "id": 3,
-          "name": "Master of Architectural Technology",
-          "userList": []
-        }
-      ],
-      "subscriptionSet": [
-        {
-          "id": 9,
-          "name": "TADS",
-          "userList": []
-        }
-      ],
-      "jobApplicationSet": [],
-      "trainingApplicationSet": [],
-      "roles": [
-        {
-          "id": 1,
-          "name": "ROLE_USER"
-        }
-      ],
-      "followableStatus": "on",
-      "followableNotifiable": "all",
-      "followableSet": [],
-      "followerSet": []
-    },
-    "notifications": [],
-    "followedStatus": "on",
-    "followedNotifiable": "all",
-    "followerStatus": "on",
-    "followerNotifiable": "all"
-  },
-  {
-    "id": 17,
-    "creationDate": "Jul 17, 2020 10:10:07 PM",
-    "followed": {
-      "id": 11,
-      "firstName": "Louna",
-      "lastName": "Rémy",
-      "password": "\u0026742BVub",
-      "birthDate": "Jan 18, 1981 6:07:50 PM",
-      "email": "enzo.morin@gmail.com",
-      "mobileNumber": "0789537173",
-      "validated": true,
-      "careerGoal": "Accounting Executive",
-      "skillSet": [
-        {
-          "id": 6,
-          "name": "Problem solving",
-          "userList": []
-        }
-      ],
-      "qualificationSet": [
-        {
-          "id": 3,
-          "name": "Master of Architectural Technology",
-          "userList": []
-        }
-      ],
-      "subscriptionSet": [
-        {
-          "id": 9,
-          "name": "TADS",
-          "userList": []
-        }
-      ],
-      "jobApplicationSet": [],
-      "trainingApplicationSet": [],
-      "roles": [
-        {
-          "id": 1,
-          "name": "ROLE_USER"
-        }
-      ],
-      "followableStatus": "on",
-      "followableNotifiable": "all",
-      "followableSet": [],
-      "followerSet": []
-    },
-    "follower": {
-      "id": 9,
-      "firstName": "Elisa",
-      "lastName": "Jean",
-      "password": "50Qb3$b1",
-      "birthDate": "Sep 15, 1961 1:47:24 AM",
-      "email": "enzo.lopez@yahoo.fr",
-      "mobileNumber": "+33 7 75 36 73 46",
-      "validated": true,
-      "careerGoal": "Human Associate",
-      "skillSet": [
-        {
-          "id": 7,
-          "name": "Communication",
-          "userList": []
-        }
-      ],
-      "qualificationSet": [
-        {
-          "id": 3,
-          "name": "Master of Architectural Technology",
-          "userList": []
-        }
-      ],
-      "subscriptionSet": [
-        {
-          "id": 9,
-          "name": "TADS",
-          "userList": []
-        }
-      ],
-      "jobApplicationSet": [],
-      "trainingApplicationSet": [],
-      "roles": [
-        {
-          "id": 1,
-          "name": "ROLE_USER"
-        }
-      ],
-      "followableStatus": "on",
-      "followableNotifiable": "all",
-      "followableSet": [],
-      "followerSet": []
-    },
-    "notifications": [],
-    "followedStatus": "on",
-    "followedNotifiable": "all",
-    "followerStatus": "on",
-    "followerNotifiable": "all"
-  },
-  {
-    "id": 18,
-    "creationDate": "Jul 17, 2020 10:10:07 PM",
-    "followed": {
-      "id": 1,
-      "firstName": "Quentin",
-      "lastName": "Leclercq",
-      "password": "Qwerty123",
-      "birthDate": "May 31, 1986 2:46:50 PM",
-      "email": "user@uca.fr",
-      "mobileNumber": "+33 798463660",
-      "validated": true,
-      "careerGoal": "Hospitality Architect",
-      "skillSet": [
-        {
-          "id": 2,
-          "name": "Networking skills",
-          "userList": []
-        }
-      ],
-      "qualificationSet": [
-        {
-          "id": 2,
-          "name": "Associate Degree in Business",
-          "userList": []
-        }
-      ],
-      "subscriptionSet": [
-        {
-          "id": 3,
-          "name": "TTCN",
-          "userList": []
-        }
-      ],
-      "jobApplicationSet": [],
-      "trainingApplicationSet": [],
-      "roles": [
-        {
-          "id": 1,
-          "name": "ROLE_USER"
-        }
-      ],
-      "followableStatus": "on",
-      "followableNotifiable": "all",
-      "followableSet": [],
-      "followerSet": []
-    },
-    "follower": {
-      "id": 10,
-      "firstName": "Maxime",
-      "lastName": "Roche",
-      "password": "05@#!@%k",
-      "birthDate": "Mar 18, 1998 6:19:08 AM",
-      "email": "melissa.schneider@gmail.com",
-      "mobileNumber": "0633936617",
-      "validated": true,
-      "careerGoal": "Sales Facilitator",
-      "skillSet": [
-        {
-          "id": 2,
-          "name": "Networking skills",
-          "userList": []
-        }
-      ],
-      "qualificationSet": [
-        {
-          "id": 9,
-          "name": "Master of Health Science",
-          "userList": []
-        }
-      ],
-      "subscriptionSet": [
-        {
-          "id": 1,
-          "name": "Pig (programming tool)",
-          "userList": []
-        }
-      ],
-      "jobApplicationSet": [],
-      "trainingApplicationSet": [],
-      "roles": [
-        {
-          "id": 1,
-          "name": "ROLE_USER"
-        }
-      ],
-      "followableStatus": "on",
-      "followableNotifiable": "all",
-      "followableSet": [],
-      "followerSet": []
-    },
-    "notifications": [],
-    "followedStatus": "on",
-    "followedNotifiable": "all",
-    "followerStatus": "on",
-    "followerNotifiable": "all"
-  },
-  {
     "id": 19,
-    "creationDate": "Jul 17, 2020 10:10:07 PM",
+    "creationDate": "Jul 20, 2020 7:58:06 AM",
     "followed": {
-      "id": 11,
-      "firstName": "Louna",
-      "lastName": "Rémy",
-      "password": "\u0026742BVub",
-      "birthDate": "Jan 18, 1981 6:07:50 PM",
-      "email": "enzo.morin@gmail.com",
-      "mobileNumber": "0789537173",
+      "id": 12,
+      "firstName": "Louise",
+      "lastName": "Bernard",
+      "password": "6srUdMa$E",
+      "birthDate": "Oct 16, 1971 7:30:42 AM",
+      "email": "lisa.prevost@hotmail.fr",
+      "mobileNumber": "0641738156",
       "validated": true,
-      "careerGoal": "Accounting Executive",
+      "careerGoal": "Regional Strategist",
       "skillSet": [
         {
-          "id": 6,
-          "name": "Problem solving",
+          "id": 10,
+          "name": "Proactive",
           "userList": []
         }
       ],
       "qualificationSet": [
         {
-          "id": 3,
-          "name": "Master of Architectural Technology",
+          "id": 10,
+          "name": "Bachelor of Criminology",
           "userList": []
         }
       ],
       "subscriptionSet": [
         {
-          "id": 9,
-          "name": "TADS",
+          "id": 2,
+          "name": "Karel",
           "userList": []
         }
       ],
@@ -1794,32 +1794,32 @@
     },
     "follower": {
       "id": 10,
-      "firstName": "Maxime",
-      "lastName": "Roche",
-      "password": "05@#!@%k",
-      "birthDate": "Mar 18, 1998 6:19:08 AM",
-      "email": "melissa.schneider@gmail.com",
-      "mobileNumber": "0633936617",
+      "firstName": "Alicia",
+      "lastName": "Lucas",
+      "password": "8%t@%*590",
+      "birthDate": "Oct 25, 1977 3:41:15 PM",
+      "email": "maelle.schmitt@hotmail.fr",
+      "mobileNumber": "07 89 36 10 17",
       "validated": true,
-      "careerGoal": "Sales Facilitator",
+      "careerGoal": "Direct Consulting Supervisor",
       "skillSet": [
         {
-          "id": 2,
-          "name": "Networking skills",
+          "id": 8,
+          "name": "Work under pressure",
           "userList": []
         }
       ],
       "qualificationSet": [
         {
-          "id": 9,
-          "name": "Master of Health Science",
+          "id": 2,
+          "name": "Associate Degree in Business",
           "userList": []
         }
       ],
       "subscriptionSet": [
         {
-          "id": 1,
-          "name": "Pig (programming tool)",
+          "id": 2,
+          "name": "Karel",
           "userList": []
         }
       ],
@@ -1844,28 +1844,28 @@
   },
   {
     "id": 20,
-    "creationDate": "Jul 17, 2020 10:10:07 PM",
+    "creationDate": "Jul 20, 2020 7:58:06 AM",
     "followed": {
       "id": 1,
-      "firstName": "Quentin",
-      "lastName": "Leclercq",
+      "firstName": "Elisa",
+      "lastName": "Huet",
       "password": "Qwerty123",
-      "birthDate": "May 31, 1986 2:46:50 PM",
+      "birthDate": "May 19, 1992 6:27:45 AM",
       "email": "user@uca.fr",
-      "mobileNumber": "+33 798463660",
+      "mobileNumber": "+33 698882054",
       "validated": true,
-      "careerGoal": "Hospitality Architect",
+      "careerGoal": "Manufacturing Administrator",
       "skillSet": [
         {
-          "id": 2,
-          "name": "Networking skills",
+          "id": 6,
+          "name": "Problem solving",
           "userList": []
         }
       ],
       "qualificationSet": [
         {
-          "id": 2,
-          "name": "Associate Degree in Business",
+          "id": 9,
+          "name": "Master of Health Science",
           "userList": []
         }
       ],
@@ -1891,14 +1891,164 @@
     },
     "follower": {
       "id": 11,
-      "firstName": "Louna",
-      "lastName": "Rémy",
-      "password": "\u0026742BVub",
-      "birthDate": "Jan 18, 1981 6:07:50 PM",
-      "email": "enzo.morin@gmail.com",
-      "mobileNumber": "0789537173",
+      "firstName": "Lena",
+      "lastName": "Gonzalez",
+      "password": "5^@Jx\u00261%X",
+      "birthDate": "Sep 10, 1955 11:44:12 AM",
+      "email": "gabriel.gauthier@hotmail.fr",
+      "mobileNumber": "+33 6 93 17 23 99",
       "validated": true,
-      "careerGoal": "Accounting Executive",
+      "careerGoal": "Lead Design Manager",
+      "skillSet": [
+        {
+          "id": 9,
+          "name": "Organisation",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 5,
+          "name": "Associate Degree in Creative Arts",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 1,
+          "name": "Pig (programming tool)",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "notifications": [],
+    "followedStatus": "on",
+    "followedNotifiable": "all",
+    "followerStatus": "on",
+    "followerNotifiable": "all"
+  },
+  {
+    "id": 21,
+    "creationDate": "Jul 20, 2020 7:58:06 AM",
+    "followed": {
+      "id": 12,
+      "firstName": "Louise",
+      "lastName": "Bernard",
+      "password": "6srUdMa$E",
+      "birthDate": "Oct 16, 1971 7:30:42 AM",
+      "email": "lisa.prevost@hotmail.fr",
+      "mobileNumber": "0641738156",
+      "validated": true,
+      "careerGoal": "Regional Strategist",
+      "skillSet": [
+        {
+          "id": 10,
+          "name": "Proactive",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 10,
+          "name": "Bachelor of Criminology",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 2,
+          "name": "Karel",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "follower": {
+      "id": 11,
+      "firstName": "Lena",
+      "lastName": "Gonzalez",
+      "password": "5^@Jx\u00261%X",
+      "birthDate": "Sep 10, 1955 11:44:12 AM",
+      "email": "gabriel.gauthier@hotmail.fr",
+      "mobileNumber": "+33 6 93 17 23 99",
+      "validated": true,
+      "careerGoal": "Lead Design Manager",
+      "skillSet": [
+        {
+          "id": 9,
+          "name": "Organisation",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 5,
+          "name": "Associate Degree in Creative Arts",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 1,
+          "name": "Pig (programming tool)",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "notifications": [],
+    "followedStatus": "on",
+    "followedNotifiable": "all",
+    "followerStatus": "on",
+    "followerNotifiable": "all"
+  },
+  {
+    "id": 22,
+    "creationDate": "Jul 20, 2020 7:58:06 AM",
+    "followed": {
+      "id": 1,
+      "firstName": "Elisa",
+      "lastName": "Huet",
+      "password": "Qwerty123",
+      "birthDate": "May 19, 1992 6:27:45 AM",
+      "email": "user@uca.fr",
+      "mobileNumber": "+33 698882054",
+      "validated": true,
+      "careerGoal": "Manufacturing Administrator",
       "skillSet": [
         {
           "id": 6,
@@ -1908,15 +2058,59 @@
       ],
       "qualificationSet": [
         {
-          "id": 3,
-          "name": "Master of Architectural Technology",
+          "id": 9,
+          "name": "Master of Health Science",
           "userList": []
         }
       ],
       "subscriptionSet": [
         {
-          "id": 9,
-          "name": "TADS",
+          "id": 3,
+          "name": "TTCN",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "follower": {
+      "id": 12,
+      "firstName": "Louise",
+      "lastName": "Bernard",
+      "password": "6srUdMa$E",
+      "birthDate": "Oct 16, 1971 7:30:42 AM",
+      "email": "lisa.prevost@hotmail.fr",
+      "mobileNumber": "0641738156",
+      "validated": true,
+      "careerGoal": "Regional Strategist",
+      "skillSet": [
+        {
+          "id": 10,
+          "name": "Proactive",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 10,
+          "name": "Bachelor of Criminology",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 2,
+          "name": "Karel",
           "userList": []
         }
       ],
