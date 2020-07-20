@@ -17,8 +17,7 @@ export class DialogueElementsComponent implements OnInit {
 
   async onSubmit() {
     let publication = new Publication(this.formPost.value);
-    let response = await this.pub.addpublication(this.formPost.value["publication"]);
-    console.log(response);
+     this.pub.addpublication(this.formPost.value["publication"]);
   }
 
   private _buildForm() {

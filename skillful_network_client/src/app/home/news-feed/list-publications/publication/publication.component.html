@@ -8,7 +8,7 @@
             <p>{{publication.dateOfPost | date}}</p>
         </div>
         <div class="description">
-            <p>{{publication.postbodyText}}</p>
+            <p>{{publication.postBodyText}}</p>
         </div>
         <div class="file">
             <img [src]="publication.file" alt="" id="photo-publication">
@@ -37,7 +37,7 @@
                         <mat-icon id="close-icon">close</mat-icon>
                     </button>
                 </mat-form-field>
-                <button mat-button color="skillful" type="submit" [disabled]="!formComment.valid" (click)="IncreaseComments()">Publier</button>
+                <button mat-button color="skillful" type="submit" [disabled]="!formComment.valid" >Publier</button>
             </form>
         </div>
         <div class="list-comments" *ngIf ="hide">

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output,  EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-news-feed',
@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./news-feed.component.scss']
 })
 export class NewsFeedComponent implements OnInit {
+
 
   constructor() { }
   ngOnInit(): void {

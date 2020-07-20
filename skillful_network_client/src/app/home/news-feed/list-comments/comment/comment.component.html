@@ -1,12 +1,12 @@
 <mat-card class="list-comments">
     <div class="user">
-        <img class="photoProfile" [src]="getImage()" alt="Avatar" style="width: 32px; height: 32px;"> <h1 id="title-user">{{comment.user}}</h1>
+        <img class="photoProfile" [src]="getImage()" alt="Avatar" style="width: 32px; height: 32px;"> <h1 id="title-user">{{comment.user.firstName}} {{comment.user.lastName}}</h1>
     </div>
     <div class="Date-pub">
         <p>{{comment.dateOfComment | date}}</p>
     </div>
     <div class="description">
-        <p>{{comment.text}}</p>
+        <p>{{comment.commentBodyText}}</p>
     </div>
     <hr>
     <div class="div-icons">

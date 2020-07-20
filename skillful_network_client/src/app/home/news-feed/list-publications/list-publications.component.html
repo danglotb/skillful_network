@@ -1,4 +1,4 @@
 <ng-container *ngFor = "let publication of listPublication; let i = index">
-    <app-publication  [publication] ="publication" (upvote)="pub.onUpVote(i, $event)" (downvote)="pub.onDownVote(i, $event)" (increase)="pub.upNumberComment(i, $event)">
+    <app-publication  [publication] ="publication" (upvote)="pub.onUpVote(i, $event)" (downvote)="pub.onDownVote(i, $event)" (publicationDeleted)="onPublicationDeleted()">
     </app-publication>
 </ng-container>

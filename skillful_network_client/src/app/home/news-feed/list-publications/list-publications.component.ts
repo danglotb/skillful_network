@@ -1,4 +1,3 @@
-import { MOCK_PUBLICATIONS } from './../../../shared/mocks/publications.mock';
 import { Publication } from 'src/app/shared/models/application/publication';
 import { Component, OnInit } from '@angular/core';
 import { PublicationService } from 'src/app/shared/services/publication.service';
@@ -23,6 +22,11 @@ export class ListPublicationsComponent implements OnInit {
       console.log(response);
       that.listPublication= response;
     })
+    this.pub.publicationAdded.subscribe(function(publication){
+      that.listPublication.push(publication);
+    })
   }
-
+  async onPublicationDeleted(){
+    this.listPublication = await this.pub.getPublications();
+  }
 }

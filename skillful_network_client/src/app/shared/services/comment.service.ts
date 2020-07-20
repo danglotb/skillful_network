@@ -3,6 +3,7 @@ import { Publication } from './../models/application/publication';
 import { Injectable } from '@angular/core';
 import { User } from './../models/user/user';
 import { PublicationComment } from '../models/publication-comment';
+import { ApiHelperService } from './api-helper.service';
 
 
 @Injectable({
@@ -10,14 +11,10 @@ import { PublicationComment } from '../models/publication-comment';
 })
 export class CommentService {
 
-  constructor() { }
+  constructor( private api: ApiHelperService) { }
 
-  public addComment(publication, data : any){
-    let comment = new PublicationComment(data);
-    if(publication.comments == undefined){
-      publication.comments = [];
-    }
-    publication.comments.unshift(comment);
+  public addComment(commentBodyText: String){
+    return this.api.post({endpoint: '/comments', data : commentBodyText});
   }
 
   public onUpVote(comment,value: number) {

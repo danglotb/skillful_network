@@ -14,9 +14,8 @@ export class PublicationComponent implements OnInit {
   @Input() public publication : Publication;
   @Output() private upvote = new EventEmitter<number>();
   @Output() private downvote = new EventEmitter<number>();
-  @Output() private delete = new EventEmitter<number>();
-  @Output() private increase = new EventEmitter<number>();
-
+  @Output() private publicationDeleted = new EventEmitter<number>();
+ 
 
   public type: string;
   public isViewable: boolean;
@@ -32,15 +31,7 @@ export class PublicationComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log("ok");
-    let comment =  {
-      text : this.formComment.value["comment"],
-      comments : [],
-      user: null,
-      votes: 0,
-      dateOfComment : Date.now()
-    }
-    this.commentService.addComment(this.publication, comment);   
+    this.commentService.addComment(this.formComment.value["comment"]);   
   }
 
   private _buildForm() {
@@ -59,13 +50,10 @@ export class PublicationComponent implements OnInit {
   public handleDownVote() {
     this.downvote.emit(1);
   }
-  public handleDelete() {
-    this.pub.deletePublication(this.publication.id);
+  public async handleDelete() {
+     let response = await this.pub.deletePublication(this.publication.id);
+     this.publicationDeleted.emit();
   } 
-  public IncreaseComments(){
-    this.increase.emit(1);
-    
- }
   toggleDisplay() {
     this.isShow = !this.isShow;
     this.hide = true;

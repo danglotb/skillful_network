@@ -1,6 +1,6 @@
 import { PublicationComment } from '../../../shared/models/publication-comment';
 import { Component, OnInit, Input } from '@angular/core';
-import { MOCK_COMMENTS, IComment } from './../../../shared/mocks/comments.mock';
+import { IComment } from './../../../shared/mocks/comments.mock';
 
 
 @Component({
