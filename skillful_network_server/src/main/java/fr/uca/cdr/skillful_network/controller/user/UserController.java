@@ -192,4 +192,14 @@ public class UserController {
             @PathVariable(value = "followableId") Long followableID) {
         return new ResponseEntity<>(userService.getFollowerCount(followableID), HttpStatus.OK);
     }
+    
+    @GetMapping(value="/postLikers/{idPost}")
+    public long increaseOrDecreaseNumberOfLike(@PathVariable(value = "idPost") long idPost) {
+    	return this.userService.increaseOrDecreaseNumberOfLike(idPost);
+    }
+    
+    
+    
+    
+    
 }

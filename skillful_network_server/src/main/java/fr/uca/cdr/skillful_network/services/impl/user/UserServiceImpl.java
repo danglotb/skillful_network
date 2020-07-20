@@ -1,10 +1,14 @@
 package fr.uca.cdr.skillful_network.services.impl.user;
 
 import com.google.common.io.Files;
+
+import fr.uca.cdr.skillful_network.entities.post.Post;
 import fr.uca.cdr.skillful_network.entities.user.Qualification;
 import fr.uca.cdr.skillful_network.entities.user.Skill;
 import fr.uca.cdr.skillful_network.entities.user.Subscription;
 import fr.uca.cdr.skillful_network.entities.user.User;
+import fr.uca.cdr.skillful_network.repositories.UserPostRepository;
+import fr.uca.cdr.skillful_network.repositories.post.PostRepository;
 import fr.uca.cdr.skillful_network.repositories.user.UserRepository;
 import fr.uca.cdr.skillful_network.services.AuthenticationService;
 import fr.uca.cdr.skillful_network.services.user.*;
@@ -56,6 +60,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+    @Autowired
+    private PostRepository postRepository ;
+    
+    @Autowired 
+    private UserPostRepository userPostRepository;
+    
 	private static final ArrayList<String> SUPPORTED_EXTENSIONS_PROFILE_PICTURE = new ArrayList<>();
 
 	static {
@@ -234,5 +244,20 @@ public class UserServiceImpl implements UserService {
     public Long getFollowerCount(Long followableID){
         logger.debug("getFollowerCount(followableID: {}})", followableID);
         return fstService.getFollowerCount(followableID);
+    }
+    
+    @Override
+    public boolean ifPostHasBeenLikedBycurrentuser(Long postId) {
+    	Long userId = this.authenticationService.getCurrentUser().getId();
+    	return this.userPostRepository.findByUserId(userId).isHasLiked(); 	
+    }
+    
+    @Override
+    public Long increaseOrDecreaseNumberOfLike(Long postId) {
+    	boolean postHasBeenLiked = this.ifPostHasBeenLikedBycurrentuser(postId);
+    	Post concernedPost =  this.postRepository.findById(postId).get();
+    	if( postHasBeenLiked) { concernedPost.setNumberOfLikes((concernedPost.getNumberOfLikes())+1);}
+    	else { concernedPost.setNumberOfLikes((concernedPost.getNumberOfLikes())-1) ; }
+    	return concernedPost.getNumberOfLikes();
     }
 }

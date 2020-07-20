@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,9 +35,11 @@ public class Post {
     @JsonManagedReference
     private User user;
 
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JsonManagedReference
     private Set<Comment> comments = new HashSet<>() ;
+	
+	private long numberOfLikes;
 	
 	public Post() {
 		super();
@@ -48,7 +51,14 @@ public class Post {
 		this.dateOfPost = dateOfPost;
 		this.user = user;
 	}
-
+	public Post(String postBodyText, Date dateOfPost, User user, Set<Comment> comments, long numberOfLikes) {
+		super();
+		this.postBodyText = postBodyText;
+		this.dateOfPost = dateOfPost;
+		this.user = user;
+		this.comments = comments;
+		this.numberOfLikes = numberOfLikes;
+	}
 	public long getId() {
 		return id;
 	}
@@ -93,10 +103,20 @@ public class Post {
 		return this.getComments().size();
 	}
 
+
+
+	public long getNumberOfLikes() {
+		return numberOfLikes;
+	}
+
+	public void setNumberOfLikes(long numberOfLikes) {
+		this.numberOfLikes = numberOfLikes;
+	}
+
 	@Override
 	public String toString() {
-		return "Post [id=" + id + ", postBodyText=" + postBodyText + ", dateOfPost=" + dateOfPost
-				+ ", user=" + user;
+		return "Post [id=" + id + ", postBodyText=" + postBodyText + ", dateOfPost=" + dateOfPost + ", user=" + user
+				+ ", comments=" + comments + ", numberOfLikes=" + numberOfLikes + "]";
 	}
 
 	@Override

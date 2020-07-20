@@ -56,4 +56,8 @@ public interface UserService {
 
 	Long getFollowerCount();
 	Long getFollowerCount(Long followableID);
+	
+	
+	boolean ifPostHasBeenLikedBycurrentuser(Long postId);
+	Long increaseOrDecreaseNumberOfLike(Long postId);
 }
