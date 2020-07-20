@@ -23,9 +23,9 @@
       "company": "Lopéz EI",
       "description": "Organic grid-enabled knowledge user",
       "type": "type1",
-      "dateBeg": "Aug 14, 2019 5:11:13 PM",
-      "dateEnd": "Jul 30, 2019 3:54:07 AM",
-      "dateUpload": "Jun 23, 2020 9:19:05 AM",
+      "dateBeg": "Aug 17, 2019 5:11:13 PM",
+      "dateEnd": "Aug 2, 2019 3:54:07 AM",
+      "dateUpload": "Jun 26, 2020 9:19:05 AM",
       "keywords": [
         {
           "id": 17,
@@ -41,25 +41,25 @@
     "id": 1,
     "user": {
       "id": 1,
-      "firstName": "Quentin",
-      "lastName": "Leclercq",
+      "firstName": "Elisa",
+      "lastName": "Huet",
       "password": "Qwerty123",
-      "birthDate": "May 31, 1986 2:46:50 PM",
+      "birthDate": "May 19, 1992 6:27:45 AM",
       "email": "user@uca.fr",
-      "mobileNumber": "+33 798463660",
+      "mobileNumber": "+33 698882054",
       "validated": true,
-      "careerGoal": "Hospitality Architect",
+      "careerGoal": "Manufacturing Administrator",
       "skillSet": [
         {
-          "id": 2,
-          "name": "Networking skills",
+          "id": 6,
+          "name": "Problem solving",
           "userList": []
         }
       ],
       "qualificationSet": [
         {
-          "id": 2,
-          "name": "Associate Degree in Business",
+          "id": 9,
+          "name": "Master of Health Science",
           "userList": []
         }
       ],
@@ -84,6 +84,93 @@
       "followerSet": []
     },
     "status": "ACCEPTED",
-    "submitDate": "Mar 9, 2020 7:16:57 AM"
+    "submitDate": "Apr 2, 2020 10:42:09 PM"
+  },
+  {
+    "offer": {
+      "score": [
+        [
+          0.4,
+          0.6,
+          0.8
+        ],
+        [
+          0.6,
+          0.8,
+          1.0
+        ],
+        [
+          0.8,
+          1.0,
+          1.2
+        ]
+      ],
+      "id": 2,
+      "name": "Forward Marketing Engineer",
+      "company": "Roussel et Guyot",
+      "description": "Digitized homogeneous service-desk",
+      "type": "type1",
+      "dateBeg": "Apr 10, 2020 12:01:41 AM",
+      "dateEnd": "Jan 10, 2020 7:28:48 PM",
+      "dateUpload": "Mar 3, 2020 6:46:50 PM",
+      "keywords": [
+        {
+          "id": 18,
+          "name": "Klerer-May System",
+          "jobOffers": [],
+          "trainings": []
+        }
+      ],
+      "risk": "MODERATE",
+      "complexity": "MODERATE",
+      "jobApplicationSet": []
+    },
+    "id": 2,
+    "user": {
+      "id": 2,
+      "firstName": "Noémie",
+      "lastName": "Roussel",
+      "password": "Qwerty123",
+      "birthDate": "Jul 6, 1995 10:48:58 AM",
+      "email": "user2@uca.fr",
+      "mobileNumber": "+33 628617941",
+      "validated": true,
+      "careerGoal": "Banking Executive",
+      "skillSet": [
+        {
+          "id": 8,
+          "name": "Work under pressure",
+          "userList": []
+        }
+      ],
+      "qualificationSet": [
+        {
+          "id": 6,
+          "name": "Associate Degree in Design",
+          "userList": []
+        }
+      ],
+      "subscriptionSet": [
+        {
+          "id": 6,
+          "name": "Strand",
+          "userList": []
+        }
+      ],
+      "jobApplicationSet": [],
+      "trainingApplicationSet": [],
+      "roles": [
+        {
+          "id": 1,
+          "name": "ROLE_USER"
+        }
+      ],
+      "followableStatus": "on",
+      "followableNotifiable": "all",
+      "followableSet": [],
+      "followerSet": []
+    },
+    "status": "ACCEPTED",
+    "submitDate": "Oct 16, 2019 10:21:48 PM"
   }
 ]
