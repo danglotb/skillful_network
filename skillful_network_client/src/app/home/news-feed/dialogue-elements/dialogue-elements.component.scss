@@ -29,7 +29,18 @@
     padding-top: 2px;
 }
 .div-bottom{
-display: flex;
-flex-direction: row;
-justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+@media screen and (max-width:900px ){
+    .example-full-width{
+        width: 80%;
+    }
+    .div-bottom{
+        display: block;
+    }
+    .div-dialogue{
+        width: 420px;
+    }
 }

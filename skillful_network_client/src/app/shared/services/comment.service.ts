@@ -23,4 +23,7 @@ export class CommentService {
   public onDownVote(comment,value: number) {
     comment.votes -= value;
   }
+  public deleteComment(id) {
+    return this.api.delete({endpoint: '/comments/'+ id});
+  }
 }

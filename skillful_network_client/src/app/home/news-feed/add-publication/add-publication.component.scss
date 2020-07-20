@@ -32,3 +32,8 @@
     font-size: 25x;  
     padding-top: 2px;
 }
+@media screen and (max-width:900px ){
+    #title-publication{
+        font-size: 15px;
+    }
+}

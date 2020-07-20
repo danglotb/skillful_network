@@ -14,7 +14,7 @@
             <img [src]="publication.file" alt="" id="photo-publication">
         </div>
         <div class="votes">
-            <p> {{publication.votes}}<span  *ngIf="publication.votes >= 1" class="material-icons clickable" id="icon-down">thumb_up_alt</span> 
+            <p>
             <span class="clickable" id="pub-comment" (click) = showComments()> {{publication.numberOfComment}} <span>commentaire</span></span>
             </p>   
         </div>
