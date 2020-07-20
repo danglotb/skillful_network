@@ -29,12 +29,9 @@ export class NotificationsComponent implements OnInit {
       console.log(data);
       if (data !== null) {
         data.forEach(item => {
-          const notif = new Notification(item);
-          // Don't know if it's best practice but do the job
-          const notification = Object.setPrototypeOf(item, Notification);
-          console.log(notif);
+          const notification = new Notification(item);
           console.log(notification);
-          this.notifications.add(notif);
+          this.notifications.add(notification); 
         });
       }
     }).catch(error => {

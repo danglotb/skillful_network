@@ -12,7 +12,7 @@ export class Notification {
         this.id = data.id;
         this.followerSet = data.followerSet;
         this.label = data.label;
-        this.isRead = data.isRead;
+        this.isRead = data.read;
         this.postId = data.postId;
     }
 
