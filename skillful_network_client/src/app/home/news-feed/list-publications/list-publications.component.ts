@@ -20,10 +20,17 @@ export class ListPublicationsComponent implements OnInit {
     let that = this;
     this.pub.getPublications().then(function(response){
       console.log(response);
-      that.listPublication= response;
+      
+      that.listPublication = response;
+      that.listPublication.sort((a, b) => {
+        return <any>new Date(b.dateOfPost) - <any>new Date(a.dateOfPost);
+      });
     })
     this.pub.publicationAdded.subscribe(function(publication){
       that.listPublication.push(publication);
+      that.listPublication.sort((a, b) => {
+        return <any>new Date(b.dateOfPost) - <any>new Date(a.dateOfPost);
+      });
     })
   }
   async onPublicationDeleted(){
