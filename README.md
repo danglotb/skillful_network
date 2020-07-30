@@ -12,12 +12,15 @@ git clone https://github.com/danglotb/skillful_network.git
 Run the frontend:
 ```sh
 cd skillful_network_client
+ng serve
 ```
 
-Run the backend
+Run the backend in another terminal:
 ```sh
 cd skillful_network_server
+mvn clean package spring-boot:run -DskipTests -Dspring-boot.run.profiles=dev
 ```
+Here, the options `-Dspring-boot.run.profiles=dev` specifies the `dev` profile for easy-to-run demo or development. The database is `h2` in the memory and there is no email sent (look at the console when you register).
 
 Check that the application is running by going to the following url:
 ```sh
